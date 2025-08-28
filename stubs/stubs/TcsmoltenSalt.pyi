@@ -520,6 +520,7 @@ class TcsmoltenSalt(object):
 		dispatch_sched_weekday = tuple
 		dispatch_sched_weekend = tuple
 		dispatch_tod_factors = tuple
+		is_timestep_load_fractions = float
 		ppa_multiplier_model = float
 
 

@@ -56,7 +56,6 @@ class GeothermalCosts(object):
 		geotherm_cost_conf_multiplier = float
 		geotherm_cost_conf_non_drill = float
 		geotherm_cost_conf_num_wells = float
-		geotherm_cost_expl_lump_sum = float
 		geotherm_cost_expl_multiplier = float
 		geotherm_cost_expl_non_drill = float
 		geotherm_cost_expl_num_wells = float
@@ -116,13 +115,9 @@ class GeothermalCosts(object):
 			pass
 
 
-		atb_drilling_cost = float
-		atb_exploration_cost = float
-		atb_plant_cost = float
 		baseline_cost = float
 		conf_drilling_cost = float
 		conf_total_cost = float
-		engineering_cost = float
 		expl_drilling_cost = float
 		expl_total_cost = float
 		field_gathering_num_wells = float
@@ -142,10 +137,7 @@ class GeothermalCosts(object):
 		pump_only_cost = float
 		stim_cost_non_drill = float
 		stim_cost_per_well = float
-		stim_total_cost = float
 		total_drilling_cost = float
-		total_drilling_permitting = float
-		total_expl_permitting = float
 		total_gathering_cost = float
 		total_pump_cost = float
 		total_pump_gathering_cost = float
