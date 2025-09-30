@@ -5,4 +5,5 @@ from .WindHybrid import WindHybrid
 from .BatteryHybrid import BatteryHybrid
 from .CustomGenerationHybrid import CustomGenerationHybrid
 from .FuelCellHybrid import FuelCellHybrid
+from .TcsmoltenSaltHybrid import TcsmoltenSaltHybrid
 from .HybridSystem import HybridSystem

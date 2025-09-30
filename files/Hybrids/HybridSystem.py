@@ -8,6 +8,7 @@ from .WindHybrid import WindHybrid, wind
 from .BatteryHybrid import BatteryHybrid, batt
 from .CustomGenerationHybrid import CustomGenerationHybrid, custom
 from .FuelCellHybrid import FuelCellHybrid, fuelcell
+from .CSPTowerMoltenSaltHybrid import TcsmoltenSaltHybrid, mspt
 
 import PySAM.Grid as grid
 import PySAM.HostDeveloper as hd
@@ -78,6 +79,9 @@ class HybridSystem:
             elif pysam_module == fuelcell:
                 self.fuelcell: FuelCellHybrid = FuelCellHybrid()
                 self._generators['fuelcell'] = self.fuelcell
+            elif pysam_module == mspt:
+                self.tcsmolten_salt: TcsmoltenSaltHybrid = TcsmoltenSaltHybrid()
+                self._generators['tcsmolten_salt'] = self.tcsmolten_salt
             else:
                 raise NotImplementedError(f"HybridSystem currently not enabled for module {pysam_module}")
 
@@ -121,6 +125,7 @@ class HybridSystem:
             "PVWattsWindFuelCellBatteryHybridSingleOwner"
             "PhotovoltaicWindBatteryHybridHostDeveloper"
             "PhotovoltaicWindBatteryHybridSingleOwner"
+            "PVWattsCSPTowerMoltenSaltBatteryHybridSingleOwner"
         """
         for gen in self._generators.values():
             gen.default(config_name)
