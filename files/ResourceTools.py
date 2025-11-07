@@ -340,7 +340,7 @@ class FetchResourceFiles():
 
     def __init__(self, tech, nrel_api_key, nrel_api_email,
                  workers=1,
-                 resource_type='psm3-tmy',
+                 resource_type='nsrdb-GOES-tmy-v4-0-0',
                  resource_year='tmy',
                  resource_interval_min=60,
                  resource_height=100,
@@ -360,7 +360,7 @@ class FetchResourceFiles():
 
         # for backward compatibility
         if resource_type == 'tmy':
-            resource_type = 'psm3-tmy'
+            resource_type = 'nsrdb-GOES-tmy-v4-0-0'
         resource_year = str(resource_year)
         if tech == 'pv':
             tech = 'solar'
