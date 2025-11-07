@@ -382,6 +382,18 @@ Losses_set_en_snow_model(VarGroupObject *self, PyObject *value, void *closure)
 }
 
 static PyObject *
+Losses_get_snow_array(VarGroupObject *self, void *closure)
+{
+	return PySAM_array_getter(SAM_Pvsamv1_Losses_snow_array_aget, self->data_ptr);
+}
+
+static int
+Losses_set_snow_array(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_array_setter(value, SAM_Pvsamv1_Losses_snow_array_aset, self->data_ptr);
+}
+
+static PyObject *
 Losses_get_snow_slide_coefficient(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_Pvsamv1_Losses_snow_slide_coefficient_nget, self->data_ptr);
@@ -861,6 +873,18 @@ Losses_set_transmission_loss(VarGroupObject *self, PyObject *value, void *closur
 	return PySAM_double_setter(value, SAM_Pvsamv1_Losses_transmission_loss_nset, self->data_ptr);
 }
 
+static PyObject *
+Losses_get_use_snow_weather_file(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Pvsamv1_Losses_use_snow_weather_file_nget, self->data_ptr);
+}
+
+static int
+Losses_set_use_snow_weather_file(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_Pvsamv1_Losses_use_snow_weather_file_nset, self->data_ptr);
+}
+
 static PyGetSetDef Losses_getset[] = {
 {"acwiring_loss", (getter)Losses_get_acwiring_loss,(setter)Losses_set_acwiring_loss,
 	PyDoc_STR("*float*: AC wiring loss [%]\n\n**Info:**\npercent of inverter AC output\n\n**Constraints:**\nMIN=0,MAX=100\n\n**Required:**\nTrue"),
@@ -876,6 +900,9 @@ static PyGetSetDef Losses_getset[] = {
  	NULL},
 {"en_snow_model", (getter)Losses_get_en_snow_model,(setter)Losses_set_en_snow_model,
 	PyDoc_STR("*float*: Toggle snow loss estimation [0/1]\n\n**Constraints:**\nBOOLEAN\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+{"snow_array", (getter)Losses_get_snow_array,(setter)Losses_set_snow_array,
+	PyDoc_STR("*sequence*: Hourly snow depth  [cm]\n\n**Required:**\nFalse for configuration with default inputs. May be required if a variable dependent on its value changes. Example: For the Detailed PV - Single Owner configuration, only Subarray 1 is enabled in the configuration defaults, so Subarray 2 inputs would not be required; if Subarray 2 is enabled, then Subarray 2 inputs is required."),
  	NULL},
 {"snow_slide_coefficient", (getter)Losses_get_snow_slide_coefficient,(setter)Losses_set_snow_slide_coefficient,
 	PyDoc_STR("*float*: Snow Slide Coefficient\n\n**Required:**\nFalse. Automatically set to 1.97 if not assigned explicitly or loaded from defaults."),
@@ -996,6 +1023,9 @@ static PyGetSetDef Losses_getset[] = {
  	NULL},
 {"transmission_loss", (getter)Losses_get_transmission_loss,(setter)Losses_set_transmission_loss,
 	PyDoc_STR("*float*: Transmission loss [%]\n\n**Info:**\npercent of AC output after transformer losses\n\n**Constraints:**\nMIN=0,MAX=100\n\n**Required:**\nTrue"),
+ 	NULL},
+{"use_snow_weather_file", (getter)Losses_get_use_snow_weather_file,(setter)Losses_set_use_snow_weather_file,
+	PyDoc_STR("*float*: Use the snow depth from the weather file [0/1]\n\n**Options:**\n0=user-specified,1=weatherfile\n\n**Required:**\nTrue"),
  	NULL},
 	{NULL}  /* Sentinel */
 };
@@ -1412,6 +1442,18 @@ SystemDesign_set_subarray1_azimuth(VarGroupObject *self, PyObject *value, void *
 }
 
 static PyObject *
+SystemDesign_get_subarray1_azmlim(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Pvsamv1_SystemDesign_subarray1_azmlim_nget, self->data_ptr);
+}
+
+static int
+SystemDesign_set_subarray1_azmlim(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_Pvsamv1_SystemDesign_subarray1_azmlim_nset, self->data_ptr);
+}
+
+static PyObject *
 SystemDesign_get_subarray1_backtrack(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_Pvsamv1_SystemDesign_subarray1_backtrack_nget, self->data_ptr);
@@ -1613,6 +1655,18 @@ static int
 SystemDesign_set_subarray2_azimuth(VarGroupObject *self, PyObject *value, void *closure)
 {
 	return PySAM_double_setter(value, SAM_Pvsamv1_SystemDesign_subarray2_azimuth_nset, self->data_ptr);
+}
+
+static PyObject *
+SystemDesign_get_subarray2_azmlim(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Pvsamv1_SystemDesign_subarray2_azmlim_nget, self->data_ptr);
+}
+
+static int
+SystemDesign_set_subarray2_azmlim(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_Pvsamv1_SystemDesign_subarray2_azmlim_nset, self->data_ptr);
 }
 
 static PyObject *
@@ -1832,6 +1886,18 @@ SystemDesign_set_subarray3_azimuth(VarGroupObject *self, PyObject *value, void *
 }
 
 static PyObject *
+SystemDesign_get_subarray3_azmlim(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Pvsamv1_SystemDesign_subarray3_azmlim_nget, self->data_ptr);
+}
+
+static int
+SystemDesign_set_subarray3_azmlim(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_Pvsamv1_SystemDesign_subarray3_azmlim_nset, self->data_ptr);
+}
+
+static PyObject *
 SystemDesign_get_subarray3_backtrack(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_Pvsamv1_SystemDesign_subarray3_backtrack_nget, self->data_ptr);
@@ -2045,6 +2111,18 @@ static int
 SystemDesign_set_subarray4_azimuth(VarGroupObject *self, PyObject *value, void *closure)
 {
 	return PySAM_double_setter(value, SAM_Pvsamv1_SystemDesign_subarray4_azimuth_nset, self->data_ptr);
+}
+
+static PyObject *
+SystemDesign_get_subarray4_azmlim(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Pvsamv1_SystemDesign_subarray4_azmlim_nget, self->data_ptr);
+}
+
+static int
+SystemDesign_set_subarray4_azmlim(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_Pvsamv1_SystemDesign_subarray4_azmlim_nset, self->data_ptr);
 }
 
 static PyObject *
@@ -2273,6 +2351,9 @@ static PyGetSetDef SystemDesign_getset[] = {
 {"subarray1_azimuth", (getter)SystemDesign_get_subarray1_azimuth,(setter)SystemDesign_set_subarray1_azimuth,
 	PyDoc_STR("*float*: Sub-array 1 Azimuth [degrees]\n\n**Options:**\n0=N,90=E,180=S,270=W\n\n**Constraints:**\nMIN=0,MAX=359.9\n\n**Required:**\nsubarray1_track_mode~2&subarray1_track_mode~3"),
  	NULL},
+{"subarray1_azmlim", (getter)SystemDesign_get_subarray1_azmlim,(setter)SystemDesign_set_subarray1_azmlim,
+	PyDoc_STR("*float*: Sub-array 1 Azimuth rotation limit [degrees]\n\n**Constraints:**\nMIN=0,MAX=359\n\n**Required:**\nFalse. Automatically set to 90 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
 {"subarray1_backtrack", (getter)SystemDesign_get_subarray1_backtrack,(setter)SystemDesign_set_subarray1_backtrack,
 	PyDoc_STR("*float*: Sub-array 1 Backtracking enabled\n\n**Options:**\n0=no backtracking,1=backtrack\n\n**Constraints:**\nBOOLEAN\n\n**Required:**\nRequired if subarray1_track_mode=1"),
  	NULL},
@@ -2323,6 +2404,9 @@ static PyGetSetDef SystemDesign_getset[] = {
  	NULL},
 {"subarray2_azimuth", (getter)SystemDesign_get_subarray2_azimuth,(setter)SystemDesign_set_subarray2_azimuth,
 	PyDoc_STR("*float*: Sub-array 2 Azimuth [degrees]\n\n**Options:**\n0=N,90=E,180=S,270=W\n\n**Constraints:**\nMIN=0,MAX=359.9\n\n**Required:**\nRequired if subarray2_enable=1&subarray2_track_mode~2&subarray2_track_mode~3"),
+ 	NULL},
+{"subarray2_azmlim", (getter)SystemDesign_get_subarray2_azmlim,(setter)SystemDesign_set_subarray2_azmlim,
+	PyDoc_STR("*float*: Sub-array 2 Azimuth rotation limit [degrees]\n\n**Constraints:**\nMIN=0,MAX=85\n\n**Required:**\nFalse. Automatically set to 45 if not assigned explicitly or loaded from defaults."),
  	NULL},
 {"subarray2_backtrack", (getter)SystemDesign_get_subarray2_backtrack,(setter)SystemDesign_set_subarray2_backtrack,
 	PyDoc_STR("*float*: Sub-array 2 Backtracking enabled\n\n**Options:**\n0=no backtracking,1=backtrack\n\n**Constraints:**\nBOOLEAN"),
@@ -2378,6 +2462,9 @@ static PyGetSetDef SystemDesign_getset[] = {
 {"subarray3_azimuth", (getter)SystemDesign_get_subarray3_azimuth,(setter)SystemDesign_set_subarray3_azimuth,
 	PyDoc_STR("*float*: Sub-array 3 Azimuth [degrees]\n\n**Options:**\n0=N,90=E,180=S,270=W\n\n**Constraints:**\nMIN=0,MAX=359.9\n\n**Required:**\nRequired if subarray3_enable=1&subarray3_track_mode~2&subarray3_track_mode~3"),
  	NULL},
+{"subarray3_azmlim", (getter)SystemDesign_get_subarray3_azmlim,(setter)SystemDesign_set_subarray3_azmlim,
+	PyDoc_STR("*float*: Sub-array 3 Azimuth rotation limit [degrees]\n\n**Constraints:**\nMIN=0,MAX=85\n\n**Required:**\nFalse. Automatically set to 45 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
 {"subarray3_backtrack", (getter)SystemDesign_get_subarray3_backtrack,(setter)SystemDesign_set_subarray3_backtrack,
 	PyDoc_STR("*float*: Sub-array 3 Backtracking enabled\n\n**Options:**\n0=no backtracking,1=backtrack\n\n**Constraints:**\nBOOLEAN"),
  	NULL},
@@ -2431,6 +2518,9 @@ static PyGetSetDef SystemDesign_getset[] = {
  	NULL},
 {"subarray4_azimuth", (getter)SystemDesign_get_subarray4_azimuth,(setter)SystemDesign_set_subarray4_azimuth,
 	PyDoc_STR("*float*: Sub-array 4 Azimuth [degrees]\n\n**Options:**\n0=N,90=E,180=S,270=W\n\n**Constraints:**\nMIN=0,MAX=359.9\n\n**Required:**\nRequired if subarray4_enable=1&subarray4_track_mode~2&subarray4_track_mode~3"),
+ 	NULL},
+{"subarray4_azmlim", (getter)SystemDesign_get_subarray4_azmlim,(setter)SystemDesign_set_subarray4_azmlim,
+	PyDoc_STR("*float*: Sub-array 4 Azimuth rotation limit [degrees]\n\n**Constraints:**\nMIN=0,MAX=85\n\n**Required:**\nFalse. Automatically set to 45 if not assigned explicitly or loaded from defaults."),
  	NULL},
 {"subarray4_backtrack", (getter)SystemDesign_get_subarray4_backtrack,(setter)SystemDesign_set_subarray4_backtrack,
 	PyDoc_STR("*float*: Sub-array 4 Backtracking enabled\n\n**Options:**\n0=no backtracking,1=backtrack\n\n**Constraints:**\nBOOLEAN"),
@@ -12118,6 +12208,18 @@ BatteryDispatch_set_dispatch_manual_system_charge_first(VarGroupObject *self, Py
 	return PySAM_double_setter(value, SAM_Pvsamv1_BatteryDispatch_dispatch_manual_system_charge_first_nset, self->data_ptr);
 }
 
+static PyObject *
+BatteryDispatch_get_start_day_of_year(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Pvsamv1_BatteryDispatch_start_day_of_year_nget, self->data_ptr);
+}
+
+static int
+BatteryDispatch_set_start_day_of_year(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_Pvsamv1_BatteryDispatch_start_day_of_year_nset, self->data_ptr);
+}
+
 static PyGetSetDef BatteryDispatch_getset[] = {
 {"batt_custom_dispatch", (getter)BatteryDispatch_get_batt_custom_dispatch,(setter)BatteryDispatch_set_batt_custom_dispatch,
 	PyDoc_STR("*sequence*: Custom battery power for every time step [kW]\n\n**Info:**\nkWAC if AC-connected, else kWDC\n\n**Required:**\nRequired if en_batt=1&en_standalone_batt=0&batt_dispatch_choice=2"),
@@ -12262,6 +12364,9 @@ static PyGetSetDef BatteryDispatch_getset[] = {
  	NULL},
 {"dispatch_manual_system_charge_first", (getter)BatteryDispatch_get_dispatch_manual_system_charge_first,(setter)BatteryDispatch_set_dispatch_manual_system_charge_first,
 	PyDoc_STR("*float*: System charges battery before meeting load [0/1]\n\n**Options:**\n0=LoadFirst,1=ChargeFirst\n\n**Required:**\nRequired if en_batt=1&en_standalone_batt=0&batt_meter_position=0&batt_dispatch_choice=3&batt_dispatch_charge_only_system_exceeds_load=0"),
+ 	NULL},
+{"start_day_of_year", (getter)BatteryDispatch_get_start_day_of_year,(setter)BatteryDispatch_set_start_day_of_year,
+	PyDoc_STR("*float*: Start day of year for TOD periods [0..6]\n\n**Options:**\n0=Monday, 6=Sunday\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
  	NULL},
 	{NULL}  /* Sentinel */
 };
@@ -13467,6 +13572,18 @@ ElectricityRates_set_rate_escalation(VarGroupObject *self, PyObject *value, void
 }
 
 static PyObject *
+ElectricityRates_get_start_day_of_year(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Pvsamv1_ElectricityRates_start_day_of_year_nget, self->data_ptr);
+}
+
+static int
+ElectricityRates_set_start_day_of_year(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_Pvsamv1_ElectricityRates_start_day_of_year_nset, self->data_ptr);
+}
+
+static PyObject *
 ElectricityRates_get_ur_annual_min_charge(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_Pvsamv1_ElectricityRates_ur_annual_min_charge_nget, self->data_ptr);
@@ -13808,6 +13925,9 @@ static PyGetSetDef ElectricityRates_getset[] = {
  	NULL},
 {"rate_escalation", (getter)ElectricityRates_get_rate_escalation,(setter)ElectricityRates_set_rate_escalation,
 	PyDoc_STR("*sequence*: Annual electricity rate escalation [%/year]\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+{"start_day_of_year", (getter)ElectricityRates_get_start_day_of_year,(setter)ElectricityRates_set_start_day_of_year,
+	PyDoc_STR("*float*: Start day of year for TOD periods [0..6]\n\n**Options:**\n0=Monday, 6=Sunday\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
  	NULL},
 {"ur_annual_min_charge", (getter)ElectricityRates_get_ur_annual_min_charge,(setter)ElectricityRates_set_ur_annual_min_charge,
 	PyDoc_STR("*float*: Annual minimum charge [$]\n\n**Required:**\nFalse. Automatically set to 0.0 if not assigned explicitly or loaded from defaults."),
@@ -18091,7 +18211,7 @@ static PyGetSetDef Outputs_getset[] = {
 	PyDoc_STR("*float*: CEC 6-parameter: a"),
  	NULL},
 {"snowdepth", (getter)Outputs_get_snowdepth,(setter)0,
-	PyDoc_STR("*sequence*: Weather file snow depth [cm]"),
+	PyDoc_STR("*sequence*: Snow depth [cm]"),
  	NULL},
 {"sol_alt", (getter)Outputs_get_sol_alt,(setter)0,
 	PyDoc_STR("*sequence*: Sun altitude angle [degrees]"),

@@ -245,6 +245,18 @@ Revenue_set_ppa_soln_tolerance(VarGroupObject *self, PyObject *value, void *clos
 	return PySAM_double_setter(value, SAM_SingleownerHeat_Revenue_ppa_soln_tolerance_nset, self->data_ptr);
 }
 
+static PyObject *
+Revenue_get_start_day_of_year(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_SingleownerHeat_Revenue_start_day_of_year_nget, self->data_ptr);
+}
+
+static int
+Revenue_set_start_day_of_year(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_SingleownerHeat_Revenue_start_day_of_year_nset, self->data_ptr);
+}
+
 static PyGetSetDef Revenue_getset[] = {
 {"dispatch_factors_ts", (getter)Revenue_get_dispatch_factors_ts,(setter)Revenue_set_dispatch_factors_ts,
 	PyDoc_STR("*sequence*: Dispatch payment factor array\n\n**Required:**\nRequired if ppa_multiplier_model=1"),
@@ -287,6 +299,9 @@ static PyGetSetDef Revenue_getset[] = {
  	NULL},
 {"ppa_soln_tolerance", (getter)Revenue_get_ppa_soln_tolerance,(setter)Revenue_set_ppa_soln_tolerance,
 	PyDoc_STR("*float*: PPA solution tolerance\n\n**Required:**\nFalse. Automatically set to 1e-5 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+{"start_day_of_year", (getter)Revenue_get_start_day_of_year,(setter)Revenue_set_start_day_of_year,
+	PyDoc_STR("*float*: Start day of year for TOD periods [0..6]\n\n**Options:**\n0=Monday, 6=Sunday\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
  	NULL},
 	{NULL}  /* Sentinel */
 };
@@ -5008,6 +5023,18 @@ ElectricityRates_set_rate_escalation(VarGroupObject *self, PyObject *value, void
 }
 
 static PyObject *
+ElectricityRates_get_start_day_of_year(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_SingleownerHeat_ElectricityRates_start_day_of_year_nget, self->data_ptr);
+}
+
+static int
+ElectricityRates_set_start_day_of_year(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_SingleownerHeat_ElectricityRates_start_day_of_year_nset, self->data_ptr);
+}
+
+static PyObject *
 ElectricityRates_get_ur_annual_min_charge(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_SingleownerHeat_ElectricityRates_ur_annual_min_charge_nget, self->data_ptr);
@@ -5349,6 +5376,9 @@ static PyGetSetDef ElectricityRates_getset[] = {
  	NULL},
 {"rate_escalation", (getter)ElectricityRates_get_rate_escalation,(setter)ElectricityRates_set_rate_escalation,
 	PyDoc_STR("*sequence*: Annual electricity rate escalation [%/year]"),
+ 	NULL},
+{"start_day_of_year", (getter)ElectricityRates_get_start_day_of_year,(setter)ElectricityRates_set_start_day_of_year,
+	PyDoc_STR("*float*: Start day of year for TOD periods [0..6]\n\n**Options:**\n0=Monday, 6=Sunday\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
  	NULL},
 {"ur_annual_min_charge", (getter)ElectricityRates_get_ur_annual_min_charge,(setter)ElectricityRates_set_ur_annual_min_charge,
 	PyDoc_STR("*float*: Annual minimum charge [$]\n\n**Required:**\nFalse. Automatically set to 0.0 if not assigned explicitly or loaded from defaults."),

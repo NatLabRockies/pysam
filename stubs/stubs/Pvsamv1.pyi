@@ -71,6 +71,7 @@ class Pvsamv1(object):
 		calculate_rack_shading = float
 		dcoptimizer_loss = float
 		en_snow_model = float
+		snow_array = tuple
 		snow_slide_coefficient = float
 		subarray1_dcwiring_loss = float
 		subarray1_diodeconn_loss = float
@@ -111,6 +112,7 @@ class Pvsamv1(object):
 		transformer_load_loss = float
 		transformer_no_load_loss = float
 		transmission_loss = float
+		use_snow_weather_file = float
 
 
 	class Lifetime(object):
@@ -155,6 +157,7 @@ class Pvsamv1(object):
 		enable_mismatch_vmax_calc = float
 		inverter_count = float
 		subarray1_azimuth = float
+		subarray1_azmlim = float
 		subarray1_backtrack = float
 		subarray1_custom_cell_temp_array = tuple
 		subarray1_custom_rot_angles_array = tuple
@@ -172,6 +175,7 @@ class Pvsamv1(object):
 		subarray1_use_custom_cell_temp = float
 		subarray1_use_custom_rot_angles = float
 		subarray2_azimuth = float
+		subarray2_azmlim = float
 		subarray2_backtrack = float
 		subarray2_custom_cell_temp_array = tuple
 		subarray2_custom_rot_angles_array = tuple
@@ -190,6 +194,7 @@ class Pvsamv1(object):
 		subarray2_use_custom_cell_temp = float
 		subarray2_use_custom_rot_angles = float
 		subarray3_azimuth = float
+		subarray3_azmlim = float
 		subarray3_backtrack = float
 		subarray3_custom_cell_temp_array = tuple
 		subarray3_custom_rot_angles_array = tuple
@@ -208,6 +213,7 @@ class Pvsamv1(object):
 		subarray3_use_custom_cell_temp = float
 		subarray3_use_custom_rot_angles = float
 		subarray4_azimuth = float
+		subarray4_azmlim = float
 		subarray4_backtrack = float
 		subarray4_custom_cell_temp_array = tuple
 		subarray4_custom_rot_angles_array = tuple
@@ -1043,6 +1049,7 @@ class Pvsamv1(object):
 		dispatch_manual_sched = tuple
 		dispatch_manual_sched_weekend = tuple
 		dispatch_manual_system_charge_first = float
+		start_day_of_year = float
 
 
 	class SystemCosts(object):
@@ -1163,6 +1170,7 @@ class Pvsamv1(object):
 
 		en_electricity_rates = float
 		rate_escalation = tuple
+		start_day_of_year = float
 		ur_annual_min_charge = float
 		ur_billing_demand_lookback_percentages = tuple
 		ur_billing_demand_lookback_period = float

@@ -353,6 +353,18 @@ LoadProfileEstimator_set_solar_resource_file(VarGroupObject *self, PyObject *val
 	return PySAM_string_setter(value, SAM_Belpe_LoadProfileEstimator_solar_resource_file_sset, self->data_ptr);
 }
 
+static PyObject *
+LoadProfileEstimator_get_start_day_of_year(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Belpe_LoadProfileEstimator_start_day_of_year_nget, self->data_ptr);
+}
+
+static int
+LoadProfileEstimator_set_start_day_of_year(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_Belpe_LoadProfileEstimator_start_day_of_year_nset, self->data_ptr);
+}
+
 static PyGetSetDef LoadProfileEstimator_getset[] = {
 {"Monthly_util", (getter)LoadProfileEstimator_get_Monthly_util,(setter)LoadProfileEstimator_set_Monthly_util,
 	PyDoc_STR("*sequence*: Monthly consumption from utility bill [kWh]\n\n**Constraints:**\nLENGTH=12\n\n**Required:**\nRequired if en_belpe=1"),
@@ -422,6 +434,9 @@ static PyGetSetDef LoadProfileEstimator_getset[] = {
  	NULL},
 {"solar_resource_file", (getter)LoadProfileEstimator_get_solar_resource_file,(setter)LoadProfileEstimator_set_solar_resource_file,
 	PyDoc_STR("*str*: Weather Data file [n/a]\n\n**Constraints:**\nLOCAL_FILE\n\n**Required:**\nRequired if en_belpe=1"),
+ 	NULL},
+{"start_day_of_year", (getter)LoadProfileEstimator_get_start_day_of_year,(setter)LoadProfileEstimator_set_start_day_of_year,
+	PyDoc_STR("*float*: Start day of year for TOD periods [0..6]\n\n**Options:**\n0=Monday, 6=Sunday\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
  	NULL},
 	{NULL}  /* Sentinel */
 };

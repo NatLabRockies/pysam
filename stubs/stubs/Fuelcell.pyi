@@ -127,6 +127,7 @@ class Fuelcell(object):
 		fuelcell_type = float
 		fuelcell_unit_max_power = float
 		fuelcell_unit_min_power = float
+		start_day_of_year = float
 
 
 	class HybridCosts(object):

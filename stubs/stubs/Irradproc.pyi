@@ -43,6 +43,7 @@ class Irradproc(object):
 		albedo = tuple
 		albedo_const = float
 		azimuth = float
+		azmlim = float
 		backtrack = float
 		beam = tuple
 		day = tuple

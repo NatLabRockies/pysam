@@ -114,6 +114,18 @@ IrradianceProcessor_set_azimuth(VarGroupObject *self, PyObject *value, void *clo
 }
 
 static PyObject *
+IrradianceProcessor_get_azmlim(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Irradproc_IrradianceProcessor_azmlim_nget, self->data_ptr);
+}
+
+static int
+IrradianceProcessor_set_azmlim(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_Irradproc_IrradianceProcessor_azmlim_nset, self->data_ptr);
+}
+
+static PyObject *
 IrradianceProcessor_get_backtrack(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_Irradproc_IrradianceProcessor_backtrack_nget, self->data_ptr);
@@ -398,6 +410,9 @@ static PyGetSetDef IrradianceProcessor_getset[] = {
  	NULL},
 {"azimuth", (getter)IrradianceProcessor_get_azimuth,(setter)IrradianceProcessor_set_azimuth,
 	PyDoc_STR("*float*: Azimuth angle [deg]\n\n**Options:**\nE=90,S=180,W=270\n\n**Constraints:**\nMIN=0,MAX=360\n\n**Required:**\nTrue"),
+ 	NULL},
+{"azmlim", (getter)IrradianceProcessor_get_azmlim,(setter)IrradianceProcessor_set_azmlim,
+	PyDoc_STR("*float*: Azimuth rotational limit [deg]\n\n**Constraints:**\nMIN=0,MAX=360\n\n**Required:**\nFalse. Automatically set to 90 if not assigned explicitly or loaded from defaults."),
  	NULL},
 {"backtrack", (getter)IrradianceProcessor_get_backtrack,(setter)IrradianceProcessor_set_backtrack,
 	PyDoc_STR("*float*: Enable backtracking [0/1]\n\n**Constraints:**\nBOOLEAN\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),

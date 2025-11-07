@@ -8,7 +8,7 @@ from .WindHybrid import WindHybrid, wind
 from .BatteryHybrid import BatteryHybrid, batt
 from .CustomGenerationHybrid import CustomGenerationHybrid, custom
 from .FuelCellHybrid import FuelCellHybrid, fuelcell
-from .CSPTowerMoltenSaltHybrid import TcsmoltenSaltHybrid, mspt
+from .TcsmoltenSaltHybrid import TcsmoltenSaltHybrid, mspt
 
 import PySAM.Grid as grid
 import PySAM.HostDeveloper as hd
@@ -39,6 +39,7 @@ class HybridSystem:
     HybridSystem.singleowner = PySAM.Singleowner
     HybridSystem.utilityrate5 = PySAM.Utilityrate5
     HybridSystem.host_developer = PySAM.HostDeveloper
+    HybridSystem.tcsmolten_salt = TcsmoltenSaltHybrid (PySAM.TcsmoltenSalt)
     """
     supported_financial_modules = {"singleowner": so, "utilityrate5": ur, "host_developer": hd}
 

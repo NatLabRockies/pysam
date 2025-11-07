@@ -245,6 +245,18 @@ Revenue_set_ppa_soln_tolerance(VarGroupObject *self, PyObject *value, void *clos
 	return PySAM_double_setter(value, SAM_Levpartflip_Revenue_ppa_soln_tolerance_nset, self->data_ptr);
 }
 
+static PyObject *
+Revenue_get_start_day_of_year(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Levpartflip_Revenue_start_day_of_year_nget, self->data_ptr);
+}
+
+static int
+Revenue_set_start_day_of_year(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_Levpartflip_Revenue_start_day_of_year_nset, self->data_ptr);
+}
+
 static PyGetSetDef Revenue_getset[] = {
 {"dispatch_factors_ts", (getter)Revenue_get_dispatch_factors_ts,(setter)Revenue_set_dispatch_factors_ts,
 	PyDoc_STR("*sequence*: Dispatch payment factor array\n\n**Required:**\nRequired if ppa_multiplier_model=1"),
@@ -287,6 +299,9 @@ static PyGetSetDef Revenue_getset[] = {
  	NULL},
 {"ppa_soln_tolerance", (getter)Revenue_get_ppa_soln_tolerance,(setter)Revenue_set_ppa_soln_tolerance,
 	PyDoc_STR("*float*: PPA solution tolerance\n\n**Required:**\nFalse. Automatically set to 1e-5 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+{"start_day_of_year", (getter)Revenue_get_start_day_of_year,(setter)Revenue_set_start_day_of_year,
+	PyDoc_STR("*float*: Start day of year for TOD periods [0..6]\n\n**Options:**\n0=Monday, 6=Sunday\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
  	NULL},
 	{NULL}  /* Sentinel */
 };
@@ -12475,7 +12490,7 @@ static PyMethodDef LevpartflipModule_methods[] = {
 		{"new",             Levpartflip_new,         METH_VARARGS,
 				PyDoc_STR("new() -> Levpartflip")},
 		{"default",             Levpartflip_default,         METH_VARARGS,
-				PyDoc_STR("default(config) -> Levpartflip\n\nLoad defaults for the configuration ``config``. Available configurations are:\n\n		- *\"BiopowerLeveragedPartnershipFlip\"*\n\n		- *\"CustomGenerationBatteryLeveragedPartnershipFlip\"*\n\n		- *\"CustomGenerationProfileLeveragedPartnershipFlip\"*\n\n		- *\"DSLFLeveragedPartnershipFlip\"*\n\n		- *\"EmpiricalTroughLeveragedPartnershipFlip\"*\n\n		- *\"FlatPlatePVLeveragedPartnershipFlip\"*\n\n		- *\"GenericCSPSystemLeveragedPartnershipFlip\"*\n\n		- *\"GeothermalPowerLeveragedPartnershipFlip\"*\n\n		- *\"HighXConcentratingPVLeveragedPartnershipFlip\"*\n\n		- *\"MSLFLeveragedPartnershipFlip\"*\n\n		- *\"MSPTLeveragedPartnershipFlip\"*\n\n		- *\"PVBatteryLeveragedPartnershipFlip\"*\n\n		- *\"PVWattsLeveragedPartnershipFlip\"*\n\n		- *\"PhysicalTroughLeveragedPartnershipFlip\"*\n\n		- *\"StandaloneBatteryLeveragedPartnershipFlip\"*\n\n		- *\"WindPowerLeveragedPartnershipFlip\"*\n\n.. note::\n\n	Some inputs do not have default values and may be assigned a value from the variable's **Required** attribute. See variable attribute descriptions below.")},
+				PyDoc_STR("default(config) -> Levpartflip\n\nLoad defaults for the configuration ``config``. Available configurations are:\n\n		- *\"BiopowerLeveragedPartnershipFlip\"*\n\n		- *\"CustomGenerationBatteryLeveragedPartnershipFlip\"*\n\n		- *\"CustomGenerationProfileLeveragedPartnershipFlip\"*\n\n		- *\"DSLFLeveragedPartnershipFlip\"*\n\n		- *\"EmpiricalTroughLeveragedPartnershipFlip\"*\n\n		- *\"FlatPlatePVLeveragedPartnershipFlip\"*\n\n		- *\"GenericCSPSystemLeveragedPartnershipFlip\"*\n\n		- *\"GeothermalPowerLeveragedPartnershipFlip\"*\n\n		- *\"HighXConcentratingPVLeveragedPartnershipFlip\"*\n\n		- *\"MSLFLeveragedPartnershipFlip\"*\n\n		- *\"MSPTLeveragedPartnershipFlip\"*\n\n		- *\"PVBatteryLeveragedPartnershipFlip\"*\n\n		- *\"PVWattsBatteryLeveragedPartnershipFlip\"*\n\n		- *\"PVWattsLeveragedPartnershipFlip\"*\n\n		- *\"PhysicalTroughLeveragedPartnershipFlip\"*\n\n		- *\"StandaloneBatteryLeveragedPartnershipFlip\"*\n\n		- *\"WindPowerLeveragedPartnershipFlip\"*\n\n.. note::\n\n	Some inputs do not have default values and may be assigned a value from the variable's **Required** attribute. See variable attribute descriptions below.")},
 		{"wrap",             Levpartflip_wrap,         METH_VARARGS,
 				PyDoc_STR("wrap(ssc_data_t) -> Levpartflip\n\nLoad data from a PySSC object.\n\n.. warning::\n\n	Do not call PySSC.data_free on the ssc_data_t provided to ``wrap()``")},
 		{"from_existing",   Levpartflip_from_existing,        METH_VARARGS,
