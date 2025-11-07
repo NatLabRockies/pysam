@@ -21,6 +21,8 @@ import PySAM.Windpower as wp
 import PySAM.Singleowner as so
 import PySAM.Pvwattsv8 as pv
 
+import geocoder
+
 
 # replace with key and email address from https://developer.nrel.gov/signup/
 sam_api_key = os.environ.get('NREL_API_KEY')
