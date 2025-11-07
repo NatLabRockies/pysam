@@ -21,7 +21,6 @@ import PySAM.Windpower as wp
 import PySAM.Singleowner as so
 import PySAM.Pvwattsv8 as pv
 
-import geocoder
 
 # replace with key and email address from https://developer.nrel.gov/signup/
 sam_api_key = os.environ.get('NREL_API_KEY')
@@ -39,7 +38,7 @@ if geocode:
     lat = g.latlng[0]
 else:
     lon = -105.22
-    lat = 39.75
+    lat = 45
 
 # --- Wind Example ---
 
@@ -83,6 +82,7 @@ else:
 nsrdbfetcher = tools.FetchResourceFiles(
                 tech='solar',
                 nrel_api_key=sam_api_key,
+                resource_type = 'nsrdb-GOES-tmy-v4-0-0',
                 nrel_api_email=sam_email)
 
 # --- List of (lon, lat) tuples or Shapely points ---
