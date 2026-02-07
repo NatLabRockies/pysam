@@ -132,7 +132,7 @@ def plot_iv_curve(model, linestyle='solid', label=None, plot_anchors=False):
     V_mp_ref = pyo.value(model.solver.Vmp)
     I_mp_ref = pyo.value(model.solver.Imp)
 
-    npts = 150
+    npts = 250
     for curve in curves:
         Irr = curve[0]
         Tc = curve[1]
@@ -908,6 +908,7 @@ if __name__ == "__main__":
     all_cec_modules_df = read_prepare_file(filename)
 
     plotting = False
+    run_parallel = True
 
     if plotting:
         plot_output_path = Path(__file__).parent / "6parsolve_output"
@@ -918,7 +919,10 @@ if __name__ == "__main__":
 
     # solve attempt #1
     print(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}: Starting First Pass Solve")
-    all_cec_modules_df = parallel_run_solve_first_pass(all_cec_modules_df, plotting)
+    if run_parallel:
+        all_cec_modules_df = parallel_run_solve_first_pass(all_cec_modules_df, plotting)
+    else:
+        all_cec_modules_df = sequential_run_solve_first_pass(all_cec_modules_df, plotting)
     all_cec_modules_df.to_csv(f"cec_modules_params_{filename_date}.csv", index=False)
     
     solved_df = all_cec_modules_df[~all_cec_modules_df['Rsh_py'].isna()]
@@ -927,7 +931,10 @@ if __name__ == "__main__":
 
     # solve with bootstrapping
     print(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}: Starting Second Pass Solve")
-    df = parallel_run_solve_bootstrapping(solved_df, unsolved_df, plotting)
+    if run_parallel:
+        df = parallel_run_solve_bootstrapping(solved_df, unsolved_df, plotting)
+    else:
+        df = sequential_run_solve_bootstrapping(solved_df, unsolved_df, plotting)
     all_cec_modules_df = pd.concat([solved_df, df]).sort_index()
     all_cec_modules_df.to_csv(f"cec_modules_params_{filename_date}.csv", index=False)
 
@@ -937,7 +944,10 @@ if __name__ == "__main__":
 
     # solve with bootstrapping & reduced number of temperature samples
     print(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}: Starting Final Pass Solve")
-    df = parallel_run_solve_bootstrapping_reduced(solved_df, unsolved_df, plotting)
+    if run_parallel:
+        df = parallel_run_solve_bootstrapping_reduced(solved_df, unsolved_df, plotting)
+    else:
+        df = sequential_run_solve_bootstrapping_reduced(solved_df, unsolved_df, plotting)
     all_cec_modules_df = pd.concat([solved_df, df]).sort_index()
     all_cec_modules_df.to_csv(f"cec_modules_params_{filename_date}.csv", index=False)
 
