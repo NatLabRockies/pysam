@@ -205,23 +205,21 @@ Output includes:
 Configuration
 -------------
 
-The script uses a ``SolverConfig`` dataclass for configuration:
+There are various configuration parameters used in the script:
 
 .. code-block:: python
 
-    config = SolverConfig(
-        plotting=False,             # Enable IV curve plotting
-        run_parallel=True,          # Enable parallel processing
-        num_workers=8,              # Parallel processing workers
-        il_scaling=1e8,             # Scaling factor for Io parameter
-        rsh_scaling=1e-3,           # Scaling factor for Rsh parameter
-        gamma_curve_dt=3,           # Temperature interval for gamma fitting (K)
-        reduced_gamma_curve_dt=15,  # An increased interval for a looser fit (K)
-        max_iter=3000,              # Maximum IPOPT iterations
-        tolerance=1e-9,             # Solver tolerance
-        infeasibility_threshold_max=0.5,  # Maximum normalized error threshold
-        infeasibility_threshold_sum=0.5   # Sum of normalized errors threshold
-    )
+    plotting=False                  # Enable IV curve plotting
+    run_parallel=True               # Enable parallel processing
+    num_workers=8                   # Parallel processing workers
+    il_scaling=1e8                  # Scaling factor for Io parameter
+    rsh_scaling=1e-3                # Scaling factor for Rsh parameter
+    gamma_curve_dt=3                # Temperature interval for gamma fitting (K)
+    reduced_gamma_curve_dt=15       # An increased interval for a looser fit (K)
+    max_iter=3000                   # Maximum IPOPT iterations
+    tolerance=1e-9                  # Solver tolerance
+    infeasibility_threshold_max=0.5 # Maximum normalized error threshold
+    infeasibility_threshold_sum=0.5 # Sum of normalized errors threshold
 
 Solution Strategy
 -----------------
@@ -263,16 +261,10 @@ Solutions are validated using normalized errors between model predictions and te
 - ``d_Vmp`` - Error in maximum power point voltage
 - ``d_Pmp`` - Error in maximum power
 
-Solutions with ``max(|errors|) > config.infeasibility_threshold_max`` or ``sum(|errors|) > config.infeasibility_threshold_sum`` are marked as infeasible.
+Solutions with ``max(|errors|) > infeasibility_threshold_max`` or ``sum(|errors|) > infeasibility_threshold_sum`` are marked as infeasible.
 
 Plotting IV Curves
 ------------------
-
-To enable plotting:
-
-.. code-block:: python
-
-    config = SolverConfig(plotting=True)
 
 This generates IV curve plots for each module showing:
 

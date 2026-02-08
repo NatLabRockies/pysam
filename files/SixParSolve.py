@@ -9,39 +9,21 @@ from pyomo.util.infeasible import log_infeasible_constraints, log_infeasible_bou
 import logging
 from datetime import datetime
 import multiprocessing as mp
-from dataclasses import dataclass, field
-from typing import Optional, Dict, List
+
+NUM_OF_WORKERS = mp.cpu_count() // 2
 
 logging.getLogger('pyomo.core').setLevel(logging.ERROR)
 solve_log = logging.getLogger('solve_log')
 solve_log.setLevel(logging.INFO)
 solve_log = logging.LoggerAdapter(solve_log, {"tag": solve_log})
 
-
-# The columns names for the test data. For information, see https://nrel-pysam.readthedocs.io/en/main/modules/SixParsolve.html
+IL_SCALING = 1e8
+RSH_SCALING = 1e-3
 test_data_cols = ['A_c', 'N_s', 'I_sc_ref', 'V_oc_ref', 'I_mp_ref', 'V_mp_ref', 'T_NOCT',
                   'gamma_r', 'alpha_sc', 'beta_oc']
-# The parameters of the 6-parameter module model to be fit. 
 model_param_cols = ["a_py", "Il_py", "Io_py", "Rs_py", "Rsh_py", "Adj_py"]
-# The error-tracking variables
+model_param_cols_ssc = ["a_ssc", "Il_ssc", "Io_ssc","Rs_ssc","Rsh_ssc","Adj_ssc"]
 iv_diff_cols = ['d_Isc', 'd_Imp', 'd_Vmp', 'd_Pmp']
-
-
-@dataclass
-class SolverConfig:
-    """Configuration parameters for the solver."""
-    run_parallel: bool = True
-    num_workers: int = mp.cpu_count() // 2
-    # Scaling factors for nonlinear model. These factors can be adjusted for a particular module
-    il_scaling: float = 1e8
-    rsh_scaling: float = 1e-3
-    gamma_curve_dt: int = 3
-    reduced_gamma_curve_dt: int = 15
-    plotting: bool = False
-    max_iter: int = 3000
-    tolerance: float = 1e-9
-    infeasibility_threshold_max: float = 0.5
-    infeasibility_threshold_sum: float = 0.5
 
 
 def current_at_voltage_cec(Vmodule, IL_ref, IO_ref, RS, A_ref, RSH_ref, I_mp_ref):
@@ -180,9 +162,6 @@ def create_model(gamma_curve_dt=3):
     Create a pyomo model for a single diode model with a set of non-STC temperatures.
     The set of non-STC temperatures are used to fit the model to the gamma Pmp test parameter
     This set of temperatures is sampled using the `gamma_curve_dt` parameter, which is the interval between each temperature sample
-    
-    Args:
-        gamma_curve_dt: Temperature sampling interval for gamma curve fitting
     """
     model = pyo.ConcreteModel()
     model.solver = pyo.Block()
@@ -274,25 +253,16 @@ def create_model(gamma_curve_dt=3):
     return model
 
 
-def solve_model(model, solver, tee=False, config: Optional[SolverConfig] = None):
+def solve_model(model, solver, tee=False):
     """
     Solve the model with scaling factors, multiple tries and separating steps
 
     Solution may not be optimal! Solutions may have slight infeasibility. 
     Caller needs to check whether it is above an acceptable threshold using the log functions by setting tee=True,
     or after the function, using `get_constraint_infeas` or `get_curve_diffs`.
-    
-    Args:
-        model: Pyomo model to solve
-        solver: IPOPT solver instance
-        tee: Whether to print solver output
-        config: Optional SolverConfig for scaling factors and tolerance
     """
-    if config is None:
-        config = SolverConfig()
-    
-    model.scaling_factor[model.solver.par.Io] = config.il_scaling
-    model.scaling_factor[model.solver.par.Rsh] = config.rsh_scaling
+    model.scaling_factor[model.solver.par.Io] = IL_SCALING
+    model.scaling_factor[model.solver.par.Rsh] = RSH_SCALING
     
     scaled_model = pyo.TransformationFactory('core.scale_model').create_using(model)
 
@@ -345,7 +315,7 @@ def solve_model(model, solver, tee=False, config: Optional[SolverConfig] = None)
             except:
                 return None, scaled_model
 
-            solver.options["tol"] = config.tolerance
+            solver.options["tol"] = 1e-9
 
             if tee:
                 log_infeasible_bounds(scaled_model, logger=solve_log, tol=1e-7)
@@ -391,29 +361,20 @@ def get_constraint_infeas(model):
     return [abs(v) for v in vals]
 
 
-def solve_model_best_solution(model, solver, tee=False, config: Optional[SolverConfig] = None):
+def solve_model_best_solution(model, solver, tee=False):
     """
     Solve the model and return the best solution regardless of regardless of whether IPOPT has converged or exited gracefully
 
     Solution may not be optimal! Solutions may have a lot of infeasibility. 
     Caller needs to check whether it is above an acceptable threshold using the log functions by setting tee=True,
     or after the function, using `get_constraint_infeas` or `get_curve_diffs`.
-    
-    Args:
-        model: Pyomo model to solve
-        solver: IPOPT solver instance
-        tee: Whether to print solver output
-        config: Optional SolverConfig for scaling factors
     """
-    if config is None:
-        config = SolverConfig()
-    
     try:
         il_scaling = 10**min(12, -int(np.log10(pyo.value(model.solver.par.Io))))
         rsh_scaling = 10**min(5, -int(np.log10(pyo.value(model.solver.par.Rsh))))
     except:
-        il_scaling = config.il_scaling
-        rsh_scaling = config.rsh_scaling
+        il_scaling = IL_SCALING
+        rsh_scaling = RSH_SCALING
     model.scaling_factor[model.solver.par.Io] = il_scaling
     model.scaling_factor[model.solver.par.Rsh] = rsh_scaling
     
@@ -540,16 +501,16 @@ def find_closest(df_solved: pd.DataFrame, r: pd.Series):
     return params_closest
 
 
-def get_params_from_model(model, config):
+def get_params_from_model(model):
     """
     Extract the model parameters from the pyomo model
     """
     if hasattr(model.solver.par, 'scaled_a'):
         a = pyo.value(model.solver.par.scaled_a)
         Il = pyo.value(model.solver.par.scaled_Il)
-        Io = pyo.value(model.solver.par.scaled_Io / config.il_scaling)
+        Io = pyo.value(model.solver.par.scaled_Io / IL_SCALING)
         Rs = pyo.value(model.solver.par.scaled_Rs)
-        Rsh = pyo.value(model.solver.par.scaled_Rsh / config.rsh_scaling)
+        Rsh = pyo.value(model.solver.par.scaled_Rsh / RSH_SCALING)
         Adj = pyo.value(model.solver.par.scaled_Adj)
     else:
         a = pyo.value(model.solver.par.a)
@@ -577,10 +538,7 @@ def get_curve_diffs(r, model):
 
 def read_prepare_file(xlsx_file):
     """
-    Read the CEC Module Excel Spreadsheet and prepare the file. The original data can be downloaded as an Excel file from
-    https://solarequipment.energy.ca.gov/Home/PVModuleList
-
-    The units of alpha_sc and beta_oc are converter from %/C to I/C and V/C, respectively
+    Read the CEC Module Excel Spreadsheet and prepare the file
     """
     all_cec_modules_df = pd.read_excel(xlsx_file, skiprows=list(range(0, 16)) + [17])
     all_cec_modules_df = all_cec_modules_df.drop(columns=["Description", 'Safety Certification',
@@ -606,22 +564,10 @@ def read_prepare_file(xlsx_file):
     return all_cec_modules_df
 
 
-def run_solve_first_pass(i, r, config: Optional[SolverConfig] = None, solver=None):
+def run_solve_first_pass(i, r, plotting=False, solver=None):
     """
     Solve for all the modules in the DataFrame, using the empirical initial guess
-    
-    Args:
-        i: Row index
-        r: Pandas Series with test data
-        config: SolverConfig with settings
-        solver: Optional IPOPT solver instance (created if None)
-    
-    Returns:
-        Pandas Series with solution results
     """
-    if config is None:
-        config = SolverConfig()
-    
     if solver is None:
         solver = pyo.SolverFactory('ipopt')
 
@@ -632,20 +578,20 @@ def run_solve_first_pass(i, r, config: Optional[SolverConfig] = None, solver=Non
         r['Error'] = "Voc < Vmp"
         return r
 
-    model = create_model(config.gamma_curve_dt)
+    model = create_model(gamma_curve_dt=3)
     if not set_parameters(model.solver, r):
         r['Error'] = f"Parameter missing or out of bounds for row {i}"
         return r
 
-    if config.plotting:
+    if plotting:
         plt.figure()
-    solver.options["max_iter"] = config.max_iter
+    solver.options["max_iter"] = 3000
 
     set_empirical_initial_guess(model)
 
-    res, scaled_model = solve_model(model, solver, tee=False, config=config)
+    res, scaled_model = solve_model(model, solver, tee=False)
     
-    if config.plotting:
+    if plotting:
         if res and res.solver.status == 'ok':
             plot_iv_curve(model, linestyle='-', label="Optimal", plot_anchors=True)
         else:
@@ -658,17 +604,17 @@ def run_solve_first_pass(i, r, config: Optional[SolverConfig] = None, solver=Non
 
     if infeas_max > 0.5 or infeas_sum > 0.5:
         r['Error'] = "Infeasibility > 0.5"
-        if config.plotting:
+        if plotting:
             plt.close()
         return r
 
-    a, Il, Io, Rs, Rsh, Adj = get_params_from_model(scaled_model, config)
+    a, Il, Io, Rs, Rsh, Adj = get_params_from_model(scaled_model)
     for col, val in zip(iv_diff_cols, [d_I_sc, d_I_mp, d_V_mp, d_P_mp]):
         r[col] = val
     for col, val in zip(model_param_cols, [a, Il, Io, Rs, Rsh, Adj]):
         r[col] = val
 
-    if config.plotting:
+    if plotting:
         plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
         plt.xlabel("Voltage")
         plt.ylabel("Current")
@@ -679,49 +625,30 @@ def run_solve_first_pass(i, r, config: Optional[SolverConfig] = None, solver=Non
     return r
 
 
-def parallel_run_solve_first_pass(all_cec_modules_df, config: Optional[SolverConfig] = None):
-    if config is None:
-        config = SolverConfig()
-    
-    with mp.Pool(config.num_workers) as pool:
-        results = [pool.apply_async(run_solve_first_pass, [idx, row, config]) for idx, row in all_cec_modules_df.iterrows()]
+def parallel_run_solve_first_pass(all_cec_modules_df, plotting):
+    with mp.Pool(NUM_OF_WORKERS) as pool:
+        results = [pool.apply_async(run_solve_first_pass, [idx, row, plotting]) for idx, row in all_cec_modules_df.iterrows()]
         results = [row.get() for row in results]
         df = pd.DataFrame(results)
     return df
 
-def sequential_run_solve_first_pass(all_cec_modules_df, config: Optional[SolverConfig] = None):
-    if config is None:
-        config = SolverConfig()
-    
+def sequential_run_solve_first_pass(all_cec_modules_df, plotting=False):
     solver = pyo.SolverFactory('ipopt')
 
     results = []
     for i, r in all_cec_modules_df.iterrows():
-        row = run_solve_first_pass(i, r, config, solver)
+        row = run_solve_first_pass(i, r, plotting, solver)
         results.append(row)
     return pd.DataFrame(results)
 
 
-def run_solve_bootstrapping(i, r, solved_df, config: Optional[SolverConfig] = None, solver=None):
+def run_solve_bootstrapping(i, r, solved_df, plotting=False, solver=None):
     """
     Solve for all the modules in the DataFrame, using the `find_closest` to provide the initial guess
-    
-    Args:
-        i: Row index
-        r: Pandas Series with test data
-        solved_df: DataFrame with previously solved modules
-        config: SolverConfig with settings
-        solver: Optional IPOPT solver instance (created if None)
-    
-    Returns:
-        Pandas Series with solution results
     """
-    if config is None:
-        config = SolverConfig()
-    
     if solver is None:
         solver = pyo.SolverFactory('ipopt')
-    solver.options["max_iter"] = config.max_iter
+    solver.options["max_iter"] = 3000
 
     if r['V_mp_ref'] < 0:
         r['Error'] = "Vmp < 0"
@@ -730,22 +657,22 @@ def run_solve_bootstrapping(i, r, solved_df, config: Optional[SolverConfig] = No
         r['Error'] = "Voc < Vmp"
         return r
 
-    model = create_model(config.gamma_curve_dt)
+    model = create_model(gamma_curve_dt=3)
     if not set_parameters(model.solver, r):
         r['Error'] = f"Parameter missing or out of bounds for row {i}"
         return r
 
-    if config.plotting:
+    if plotting:
         plt.figure()
 
     cec_closest = find_closest(solved_df, r)
     set_initial_guess(model, *cec_closest[model_param_cols])
-    if config.plotting:
+    if plotting:
         plot_iv_curve(model, linestyle=(0, (1, 10)), label="Closest Guess")
 
-    res, scaled_model = solve_model(model, solver, tee=False, config=config)
+    res, scaled_model = solve_model(model, solver, tee=False)
     
-    if config.plotting:
+    if plotting:
         if res and res.solver.status == 'ok':
             plot_iv_curve(model, linestyle='-', label="Optimal", plot_anchors=True)
         else:
@@ -758,7 +685,7 @@ def run_solve_bootstrapping(i, r, solved_df, config: Optional[SolverConfig] = No
 
     if infeas_max > 0.5 or infeas_sum > 0.5:
         r['Error'] = "Infeasibility > 0.5"
-        if config.plotting:
+        if plotting:
             plt.close()
         return r
 
@@ -769,7 +696,7 @@ def run_solve_bootstrapping(i, r, solved_df, config: Optional[SolverConfig] = No
         r[col] = val
     r['Error'] = None
 
-    if config.plotting:
+    if plotting:
         plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
         plt.xlabel("Voltage")
         plt.ylabel("Current")
@@ -780,49 +707,30 @@ def run_solve_bootstrapping(i, r, solved_df, config: Optional[SolverConfig] = No
     return r
 
 
-def parallel_run_solve_bootstrapping(solved_df, unsolved_df, config: Optional[SolverConfig] = None):
-    if config is None:
-        config = SolverConfig()
-    
-    with mp.Pool(config.num_workers) as pool:
-        results = [pool.apply_async(run_solve_bootstrapping, [idx, row, solved_df, config]) for idx, row in unsolved_df.iterrows()]
+def parallel_run_solve_bootstrapping(solved_df, unsolved_df, plotting=False):
+    with mp.Pool(NUM_OF_WORKERS) as pool:
+        results = [pool.apply_async(run_solve_bootstrapping, [idx, row, solved_df, plotting]) for idx, row in unsolved_df.iterrows()]
         results = [row.get() for row in results]
         df = pd.DataFrame(results)
     return df
 
-def sequential_run_solve_bootstrapping(solved_df, unsolved_df, config: Optional[SolverConfig] = None):
-    if config is None:
-        config = SolverConfig()
-    
+def sequential_run_solve_bootstrapping(solved_df, unsolved_df, plotting=False):
     solver = pyo.SolverFactory('ipopt')
 
     results = []
     for i, r in unsolved_df.iterrows():
-        row = run_solve_bootstrapping(i, r, solved_df, config, solver)
+        row = run_solve_bootstrapping(i, r, solved_df, plotting, solver)
         results.append(row)
     return pd.DataFrame(results)
 
 
-def run_solve_bootstrapping_reduced(i, r, solved_df, config: Optional[SolverConfig] = None, solver=None):
+def run_solve_bootstrapping_reduced(i, r, solved_df, plotting=False, solver=None):
     """
     Solve for all the modules in the DataFrame, using the closest initial guess and reducing the number of temperature samples to fit gamma
-    
-    Args:
-        i: Row index
-        r: Pandas Series with test data
-        solved_df: DataFrame with previously solved modules
-        config: SolverConfig with settings
-        solver: Optional IPOPT solver instance (created if None)
-    
-    Returns:
-        Pandas Series with solution results
     """
-    if config is None:
-        config = SolverConfig()
-    
     if solver is None:
         solver = pyo.SolverFactory('ipopt')
-    solver.options["max_iter"] = config.max_iter
+    solver.options["max_iter"] = 3000
 
     if r['V_mp_ref'] < 0:
         r['Error'] = "Vmp < 0"
@@ -831,22 +739,22 @@ def run_solve_bootstrapping_reduced(i, r, solved_df, config: Optional[SolverConf
         r['Error'] = "Voc < Vmp"
         return r
 
-    model = create_model(config.reduced_gamma_curve_dt)
+    model = create_model(gamma_curve_dt=15)
     if not set_parameters(model.solver, r):
         r['Error'] = f"Parameter missing or out of bounds for row {i}"
         return r
 
-    if config.plotting:
+    if plotting:
         plt.figure()
 
     cec_closest = find_closest(solved_df, r)
     set_initial_guess(model, *cec_closest[model_param_cols])
-    if config.plotting:
+    if plotting:
         plot_iv_curve(model, linestyle=(0, (1, 10)), label="Closest Guess")
 
-    res, scaled_model = solve_model(model, solver, tee=False, config=config)
+    res, scaled_model = solve_model(model, solver, tee=False)
     
-    if config.plotting:
+    if plotting:
         if res and res.solver.status == 'ok':
             plot_iv_curve(model, linestyle='-', label="Optimal", plot_anchors=True)
         else:
@@ -859,7 +767,7 @@ def run_solve_bootstrapping_reduced(i, r, solved_df, config: Optional[SolverConf
 
     if infeas_max > 0.5 or infeas_sum > 0.5:
         r['Error'] = "Infeasibility > 0.5"
-        if config.plotting:
+        if plotting:
             plt.close()
         return r
 
@@ -870,7 +778,7 @@ def run_solve_bootstrapping_reduced(i, r, solved_df, config: Optional[SolverConf
         r[col] = val
     r['Error'] = None
 
-    if config.plotting:
+    if plotting:
         plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
         plt.xlabel("Voltage")
         plt.ylabel("Current")
@@ -881,49 +789,31 @@ def run_solve_bootstrapping_reduced(i, r, solved_df, config: Optional[SolverConf
     return r
 
 
-def parallel_run_solve_bootstrapping_reduced(solved_df, unsolved_df, config: Optional[SolverConfig] = None):
-    if config is None:
-        config = SolverConfig()
-    
-    with mp.Pool(config.num_workers) as pool:
-        results = [pool.apply_async(run_solve_bootstrapping_reduced, [idx, row, solved_df, config]) for idx, row in unsolved_df.iterrows()]
+def parallel_run_solve_bootstrapping_reduced(solved_df, unsolved_df, plotting=False):
+    with mp.Pool(NUM_OF_WORKERS) as pool:
+        results = [pool.apply_async(run_solve_bootstrapping_reduced, [idx, row, solved_df, plotting]) for idx, row in unsolved_df.iterrows()]
         results = [row.get() for row in results]
         df = pd.DataFrame(results)
     return df
 
-def sequential_run_solve_bootstrapping_reduced(solved_df, unsolved_df, config: Optional[SolverConfig] = None):
-    if config is None:
-        config = SolverConfig()
-    
+def sequential_run_solve_bootstrapping_reduced(solved_df, unsolved_df, plotting=False):
     solver = pyo.SolverFactory('ipopt')
 
     results = []
     for i, r in unsolved_df.iterrows():
-        row = run_solve_bootstrapping_reduced(i, r, solved_df, config, solver)
+        row = run_solve_bootstrapping_reduced(i, r, solved_df, plotting, solver)
         results.append(row)
     return pd.DataFrame(results)
 
 
-def solve_bootstrapping_reduced_approx(all_cec_modules_df, solved_df, unsolved_df, config: Optional[SolverConfig] = None):
+def solve_bootstrapping_reduced_approx(all_cec_modules_df, solved_df, unsolved_df):
     """
     Solve for all the modules in the DataFrame, using the closest initial guess, reducing the number of temperature samples to fit gamma,
     and using `solve_model_best_solution`
 
     Not recommended to use this function unless an approximate solution is desperately needed. 
     Accuracy of IV curve to test data should be examined visually. This can be done with `create_model_with_solution` and `plot_iv_curve`
-    
-    Args:
-        all_cec_modules_df: Complete DataFrame with all modules
-        solved_df: DataFrame with previously solved modules
-        unsolved_df: DataFrame with unsolved modules
-        config: SolverConfig with settings
-    
-    Returns:
-        Updated all_cec_modules_df with solutions
     """
-    if config is None:
-        config = SolverConfig()
-    
     solver = pyo.SolverFactory('ipopt')
 
     for i, r in unsolved_df.iterrows():
@@ -934,23 +824,23 @@ def solve_bootstrapping_reduced_approx(all_cec_modules_df, solved_df, unsolved_d
             all_cec_modules_df.loc[i, 'Error'] = "Voc < Vmp"
             continue
 
-        model = create_model(config.reduced_gamma_curve_dt)
+        model = create_model(gamma_curve_dt=15)
         if not set_parameters(model.solver, r):
             all_cec_modules_df.loc[i, 'Error'] = f"Parameter missing or out of bounds for row {i}"
             continue
 
-        if config.plotting:
+        if plotting:
             plt.figure()
-        solver.options["max_iter"] = config.max_iter
+        solver.options["max_iter"] = 3000
 
         cec_closest = find_closest(solved_df, r)
         set_initial_guess(model, *cec_closest[model_param_cols])
-        if config.plotting:
+        if plotting:
             plot_iv_curve(model, linestyle=(0, (1, 10)), label="Closest Guess")
 
-        res, scaled_model = solve_model_best_solution(model, solver, tee=False, config=config)
+        res, scaled_model = solve_model_best_solution(model, solver, tee=False)
         
-        if config.plotting:
+        if plotting:
             if res and res.solver.status == 'ok':
                 plot_iv_curve(model, linestyle='-', label="Optimal", plot_anchors=True)
             else:
@@ -963,7 +853,7 @@ def solve_bootstrapping_reduced_approx(all_cec_modules_df, solved_df, unsolved_d
 
         if infeas_max > 0.5 or infeas_sum > 0.5:
             all_cec_modules_df.loc[i, 'Error'] = "Infeasibility > 0.5"
-            if config.plotting:
+            if plotting:
                 plt.close()
             continue
 
@@ -972,7 +862,7 @@ def solve_bootstrapping_reduced_approx(all_cec_modules_df, solved_df, unsolved_d
         all_cec_modules_df.loc[i, model_param_cols] = [a, Il, Io, Rs, Rsh, Adj]
         all_cec_modules_df.loc[i, 'Error'] = None
 
-        if config.plotting:
+        if plotting:
             plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
             plt.xlabel("Voltage")
             plt.ylabel("Current")
@@ -983,20 +873,13 @@ def solve_bootstrapping_reduced_approx(all_cec_modules_df, solved_df, unsolved_d
     return all_cec_modules_df
 
 
-def create_model_with_solution(sol_row, config: Optional[SolverConfig] = None):
+def create_model_with_solution(sol_row):
     """
     Create a model with the parameters from the tests and for the single-diode model. Can then be used for `plot_iv_curve`
     
-    Args:
-        sol_row: Pandas Series or DataFrame with test data and model parameters
-        config: Optional SolverConfig for model creation
-    
-    Returns:
-        Pyomo model with parameters set
-    
     sol_row must contain columns from `test_data_cols` and `model_param_cols`
     """
-    model = create_model(config.gamma_curve_dt)
+    model = create_model(gamma_curve_dt=3)
     if type(sol_row) == pd.Series:
         if not set_parameters(model.solver, sol_row):
             raise RuntimeError("Test data parameters could not be set")
@@ -1016,6 +899,7 @@ if __name__ == "__main__":
 
     if len(sys.argv) > 1:
         filename = Path(sys.argv[1])
+    filename = Path('/Users/dguittet/Projects/SAM/sam/samples/CEC Module and Inverter Libraries/CEC Modules/CEC Modules 2024-11-14/PV_Module_List_Full_Data_ADA-2024-11-12.xlsx')
 
     if not filename.exists():
         raise RuntimeError(f"CEC Module Excel Spreadsheet file path does not exist. {filename}")
@@ -1024,15 +908,10 @@ if __name__ == "__main__":
     filename_date = f"{filename_date[-3]}-{filename_date[-2]}-{filename_date[-1]}"
     all_cec_modules_df = read_prepare_file(filename)
 
-    # Create configuration
-    config = SolverConfig(
-        plotting=False,
-        gamma_curve_dt=3,
-        reduced_curve_dt=15,
-        run_parallel = True
-    )
+    plotting = False
+    run_parallel = True
 
-    if config.plotting:
+    if plotting:
         plot_output_path = Path(__file__).parent / "6parsolve_output"
         if not (plot_output_path).exists():
             os.mkdir(plot_output_path)
@@ -1041,10 +920,10 @@ if __name__ == "__main__":
 
     # solve attempt #1
     print(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}: Starting First Pass Solve")
-    if config.run_parallel:
-        all_cec_modules_df = parallel_run_solve_first_pass(all_cec_modules_df, config)
+    if run_parallel:
+        all_cec_modules_df = parallel_run_solve_first_pass(all_cec_modules_df, plotting)
     else:
-        all_cec_modules_df = sequential_run_solve_first_pass(all_cec_modules_df, config)
+        all_cec_modules_df = sequential_run_solve_first_pass(all_cec_modules_df, plotting)
     all_cec_modules_df.to_csv(f"cec_modules_params_{filename_date}.csv", index=False)
     
     solved_df = all_cec_modules_df[~all_cec_modules_df['Rsh_py'].isna()]
@@ -1053,10 +932,10 @@ if __name__ == "__main__":
 
     # solve with bootstrapping
     print(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}: Starting Second Pass Solve")
-    if config.run_parallel:
-        df = parallel_run_solve_bootstrapping(solved_df, unsolved_df, config)
+    if run_parallel:
+        df = parallel_run_solve_bootstrapping(solved_df, unsolved_df, plotting)
     else:
-        df = sequential_run_solve_bootstrapping(solved_df, unsolved_df, config)
+        df = sequential_run_solve_bootstrapping(solved_df, unsolved_df, plotting)
     all_cec_modules_df = pd.concat([solved_df, df]).sort_index()
     all_cec_modules_df.to_csv(f"cec_modules_params_{filename_date}.csv", index=False)
 
@@ -1066,10 +945,10 @@ if __name__ == "__main__":
 
     # solve with bootstrapping & reduced number of temperature samples
     print(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}: Starting Final Pass Solve")
-    if config.run_parallel:
-        df = parallel_run_solve_bootstrapping_reduced(solved_df, unsolved_df, config)
+    if run_parallel:
+        df = parallel_run_solve_bootstrapping_reduced(solved_df, unsolved_df, plotting)
     else:
-        df = sequential_run_solve_bootstrapping_reduced(solved_df, unsolved_df, config)
+        df = sequential_run_solve_bootstrapping_reduced(solved_df, unsolved_df, plotting)
     all_cec_modules_df = pd.concat([solved_df, df]).sort_index()
     all_cec_modules_df.to_csv(f"cec_modules_params_{filename_date}.csv", index=False)
 
