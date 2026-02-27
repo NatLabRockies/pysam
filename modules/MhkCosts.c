@@ -78,30 +78,6 @@ static PyMethodDef MHKCosts_methods[] = {
 };
 
 static PyObject *
-MHKCosts_get_array_cable_system_cost_input(VarGroupObject *self, void *closure)
-{
-	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_array_cable_system_cost_input_nget, self->data_ptr);
-}
-
-static int
-MHKCosts_set_array_cable_system_cost_input(VarGroupObject *self, PyObject *value, void *closure)
-{
-	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_array_cable_system_cost_input_nset, self->data_ptr);
-}
-
-static PyObject *
-MHKCosts_get_array_cable_system_cost_method(VarGroupObject *self, void *closure)
-{
-	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_array_cable_system_cost_method_nget, self->data_ptr);
-}
-
-static int
-MHKCosts_set_array_cable_system_cost_method(VarGroupObject *self, PyObject *value, void *closure)
-{
-	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_array_cable_system_cost_method_nset, self->data_ptr);
-}
-
-static PyObject *
 MHKCosts_get_assembly_and_install_cost_input(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_assembly_and_install_cost_input_nget, self->data_ptr);
@@ -123,6 +99,30 @@ static int
 MHKCosts_set_assembly_and_install_cost_method(VarGroupObject *self, PyObject *value, void *closure)
 {
 	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_assembly_and_install_cost_method_nset, self->data_ptr);
+}
+
+static PyObject *
+MHKCosts_get_assembly_and_install_cost_rvalue(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_assembly_and_install_cost_rvalue_nget, self->data_ptr);
+}
+
+static int
+MHKCosts_set_assembly_and_install_cost_rvalue(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_assembly_and_install_cost_rvalue_nset, self->data_ptr);
+}
+
+static PyObject *
+MHKCosts_get_assembly_and_install_cost_total(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_assembly_and_install_cost_total_nget, self->data_ptr);
+}
+
+static int
+MHKCosts_set_assembly_and_install_cost_total(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_assembly_and_install_cost_total_nset, self->data_ptr);
 }
 
 static PyObject *
@@ -150,6 +150,30 @@ MHKCosts_set_development_cost_method(VarGroupObject *self, PyObject *value, void
 }
 
 static PyObject *
+MHKCosts_get_development_cost_rvalue(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_development_cost_rvalue_nget, self->data_ptr);
+}
+
+static int
+MHKCosts_set_development_cost_rvalue(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_development_cost_rvalue_nset, self->data_ptr);
+}
+
+static PyObject *
+MHKCosts_get_development_cost_total(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_development_cost_total_nget, self->data_ptr);
+}
+
+static int
+MHKCosts_set_development_cost_total(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_development_cost_total_nset, self->data_ptr);
+}
+
+static PyObject *
 MHKCosts_get_device_rated_power(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_device_rated_power_nget, self->data_ptr);
@@ -171,6 +195,66 @@ static int
 MHKCosts_set_devices_per_row(VarGroupObject *self, PyObject *value, void *closure)
 {
 	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_devices_per_row_nset, self->data_ptr);
+}
+
+static PyObject *
+MHKCosts_get_elec_infras_cost_input(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_elec_infras_cost_input_nget, self->data_ptr);
+}
+
+static int
+MHKCosts_set_elec_infras_cost_input(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_elec_infras_cost_input_nset, self->data_ptr);
+}
+
+static PyObject *
+MHKCosts_get_elec_infras_cost_method(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_elec_infras_cost_method_nget, self->data_ptr);
+}
+
+static int
+MHKCosts_set_elec_infras_cost_method(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_elec_infras_cost_method_nset, self->data_ptr);
+}
+
+static PyObject *
+MHKCosts_get_elec_infras_cost_modeled(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_elec_infras_cost_modeled_nget, self->data_ptr);
+}
+
+static int
+MHKCosts_set_elec_infras_cost_modeled(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_elec_infras_cost_modeled_nset, self->data_ptr);
+}
+
+static PyObject *
+MHKCosts_get_elec_infras_cost_rvalue(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_elec_infras_cost_rvalue_nget, self->data_ptr);
+}
+
+static int
+MHKCosts_set_elec_infras_cost_rvalue(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_elec_infras_cost_rvalue_nset, self->data_ptr);
+}
+
+static PyObject *
+MHKCosts_get_elec_infras_cost_total(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_elec_infras_cost_total_nget, self->data_ptr);
+}
+
+static int
+MHKCosts_set_elec_infras_cost_total(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_elec_infras_cost_total_nset, self->data_ptr);
 }
 
 static PyObject *
@@ -198,51 +282,63 @@ MHKCosts_set_eng_and_mgmt_cost_method(VarGroupObject *self, PyObject *value, voi
 }
 
 static PyObject *
-MHKCosts_get_export_cable_length(VarGroupObject *self, void *closure)
+MHKCosts_get_eng_and_mgmt_cost_rvalue(VarGroupObject *self, void *closure)
 {
-	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_export_cable_length_nget, self->data_ptr);
+	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_eng_and_mgmt_cost_rvalue_nget, self->data_ptr);
 }
 
 static int
-MHKCosts_set_export_cable_length(VarGroupObject *self, PyObject *value, void *closure)
+MHKCosts_set_eng_and_mgmt_cost_rvalue(VarGroupObject *self, PyObject *value, void *closure)
 {
-	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_export_cable_length_nset, self->data_ptr);
+	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_eng_and_mgmt_cost_rvalue_nset, self->data_ptr);
 }
 
 static PyObject *
-MHKCosts_get_export_cable_system_cost_input(VarGroupObject *self, void *closure)
+MHKCosts_get_eng_and_mgmt_cost_total(VarGroupObject *self, void *closure)
 {
-	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_export_cable_system_cost_input_nget, self->data_ptr);
+	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_eng_and_mgmt_cost_total_nget, self->data_ptr);
 }
 
 static int
-MHKCosts_set_export_cable_system_cost_input(VarGroupObject *self, PyObject *value, void *closure)
+MHKCosts_set_eng_and_mgmt_cost_total(VarGroupObject *self, PyObject *value, void *closure)
 {
-	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_export_cable_system_cost_input_nset, self->data_ptr);
+	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_eng_and_mgmt_cost_total_nset, self->data_ptr);
 }
 
 static PyObject *
-MHKCosts_get_export_cable_system_cost_method(VarGroupObject *self, void *closure)
+MHKCosts_get_insurance_during_construction_cost_input(VarGroupObject *self, void *closure)
 {
-	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_export_cable_system_cost_method_nget, self->data_ptr);
+	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_insurance_during_construction_cost_input_nget, self->data_ptr);
 }
 
 static int
-MHKCosts_set_export_cable_system_cost_method(VarGroupObject *self, PyObject *value, void *closure)
+MHKCosts_set_insurance_during_construction_cost_input(VarGroupObject *self, PyObject *value, void *closure)
 {
-	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_export_cable_system_cost_method_nset, self->data_ptr);
+	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_insurance_during_construction_cost_input_nset, self->data_ptr);
 }
 
 static PyObject *
-MHKCosts_get_inter_array_cable_length(VarGroupObject *self, void *closure)
+MHKCosts_get_insurance_during_construction_cost_method(VarGroupObject *self, void *closure)
 {
-	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_inter_array_cable_length_nget, self->data_ptr);
+	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_insurance_during_construction_cost_method_nget, self->data_ptr);
 }
 
 static int
-MHKCosts_set_inter_array_cable_length(VarGroupObject *self, PyObject *value, void *closure)
+MHKCosts_set_insurance_during_construction_cost_method(VarGroupObject *self, PyObject *value, void *closure)
 {
-	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_inter_array_cable_length_nset, self->data_ptr);
+	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_insurance_during_construction_cost_method_nset, self->data_ptr);
+}
+
+static PyObject *
+MHKCosts_get_insurance_during_construction_cost_rvalue(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_insurance_during_construction_cost_rvalue_nget, self->data_ptr);
+}
+
+static int
+MHKCosts_set_insurance_during_construction_cost_rvalue(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_insurance_during_construction_cost_rvalue_nset, self->data_ptr);
 }
 
 static PyObject *
@@ -282,6 +378,54 @@ MHKCosts_set_library_or_input_wec(VarGroupObject *self, PyObject *value, void *c
 }
 
 static PyObject *
+MHKCosts_get_maintenance_cost_input(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_maintenance_cost_input_nget, self->data_ptr);
+}
+
+static int
+MHKCosts_set_maintenance_cost_input(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_maintenance_cost_input_nset, self->data_ptr);
+}
+
+static PyObject *
+MHKCosts_get_maintenance_cost_method(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_maintenance_cost_method_nget, self->data_ptr);
+}
+
+static int
+MHKCosts_set_maintenance_cost_method(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_maintenance_cost_method_nset, self->data_ptr);
+}
+
+static PyObject *
+MHKCosts_get_maintenance_cost_rvalue(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_maintenance_cost_rvalue_nget, self->data_ptr);
+}
+
+static int
+MHKCosts_set_maintenance_cost_rvalue(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_maintenance_cost_rvalue_nset, self->data_ptr);
+}
+
+static PyObject *
+MHKCosts_get_maintenance_cost_total(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_maintenance_cost_total_nget, self->data_ptr);
+}
+
+static int
+MHKCosts_set_maintenance_cost_total(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_maintenance_cost_total_nset, self->data_ptr);
+}
+
+static PyObject *
 MHKCosts_get_marine_energy_tech(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_marine_energy_tech_nget, self->data_ptr);
@@ -318,75 +462,111 @@ MHKCosts_set_mooring_found_substruc_cost_method(VarGroupObject *self, PyObject *
 }
 
 static PyObject *
-MHKCosts_get_offshore_substation_cost_input(VarGroupObject *self, void *closure)
+MHKCosts_get_mooring_found_substruc_cost_rvalue(VarGroupObject *self, void *closure)
 {
-	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_offshore_substation_cost_input_nget, self->data_ptr);
+	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_mooring_found_substruc_cost_rvalue_nget, self->data_ptr);
 }
 
 static int
-MHKCosts_set_offshore_substation_cost_input(VarGroupObject *self, PyObject *value, void *closure)
+MHKCosts_set_mooring_found_substruc_cost_rvalue(VarGroupObject *self, PyObject *value, void *closure)
 {
-	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_offshore_substation_cost_input_nset, self->data_ptr);
+	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_mooring_found_substruc_cost_rvalue_nset, self->data_ptr);
 }
 
 static PyObject *
-MHKCosts_get_offshore_substation_cost_method(VarGroupObject *self, void *closure)
+MHKCosts_get_mooring_found_substruc_cost_total(VarGroupObject *self, void *closure)
 {
-	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_offshore_substation_cost_method_nget, self->data_ptr);
+	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_mooring_found_substruc_cost_total_nget, self->data_ptr);
 }
 
 static int
-MHKCosts_set_offshore_substation_cost_method(VarGroupObject *self, PyObject *value, void *closure)
+MHKCosts_set_mooring_found_substruc_cost_total(VarGroupObject *self, PyObject *value, void *closure)
 {
-	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_offshore_substation_cost_method_nset, self->data_ptr);
+	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_mooring_found_substruc_cost_total_nset, self->data_ptr);
 }
 
 static PyObject *
-MHKCosts_get_onshore_substation_cost_input(VarGroupObject *self, void *closure)
+MHKCosts_get_operations_cost_input(VarGroupObject *self, void *closure)
 {
-	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_onshore_substation_cost_input_nget, self->data_ptr);
+	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_operations_cost_input_nget, self->data_ptr);
 }
 
 static int
-MHKCosts_set_onshore_substation_cost_input(VarGroupObject *self, PyObject *value, void *closure)
+MHKCosts_set_operations_cost_input(VarGroupObject *self, PyObject *value, void *closure)
 {
-	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_onshore_substation_cost_input_nset, self->data_ptr);
+	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_operations_cost_input_nset, self->data_ptr);
 }
 
 static PyObject *
-MHKCosts_get_onshore_substation_cost_method(VarGroupObject *self, void *closure)
+MHKCosts_get_operations_cost_method(VarGroupObject *self, void *closure)
 {
-	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_onshore_substation_cost_method_nget, self->data_ptr);
+	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_operations_cost_method_nget, self->data_ptr);
 }
 
 static int
-MHKCosts_set_onshore_substation_cost_method(VarGroupObject *self, PyObject *value, void *closure)
+MHKCosts_set_operations_cost_method(VarGroupObject *self, PyObject *value, void *closure)
 {
-	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_onshore_substation_cost_method_nset, self->data_ptr);
+	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_operations_cost_method_nset, self->data_ptr);
 }
 
 static PyObject *
-MHKCosts_get_other_elec_infra_cost_input(VarGroupObject *self, void *closure)
+MHKCosts_get_operations_cost_rvalue(VarGroupObject *self, void *closure)
 {
-	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_other_elec_infra_cost_input_nget, self->data_ptr);
+	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_operations_cost_rvalue_nget, self->data_ptr);
 }
 
 static int
-MHKCosts_set_other_elec_infra_cost_input(VarGroupObject *self, PyObject *value, void *closure)
+MHKCosts_set_operations_cost_rvalue(VarGroupObject *self, PyObject *value, void *closure)
 {
-	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_other_elec_infra_cost_input_nset, self->data_ptr);
+	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_operations_cost_rvalue_nset, self->data_ptr);
 }
 
 static PyObject *
-MHKCosts_get_other_elec_infra_cost_method(VarGroupObject *self, void *closure)
+MHKCosts_get_operations_cost_total(VarGroupObject *self, void *closure)
 {
-	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_other_elec_infra_cost_method_nget, self->data_ptr);
+	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_operations_cost_total_nget, self->data_ptr);
 }
 
 static int
-MHKCosts_set_other_elec_infra_cost_method(VarGroupObject *self, PyObject *value, void *closure)
+MHKCosts_set_operations_cost_total(VarGroupObject *self, PyObject *value, void *closure)
 {
-	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_other_elec_infra_cost_method_nset, self->data_ptr);
+	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_operations_cost_total_nset, self->data_ptr);
+}
+
+static PyObject *
+MHKCosts_get_other_financial_cost_input(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_other_financial_cost_input_nget, self->data_ptr);
+}
+
+static int
+MHKCosts_set_other_financial_cost_input(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_other_financial_cost_input_nset, self->data_ptr);
+}
+
+static PyObject *
+MHKCosts_get_other_financial_cost_method(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_other_financial_cost_method_nget, self->data_ptr);
+}
+
+static int
+MHKCosts_set_other_financial_cost_method(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_other_financial_cost_method_nset, self->data_ptr);
+}
+
+static PyObject *
+MHKCosts_get_other_financial_cost_rvalue(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_other_financial_cost_rvalue_nget, self->data_ptr);
+}
+
+static int
+MHKCosts_set_other_financial_cost_rvalue(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_other_financial_cost_rvalue_nset, self->data_ptr);
 }
 
 static PyObject *
@@ -414,6 +594,66 @@ MHKCosts_set_other_infrastructure_cost_method(VarGroupObject *self, PyObject *va
 }
 
 static PyObject *
+MHKCosts_get_other_infrastructure_cost_rvalue(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_other_infrastructure_cost_rvalue_nget, self->data_ptr);
+}
+
+static int
+MHKCosts_set_other_infrastructure_cost_rvalue(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_other_infrastructure_cost_rvalue_nset, self->data_ptr);
+}
+
+static PyObject *
+MHKCosts_get_other_infrastructure_cost_total(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_other_infrastructure_cost_total_nget, self->data_ptr);
+}
+
+static int
+MHKCosts_set_other_infrastructure_cost_total(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_other_infrastructure_cost_total_nset, self->data_ptr);
+}
+
+static PyObject *
+MHKCosts_get_plant_commissioning_cost_input(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_plant_commissioning_cost_input_nget, self->data_ptr);
+}
+
+static int
+MHKCosts_set_plant_commissioning_cost_input(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_plant_commissioning_cost_input_nset, self->data_ptr);
+}
+
+static PyObject *
+MHKCosts_get_plant_commissioning_cost_method(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_plant_commissioning_cost_method_nget, self->data_ptr);
+}
+
+static int
+MHKCosts_set_plant_commissioning_cost_method(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_plant_commissioning_cost_method_nset, self->data_ptr);
+}
+
+static PyObject *
+MHKCosts_get_plant_commissioning_cost_rvalue(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_plant_commissioning_cost_rvalue_nget, self->data_ptr);
+}
+
+static int
+MHKCosts_set_plant_commissioning_cost_rvalue(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_plant_commissioning_cost_rvalue_nset, self->data_ptr);
+}
+
+static PyObject *
 MHKCosts_get_power_takeoff_system_cost_input(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_power_takeoff_system_cost_input_nget, self->data_ptr);
@@ -438,15 +678,147 @@ MHKCosts_set_power_takeoff_system_cost_method(VarGroupObject *self, PyObject *va
 }
 
 static PyObject *
-MHKCosts_get_riser_cable_length(VarGroupObject *self, void *closure)
+MHKCosts_get_power_takeoff_system_cost_total(VarGroupObject *self, void *closure)
 {
-	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_riser_cable_length_nget, self->data_ptr);
+	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_power_takeoff_system_cost_total_nget, self->data_ptr);
 }
 
 static int
-MHKCosts_set_riser_cable_length(VarGroupObject *self, PyObject *value, void *closure)
+MHKCosts_set_power_takeoff_system_cost_total(VarGroupObject *self, PyObject *value, void *closure)
 {
-	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_riser_cable_length_nset, self->data_ptr);
+	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_power_takeoff_system_cost_total_nset, self->data_ptr);
+}
+
+static PyObject *
+MHKCosts_get_project_contingency_cost_input(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_project_contingency_cost_input_nget, self->data_ptr);
+}
+
+static int
+MHKCosts_set_project_contingency_cost_input(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_project_contingency_cost_input_nset, self->data_ptr);
+}
+
+static PyObject *
+MHKCosts_get_project_contingency_cost_method(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_project_contingency_cost_method_nget, self->data_ptr);
+}
+
+static int
+MHKCosts_set_project_contingency_cost_method(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_project_contingency_cost_method_nset, self->data_ptr);
+}
+
+static PyObject *
+MHKCosts_get_project_contingency_cost_rvalue(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_project_contingency_cost_rvalue_nget, self->data_ptr);
+}
+
+static int
+MHKCosts_set_project_contingency_cost_rvalue(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_project_contingency_cost_rvalue_nset, self->data_ptr);
+}
+
+static PyObject *
+MHKCosts_get_reserve_accounts_cost_input(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_reserve_accounts_cost_input_nget, self->data_ptr);
+}
+
+static int
+MHKCosts_set_reserve_accounts_cost_input(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_reserve_accounts_cost_input_nset, self->data_ptr);
+}
+
+static PyObject *
+MHKCosts_get_reserve_accounts_cost_method(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_reserve_accounts_cost_method_nget, self->data_ptr);
+}
+
+static int
+MHKCosts_set_reserve_accounts_cost_method(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_reserve_accounts_cost_method_nset, self->data_ptr);
+}
+
+static PyObject *
+MHKCosts_get_reserve_accounts_cost_rvalue(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_reserve_accounts_cost_rvalue_nget, self->data_ptr);
+}
+
+static int
+MHKCosts_set_reserve_accounts_cost_rvalue(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_reserve_accounts_cost_rvalue_nset, self->data_ptr);
+}
+
+static PyObject *
+MHKCosts_get_reserve_accounts_cost_total(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_reserve_accounts_cost_total_nget, self->data_ptr);
+}
+
+static int
+MHKCosts_set_reserve_accounts_cost_total(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_reserve_accounts_cost_total_nset, self->data_ptr);
+}
+
+static PyObject *
+MHKCosts_get_site_access_port_staging_cost_input(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_site_access_port_staging_cost_input_nget, self->data_ptr);
+}
+
+static int
+MHKCosts_set_site_access_port_staging_cost_input(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_site_access_port_staging_cost_input_nset, self->data_ptr);
+}
+
+static PyObject *
+MHKCosts_get_site_access_port_staging_cost_method(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_site_access_port_staging_cost_method_nget, self->data_ptr);
+}
+
+static int
+MHKCosts_set_site_access_port_staging_cost_method(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_site_access_port_staging_cost_method_nset, self->data_ptr);
+}
+
+static PyObject *
+MHKCosts_get_site_access_port_staging_cost_rvalue(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_site_access_port_staging_cost_rvalue_nget, self->data_ptr);
+}
+
+static int
+MHKCosts_set_site_access_port_staging_cost_rvalue(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_site_access_port_staging_cost_rvalue_nset, self->data_ptr);
+}
+
+static PyObject *
+MHKCosts_get_site_access_port_staging_cost_total(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_site_access_port_staging_cost_total_nget, self->data_ptr);
+}
+
+static int
+MHKCosts_set_site_access_port_staging_cost_total(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_site_access_port_staging_cost_total_nset, self->data_ptr);
 }
 
 static PyObject *
@@ -474,6 +846,30 @@ MHKCosts_set_structural_assembly_cost_method(VarGroupObject *self, PyObject *val
 }
 
 static PyObject *
+MHKCosts_get_structural_assembly_cost_rvalue(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_structural_assembly_cost_rvalue_nget, self->data_ptr);
+}
+
+static int
+MHKCosts_set_structural_assembly_cost_rvalue(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_structural_assembly_cost_rvalue_nset, self->data_ptr);
+}
+
+static PyObject *
+MHKCosts_get_structural_assembly_cost_total(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_structural_assembly_cost_total_nget, self->data_ptr);
+}
+
+static int
+MHKCosts_set_structural_assembly_cost_total(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_MhkCosts_MHKCosts_structural_assembly_cost_total_nset, self->data_ptr);
+}
+
+static PyObject *
 MHKCosts_get_system_capacity(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_MhkCosts_MHKCosts_system_capacity_nget, self->data_ptr);
@@ -486,23 +882,29 @@ MHKCosts_set_system_capacity(VarGroupObject *self, PyObject *value, void *closur
 }
 
 static PyGetSetDef MHKCosts_getset[] = {
-{"array_cable_system_cost_input", (getter)MHKCosts_get_array_cable_system_cost_input,(setter)MHKCosts_set_array_cable_system_cost_input,
-	PyDoc_STR("*float*: Array cable system cost [$]\n\n**Required:**\nTrue"),
- 	NULL},
-{"array_cable_system_cost_method", (getter)MHKCosts_get_array_cable_system_cost_method,(setter)MHKCosts_set_array_cable_system_cost_method,
-	PyDoc_STR("*float*: Array cable system cost method [0/1/2]\n\n**Options:**\n0=Enter in $/kW,1=Enter in $,2=Use modeled value\n\n**Constraints:**\nMIN=0,MAX=4\n\n**Required:**\nTrue"),
- 	NULL},
 {"assembly_and_install_cost_input", (getter)MHKCosts_get_assembly_and_install_cost_input,(setter)MHKCosts_set_assembly_and_install_cost_input,
-	PyDoc_STR("*float*: Assembly and installation cost [$]\n\n**Required:**\nTrue"),
+	PyDoc_STR("*float*: Assembly and installation cost [$]\n\n**Required:**\nassembly_and_install_cost_method<2"),
  	NULL},
 {"assembly_and_install_cost_method", (getter)MHKCosts_get_assembly_and_install_cost_method,(setter)MHKCosts_set_assembly_and_install_cost_method,
-	PyDoc_STR("*float*: Assembly and installation cost method [0/1/2]\n\n**Options:**\n0=Enter in $/kW,1=Enter in $,2=Use modeled value\n\n**Constraints:**\nMIN=0,MAX=4\n\n**Required:**\nTrue"),
+	PyDoc_STR("*float*: Assembly and installation cost method [0-4]\n\n**Options:**\n0=Enter in $/kW,1=Enter in $,2=Use modeled value\n\n**Constraints:**\nMIN=0,MAX=4\n\n**Required:**\nTrue"),
+ 	NULL},
+{"assembly_and_install_cost_rvalue", (getter)MHKCosts_get_assembly_and_install_cost_rvalue,(setter)MHKCosts_set_assembly_and_install_cost_rvalue,
+	PyDoc_STR("*float*: Assembly and installation R-value\n\n**Constraints:**\nMIN=0,MAX=1\n\n**Required:**\nRequired if assembly_and_install_cost_method=4"),
+ 	NULL},
+{"assembly_and_install_cost_total", (getter)MHKCosts_get_assembly_and_install_cost_total,(setter)MHKCosts_set_assembly_and_install_cost_total,
+	PyDoc_STR("*float*: Assembly and installation itemized cost total [$]\n\n**Required:**\nRequired if assembly_and_install_cost_method=3"),
  	NULL},
 {"development_cost_input", (getter)MHKCosts_get_development_cost_input,(setter)MHKCosts_set_development_cost_input,
-	PyDoc_STR("*float*: Development cost [$]\n\n**Required:**\nTrue"),
+	PyDoc_STR("*float*: Development cost [$]\n\n**Required:**\ndevelopment_cost_method<2"),
  	NULL},
 {"development_cost_method", (getter)MHKCosts_get_development_cost_method,(setter)MHKCosts_set_development_cost_method,
-	PyDoc_STR("*float*: Development cost method [0/1/2]\n\n**Options:**\n0=Enter in $/kW,1=Enter in $,2=Use modeled value,3=Enter in itemized costs\n\n**Constraints:**\nMIN=0,MAX=4\n\n**Required:**\nTrue"),
+	PyDoc_STR("*float*: Development cost method [0-4]\n\n**Options:**\n0=Enter in $/kW,1=Enter in $,2=Use modeled value,3=Enter in itemized costs\n\n**Constraints:**\nMIN=0,MAX=4\n\n**Required:**\nTrue"),
+ 	NULL},
+{"development_cost_rvalue", (getter)MHKCosts_get_development_cost_rvalue,(setter)MHKCosts_set_development_cost_rvalue,
+	PyDoc_STR("*float*: Development R-value\n\n**Constraints:**\nMIN=0,MAX=1\n\n**Required:**\nRequired if development_cost_method=4"),
+ 	NULL},
+{"development_cost_total", (getter)MHKCosts_get_development_cost_total,(setter)MHKCosts_set_development_cost_total,
+	PyDoc_STR("*float*: Development itemized cost total [$]\n\n**Required:**\nRequired if development_cost_method=3"),
  	NULL},
 {"device_rated_power", (getter)MHKCosts_get_device_rated_power,(setter)MHKCosts_set_device_rated_power,
 	PyDoc_STR("*float*: Rated capacity of device [kW]\n\n**Constraints:**\nMIN=0\n\n**Required:**\nTrue"),
@@ -510,23 +912,41 @@ static PyGetSetDef MHKCosts_getset[] = {
 {"devices_per_row", (getter)MHKCosts_get_devices_per_row,(setter)MHKCosts_set_devices_per_row,
 	PyDoc_STR("*float*: Number of wave devices per row in array\n\n**Constraints:**\nINTEGER\n\n**Required:**\nTrue"),
  	NULL},
+{"elec_infras_cost_input", (getter)MHKCosts_get_elec_infras_cost_input,(setter)MHKCosts_set_elec_infras_cost_input,
+	PyDoc_STR("*float*: Electrical infrastructure cost [$]\n\n**Required:**\nelec_infras_cost_method<2"),
+ 	NULL},
+{"elec_infras_cost_method", (getter)MHKCosts_get_elec_infras_cost_method,(setter)MHKCosts_set_elec_infras_cost_method,
+	PyDoc_STR("*float*: Electrical infrastructure cost method [0-4]\n\n**Options:**\n0=Enter in $/kW,1=Enter in $,2=Use modeled value\n\n**Constraints:**\nMIN=0,MAX=4\n\n**Required:**\nTrue"),
+ 	NULL},
+{"elec_infras_cost_modeled", (getter)MHKCosts_get_elec_infras_cost_modeled,(setter)MHKCosts_set_elec_infras_cost_modeled,
+	PyDoc_STR("*float*: Electrical infrastructure cost modeled [$]\n\n**Required:**\nRequired if elec_infras_cost_method=2"),
+ 	NULL},
+{"elec_infras_cost_rvalue", (getter)MHKCosts_get_elec_infras_cost_rvalue,(setter)MHKCosts_set_elec_infras_cost_rvalue,
+	PyDoc_STR("*float*: Electrical infrastructure R-value\n\n**Constraints:**\nMIN=0,MAX=1\n\n**Required:**\nRequired if elec_infras_cost_method=4"),
+ 	NULL},
+{"elec_infras_cost_total", (getter)MHKCosts_get_elec_infras_cost_total,(setter)MHKCosts_set_elec_infras_cost_total,
+	PyDoc_STR("*float*: Electrical infrastructure itemized cost total [$]\n\n**Required:**\nRequired if elec_infras_cost_method=3"),
+ 	NULL},
 {"eng_and_mgmt_cost_input", (getter)MHKCosts_get_eng_and_mgmt_cost_input,(setter)MHKCosts_set_eng_and_mgmt_cost_input,
-	PyDoc_STR("*float*: Engineering and management cost [$]\n\n**Required:**\nTrue"),
+	PyDoc_STR("*float*: Engineering and management cost [$]\n\n**Required:**\neng_and_mgmt_cost_method<2"),
  	NULL},
 {"eng_and_mgmt_cost_method", (getter)MHKCosts_get_eng_and_mgmt_cost_method,(setter)MHKCosts_set_eng_and_mgmt_cost_method,
-	PyDoc_STR("*float*: Engineering and management cost method [0/1/2]\n\n**Options:**\n0=Enter in $/kW,1=Enter in $,2=Use modeled value,3=Enter in itemized costs\n\n**Constraints:**\nMIN=0,MAX=4\n\n**Required:**\nTrue"),
+	PyDoc_STR("*float*: Engineering and management cost method [0-4]\n\n**Options:**\n0=Enter in $/kW,1=Enter in $,2=Use modeled value,3=Enter in itemized costs\n\n**Constraints:**\nMIN=0,MAX=4\n\n**Required:**\nTrue"),
  	NULL},
-{"export_cable_length", (getter)MHKCosts_get_export_cable_length,(setter)MHKCosts_set_export_cable_length,
-	PyDoc_STR("*float*: Export cable length [m]\n\n**Constraints:**\nMIN=0\n\n**Required:**\nTrue"),
+{"eng_and_mgmt_cost_rvalue", (getter)MHKCosts_get_eng_and_mgmt_cost_rvalue,(setter)MHKCosts_set_eng_and_mgmt_cost_rvalue,
+	PyDoc_STR("*float*: Engineering and management R-value\n\n**Constraints:**\nMIN=0,MAX=1\n\n**Required:**\nRequired if eng_and_mgmt_cost_method=4"),
  	NULL},
-{"export_cable_system_cost_input", (getter)MHKCosts_get_export_cable_system_cost_input,(setter)MHKCosts_set_export_cable_system_cost_input,
-	PyDoc_STR("*float*: Export cable system cost [$]\n\n**Required:**\nTrue"),
+{"eng_and_mgmt_cost_total", (getter)MHKCosts_get_eng_and_mgmt_cost_total,(setter)MHKCosts_set_eng_and_mgmt_cost_total,
+	PyDoc_STR("*float*: Engineering and management itemized cost total [$]\n\n**Required:**\nRequired if eng_and_mgmt_cost_method=3"),
  	NULL},
-{"export_cable_system_cost_method", (getter)MHKCosts_get_export_cable_system_cost_method,(setter)MHKCosts_set_export_cable_system_cost_method,
-	PyDoc_STR("*float*: Export cable system cost method [0/1/2]\n\n**Options:**\n0=Enter in $/kW,1=Enter in $,2=Use modeled value\n\n**Constraints:**\nMIN=0,MAX=4\n\n**Required:**\nTrue"),
+{"insurance_during_construction_cost_input", (getter)MHKCosts_get_insurance_during_construction_cost_input,(setter)MHKCosts_set_insurance_during_construction_cost_input,
+	PyDoc_STR("*float*: Insurance during construction cost [$]\n\n**Required:**\ninsurance_during_construction_cost_method<2"),
  	NULL},
-{"inter_array_cable_length", (getter)MHKCosts_get_inter_array_cable_length,(setter)MHKCosts_set_inter_array_cable_length,
-	PyDoc_STR("*float*: Inter-array cable length [m]\n\n**Constraints:**\nMIN=0\n\n**Required:**\nTrue"),
+{"insurance_during_construction_cost_method", (getter)MHKCosts_get_insurance_during_construction_cost_method,(setter)MHKCosts_set_insurance_during_construction_cost_method,
+	PyDoc_STR("*float*: Insurance during construction cost method [0-3]\n\n**Options:**\n0=Enter in $/kW,1=Enter in $,2=Use modeled value\n\n**Constraints:**\nMIN=0,MAX=4\n\n**Required:**\nTrue"),
+ 	NULL},
+{"insurance_during_construction_cost_rvalue", (getter)MHKCosts_get_insurance_during_construction_cost_rvalue,(setter)MHKCosts_set_insurance_during_construction_cost_rvalue,
+	PyDoc_STR("*float*: Insurance during construction R-value\n\n**Constraints:**\nMIN=0,MAX=1\n\n**Required:**\nRequired if insurance_during_construction_cost_method=3"),
  	NULL},
 {"lib_tidal_device", (getter)MHKCosts_get_lib_tidal_device,(setter)MHKCosts_set_lib_tidal_device,
 	PyDoc_STR("*str*: Tidal library name\n\n**Required:**\nRequired if marine_energy_tech=1"),
@@ -537,53 +957,128 @@ static PyGetSetDef MHKCosts_getset[] = {
 {"library_or_input_wec", (getter)MHKCosts_get_library_or_input_wec,(setter)MHKCosts_set_library_or_input_wec,
 	PyDoc_STR("*float*: Wave library or user input\n\n**Options:**\n0=Library,1=User\n\n**Required:**\nRequired if marine_energy_tech=0"),
  	NULL},
+{"maintenance_cost_input", (getter)MHKCosts_get_maintenance_cost_input,(setter)MHKCosts_set_maintenance_cost_input,
+	PyDoc_STR("*float*: Maintenance cost [$]\n\n**Required:**\nmaintenance_cost_method<2"),
+ 	NULL},
+{"maintenance_cost_method", (getter)MHKCosts_get_maintenance_cost_method,(setter)MHKCosts_set_maintenance_cost_method,
+	PyDoc_STR("*float*: Maintenance cost method [0-4]\n\n**Options:**\n0=Enter in $/kW,1=Enter in $,2=Use modeled value\n\n**Constraints:**\nMIN=0,MAX=4\n\n**Required:**\nTrue"),
+ 	NULL},
+{"maintenance_cost_rvalue", (getter)MHKCosts_get_maintenance_cost_rvalue,(setter)MHKCosts_set_maintenance_cost_rvalue,
+	PyDoc_STR("*float*: Maintenance R-value\n\n**Constraints:**\nMIN=0,MAX=1\n\n**Required:**\nRequired if maintenance_cost_method=4"),
+ 	NULL},
+{"maintenance_cost_total", (getter)MHKCosts_get_maintenance_cost_total,(setter)MHKCosts_set_maintenance_cost_total,
+	PyDoc_STR("*float*: Maintenance itemized cost total [$]\n\n**Required:**\nRequired if maintenance_cost_method=3"),
+ 	NULL},
 {"marine_energy_tech", (getter)MHKCosts_get_marine_energy_tech,(setter)MHKCosts_set_marine_energy_tech,
 	PyDoc_STR("*float*: Marine energy technology [0/1]\n\n**Options:**\n0=Wave,1=Tidal\n\n**Constraints:**\nMIN=0,MAX=1\n\n**Required:**\nTrue"),
  	NULL},
 {"mooring_found_substruc_cost_input", (getter)MHKCosts_get_mooring_found_substruc_cost_input,(setter)MHKCosts_set_mooring_found_substruc_cost_input,
-	PyDoc_STR("*float*: Mooring, foundation, and substructure cost [$]\n\n**Required:**\nTrue"),
+	PyDoc_STR("*float*: Mooring, foundation, and substructure cost [$]\n\n**Required:**\nmooring_found_substruc_cost_method<2"),
  	NULL},
 {"mooring_found_substruc_cost_method", (getter)MHKCosts_get_mooring_found_substruc_cost_method,(setter)MHKCosts_set_mooring_found_substruc_cost_method,
-	PyDoc_STR("*float*: Mooring, foundation, and substructure cost method [0/1/2]\n\n**Options:**\n0=Enter in $/kW,1=Enter in $,2=Use modeled value,3=Use itemized costs in $\n\n**Constraints:**\nMIN=0,MAX=4\n\n**Required:**\nTrue"),
+	PyDoc_STR("*float*: Mooring, foundation, and substructure cost method [0-4]\n\n**Options:**\n0=Enter in $/kW,1=Enter in $,2=Use modeled value,3=Use itemized costs in $\n\n**Constraints:**\nMIN=0,MAX=4\n\n**Required:**\nTrue"),
  	NULL},
-{"offshore_substation_cost_input", (getter)MHKCosts_get_offshore_substation_cost_input,(setter)MHKCosts_set_offshore_substation_cost_input,
-	PyDoc_STR("*float*: Offshore substation cost [$]\n\n**Required:**\nTrue"),
+{"mooring_found_substruc_cost_rvalue", (getter)MHKCosts_get_mooring_found_substruc_cost_rvalue,(setter)MHKCosts_set_mooring_found_substruc_cost_rvalue,
+	PyDoc_STR("*float*: Mooring, foundation, and substructure R-value\n\n**Constraints:**\nMIN=0,MAX=1\n\n**Required:**\nRequired if mooring_found_substruc_cost_method=4"),
  	NULL},
-{"offshore_substation_cost_method", (getter)MHKCosts_get_offshore_substation_cost_method,(setter)MHKCosts_set_offshore_substation_cost_method,
-	PyDoc_STR("*float*: Offshore substation cost method [0/1/2]\n\n**Options:**\n0=Enter in $/kW,1=Enter in $,2=Use modeled value\n\n**Constraints:**\nMIN=0,MAX=4\n\n**Required:**\nTrue"),
+{"mooring_found_substruc_cost_total", (getter)MHKCosts_get_mooring_found_substruc_cost_total,(setter)MHKCosts_set_mooring_found_substruc_cost_total,
+	PyDoc_STR("*float*: Mooring, foundation, and substructure itemized cost total [$]\n\n**Required:**\nRequired if mooring_found_substruc_cost_method=3"),
  	NULL},
-{"onshore_substation_cost_input", (getter)MHKCosts_get_onshore_substation_cost_input,(setter)MHKCosts_set_onshore_substation_cost_input,
-	PyDoc_STR("*float*: Onshore substation cost [$]\n\n**Required:**\nTrue"),
+{"operations_cost_input", (getter)MHKCosts_get_operations_cost_input,(setter)MHKCosts_set_operations_cost_input,
+	PyDoc_STR("*float*: Operations cost [$]\n\n**Required:**\noperations_cost_method<2"),
  	NULL},
-{"onshore_substation_cost_method", (getter)MHKCosts_get_onshore_substation_cost_method,(setter)MHKCosts_set_onshore_substation_cost_method,
-	PyDoc_STR("*float*: Onshore substation cost method [0/1/2]\n\n**Options:**\n0=Enter in $/kW,1=Enter in $,2=Use modeled value\n\n**Constraints:**\nMIN=0,MAX=4\n\n**Required:**\nTrue"),
+{"operations_cost_method", (getter)MHKCosts_get_operations_cost_method,(setter)MHKCosts_set_operations_cost_method,
+	PyDoc_STR("*float*: Operations cost method [0-4]\n\n**Options:**\n0=Enter in $/kW,1=Enter in $,2=Use modeled value\n\n**Constraints:**\nMIN=0,MAX=4\n\n**Required:**\nTrue"),
  	NULL},
-{"other_elec_infra_cost_input", (getter)MHKCosts_get_other_elec_infra_cost_input,(setter)MHKCosts_set_other_elec_infra_cost_input,
-	PyDoc_STR("*float*: Other electrical infrastructure cost [$]\n\n**Required:**\nTrue"),
+{"operations_cost_rvalue", (getter)MHKCosts_get_operations_cost_rvalue,(setter)MHKCosts_set_operations_cost_rvalue,
+	PyDoc_STR("*float*: Operations R-value\n\n**Constraints:**\nMIN=0,MAX=1\n\n**Required:**\nRequired if operations_cost_method=4"),
  	NULL},
-{"other_elec_infra_cost_method", (getter)MHKCosts_get_other_elec_infra_cost_method,(setter)MHKCosts_set_other_elec_infra_cost_method,
-	PyDoc_STR("*float*: Other electrical infrastructure cost method [0/1/2]\n\n**Options:**\n0=Enter in $/kW,1=Enter in $,2=Use modeled value\n\n**Constraints:**\nMIN=0,MAX=4\n\n**Required:**\nTrue"),
+{"operations_cost_total", (getter)MHKCosts_get_operations_cost_total,(setter)MHKCosts_set_operations_cost_total,
+	PyDoc_STR("*float*: Operations itemized cost total [$]\n\n**Required:**\nRequired if operations_cost_method=3"),
+ 	NULL},
+{"other_financial_cost_input", (getter)MHKCosts_get_other_financial_cost_input,(setter)MHKCosts_set_other_financial_cost_input,
+	PyDoc_STR("*float*: Other financial cost [$,$/kW]\n\n**Required:**\nother_financial_cost_method<2"),
+ 	NULL},
+{"other_financial_cost_method", (getter)MHKCosts_get_other_financial_cost_method,(setter)MHKCosts_set_other_financial_cost_method,
+	PyDoc_STR("*float*: Other financial cost method [0-3]\n\n**Options:**\n0=Enter in $/kW,1=Enter in $,2=Use modeled value\n\n**Constraints:**\nMIN=0,MAX=4\n\n**Required:**\nTrue"),
+ 	NULL},
+{"other_financial_cost_rvalue", (getter)MHKCosts_get_other_financial_cost_rvalue,(setter)MHKCosts_set_other_financial_cost_rvalue,
+	PyDoc_STR("*float*: Other financial R-value\n\n**Constraints:**\nMIN=0,MAX=1\n\n**Required:**\nRequired if other_financial_cost_method=3"),
  	NULL},
 {"other_infrastructure_cost_input", (getter)MHKCosts_get_other_infrastructure_cost_input,(setter)MHKCosts_set_other_infrastructure_cost_input,
-	PyDoc_STR("*float*: Other infrastructure cost [$]\n\n**Required:**\nTrue"),
+	PyDoc_STR("*float*: Other infrastructure cost [$]\n\n**Required:**\nother_infrastructure_cost_method<2"),
  	NULL},
 {"other_infrastructure_cost_method", (getter)MHKCosts_get_other_infrastructure_cost_method,(setter)MHKCosts_set_other_infrastructure_cost_method,
-	PyDoc_STR("*float*: Other infrastructure cost method [0/1/2]\n\n**Options:**\n0=Enter in $/kW,1=Enter in $,2=Use modeled value\n\n**Constraints:**\nMIN=0,MAX=4\n\n**Required:**\nTrue"),
+	PyDoc_STR("*float*: Other infrastructure cost method [0-4]\n\n**Options:**\n0=Enter in $/kW,1=Enter in $,2=Use modeled value\n\n**Constraints:**\nMIN=0,MAX=4\n\n**Required:**\nTrue"),
+ 	NULL},
+{"other_infrastructure_cost_rvalue", (getter)MHKCosts_get_other_infrastructure_cost_rvalue,(setter)MHKCosts_set_other_infrastructure_cost_rvalue,
+	PyDoc_STR("*float*: Other infrastructure R-value\n\n**Constraints:**\nMIN=0,MAX=1\n\n**Required:**\nRequired if other_infrastructure_cost_method=4"),
+ 	NULL},
+{"other_infrastructure_cost_total", (getter)MHKCosts_get_other_infrastructure_cost_total,(setter)MHKCosts_set_other_infrastructure_cost_total,
+	PyDoc_STR("*float*: Other infrastructure itemized cost total [$]\n\n**Required:**\nRequired if other_infrastructure_cost_method=3"),
+ 	NULL},
+{"plant_commissioning_cost_input", (getter)MHKCosts_get_plant_commissioning_cost_input,(setter)MHKCosts_set_plant_commissioning_cost_input,
+	PyDoc_STR("*float*: Plant commissioning cost [$]\n\n**Required:**\nplant_commissioning_cost_method<2"),
+ 	NULL},
+{"plant_commissioning_cost_method", (getter)MHKCosts_get_plant_commissioning_cost_method,(setter)MHKCosts_set_plant_commissioning_cost_method,
+	PyDoc_STR("*float*: Plant commissioning cost method [0-3]\n\n**Options:**\n0=Enter in $/kW,1=Enter in $,2=Use modeled value\n\n**Constraints:**\nMIN=0,MAX=4\n\n**Required:**\nTrue"),
+ 	NULL},
+{"plant_commissioning_cost_rvalue", (getter)MHKCosts_get_plant_commissioning_cost_rvalue,(setter)MHKCosts_set_plant_commissioning_cost_rvalue,
+	PyDoc_STR("*float*: Plant commissioning R-value\n\n**Constraints:**\nMIN=0,MAX=1\n\n**Required:**\nRequired if plant_commissioning_cost_method=4"),
  	NULL},
 {"power_takeoff_system_cost_input", (getter)MHKCosts_get_power_takeoff_system_cost_input,(setter)MHKCosts_set_power_takeoff_system_cost_input,
-	PyDoc_STR("*float*: Power take-off system cost [$]\n\n**Required:**\nTrue"),
+	PyDoc_STR("*float*: Power take-off system cost [$]\n\n**Required:**\npower_takeoff_system_cost_method<2"),
  	NULL},
 {"power_takeoff_system_cost_method", (getter)MHKCosts_get_power_takeoff_system_cost_method,(setter)MHKCosts_set_power_takeoff_system_cost_method,
-	PyDoc_STR("*float*: Power take-off system cost method [0/1/2]\n\n**Options:**\n0=Enter in $/kW,1=Enter in $,2=Use modeled value,3=Use itemized costs in $\n\n**Constraints:**\nMIN=0,MAX=4\n\n**Required:**\nTrue"),
+	PyDoc_STR("*float*: Power take-off system cost method [0-4]\n\n**Options:**\n0=Enter in $/kW,1=Enter in $,2=Use modeled value,3=Use itemized costs in $\n\n**Constraints:**\nMIN=0,MAX=4\n\n**Required:**\nTrue"),
  	NULL},
-{"riser_cable_length", (getter)MHKCosts_get_riser_cable_length,(setter)MHKCosts_set_riser_cable_length,
-	PyDoc_STR("*float*: Riser cable length [m]\n\n**Constraints:**\nMIN=0\n\n**Required:**\nTrue"),
+{"power_takeoff_system_cost_total", (getter)MHKCosts_get_power_takeoff_system_cost_total,(setter)MHKCosts_set_power_takeoff_system_cost_total,
+	PyDoc_STR("*float*: Power take-off system cost itemized cost total [$]\n\n**Required:**\nRequired if power_takeoff_system_cost_method=3"),
+ 	NULL},
+{"project_contingency_cost_input", (getter)MHKCosts_get_project_contingency_cost_input,(setter)MHKCosts_set_project_contingency_cost_input,
+	PyDoc_STR("*float*: Project contingency cost [$]\n\n**Required:**\nproject_contingency_cost_method<2"),
+ 	NULL},
+{"project_contingency_cost_method", (getter)MHKCosts_get_project_contingency_cost_method,(setter)MHKCosts_set_project_contingency_cost_method,
+	PyDoc_STR("*float*: Project contingency cost method [0-3]\n\n**Options:**\n0=Enter in $/kW,1=Enter in $,2=Use modeled value\n\n**Constraints:**\nMIN=0,MAX=4\n\n**Required:**\nTrue"),
+ 	NULL},
+{"project_contingency_cost_rvalue", (getter)MHKCosts_get_project_contingency_cost_rvalue,(setter)MHKCosts_set_project_contingency_cost_rvalue,
+	PyDoc_STR("*float*: Project contingency R-value\n\n**Constraints:**\nMIN=0,MAX=1\n\n**Required:**\nRequired if project_contingency_cost_method=3"),
+ 	NULL},
+{"reserve_accounts_cost_input", (getter)MHKCosts_get_reserve_accounts_cost_input,(setter)MHKCosts_set_reserve_accounts_cost_input,
+	PyDoc_STR("*float*: Reserve accounts cost [$]\n\n**Required:**\nreserve_accounts_cost_method<2"),
+ 	NULL},
+{"reserve_accounts_cost_method", (getter)MHKCosts_get_reserve_accounts_cost_method,(setter)MHKCosts_set_reserve_accounts_cost_method,
+	PyDoc_STR("*float*: Reserve accounts cost method [0-4]\n\n**Options:**\n0=Enter in $/kW,1=Enter in $,2=Use modeled value\n\n**Constraints:**\nMIN=0,MAX=4\n\n**Required:**\nTrue"),
+ 	NULL},
+{"reserve_accounts_cost_rvalue", (getter)MHKCosts_get_reserve_accounts_cost_rvalue,(setter)MHKCosts_set_reserve_accounts_cost_rvalue,
+	PyDoc_STR("*float*: Reserve accounts R-value\n\n**Constraints:**\nMIN=0,MAX=1\n\n**Required:**\nRequired if reserve_accounts_cost_method=4"),
+ 	NULL},
+{"reserve_accounts_cost_total", (getter)MHKCosts_get_reserve_accounts_cost_total,(setter)MHKCosts_set_reserve_accounts_cost_total,
+	PyDoc_STR("*float*: Reserve accounts itemized cost total [$]\n\n**Required:**\nRequired if reserve_accounts_cost_method=3"),
+ 	NULL},
+{"site_access_port_staging_cost_input", (getter)MHKCosts_get_site_access_port_staging_cost_input,(setter)MHKCosts_set_site_access_port_staging_cost_input,
+	PyDoc_STR("*float*: Site access and port staging cost [$]\n\n**Required:**\nsite_access_port_staging_cost_method<2"),
+ 	NULL},
+{"site_access_port_staging_cost_method", (getter)MHKCosts_get_site_access_port_staging_cost_method,(setter)MHKCosts_set_site_access_port_staging_cost_method,
+	PyDoc_STR("*float*: Site access and port staging cost method [0-4]\n\n**Options:**\n0=Enter in $/kW,1=Enter in $,2=Use modeled value\n\n**Constraints:**\nMIN=0,MAX=4\n\n**Required:**\nTrue"),
+ 	NULL},
+{"site_access_port_staging_cost_rvalue", (getter)MHKCosts_get_site_access_port_staging_cost_rvalue,(setter)MHKCosts_set_site_access_port_staging_cost_rvalue,
+	PyDoc_STR("*float*: Site access and port staging R-value\n\n**Constraints:**\nMIN=0,MAX=1\n\n**Required:**\nRequired if site_access_port_staging_cost_method=4"),
+ 	NULL},
+{"site_access_port_staging_cost_total", (getter)MHKCosts_get_site_access_port_staging_cost_total,(setter)MHKCosts_set_site_access_port_staging_cost_total,
+	PyDoc_STR("*float*: Site access and port staging itemized cost total [$]\n\n**Required:**\nRequired if site_access_port_staging_cost_method=3"),
  	NULL},
 {"structural_assembly_cost_input", (getter)MHKCosts_get_structural_assembly_cost_input,(setter)MHKCosts_set_structural_assembly_cost_input,
-	PyDoc_STR("*float*: Structural assembly cost [$]\n\n**Required:**\nTrue"),
+	PyDoc_STR("*float*: Structural assembly cost [$]\n\n**Required:**\nstructural_assembly_cost_method<2"),
  	NULL},
 {"structural_assembly_cost_method", (getter)MHKCosts_get_structural_assembly_cost_method,(setter)MHKCosts_set_structural_assembly_cost_method,
-	PyDoc_STR("*float*: Structural assembly cost method [0/1/2]\n\n**Options:**\n0=Enter in $/kW,1=Enter in $,2=Use modeled value,3=Use itemized costs in $\n\n**Constraints:**\nMIN=0,MAX=4\n\n**Required:**\nTrue"),
+	PyDoc_STR("*float*: Structural assembly cost method [0-4]\n\n**Options:**\n0=Enter in $/kW,1=Enter in $,2=Use modeled value,3=Use itemized costs in $\n\n**Constraints:**\nMIN=0,MAX=4\n\n**Required:**\nTrue"),
+ 	NULL},
+{"structural_assembly_cost_rvalue", (getter)MHKCosts_get_structural_assembly_cost_rvalue,(setter)MHKCosts_set_structural_assembly_cost_rvalue,
+	PyDoc_STR("*float*: Structural assembly R-value\n\n**Constraints:**\nMIN=0,MAX=1\n\n**Required:**\nRequired if structural_assembly_cost_method=4"),
+ 	NULL},
+{"structural_assembly_cost_total", (getter)MHKCosts_get_structural_assembly_cost_total,(setter)MHKCosts_set_structural_assembly_cost_total,
+	PyDoc_STR("*float*: Structural assembly itemized cost total [$]\n\n**Required:**\nRequired if structural_assembly_cost_method=3"),
  	NULL},
 {"system_capacity", (getter)MHKCosts_get_system_capacity,(setter)MHKCosts_set_system_capacity,
 	PyDoc_STR("*float*: System Nameplate Capacity [kW]\n\n**Constraints:**\nMIN=0\n\n**Required:**\nTrue"),
@@ -710,9 +1205,9 @@ static PyMethodDef Outputs_methods[] = {
 };
 
 static PyObject *
-Outputs_get_array_cable_system_cost_modeled(VarGroupObject *self, void *closure)
+Outputs_get_assembly_and_install_cost(VarGroupObject *self, void *closure)
 {
-	return PySAM_double_getter(SAM_MhkCosts_Outputs_array_cable_system_cost_modeled_nget, self->data_ptr);
+	return PySAM_double_getter(SAM_MhkCosts_Outputs_assembly_and_install_cost_nget, self->data_ptr);
 }
 
 static PyObject *
@@ -722,9 +1217,21 @@ Outputs_get_assembly_and_install_cost_modeled(VarGroupObject *self, void *closur
 }
 
 static PyObject *
+Outputs_get_development_cost(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_MhkCosts_Outputs_development_cost_nget, self->data_ptr);
+}
+
+static PyObject *
 Outputs_get_development_cost_modeled(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_MhkCosts_Outputs_development_cost_modeled_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_eng_and_mgmt_cost(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_MhkCosts_Outputs_eng_and_mgmt_cost_nget, self->data_ptr);
 }
 
 static PyObject *
@@ -734,15 +1241,15 @@ Outputs_get_eng_and_mgmt_cost_modeled(VarGroupObject *self, void *closure)
 }
 
 static PyObject *
-Outputs_get_export_cable_system_cost_modeled(VarGroupObject *self, void *closure)
+Outputs_get_insurance_during_construction_cost(VarGroupObject *self, void *closure)
 {
-	return PySAM_double_getter(SAM_MhkCosts_Outputs_export_cable_system_cost_modeled_nget, self->data_ptr);
+	return PySAM_double_getter(SAM_MhkCosts_Outputs_insurance_during_construction_cost_nget, self->data_ptr);
 }
 
 static PyObject *
-Outputs_get_insurance_during_construction(VarGroupObject *self, void *closure)
+Outputs_get_insurance_during_construction_cost_modeled(VarGroupObject *self, void *closure)
 {
-	return PySAM_double_getter(SAM_MhkCosts_Outputs_insurance_during_construction_nget, self->data_ptr);
+	return PySAM_double_getter(SAM_MhkCosts_Outputs_insurance_during_construction_cost_modeled_nget, self->data_ptr);
 }
 
 static PyObject *
@@ -752,21 +1259,21 @@ Outputs_get_maintenance_cost(VarGroupObject *self, void *closure)
 }
 
 static PyObject *
+Outputs_get_maintenance_cost_modeled(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_MhkCosts_Outputs_maintenance_cost_modeled_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_mooring_found_substruc_cost(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_MhkCosts_Outputs_mooring_found_substruc_cost_nget, self->data_ptr);
+}
+
+static PyObject *
 Outputs_get_mooring_found_substruc_cost_modeled(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_MhkCosts_Outputs_mooring_found_substruc_cost_modeled_nget, self->data_ptr);
-}
-
-static PyObject *
-Outputs_get_offshore_substation_cost_modeled(VarGroupObject *self, void *closure)
-{
-	return PySAM_double_getter(SAM_MhkCosts_Outputs_offshore_substation_cost_modeled_nget, self->data_ptr);
-}
-
-static PyObject *
-Outputs_get_onshore_substation_cost_modeled(VarGroupObject *self, void *closure)
-{
-	return PySAM_double_getter(SAM_MhkCosts_Outputs_onshore_substation_cost_modeled_nget, self->data_ptr);
 }
 
 static PyObject *
@@ -776,9 +1283,27 @@ Outputs_get_operations_cost(VarGroupObject *self, void *closure)
 }
 
 static PyObject *
-Outputs_get_other_elec_infra_cost_modeled(VarGroupObject *self, void *closure)
+Outputs_get_operations_cost_modeled(VarGroupObject *self, void *closure)
 {
-	return PySAM_double_getter(SAM_MhkCosts_Outputs_other_elec_infra_cost_modeled_nget, self->data_ptr);
+	return PySAM_double_getter(SAM_MhkCosts_Outputs_operations_cost_modeled_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_other_financial_cost(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_MhkCosts_Outputs_other_financial_cost_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_other_financial_cost_modeled(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_MhkCosts_Outputs_other_financial_cost_modeled_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_other_infrastructure_cost(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_MhkCosts_Outputs_other_infrastructure_cost_nget, self->data_ptr);
 }
 
 static PyObject *
@@ -788,9 +1313,21 @@ Outputs_get_other_infrastructure_cost_modeled(VarGroupObject *self, void *closur
 }
 
 static PyObject *
+Outputs_get_plant_commissioning_cost(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_MhkCosts_Outputs_plant_commissioning_cost_nget, self->data_ptr);
+}
+
+static PyObject *
 Outputs_get_plant_commissioning_cost_modeled(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_MhkCosts_Outputs_plant_commissioning_cost_modeled_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_power_takeoff_system_cost(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_MhkCosts_Outputs_power_takeoff_system_cost_nget, self->data_ptr);
 }
 
 static PyObject *
@@ -800,15 +1337,33 @@ Outputs_get_power_takeoff_system_cost_modeled(VarGroupObject *self, void *closur
 }
 
 static PyObject *
-Outputs_get_project_contingency(VarGroupObject *self, void *closure)
+Outputs_get_project_contingency_cost(VarGroupObject *self, void *closure)
 {
-	return PySAM_double_getter(SAM_MhkCosts_Outputs_project_contingency_nget, self->data_ptr);
+	return PySAM_double_getter(SAM_MhkCosts_Outputs_project_contingency_cost_nget, self->data_ptr);
 }
 
 static PyObject *
-Outputs_get_reserve_accounts(VarGroupObject *self, void *closure)
+Outputs_get_project_contingency_cost_modeled(VarGroupObject *self, void *closure)
 {
-	return PySAM_double_getter(SAM_MhkCosts_Outputs_reserve_accounts_nget, self->data_ptr);
+	return PySAM_double_getter(SAM_MhkCosts_Outputs_project_contingency_cost_modeled_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_reserve_accounts_cost(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_MhkCosts_Outputs_reserve_accounts_cost_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_reserve_accounts_cost_modeled(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_MhkCosts_Outputs_reserve_accounts_cost_modeled_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_site_access_port_staging_cost(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_MhkCosts_Outputs_site_access_port_staging_cost_nget, self->data_ptr);
 }
 
 static PyObject *
@@ -818,65 +1373,104 @@ Outputs_get_site_access_port_staging_cost_modeled(VarGroupObject *self, void *cl
 }
 
 static PyObject *
+Outputs_get_structural_assembly_cost(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_MhkCosts_Outputs_structural_assembly_cost_nget, self->data_ptr);
+}
+
+static PyObject *
 Outputs_get_structural_assembly_cost_modeled(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_MhkCosts_Outputs_structural_assembly_cost_modeled_nget, self->data_ptr);
 }
 
 static PyGetSetDef Outputs_getset[] = {
-{"array_cable_system_cost_modeled", (getter)Outputs_get_array_cable_system_cost_modeled,(setter)0,
-	PyDoc_STR("*float*: Modeled array cable system cost [$]"),
+{"assembly_and_install_cost", (getter)Outputs_get_assembly_and_install_cost,(setter)0,
+	PyDoc_STR("*float*: Assembly and installation cost [$]"),
  	NULL},
 {"assembly_and_install_cost_modeled", (getter)Outputs_get_assembly_and_install_cost_modeled,(setter)0,
 	PyDoc_STR("*float*: Modeled assembly and installation cost [$]"),
  	NULL},
+{"development_cost", (getter)Outputs_get_development_cost,(setter)0,
+	PyDoc_STR("*float*: Development cost [$]"),
+ 	NULL},
 {"development_cost_modeled", (getter)Outputs_get_development_cost_modeled,(setter)0,
 	PyDoc_STR("*float*: Modeled development cost [$]"),
+ 	NULL},
+{"eng_and_mgmt_cost", (getter)Outputs_get_eng_and_mgmt_cost,(setter)0,
+	PyDoc_STR("*float*: Engineering and management cost [$]"),
  	NULL},
 {"eng_and_mgmt_cost_modeled", (getter)Outputs_get_eng_and_mgmt_cost_modeled,(setter)0,
 	PyDoc_STR("*float*: Modeled engineering and management cost [$]"),
  	NULL},
-{"export_cable_system_cost_modeled", (getter)Outputs_get_export_cable_system_cost_modeled,(setter)0,
-	PyDoc_STR("*float*: Modeled export cable system cost [$]"),
+{"insurance_during_construction_cost", (getter)Outputs_get_insurance_during_construction_cost,(setter)0,
+	PyDoc_STR("*float*: Cost of insurance during construction [$]"),
  	NULL},
-{"insurance_during_construction", (getter)Outputs_get_insurance_during_construction,(setter)0,
+{"insurance_during_construction_cost_modeled", (getter)Outputs_get_insurance_during_construction_cost_modeled,(setter)0,
 	PyDoc_STR("*float*: Modeled cost of insurance during construction [$]"),
  	NULL},
 {"maintenance_cost", (getter)Outputs_get_maintenance_cost,(setter)0,
 	PyDoc_STR("*float*: Maintenance cost [$]"),
  	NULL},
+{"maintenance_cost_modeled", (getter)Outputs_get_maintenance_cost_modeled,(setter)0,
+	PyDoc_STR("*float*: Modeled maintenance cost [$]"),
+ 	NULL},
+{"mooring_found_substruc_cost", (getter)Outputs_get_mooring_found_substruc_cost,(setter)0,
+	PyDoc_STR("*float*: Mooring, foundation, and substructure cost [$]"),
+ 	NULL},
 {"mooring_found_substruc_cost_modeled", (getter)Outputs_get_mooring_found_substruc_cost_modeled,(setter)0,
 	PyDoc_STR("*float*: Modeled mooring, foundation, and substructure cost [$]"),
- 	NULL},
-{"offshore_substation_cost_modeled", (getter)Outputs_get_offshore_substation_cost_modeled,(setter)0,
-	PyDoc_STR("*float*: Modeled offshore substation cost [$]"),
- 	NULL},
-{"onshore_substation_cost_modeled", (getter)Outputs_get_onshore_substation_cost_modeled,(setter)0,
-	PyDoc_STR("*float*: Modeled onshore substation cost [$]"),
  	NULL},
 {"operations_cost", (getter)Outputs_get_operations_cost,(setter)0,
 	PyDoc_STR("*float*: Operations cost [$]"),
  	NULL},
-{"other_elec_infra_cost_modeled", (getter)Outputs_get_other_elec_infra_cost_modeled,(setter)0,
-	PyDoc_STR("*float*: Modeled other electrical infrastructure cost [$]"),
+{"operations_cost_modeled", (getter)Outputs_get_operations_cost_modeled,(setter)0,
+	PyDoc_STR("*float*: Modeled operations cost [$]"),
+ 	NULL},
+{"other_financial_cost", (getter)Outputs_get_other_financial_cost,(setter)0,
+	PyDoc_STR("*float*: Cost of other financial considerations [$]"),
+ 	NULL},
+{"other_financial_cost_modeled", (getter)Outputs_get_other_financial_cost_modeled,(setter)0,
+	PyDoc_STR("*float*: Modeled cost of other financial considerations [$]"),
+ 	NULL},
+{"other_infrastructure_cost", (getter)Outputs_get_other_infrastructure_cost,(setter)0,
+	PyDoc_STR("*float*: Other infrastructure cost [$]"),
  	NULL},
 {"other_infrastructure_cost_modeled", (getter)Outputs_get_other_infrastructure_cost_modeled,(setter)0,
 	PyDoc_STR("*float*: Modeled other infrastructure cost [$]"),
  	NULL},
+{"plant_commissioning_cost", (getter)Outputs_get_plant_commissioning_cost,(setter)0,
+	PyDoc_STR("*float*: Plant commissioning cost [$]"),
+ 	NULL},
 {"plant_commissioning_cost_modeled", (getter)Outputs_get_plant_commissioning_cost_modeled,(setter)0,
 	PyDoc_STR("*float*: Modeled plant commissioning cost [$]"),
+ 	NULL},
+{"power_takeoff_system_cost", (getter)Outputs_get_power_takeoff_system_cost,(setter)0,
+	PyDoc_STR("*float*: Power take-off cost [$]"),
  	NULL},
 {"power_takeoff_system_cost_modeled", (getter)Outputs_get_power_takeoff_system_cost_modeled,(setter)0,
 	PyDoc_STR("*float*: Modeled power take-off cost [$]"),
  	NULL},
-{"project_contingency", (getter)Outputs_get_project_contingency,(setter)0,
+{"project_contingency_cost", (getter)Outputs_get_project_contingency_cost,(setter)0,
+	PyDoc_STR("*float*: Project contingency cost [$]"),
+ 	NULL},
+{"project_contingency_cost_modeled", (getter)Outputs_get_project_contingency_cost_modeled,(setter)0,
 	PyDoc_STR("*float*: Modeled project contingency cost [$]"),
  	NULL},
-{"reserve_accounts", (getter)Outputs_get_reserve_accounts,(setter)0,
+{"reserve_accounts_cost", (getter)Outputs_get_reserve_accounts_cost,(setter)0,
+	PyDoc_STR("*float*: Reserve account costs [$]"),
+ 	NULL},
+{"reserve_accounts_cost_modeled", (getter)Outputs_get_reserve_accounts_cost_modeled,(setter)0,
 	PyDoc_STR("*float*: Modeled reserve account costs [$]"),
+ 	NULL},
+{"site_access_port_staging_cost", (getter)Outputs_get_site_access_port_staging_cost,(setter)0,
+	PyDoc_STR("*float*: Site access, port, and staging cost [$]"),
  	NULL},
 {"site_access_port_staging_cost_modeled", (getter)Outputs_get_site_access_port_staging_cost_modeled,(setter)0,
 	PyDoc_STR("*float*: Modeled site access, port, and staging cost [$]"),
+ 	NULL},
+{"structural_assembly_cost", (getter)Outputs_get_structural_assembly_cost,(setter)0,
+	PyDoc_STR("*float*: Structural assembly cost [$]"),
  	NULL},
 {"structural_assembly_cost_modeled", (getter)Outputs_get_structural_assembly_cost_modeled,(setter)0,
 	PyDoc_STR("*float*: Modeled structural assembly cost [$]"),

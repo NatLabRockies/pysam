@@ -1,8 +1,10 @@
-import json, marshal, os, shutil
+import json, marshal, os, shutil, subprocess
 from setuptools import setup, Extension
 import sys
 from files.version import __version__
 from pathlib import Path
+import glob
+from shutil import copy
 
 ###################################################################################################
 #
@@ -19,9 +21,8 @@ defaults_dir = os.environ['SAMNTDIR'] + "/api/api_autogen/library/defaults/"
 includepath = os.environ['SAMNTDIR'] + "/api/include"
 srcpath = os.environ['SAMNTDIR'] + "/api/src"
 
-this_directory = os.environ['PYSAMDIR']
-libpath = this_directory + "/files"
-
+this_directory = Path(os.environ['PYSAMDIR'])
+libpath = this_directory / "files"
 
 # prepare package description
 with open(os.path.join(this_directory, 'RELEASE.md'), encoding='utf-8') as f:
@@ -50,8 +51,7 @@ if sys.platform == 'darwin':
         libfiles += ['libssc.so']
     extra_link_args = ["-headerpad_max_install_names", "-Wl,-rpath,@loader_path/"]
     extra_compile_args.append("-Wno-ignored-attributes")
-
-if sys.platform == 'linux':
+elif sys.platform == 'linux':
     libfiles += ['libSAM_api.so']
     if DEBUG:
         libfiles += ['libsscd.so']
@@ -59,8 +59,7 @@ if sys.platform == 'linux':
         libfiles += ['libssc.so']
     extra_link_args = ["-Wl,-rpath,$ORIGIN/"]
     extra_compile_args.append('-Wno-attributes')
-
-if sys.platform == 'win32':
+elif sys.platform == 'win32':
     libfiles += ['SAM_api.dll', 'SAM_api.lib']
     if DEBUG:
         libfiles += ['sscd.dll', 'sscd.lib']
@@ -71,6 +70,47 @@ if sys.platform == 'win32':
     if DEBUG:
         extra_compile_args = ["/DEBUG", "/Od"]
 
+# get or-tools
+ortools_libfiles = []
+def copy_ortools(lib_path, platform):
+    # copy ortools over and add to files
+    ortools_lib_dir = Path(os.environ['ORTOOLSDIR']) / lib_path
+    if platform != "win32":
+        ortools_libs_pattern = ["libabsl*", "libre2*", "libscip*"]
+    else:
+        ortools_libs_pattern = ["absl*", "re2*", "scip*"]
+    for ortools_lib in ortools_libs_pattern:
+        for lib_file in glob.glob(str(ortools_lib_dir / ortools_lib)):
+            if not Path(lib_file).is_symlink():
+                dest = libpath / Path(lib_file).name
+                copy(lib_file, str(dest))
+                if platform == "darwin":
+                    # Fix embedded install name so the linker records the correct filename
+                    subprocess.run(
+                        ['install_name_tool', '-id', f'@rpath/{dest.name}', str(dest)],
+                        check=True
+                    )
+                libfiles.append(dest.name)
+                ortools_libfiles.append(dest)
+                if platform == "darwin":
+                    libs.append(dest.stem.split("lib")[1])
+                elif platform == "linux":
+                    # For the linker to find it via the linker name, a symlink to "linker name" must exist alongside the versioned file
+                    linker_name = dest.name.split(".so")[0] + ".so"
+                    if (libpath / linker_name).exists():
+                        os.remove(libpath / linker_name)
+                    subprocess.run(
+                        ['ln', '-s', str(libpath / dest.name), str(libpath / linker_name)],
+                        check=True
+                    )
+                    libs.append(linker_name.split("lib")[1].split(".so")[0])
+
+if sys.platform == 'darwin':
+    copy_ortools("lib", "darwin")
+elif sys.platform == "linux":
+    copy_ortools("lib64", "linux")
+elif sys.platform == "win32":
+    copy_ortools("lib", "win32")
 
 ###################################################################################################
 #
@@ -98,7 +138,7 @@ def _decode(o):
     else:
         return o
 
-
+os.chdir(this_directory)
 defaults_df_dir = 'files/defaults'
 if os.path.exists(defaults_df_dir):
     shutil.rmtree(defaults_df_dir)
@@ -137,12 +177,12 @@ libfiles += hybrid_stubs
 
 # make list of all extension modules
 extension_modules = []
-for filename in os.listdir(this_directory + "/modules"):
+for filename in os.listdir(this_directory / "modules"):
     extension_modules.append(Extension('PySAM.' + os.path.splitext(filename)[0],
                              ['modules/' + filename],
                             define_macros=defines,
-                            include_dirs=[srcpath, includepath, this_directory + "/src"],
-                            library_dirs=[libpath],
+                            include_dirs=[srcpath, includepath, str(this_directory / "src")],
+                            library_dirs=[str(libpath)],
                             libraries=libs,
                             extra_compile_args=extra_compile_args,
                             extra_link_args=extra_link_args
@@ -182,4 +222,6 @@ setup(
 # Clean up
 shutil.rmtree(defaults_df_dir)
 for f in stub_files:
-    os.remove(os.path.join(this_directory, "files", f))
+    os.remove(this_directory / "files" / f)
+for f in ortools_libfiles:
+    os.remove(f)

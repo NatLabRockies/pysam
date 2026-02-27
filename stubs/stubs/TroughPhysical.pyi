@@ -445,6 +445,7 @@ class TroughPhysical(object):
 
 
 		dispatch_tod_factors = tuple
+		start_day_of_year = float
 
 
 	class Revenue(object):

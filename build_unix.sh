@@ -10,7 +10,10 @@
 rm -rf ${SAMNTDIR}/../cmake-build-release
 mkdir -p ${SAMNTDIR}/../cmake-build-release
 cd ${SAMNTDIR}/../cmake-build-release || exit
-cmake .. -DCMAKE_BUILD_TYPE=Release -DSAMAPI_EXPORT=1 -DSAM_SKIP_AUTOGEN=0
+# cmake .. -DCMAKE_BUILD_TYPE=Release -DSAMAPI_EXPORT=1 -DSAM_SKIP_AUTOGEN=0
+
+cmake -DCMAKE_BUILD_TYPE=Release -DSAM_SKIP_AUTOGEN=0 -DSAMAPI_EXPORT=1 -DSAMPRIVATE=1 -DUSE_XPRESS=0 -DUSE_COINOR=1 -DCMAKE_SYSTEM_PREFIX_PATH="$ORTOOLSDIR" -Dabsl_DIR="$ORTOOLSDIR\lib\cmake\absl" -Dutf8_range_DIR="$ORTOOLSDIR\lib\cmake\utf8_range" -Dortools_DIR="$ORTOOLSDIR\lib\cmake\ortools" ..
+
 cmake --build . --target SAM_api -j 6
 
 # Building the PyPi and Anaconda packages
@@ -47,9 +50,9 @@ done
 cd ..
 if [ "$(python3 -c "import platform; print(platform.processor())")" = "arm" ]
 then
-    docker pull quay.io/pypa/manylinux2014_aarch64
-#     # docker run --rm -dit -v $(pwd):/io quay.io/pypa/manylinux2014_aarch64 /bin/bash
-    docker run --rm -v $(pwd):/io quay.io/pypa/manylinux2014_aarch64 /io/pysam/build_manylinux.sh || exit
+    docker pull quay.io/pypa/manylinux_2_28_aarch64
+    # docker run --rm -dit -v $(pwd):/io quay.io/pypa/manylinux_2_28_aarch64 /bin/bash
+    docker run --rm -v $(pwd):/io quay.io/pypa/manylinux_2_28_aarch64 /io/pysam/build_manylinux.sh || exit
 else
     docker pull quay.io/pypa/manylinux2014_x86_64
     # docker run --rm -dit -v $(pwd):/io quay.io/pypa/manylinux2014_x86_64 /bin/bash

@@ -5732,6 +5732,18 @@ TimeOfDeliveryFactors_set_dispatch_tod_factors(VarGroupObject *self, PyObject *v
 }
 
 static PyObject *
+TimeOfDeliveryFactors_get_is_timestep_load_fractions(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_TcsmoltenSalt_TimeOfDeliveryFactors_is_timestep_load_fractions_nget, self->data_ptr);
+}
+
+static int
+TimeOfDeliveryFactors_set_is_timestep_load_fractions(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_TcsmoltenSalt_TimeOfDeliveryFactors_is_timestep_load_fractions_nset, self->data_ptr);
+}
+
+static PyObject *
 TimeOfDeliveryFactors_get_ppa_multiplier_model(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_TcsmoltenSalt_TimeOfDeliveryFactors_ppa_multiplier_model_nget, self->data_ptr);
@@ -5741,6 +5753,18 @@ static int
 TimeOfDeliveryFactors_set_ppa_multiplier_model(VarGroupObject *self, PyObject *value, void *closure)
 {
 	return PySAM_double_setter(value, SAM_TcsmoltenSalt_TimeOfDeliveryFactors_ppa_multiplier_model_nset, self->data_ptr);
+}
+
+static PyObject *
+TimeOfDeliveryFactors_get_start_day_of_year(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_TcsmoltenSalt_TimeOfDeliveryFactors_start_day_of_year_nget, self->data_ptr);
+}
+
+static int
+TimeOfDeliveryFactors_set_start_day_of_year(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_TcsmoltenSalt_TimeOfDeliveryFactors_start_day_of_year_nset, self->data_ptr);
 }
 
 static PyGetSetDef TimeOfDeliveryFactors_getset[] = {
@@ -5756,8 +5780,14 @@ static PyGetSetDef TimeOfDeliveryFactors_getset[] = {
 {"dispatch_tod_factors", (getter)TimeOfDeliveryFactors_get_dispatch_tod_factors,(setter)TimeOfDeliveryFactors_set_dispatch_tod_factors,
 	PyDoc_STR("*sequence*: TOD factors for periods 1 through 9\n\n**Info:**\nWe added this array input after SAM 2022.12.21 to replace the functionality of former single value inputs dispatch_factor1 through dispatch_factor9\n\n**Required:**\nRequired if ppa_multiplier_model=0&csp_financial_model<5&is_dispatch=1&sim_type=1"),
  	NULL},
+{"is_timestep_load_fractions", (getter)TimeOfDeliveryFactors_get_is_timestep_load_fractions,(setter)TimeOfDeliveryFactors_set_is_timestep_load_fractions,
+	PyDoc_STR("*float*: Use turbine load fraction for each timestep instead of block dispatch?\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
 {"ppa_multiplier_model", (getter)TimeOfDeliveryFactors_get_ppa_multiplier_model,(setter)TimeOfDeliveryFactors_set_ppa_multiplier_model,
 	PyDoc_STR("*float*: PPA multiplier model 0: dispatch factors dispatch_factorX, 1: hourly multipliers dispatch_factors_ts [0/1]\n\n**Options:**\n0=diurnal,1=timestep\n\n**Constraints:**\nINTEGER,MIN=0\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+{"start_day_of_year", (getter)TimeOfDeliveryFactors_get_start_day_of_year,(setter)TimeOfDeliveryFactors_set_start_day_of_year,
+	PyDoc_STR("*float*: Start day of year for TOD periods [0..6]\n\n**Options:**\n0=Monday, 6=Sunday\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
  	NULL},
 	{NULL}  /* Sentinel */
 };
@@ -9764,7 +9794,7 @@ static PyGetSetDef Outputs_getset[] = {
 	PyDoc_STR("*float*: Total land area not including radiative cooling - out [acre]"),
  	NULL},
 {"tou_value", (getter)Outputs_get_tou_value,(setter)0,
-	PyDoc_STR("*sequence*: CSP operating time-of-use value"),
+	PyDoc_STR("*sequence*: CSP operating time-of-use period"),
  	NULL},
 {"tshours_heater", (getter)Outputs_get_tshours_heater,(setter)0,
 	PyDoc_STR("*float*: TES duration at heater design output [hr]"),

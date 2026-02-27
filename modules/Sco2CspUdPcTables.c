@@ -90,6 +90,18 @@ SystemDesign_set_T_amb_des(VarGroupObject *self, PyObject *value, void *closure)
 }
 
 static PyObject *
+SystemDesign_get_T_bypass_target(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Sco2CspUdPcTables_SystemDesign_T_bypass_target_nget, self->data_ptr);
+}
+
+static int
+SystemDesign_set_T_bypass_target(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_Sco2CspUdPcTables_SystemDesign_T_bypass_target_nset, self->data_ptr);
+}
+
+static PyObject *
 SystemDesign_get_T_htf_hot_des(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_Sco2CspUdPcTables_SystemDesign_T_htf_hot_des_nget, self->data_ptr);
@@ -99,6 +111,18 @@ static int
 SystemDesign_set_T_htf_hot_des(VarGroupObject *self, PyObject *value, void *closure)
 {
 	return PySAM_double_setter(value, SAM_Sco2CspUdPcTables_SystemDesign_T_htf_hot_des_nset, self->data_ptr);
+}
+
+static PyObject *
+SystemDesign_get_T_target_is_HTF(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Sco2CspUdPcTables_SystemDesign_T_target_is_HTF_nget, self->data_ptr);
+}
+
+static int
+SystemDesign_set_T_target_is_HTF(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_Sco2CspUdPcTables_SystemDesign_T_target_is_HTF_nset, self->data_ptr);
 }
 
 static PyObject *
@@ -138,6 +162,18 @@ SystemDesign_set_dT_mc_approach(VarGroupObject *self, PyObject *value, void *clo
 }
 
 static PyObject *
+SystemDesign_get_deltaT_bypass(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Sco2CspUdPcTables_SystemDesign_deltaT_bypass_nget, self->data_ptr);
+}
+
+static int
+SystemDesign_set_deltaT_bypass(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_Sco2CspUdPcTables_SystemDesign_deltaT_bypass_nset, self->data_ptr);
+}
+
+static PyObject *
 SystemDesign_get_design_method(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_Sco2CspUdPcTables_SystemDesign_design_method_nget, self->data_ptr);
@@ -147,6 +183,18 @@ static int
 SystemDesign_set_design_method(VarGroupObject *self, PyObject *value, void *closure)
 {
 	return PySAM_double_setter(value, SAM_Sco2CspUdPcTables_SystemDesign_design_method_nset, self->data_ptr);
+}
+
+static PyObject *
+SystemDesign_get_eta_thermal_cutoff(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Sco2CspUdPcTables_SystemDesign_eta_thermal_cutoff_nget, self->data_ptr);
+}
+
+static int
+SystemDesign_set_eta_thermal_cutoff(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_Sco2CspUdPcTables_SystemDesign_eta_thermal_cutoff_nset, self->data_ptr);
 }
 
 static PyObject *
@@ -186,6 +234,30 @@ SystemDesign_set_htf_props(VarGroupObject *self, PyObject *value, void *closure)
 }
 
 static PyObject *
+SystemDesign_get_is_bypass_ok(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Sco2CspUdPcTables_SystemDesign_is_bypass_ok_nget, self->data_ptr);
+}
+
+static int
+SystemDesign_set_is_bypass_ok(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_Sco2CspUdPcTables_SystemDesign_is_bypass_ok_nset, self->data_ptr);
+}
+
+static PyObject *
+SystemDesign_get_set_HTF_mdot(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Sco2CspUdPcTables_SystemDesign_set_HTF_mdot_nget, self->data_ptr);
+}
+
+static int
+SystemDesign_set_set_HTF_mdot(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_Sco2CspUdPcTables_SystemDesign_set_HTF_mdot_nset, self->data_ptr);
+}
+
+static PyObject *
 SystemDesign_get_site_elevation(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_Sco2CspUdPcTables_SystemDesign_site_elevation_nget, self->data_ptr);
@@ -197,12 +269,30 @@ SystemDesign_set_site_elevation(VarGroupObject *self, PyObject *value, void *clo
 	return PySAM_double_setter(value, SAM_Sco2CspUdPcTables_SystemDesign_site_elevation_nset, self->data_ptr);
 }
 
+static PyObject *
+SystemDesign_get_yr_inflation(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Sco2CspUdPcTables_SystemDesign_yr_inflation_nget, self->data_ptr);
+}
+
+static int
+SystemDesign_set_yr_inflation(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_Sco2CspUdPcTables_SystemDesign_yr_inflation_nset, self->data_ptr);
+}
+
 static PyGetSetDef SystemDesign_getset[] = {
 {"T_amb_des", (getter)SystemDesign_get_T_amb_des,(setter)SystemDesign_set_T_amb_des,
 	PyDoc_STR("*float*: Ambient temperature [C]\n\n**Required:**\nTrue"),
  	NULL},
+{"T_bypass_target", (getter)SystemDesign_get_T_bypass_target,(setter)SystemDesign_set_T_bypass_target,
+	PyDoc_STR("*float*: HTR BP Cycle Target Temperature [C]\n\n**Required:**\nRequired if cycle_config=3"),
+ 	NULL},
 {"T_htf_hot_des", (getter)SystemDesign_get_T_htf_hot_des,(setter)SystemDesign_set_T_htf_hot_des,
 	PyDoc_STR("*float*: HTF design hot temperature (PHX inlet) [C]\n\n**Required:**\nTrue"),
+ 	NULL},
+{"T_target_is_HTF", (getter)SystemDesign_get_T_target_is_HTF,(setter)SystemDesign_set_T_target_is_HTF,
+	PyDoc_STR("*float*: Target Temperature is HTF (1) or cold sco2 at BP\n\n**Required:**\nFalse. Automatically set to 1 if not assigned explicitly or loaded from defaults."),
  	NULL},
 {"W_dot_net_des", (getter)SystemDesign_get_W_dot_net_des,(setter)SystemDesign_set_W_dot_net_des,
 	PyDoc_STR("*float*: Design cycle power output (no cooling parasitics) [MWe]\n\n**Required:**\nTrue"),
@@ -213,8 +303,14 @@ static PyGetSetDef SystemDesign_getset[] = {
 {"dT_mc_approach", (getter)SystemDesign_get_dT_mc_approach,(setter)SystemDesign_set_dT_mc_approach,
 	PyDoc_STR("*float*: Temp diff btw ambient air and main compressor inlet [C]\n\n**Required:**\nTrue"),
  	NULL},
+{"deltaT_bypass", (getter)SystemDesign_get_deltaT_bypass,(setter)SystemDesign_set_deltaT_bypass,
+	PyDoc_STR("*float*: sco2 Bypass Outlet Temp - HTR_HP_OUT Temp [C]\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
 {"design_method", (getter)SystemDesign_get_design_method,(setter)SystemDesign_set_design_method,
 	PyDoc_STR("*float*: 1 = Specify efficiency, 2 = Specify total recup UA, 3 = Specify each recup design\n\n**Required:**\nTrue"),
+ 	NULL},
+{"eta_thermal_cutoff", (getter)SystemDesign_get_eta_thermal_cutoff,(setter)SystemDesign_set_eta_thermal_cutoff,
+	PyDoc_STR("*float*: Minimum eta allowable to solve and return cmod success\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
  	NULL},
 {"eta_thermal_des", (getter)SystemDesign_get_eta_thermal_des,(setter)SystemDesign_set_eta_thermal_des,
 	PyDoc_STR("*float*: Power cycle thermal efficiency\n\n**Required:**\nRequired if design_method=1"),
@@ -225,8 +321,17 @@ static PyGetSetDef SystemDesign_getset[] = {
 {"htf_props", (getter)SystemDesign_get_htf_props,(setter)SystemDesign_set_htf_props,
 	PyDoc_STR("*sequence[sequence]*: User defined HTF property data\n\n**Info:**\n7 columns (T,Cp,dens,visc,kvisc,cond,h), at least 3 rows\n\n**Required:**\nFalse. Automatically set to [[0]] if not assigned explicitly or loaded from defaults."),
  	NULL},
+{"is_bypass_ok", (getter)SystemDesign_get_is_bypass_ok,(setter)SystemDesign_set_is_bypass_ok,
+	PyDoc_STR("*float*: 1 = Yes, 0 = No Bypass, < 0 = fix bp_frac to abs(input)\n\n**Required:**\nFalse. Automatically set to 1 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+{"set_HTF_mdot", (getter)SystemDesign_get_set_HTF_mdot,(setter)SystemDesign_set_set_HTF_mdot,
+	PyDoc_STR("*float*: For HTR Bypass ONLY, 0 = calculate HTF mdot (need to set dT_PHX_cold_approach), > 0 = HTF mdot kg/s [kg/s]\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
 {"site_elevation", (getter)SystemDesign_get_site_elevation,(setter)SystemDesign_set_site_elevation,
 	PyDoc_STR("*float*: Site elevation [m]\n\n**Required:**\nTrue"),
+ 	NULL},
+{"yr_inflation", (getter)SystemDesign_get_yr_inflation,(setter)SystemDesign_set_yr_inflation,
+	PyDoc_STR("*float*: Inflation target year [yr]\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
  	NULL},
 	{NULL}  /* Sentinel */
 };
@@ -732,7 +837,7 @@ static PyGetSetDef HeatExchangerDesign_getset[] = {
 	PyDoc_STR("*float*: Total recuperator conductance [kW/K]\n\n**Info:**\nCombined recuperator design\n\n**Required:**\nRequired if design_method=2"),
  	NULL},
 {"cycle_config", (getter)HeatExchangerDesign_get_cycle_config,(setter)HeatExchangerDesign_set_cycle_config,
-	PyDoc_STR("*float*: 1 = recompression, 2 = partial cooling\n\n**Info:**\nHigh temperature recuperator\n\n**Required:**\nFalse. Automatically set to 1 if not assigned explicitly or loaded from defaults."),
+	PyDoc_STR("*float*: 1 = recompression, 2 = partial cooling, 3 = recomp with htr bypass, 4 = turbine split flow\n\n**Info:**\nHigh temperature recuperator\n\n**Required:**\nFalse. Automatically set to 1 if not assigned explicitly or loaded from defaults."),
  	NULL},
 {"des_objective", (getter)HeatExchangerDesign_get_des_objective,(setter)HeatExchangerDesign_set_des_objective,
 	PyDoc_STR("*float*: [2] = hit min phx deltat then max eta, [else] max eta\n\n**Info:**\nHigh temperature recuperator\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
@@ -1009,6 +1114,18 @@ Common_set_eta_isen_t(VarGroupObject *self, PyObject *value, void *closure)
 }
 
 static PyObject *
+Common_get_eta_isen_t2(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Common_eta_isen_t2_nget, self->data_ptr);
+}
+
+static int
+Common_set_eta_isen_t2(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_Sco2CspUdPcTables_Common_eta_isen_t2_nset, self->data_ptr);
+}
+
+static PyObject *
 Common_get_is_apply_default_htf_mins(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Common_is_apply_default_htf_mins_nget, self->data_ptr);
@@ -1030,6 +1147,18 @@ static int
 Common_set_is_generate_udpc(VarGroupObject *self, PyObject *value, void *closure)
 {
 	return PySAM_double_setter(value, SAM_Sco2CspUdPcTables_Common_is_generate_udpc_nset, self->data_ptr);
+}
+
+static PyObject *
+Common_get_is_turbine_split_ok(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Common_is_turbine_split_ok_nget, self->data_ptr);
+}
+
+static int
+Common_set_is_turbine_split_ok(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_Sco2CspUdPcTables_Common_is_turbine_split_ok_nset, self->data_ptr);
 }
 
 static PyObject *
@@ -1138,11 +1267,17 @@ static PyGetSetDef Common_getset[] = {
 {"eta_isen_t", (getter)Common_get_eta_isen_t,(setter)Common_set_eta_isen_t,
 	PyDoc_STR("*float*: Design turbine isentropic efficiency [-]\n\n**Required:**\nTrue"),
  	NULL},
+{"eta_isen_t2", (getter)Common_get_eta_isen_t2,(setter)Common_set_eta_isen_t2,
+	PyDoc_STR("*float*: Design secondary turbine isentropic efficiency (TSF only) [-]\n\n**Required:**\nRequired if cycle_config=4"),
+ 	NULL},
 {"is_apply_default_htf_mins", (getter)Common_get_is_apply_default_htf_mins,(setter)Common_set_is_apply_default_htf_mins,
 	PyDoc_STR("*float*: 1 = yes (0.5 rc, 0.7 simple), 0 = no, only use 'm_dot_htf_ND_low'\n\n**Required:**\nFalse. Automatically set to 1 if not assigned explicitly or loaded from defaults."),
  	NULL},
 {"is_generate_udpc", (getter)Common_get_is_generate_udpc,(setter)Common_set_is_generate_udpc,
 	PyDoc_STR("*float*: 1 = generate udpc tables, 0 = only calculate design point cyle\n\n**Required:**\nFalse. Automatically set to 1 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+{"is_turbine_split_ok", (getter)Common_get_is_turbine_split_ok,(setter)Common_set_is_turbine_split_ok,
+	PyDoc_STR("*float*: 1 = Yes, 0 = No Second Turbine, < 0 = fix split_frac to abs(input)\n\n**Required:**\nFalse. Automatically set to 1 if not assigned explicitly or loaded from defaults."),
  	NULL},
 {"m_dot_htf_ND_high", (getter)Common_get_m_dot_htf_ND_high,(setter)Common_set_m_dot_htf_ND_high,
 	PyDoc_STR("*float*: Upper level of normalized HTF mass flow rate\n\n**INOUT:** This variable is both an input and an output to the compute module."),
@@ -1648,6 +1783,36 @@ static PyMethodDef Outputs_methods[] = {
 };
 
 static PyObject *
+Outputs_get_BPX_co2_deltaP_des(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_BPX_co2_deltaP_des_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_BPX_cost_bare_erected(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_BPX_cost_bare_erected_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_BPX_cost_equipment(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_BPX_cost_equipment_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_BPX_m_dot(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_BPX_m_dot_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_BPX_min_dT(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_BPX_min_dT_nget, self->data_ptr);
+}
+
+static PyObject *
 Outputs_get_HTR_HP_T_in_des(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_HTR_HP_T_in_des_nget, self->data_ptr);
@@ -1657,6 +1822,12 @@ static PyObject *
 Outputs_get_HTR_HP_deltaP_des(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_HTR_HP_deltaP_des_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_HTR_HP_m_dot(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_HTR_HP_m_dot_nget, self->data_ptr);
 }
 
 static PyObject *
@@ -1750,6 +1921,12 @@ Outputs_get_LTR_min_dT(VarGroupObject *self, void *closure)
 }
 
 static PyObject *
+Outputs_get_NTU_BPX(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_NTU_BPX_nget, self->data_ptr);
+}
+
+static PyObject *
 Outputs_get_NTU_HTR(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_NTU_HTR_nget, self->data_ptr);
@@ -1789,6 +1966,12 @@ static PyObject *
 Outputs_get_PHX_min_dT(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_PHX_min_dT_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_P_co2_BPX_in(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_P_co2_BPX_in_nget, self->data_ptr);
 }
 
 static PyObject *
@@ -1834,6 +2017,12 @@ Outputs_get_P_state_points(VarGroupObject *self, void *closure)
 }
 
 static PyObject *
+Outputs_get_P_t2_data(VarGroupObject *self, void *closure)
+{
+	return PySAM_array_getter(SAM_Sco2CspUdPcTables_Outputs_P_t2_data_aget, self->data_ptr);
+}
+
+static PyObject *
 Outputs_get_P_t_data(VarGroupObject *self, void *closure)
 {
 	return PySAM_array_getter(SAM_Sco2CspUdPcTables_Outputs_P_t_data_aget, self->data_ptr);
@@ -1876,6 +2065,12 @@ Outputs_get_T_amb_ind(VarGroupObject *self, void *closure)
 }
 
 static PyObject *
+Outputs_get_T_co2_BPX_in(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_T_co2_BPX_in_nget, self->data_ptr);
+}
+
+static PyObject *
 Outputs_get_T_co2_PHX_in(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_T_co2_PHX_in_nget, self->data_ptr);
@@ -1888,6 +2083,12 @@ Outputs_get_T_comp_in(VarGroupObject *self, void *closure)
 }
 
 static PyObject *
+Outputs_get_T_htf_bp_out_des(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_T_htf_bp_out_des_nget, self->data_ptr);
+}
+
+static PyObject *
 Outputs_get_T_htf_cold_des(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_T_htf_cold_des_nget, self->data_ptr);
@@ -1897,6 +2098,12 @@ static PyObject *
 Outputs_get_T_htf_ind(VarGroupObject *self, void *closure)
 {
 	return PySAM_matrix_getter(SAM_Sco2CspUdPcTables_Outputs_T_htf_ind_mget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_T_htf_phx_out_des(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_T_htf_phx_out_des_nget, self->data_ptr);
 }
 
 static PyObject *
@@ -1918,9 +2125,21 @@ Outputs_get_T_state_points(VarGroupObject *self, void *closure)
 }
 
 static PyObject *
+Outputs_get_T_turb2_in(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_T_turb2_in_nget, self->data_ptr);
+}
+
+static PyObject *
 Outputs_get_T_turb_in(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_T_turb_in_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_UA_BPX(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_UA_BPX_nget, self->data_ptr);
 }
 
 static PyObject *
@@ -1933,6 +2152,18 @@ static PyObject *
 Outputs_get_W_dot_net_less_cooling(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_W_dot_net_less_cooling_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_back_work_ratio(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_back_work_ratio_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_bypass_frac(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_bypass_frac_nget, self->data_ptr);
 }
 
 static PyObject *
@@ -1990,9 +2221,33 @@ Outputs_get_cycle_spec_cost_thermal(VarGroupObject *self, void *closure)
 }
 
 static PyObject *
+Outputs_get_cycle_success(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_cycle_success_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_dT_htf_des(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_dT_htf_des_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_deltaT_HTF_BPX(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_deltaT_HTF_BPX_nget, self->data_ptr);
+}
+
+static PyObject *
 Outputs_get_deltaT_HTF_PHX(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_deltaT_HTF_PHX_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_eff_BPX(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_eff_BPX_nget, self->data_ptr);
 }
 
 static PyObject *
@@ -2011,6 +2266,18 @@ static PyObject *
 Outputs_get_eff_PHX(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_eff_PHX_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_error_int(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_error_int_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_error_msg(VarGroupObject *self, void *closure)
+{
+	return PySAM_string_getter(SAM_Sco2CspUdPcTables_Outputs_error_msg_sget, self->data_ptr);
 }
 
 static PyObject *
@@ -2047,6 +2314,12 @@ static PyObject *
 Outputs_get_h_state_points(VarGroupObject *self, void *closure)
 {
 	return PySAM_array_getter(SAM_Sco2CspUdPcTables_Outputs_h_state_points_aget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_h_t2_data(VarGroupObject *self, void *closure)
+{
+	return PySAM_array_getter(SAM_Sco2CspUdPcTables_Outputs_h_t2_data_aget, self->data_ptr);
 }
 
 static PyObject *
@@ -2380,6 +2653,12 @@ Outputs_get_piping_inventory_etc_cost(VarGroupObject *self, void *closure)
 }
 
 static PyObject *
+Outputs_get_q_dot_BPX(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_q_dot_BPX_nget, self->data_ptr);
+}
+
+static PyObject *
 Outputs_get_q_dot_HTR(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_q_dot_HTR_nget, self->data_ptr);
@@ -2395,6 +2674,12 @@ static PyObject *
 Outputs_get_q_dot_PHX(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_q_dot_PHX_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_q_dot_in_total(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_q_dot_in_total_nget, self->data_ptr);
 }
 
 static PyObject *
@@ -2584,6 +2869,84 @@ Outputs_get_s_state_points(VarGroupObject *self, void *closure)
 }
 
 static PyObject *
+Outputs_get_t2_D(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_t2_D_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_t2_N_des(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_t2_N_des_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_t2_P_in_des(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_t2_P_in_des_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_t2_P_out_des(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_t2_P_out_des_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_t2_T_out_des(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_t2_T_out_des_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_t2_W_dot(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_t2_W_dot_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_t2_cost_bare_erected(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_t2_cost_bare_erected_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_t2_cost_equipment(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_t2_cost_equipment_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_t2_delta_h_isen_des(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_t2_delta_h_isen_des_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_t2_m_dot_des(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_t2_m_dot_des_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_t2_nu_des(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_t2_nu_des_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_t2_rho_in_des(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_t2_rho_in_des_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_t2_tip_ratio_des(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_t2_tip_ratio_des_nget, self->data_ptr);
+}
+
+static PyObject *
 Outputs_get_t_D(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_t_D_nget, self->data_ptr);
@@ -2661,12 +3024,48 @@ Outputs_get_t_tip_ratio_des(VarGroupObject *self, void *closure)
 	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_t_tip_ratio_des_nget, self->data_ptr);
 }
 
+static PyObject *
+Outputs_get_t_tot_W_dot(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_t_tot_W_dot_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_t_tot_cost_equip(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_t_tot_cost_equip_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_turbine_split_frac(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Sco2CspUdPcTables_Outputs_turbine_split_frac_nget, self->data_ptr);
+}
+
 static PyGetSetDef Outputs_getset[] = {
+{"BPX_co2_deltaP_des", (getter)Outputs_get_BPX_co2_deltaP_des,(setter)0,
+	PyDoc_STR("*float*: BPX co2 side design pressure drop [-]"),
+ 	NULL},
+{"BPX_cost_bare_erected", (getter)Outputs_get_BPX_cost_bare_erected,(setter)0,
+	PyDoc_STR("*float*: BPX cost equipment and install [M$]"),
+ 	NULL},
+{"BPX_cost_equipment", (getter)Outputs_get_BPX_cost_equipment,(setter)0,
+	PyDoc_STR("*float*: BPX cost equipment [M$]"),
+ 	NULL},
+{"BPX_m_dot", (getter)Outputs_get_BPX_m_dot,(setter)0,
+	PyDoc_STR("*float*: BPX sco2 mass flow rate [kg/s]"),
+ 	NULL},
+{"BPX_min_dT", (getter)Outputs_get_BPX_min_dT,(setter)0,
+	PyDoc_STR("*float*: BPX min temperature difference [C]"),
+ 	NULL},
 {"HTR_HP_T_in_des", (getter)Outputs_get_HTR_HP_T_in_des,(setter)0,
 	PyDoc_STR("*float*: High temp recuperator HP inlet temperature [C]"),
  	NULL},
 {"HTR_HP_deltaP_des", (getter)Outputs_get_HTR_HP_deltaP_des,(setter)0,
 	PyDoc_STR("*float*: High temp recuperator high pressure design pressure drop [-]"),
+ 	NULL},
+{"HTR_HP_m_dot", (getter)Outputs_get_HTR_HP_m_dot,(setter)0,
+	PyDoc_STR("*float*: High temp recuperator high pressure mass flow rate [kg/s]"),
  	NULL},
 {"HTR_LP_T_out_des", (getter)Outputs_get_HTR_LP_T_out_des,(setter)0,
 	PyDoc_STR("*float*: High temp recuperator LP outlet temperature [C]"),
@@ -2713,6 +3112,9 @@ static PyGetSetDef Outputs_getset[] = {
 {"LTR_min_dT", (getter)Outputs_get_LTR_min_dT,(setter)0,
 	PyDoc_STR("*float*: Low temp recuperator min temperature difference [C]"),
  	NULL},
+{"NTU_BPX", (getter)Outputs_get_NTU_BPX,(setter)0,
+	PyDoc_STR("*float*: BPX NTU"),
+ 	NULL},
 {"NTU_HTR", (getter)Outputs_get_NTU_HTR,(setter)0,
 	PyDoc_STR("*float*: High temp recuperator NTRU"),
  	NULL},
@@ -2733,6 +3135,9 @@ static PyGetSetDef Outputs_getset[] = {
  	NULL},
 {"PHX_min_dT", (getter)Outputs_get_PHX_min_dT,(setter)0,
 	PyDoc_STR("*float*: PHX min temperature difference [C]"),
+ 	NULL},
+{"P_co2_BPX_in", (getter)Outputs_get_P_co2_BPX_in,(setter)0,
+	PyDoc_STR("*float*: CO2 pressure at BPX inlet [MPa]"),
  	NULL},
 {"P_co2_PHX_in", (getter)Outputs_get_P_co2_PHX_in,(setter)0,
 	PyDoc_STR("*float*: CO2 pressure at PHX inlet [MPa]"),
@@ -2755,6 +3160,9 @@ static PyGetSetDef Outputs_getset[] = {
 {"P_state_points", (getter)Outputs_get_P_state_points,(setter)0,
 	PyDoc_STR("*sequence*: Cycle pressure state points [MPa]"),
  	NULL},
+{"P_t2_data", (getter)Outputs_get_P_t2_data,(setter)0,
+	PyDoc_STR("*sequence*: Pressure points along secondary turbine expansion [MPa]"),
+ 	NULL},
 {"P_t_data", (getter)Outputs_get_P_t_data,(setter)0,
 	PyDoc_STR("*sequence*: Pressure points along turbine expansion [MPa]"),
  	NULL},
@@ -2776,17 +3184,26 @@ static PyGetSetDef Outputs_getset[] = {
 {"T_amb_ind", (getter)Outputs_get_T_amb_ind,(setter)0,
 	PyDoc_STR("*sequence[sequence]*: Parametric of ambient temp w/ HTF temp levels"),
  	NULL},
+{"T_co2_BPX_in", (getter)Outputs_get_T_co2_BPX_in,(setter)0,
+	PyDoc_STR("*float*: CO2 temperature at BPX inlet [C]"),
+ 	NULL},
 {"T_co2_PHX_in", (getter)Outputs_get_T_co2_PHX_in,(setter)0,
 	PyDoc_STR("*float*: CO2 temperature at PHX inlet [C]"),
  	NULL},
 {"T_comp_in", (getter)Outputs_get_T_comp_in,(setter)0,
 	PyDoc_STR("*float*: Compressor inlet temperature [C]"),
  	NULL},
+{"T_htf_bp_out_des", (getter)Outputs_get_T_htf_bp_out_des,(setter)0,
+	PyDoc_STR("*float*: HTF design htr bypass cold temperature (BPX outlet) [C]"),
+ 	NULL},
 {"T_htf_cold_des", (getter)Outputs_get_T_htf_cold_des,(setter)0,
-	PyDoc_STR("*float*: HTF design cold temperature (PHX outlet) [C]"),
+	PyDoc_STR("*float*: HTF design cold temperature (HTF outlet) [C]"),
  	NULL},
 {"T_htf_ind", (getter)Outputs_get_T_htf_ind,(setter)0,
 	PyDoc_STR("*sequence[sequence]*: Parametric of HTF temperature w/ ND HTF mass flow rate levels"),
+ 	NULL},
+{"T_htf_phx_out_des", (getter)Outputs_get_T_htf_phx_out_des,(setter)0,
+	PyDoc_STR("*float*: HTF design phx cold temperature (PHX outlet) [C]"),
  	NULL},
 {"T_main_cooler_data", (getter)Outputs_get_T_main_cooler_data,(setter)0,
 	PyDoc_STR("*sequence*: Temperature points along main cooler stream [C]"),
@@ -2797,14 +3214,26 @@ static PyGetSetDef Outputs_getset[] = {
 {"T_state_points", (getter)Outputs_get_T_state_points,(setter)0,
 	PyDoc_STR("*sequence*: Cycle temperature state points [C]"),
  	NULL},
+{"T_turb2_in", (getter)Outputs_get_T_turb2_in,(setter)0,
+	PyDoc_STR("*float*: Secondary Turbine inlet temperature [C]"),
+ 	NULL},
 {"T_turb_in", (getter)Outputs_get_T_turb_in,(setter)0,
 	PyDoc_STR("*float*: Turbine inlet temperature [C]"),
+ 	NULL},
+{"UA_BPX", (getter)Outputs_get_UA_BPX,(setter)0,
+	PyDoc_STR("*float*: BPX Conductance [MW/K]"),
  	NULL},
 {"UA_PHX", (getter)Outputs_get_UA_PHX,(setter)0,
 	PyDoc_STR("*float*: PHX Conductance [MW/K]"),
  	NULL},
 {"W_dot_net_less_cooling", (getter)Outputs_get_W_dot_net_less_cooling,(setter)0,
 	PyDoc_STR("*float*: System power output subtracting cooling parastics [MWe,System Design Solution]"),
+ 	NULL},
+{"back_work_ratio", (getter)Outputs_get_back_work_ratio,(setter)0,
+	PyDoc_STR("*float*: Back work ratio"),
+ 	NULL},
+{"bypass_frac", (getter)Outputs_get_bypass_frac,(setter)0,
+	PyDoc_STR("*float*: Bypass fraction [-]"),
  	NULL},
 {"c_tot_W_dot", (getter)Outputs_get_c_tot_W_dot,(setter)0,
 	PyDoc_STR("*float*: Compressor total summed power [MWe]"),
@@ -2833,8 +3262,20 @@ static PyGetSetDef Outputs_getset[] = {
 {"cycle_spec_cost_thermal", (getter)Outputs_get_cycle_spec_cost_thermal,(setter)0,
 	PyDoc_STR("*float*: Cycle specific (thermal) cost bare erected [$/kWt]"),
  	NULL},
+{"cycle_success", (getter)Outputs_get_cycle_success,(setter)0,
+	PyDoc_STR("*float*"),
+ 	NULL},
+{"dT_htf_des", (getter)Outputs_get_dT_htf_des,(setter)0,
+	PyDoc_STR("*float*: HTF temperature difference [C]"),
+ 	NULL},
+{"deltaT_HTF_BPX", (getter)Outputs_get_deltaT_HTF_BPX,(setter)0,
+	PyDoc_STR("*float*: HTF temp difference across BPX [C]"),
+ 	NULL},
 {"deltaT_HTF_PHX", (getter)Outputs_get_deltaT_HTF_PHX,(setter)0,
 	PyDoc_STR("*float*: HTF temp difference across PHX [C]"),
+ 	NULL},
+{"eff_BPX", (getter)Outputs_get_eff_BPX,(setter)0,
+	PyDoc_STR("*float*: BPX effectiveness"),
  	NULL},
 {"eff_HTR", (getter)Outputs_get_eff_HTR,(setter)0,
 	PyDoc_STR("*float*: High temp recuperator effectiveness"),
@@ -2844,6 +3285,12 @@ static PyGetSetDef Outputs_getset[] = {
  	NULL},
 {"eff_PHX", (getter)Outputs_get_eff_PHX,(setter)0,
 	PyDoc_STR("*float*: PHX effectiveness"),
+ 	NULL},
+{"error_int", (getter)Outputs_get_error_int,(setter)0,
+	PyDoc_STR("*float*"),
+ 	NULL},
+{"error_msg", (getter)Outputs_get_error_msg,(setter)0,
+	PyDoc_STR("*str*"),
  	NULL},
 {"eta_thermal_calc", (getter)Outputs_get_eta_thermal_calc,(setter)0,
 	PyDoc_STR("*float*: Calculated cycle thermal efficiency [-]"),
@@ -2862,6 +3309,9 @@ static PyGetSetDef Outputs_getset[] = {
  	NULL},
 {"h_state_points", (getter)Outputs_get_h_state_points,(setter)0,
 	PyDoc_STR("*sequence*: Cycle enthalpy state points [kJ/kg]"),
+ 	NULL},
+{"h_t2_data", (getter)Outputs_get_h_t2_data,(setter)0,
+	PyDoc_STR("*sequence*: Enthalpy points along secondary turbine expansion [kJ/kg]"),
  	NULL},
 {"h_t_data", (getter)Outputs_get_h_t_data,(setter)0,
 	PyDoc_STR("*sequence*: Enthalpy points along turbine expansion [kJ/kg]"),
@@ -3028,6 +3478,9 @@ static PyGetSetDef Outputs_getset[] = {
 {"piping_inventory_etc_cost", (getter)Outputs_get_piping_inventory_etc_cost,(setter)0,
 	PyDoc_STR("*float*: Cost of remaining cycle equipment on BEC basis [M$]"),
  	NULL},
+{"q_dot_BPX", (getter)Outputs_get_q_dot_BPX,(setter)0,
+	PyDoc_STR("*float*: BPX heat transfer [MWt]"),
+ 	NULL},
 {"q_dot_HTR", (getter)Outputs_get_q_dot_HTR,(setter)0,
 	PyDoc_STR("*float*: High temp recuperator heat transfer [MWt]"),
  	NULL},
@@ -3036,6 +3489,9 @@ static PyGetSetDef Outputs_getset[] = {
  	NULL},
 {"q_dot_PHX", (getter)Outputs_get_q_dot_PHX,(setter)0,
 	PyDoc_STR("*float*: PHX heat transfer [MWt]"),
+ 	NULL},
+{"q_dot_in_total", (getter)Outputs_get_q_dot_in_total,(setter)0,
+	PyDoc_STR("*float*: Total heat from HTF into cycle [MW]"),
  	NULL},
 {"rc_D", (getter)Outputs_get_rc_D,(setter)0,
 	PyDoc_STR("*sequence*: Recompressor stage diameters [m]"),
@@ -3130,6 +3586,45 @@ static PyGetSetDef Outputs_getset[] = {
 {"s_state_points", (getter)Outputs_get_s_state_points,(setter)0,
 	PyDoc_STR("*sequence*: Cycle entropy state points [kJ/kg-K]"),
  	NULL},
+{"t2_D", (getter)Outputs_get_t2_D,(setter)0,
+	PyDoc_STR("*float*: Secondary Turbine diameter [m]"),
+ 	NULL},
+{"t2_N_des", (getter)Outputs_get_t2_N_des,(setter)0,
+	PyDoc_STR("*float*: Secondary Turbine design shaft speed [rpm]"),
+ 	NULL},
+{"t2_P_in_des", (getter)Outputs_get_t2_P_in_des,(setter)0,
+	PyDoc_STR("*float*: Secondary Turbine design inlet pressure [MPa]"),
+ 	NULL},
+{"t2_P_out_des", (getter)Outputs_get_t2_P_out_des,(setter)0,
+	PyDoc_STR("*float*: Secondary Turbine design outlet pressure [MPa]"),
+ 	NULL},
+{"t2_T_out_des", (getter)Outputs_get_t2_T_out_des,(setter)0,
+	PyDoc_STR("*float*: Secondary Turbine outlet temperature [C]"),
+ 	NULL},
+{"t2_W_dot", (getter)Outputs_get_t2_W_dot,(setter)0,
+	PyDoc_STR("*float*: Secondary Turbine power [MWe]"),
+ 	NULL},
+{"t2_cost_bare_erected", (getter)Outputs_get_t2_cost_bare_erected,(setter)0,
+	PyDoc_STR("*float*: Secondary Tubine cost - equipment plus install [M$]"),
+ 	NULL},
+{"t2_cost_equipment", (getter)Outputs_get_t2_cost_equipment,(setter)0,
+	PyDoc_STR("*float*: Secondary Tubine cost - equipment [M$]"),
+ 	NULL},
+{"t2_delta_h_isen_des", (getter)Outputs_get_t2_delta_h_isen_des,(setter)0,
+	PyDoc_STR("*float*: Secondary Turbine isentropic specific work [kJ/kg]"),
+ 	NULL},
+{"t2_m_dot_des", (getter)Outputs_get_t2_m_dot_des,(setter)0,
+	PyDoc_STR("*float*: Secondary Turbine mass flow rate [kg/s]"),
+ 	NULL},
+{"t2_nu_des", (getter)Outputs_get_t2_nu_des,(setter)0,
+	PyDoc_STR("*float*: Secondary Turbine design velocity ratio"),
+ 	NULL},
+{"t2_rho_in_des", (getter)Outputs_get_t2_rho_in_des,(setter)0,
+	PyDoc_STR("*float*: Secondary Turbine inlet density [kg/m3]"),
+ 	NULL},
+{"t2_tip_ratio_des", (getter)Outputs_get_t2_tip_ratio_des,(setter)0,
+	PyDoc_STR("*float*: Secondary Turbine design tip speed ratio"),
+ 	NULL},
 {"t_D", (getter)Outputs_get_t_D,(setter)0,
 	PyDoc_STR("*float*: Turbine diameter [m]"),
  	NULL},
@@ -3168,6 +3663,15 @@ static PyGetSetDef Outputs_getset[] = {
  	NULL},
 {"t_tip_ratio_des", (getter)Outputs_get_t_tip_ratio_des,(setter)0,
 	PyDoc_STR("*float*: Turbine design tip speed ratio"),
+ 	NULL},
+{"t_tot_W_dot", (getter)Outputs_get_t_tot_W_dot,(setter)0,
+	PyDoc_STR("*float*: Turbine total summed power [MWe]"),
+ 	NULL},
+{"t_tot_cost_equip", (getter)Outputs_get_t_tot_cost_equip,(setter)0,
+	PyDoc_STR("*float*: Turbine total cost [M$]"),
+ 	NULL},
+{"turbine_split_frac", (getter)Outputs_get_turbine_split_frac,(setter)0,
+	PyDoc_STR("*float*: Turbine Split Fraction Solved"),
  	NULL},
 	{NULL}  /* Sentinel */
 };
