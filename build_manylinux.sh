@@ -35,8 +35,10 @@ do
    yes | /opt/python/$PYTHONENV/bin/pip install auditwheel
    yes | /opt/python/$PYTHONENV/bin/pip uninstall NREL-PySAM
    /opt/python/$PYTHONENV/bin/python setup.py bdist_wheel || exit
-   auditwheel repair dist/nrel_pysam-*-$PYTHONENV-*linux*.whl -w dist/
-   yes | /opt/python/$PYTHONENV/bin/pip install dist/nrel-pysam-*-$PYTHONENV-*linux*.whl
+   WHEEL=$(ls dist/nrel_pysam-*-$PYTHONENV-*linux*.whl)
+   auditwheel repair "$WHEEL" -w dist/wheelhouse/
+   REPAIRED_WHEEL=$(ls dist/wheelhouse/nrel_pysam-*-$PYTHONENV-*linux*.whl)
+   yes | /opt/python/$PYTHONENV/bin/pip install "$REPAIRED_WHEEL"
    /opt/python/$PYTHONENV/bin/python -m pytest -s tests/test_dispatch_optimization.py
    retVal=$?
    if [ $retVal -ne 0 ]; then
