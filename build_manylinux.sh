@@ -7,13 +7,15 @@ export PYSAMDIR=/io/pysam
 if [ "$(uname -m)" = "aarch64" ]; then
     ORTOOLS=or-tools_aarch64_AlmaLinux-8.10_cpp_v9.14.6206
 else
-    ORTOOLS=or-tools_amd64_almalinux-9_cpp_v9.14.6206
+    ORTOOLS=or-tools_x86_64_AlmaLinux-8.10_cpp_v9.14.6206
+    export CC=gcc
+    export CXX=g++
 fi
 
 export ORTOOLSDIR=/${ORTOOLS}
-
-curl -L https://github.com/google/or-tools/releases/download/v9.14/${ORTOOLS}.tar.gz -o ${ORTOOLS}
-tar xvzf ${ORTOOLS}
+mkdir ${ORTOOLSDIR}
+curl -L https://github.com/google/or-tools/releases/download/v9.14/${ORTOOLS}.tar.gz -o ${ORTOOLS}.tar.gz
+tar xvzf ${ORTOOLS}.tar.gz -C ${ORTOOLSDIR} --strip-components=1
 
 mkdir -p /io/build_linux_ssc
 cd /io/build_linux_ssc

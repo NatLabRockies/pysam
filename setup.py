@@ -41,6 +41,7 @@ else:
     libs += ['ssc']
 
 if sys.platform == 'darwin':
+    os.environ['MACOSX_DEPLOYMENT_TARGET'] = '12'
     from distutils import sysconfig
     vars = sysconfig.get_config_vars()
     vars['LDSHARED'] = vars['LDSHARED'].replace('-bundle', '-dynamiclib')
@@ -214,7 +215,6 @@ setup(
     package_dir={'PySAM': 'files', 'PySAM.Hybrids': 'files/Hybrids'},
     package_data={
         '': libfiles},
-    tests_require=["pytest"],
     ext_modules=extension_modules
 )
 
