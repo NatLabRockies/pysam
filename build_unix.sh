@@ -13,7 +13,7 @@ cd ${SAMNTDIR}/../cmake-build-release || exit
 
 if [ "$(python3 -c "import platform; print(platform.processor())")" = "arm" ]
 then
-    cmake -DCMAKE_BUILD_TYPE=Release 
+    cmake -DCMAKE_BUILD_TYPE=Release \
     -DSAM_SKIP_AUTOGEN=0 -DSAMAPI_EXPORT=1 \
     -DUSE_XPRESS=0 -DUSE_COINOR=1 -DCMAKE_SYSTEM_PREFIX_PATH="$ORTOOLSDIR" \
     -Dabsl_DIR="$ORTOOLSDIR/lib/cmake/absl" -Dutf8_range_DIR="$ORTOOLSDIR/lib/cmake/utf8_range" \
