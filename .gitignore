@@ -33,3 +33,4 @@ files/defaults/
 .mypy_cache
 
 *.zip
+files/6parsolve_output
