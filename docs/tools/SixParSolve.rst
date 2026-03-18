@@ -9,6 +9,7 @@ The California Energy Commission (CEC) Performance Model uses the University of 
 The five-parameter single-diode model calculates a module's current and voltage under a range of solar resource conditions (represented by an I-V curve) using an equivalent electrical circuit whose electrical properties can be determined from a set of five reference parameters. These five parameters, in turn, are determined from standard reference condition data provided by either the module manufacturer or an independent testing laboratory, such as the Arizona State University Photovoltaic Testing Laboratory.
 
 SAM's implementation extends the model to six parameters by adding an adjustment factor (``Adj``) for temperature coefficients, allowing for more accurate modeling of module performance across varying temperature conditions.
+The model is described in DeSoto et al, 2006 "Improvement and validation of a model for photovoltaic array performance" and the implementation based on Dobos 2012 "An Improved Coefficient Calculator for the California Energy Commission 6 Parameter Photovoltaic Module Model".
 
 The SixParSolver.py script solves for six-parameter single-diode photovoltaic module model parameters using test data from the California Energy Commission (CEC) module database.
 This method is based on Pyomo and IPOPT, and is an alternative to the SSC-based :doc:`/modules/SixParsolve` PySAM module.
@@ -42,8 +43,8 @@ The solver may still return a non-exact solution, but the curves will not fit we
 In SAM, we'll still provide these approximate fits in the module library provided the error is not too large, 
 however the power production will be off. For these modules, the IPOPT solution may differ from the SSC solution.
 
-In a test with 21588 modules, 19,556 were solved by both IPOPT and SSC. 1,448 modules were solved only by IPOPT.
-In a test with 22,068 modules, 20,754 were solved by both. The ratio of the power production using the Python script vs SSC solution is shown in the below table:
+In a test with 21,598 modules, 10 had data errors. Of the remaining 21,588 modules, 21,577 were solved using PySAM.SixParSolve.
+Of the 20,754 that were solved by both PySAM.SixParSolve and SSC.6parsolve, the ratio of the power production using the Python script vs SSC solution is shown in the below table:
 
 .. list-table:: Python vs SSC Solution Comparison
    :header-rows: 1
@@ -52,45 +53,44 @@ In a test with 22,068 modules, 20,754 were solved by both. The ratio of the powe
    * - Python/SSC Ratio
      - Count
      - Percent
-   * - [0.70, 0.75)
-     - 2
-     - 0.01
-   * - [0.75, 0.80)
-     - 0
-     - 0.00
    * - [0.80, 0.85)
-     - 2
+     - 3
      - 0.01
    * - [0.85, 0.90)
-     - 16
-     - 0.08
+     - 1
+     - 0.005
    * - [0.90, 0.95)
-     - 251
-     - 1.21
-   * - [0.95, 1.00)
-     - 16,570
-     - 79.84
-   * - [1.00, 1.05)
-     - 3,380
-     - 16.29
+     - 0
+     - 0
+   * - [0.95, 0.99)
+     - 28
+     - 0.14
+   * - [0.99, 1.00)
+     - 6,773
+     - 432.63
+   * - [1.00, 1.01)
+     - 13,499
+     - 65.04
+   * - [1.01, 1.05)
+     - 9
+     - 0.04
    * - [1.05, 1.10)
-     - 515
-     - 2.48
+     - 418
+     - 2.01
    * - [1.10, 1.15)
-     - 16
+     - 17
      - 0.08
    * - [1.15, 1.20)
-     - 2
-     - 0.01
+     - 4
+     - 0.02
    * - ≥1.20
-     - 0
+     - 1
      - 0.00
    * - **All**
      - **20,754**
      - **100.00**
 
-The majority of modules (79.84%) have a ratio between 0.95 and 1.00, indicating the Python solver typically produces slightly lower power predictions than the SSC solver. 
-Nearly all modules (96.13%) fall within a 0.95-1.05 ratio range.
+The majority of modules (97.68%) have a percent between 99% and 1.01%.
 
 Requirements
 ------------
@@ -209,17 +209,16 @@ There are various configuration parameters used in the script:
 
 .. code-block:: python
 
-    plotting=False                  # Enable IV curve plotting
+    plot_output_path=None           # Set to a Path to enable IV curve plotting
     run_parallel=True               # Enable parallel processing
     num_workers=8                   # Parallel processing workers
     il_scaling=1e8                  # Scaling factor for Io parameter
     rsh_scaling=1e-3                # Scaling factor for Rsh parameter
     gamma_curve_dt=3                # Temperature interval for gamma fitting (K)
-    reduced_gamma_curve_dt=15       # An increased interval for a looser fit (K)
+    reduced_gamma_curve_dt=10       # An increased interval for a looser fit (K)
     max_iter=3000                   # Maximum IPOPT iterations
     tolerance=1e-9                  # Solver tolerance
-    infeasibility_threshold_max=0.5 # Maximum normalized error threshold
-    infeasibility_threshold_sum=0.5 # Sum of normalized errors threshold
+    infeasibility_threshold=0.5     # Maximum and sum normalized error threshold
 
 Solution Strategy
 -----------------
@@ -242,14 +241,14 @@ Pass 3: Reduced Temperature Sampling
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - For remaining unsolved modules
-- Reduces temperature sampling interval to 15K (from 3K)
+- Reduces temperature sampling interval to 10K (from 3K)
 - Fewer constraints allow more modules to converge
 - Slight reduction in accuracy for gamma_r fitting
 
 Optional: Approximate Solutions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The ``solve_bootstrapping_reduced_approx()`` function can provide approximate solutions when exact convergence fails, using the ``solve_model_best_solution()`` approach. **Use with caution** - visual inspection of IV curves is recommended.
+The ``solve_approx()`` function can provide approximate solutions when exact convergence fails, using the ``solve_model_best_solution()`` approach. **Use with caution** - visual inspection of IV curves is recommended.
 
 Validation
 ----------
@@ -261,7 +260,7 @@ Solutions are validated using normalized errors between model predictions and te
 - ``d_Vmp`` - Error in maximum power point voltage
 - ``d_Pmp`` - Error in maximum power
 
-Solutions with ``max(|errors|) > infeasibility_threshold_max`` or ``sum(|errors|) > infeasibility_threshold_sum`` are marked as infeasible.
+Solutions with ``max(|errors|) > INFEASIBILITY_THRESHOLD`` or ``sum(|errors|) > INFEASIBILITY_THRESHOLD`` are marked as infeasible.
 
 Plotting IV Curves
 ------------------
