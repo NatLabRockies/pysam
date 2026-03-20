@@ -1,6 +1,8 @@
 import json, marshal, os, shutil, subprocess
 from setuptools import setup, Extension
 import sys
+import os
+sys.path.append(os.environ["PYSAMDIR"])
 from files.version import __version__
 from pathlib import Path
 import glob
