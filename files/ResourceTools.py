@@ -315,18 +315,18 @@ class FetchResourceFiles():
         Default = 1.
 
     :param str resource_type: Name of API for NSRDB solar data.
-        Default = 'psm3-tmy' for solar, '' for wind.
-        'psm3' for 30- or 60-minute single-year file
-        'psm3-tmy' for 60-minute TMY, TGY, or TDY typical-year file
-        'psm3-5min' for 5-, 30- or 60-minute single-year file
+        Default = 'nsrdb-GOES-tmy-v4-0-0' for solar, '' for wind.
+        'nsrdb-GOES-aggregated-v4-0-0' for 30- or 60-minute single-year file
+        'nsrdb-GOES-conus-v4-0-0' for 5-, 15-, 30- or 60-minute single-year file in CONUS region
+        'nsrdb-GOES-full-disc-v4-0-0' for 10-, 30- or 60-minute single-year file in GOES satellite coverage area
+        'nsrdb-GOES-tmy-v4-0-0' for 60-minute TMY, TGY, or TDY typical-year file
         '' for WIND Toolkit
 
     :param str resource_year: Data year, changes over time so check API documentation for latest information.
         Default = 'tmy' for solar, '2014' for wind.
-        '1998' to '2019', etc. for NSRDB psm3
-        'tmy' for latest TMY file from NSRDB psm3-tmy
-        'tmy-2016' to 'tmy-2018', etc. for NSRDB psm3-tmy
-        '2018', etc. for NSRDB psm3-5min
+        '1998' to '2024' for specific year from NSRDB nsrdb-GOES-aggregated-v4-0-0
+        'tmy' for latest TMY file from NSRDB nsrdb-GOES-tmy-v4-0-0
+        'tmy-2022' to 'tmy-2024' for specific TMY year from NSRDB nsrdb-GOES-tmy-v4-0-0
         '2007' to '2014' for WIND Toolkit
 
     :param int resource_interval_min: Time interval of resource data in minutes. See available intervals under `resource_type` above.
@@ -340,7 +340,7 @@ class FetchResourceFiles():
 
     def __init__(self, tech, nrel_api_key, nrel_api_email,
                  workers=1,
-                 resource_type='psm3-tmy',
+                 resource_type='nsrdb-GOES-tmy-v4-0-0',
                  resource_year='tmy',
                  resource_interval_min=60,
                  resource_height=100,
@@ -360,7 +360,7 @@ class FetchResourceFiles():
 
         # for backward compatibility
         if resource_type == 'tmy':
-            resource_type = 'psm3-tmy'
+            resource_type = 'nsrdb-GOES-tmy-v4-0-0'
         resource_year = str(resource_year)
         if tech == 'pv':
             tech = 'solar'
