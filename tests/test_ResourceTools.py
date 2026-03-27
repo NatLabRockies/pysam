@@ -87,7 +87,7 @@ def test_wind_nasa():
 
 def test_resourcefilefetcher():
     load_dotenv()
-    # please get your own API key from here https://developer.nrel.gov/signup/
+    # please get your own API key from here https://developer.nlr.gov/signup/
     #NREL_API_KEY = os.environ.get('NREL_API_KEY')
     #NREL_API_EMAIL = os.environ.get('NREL_API_EMAIL')
     NREL_API_KEY = 'DEMO_KEY'

@@ -44,7 +44,7 @@ jobs:
         run: |
           cd ..
           git config --global url.https://github.com/.insteadOf git://github.com/
-          git clone https://github.com/NREL/SAM.git
+          git clone https://github.com/natlabrockies/SAM.git
 
       - name: Unit tests
         run: |
@@ -95,7 +95,7 @@ jobs:
         run: |
           cd ..
           git config --global url.https://github.com/.insteadOf git://github.com/
-          git clone https://github.com/NREL/SAM.git
+          git clone https://github.com/natlabrockies/SAM.git
 
       - name: Unit tests
         run: |
@@ -148,7 +148,7 @@ jobs:
         run: |
           cd ..
           git config --global url.https://github.com/.insteadOf git://github.com/
-          git clone https://github.com/NREL/SAM.git
+          git clone https://github.com/natlabrockies/SAM.git
 
       - name: Unit tests
         run: |

@@ -8,7 +8,7 @@ file, a .json file listing all available data for the location is also saved
 to `data`.
 
 To use the `FetchResourceFile` function, register an email address to receive a
-free API key at at https://developer.nrel.gov/signup/.
+free API key at at https://developer.nlr.gov/signup/.
 
 Most recently tested against PySAM 7.1.0
 
@@ -24,7 +24,7 @@ import PySAM.Pvwattsv8 as pv
 import geocoder
 
 
-# replace with key and email address from https://developer.nrel.gov/signup/
+# replace with key and email address from https://developer.nlr.gov/signup/
 sam_api_key = os.environ.get('NREL_API_KEY')
 sam_email = os.environ.get('NREL_API_EMAIL')
 geocode_api_key = ''  # optional, may be required for geocoder
