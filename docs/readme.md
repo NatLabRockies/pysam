@@ -14,7 +14,7 @@ Python docstrings use Sphinx format: https://sphinx-rtd-tutorial.readthedocs.io/
 
 ### Build Instructions
 
-1. Batch build SAMOS, export_config, and SAM_api. Run CMake first if SSC variables were modified. See https://github.com/NREL/SAM/wiki for instructions.
+1. Batch build SAMOS, export_config, and SAM_api. Run CMake first if SSC variables were modified. See https://github.com/natlabrockies/SAM/wiki for instructions.
 
 2. Run export_config:
 

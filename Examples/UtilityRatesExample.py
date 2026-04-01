@@ -1,7 +1,7 @@
 """
 This example script shows how to set up the utility rate module using a rate downloaded from the Utility Rate
 
-This example requires an NREL developer key, which can be obtained from https://developer.nrel.gov/signup/
+This example requires an NREL developer key, which can be obtained from https://developer.nlr.gov/signup/
 
 Additional financial models, inputs, and outputs can be found at:
 * PV: https://nrel-pysam.readthedocs.io/en/master/modules/Utilityrate5.html
