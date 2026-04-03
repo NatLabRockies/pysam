@@ -978,6 +978,18 @@ GeoHourly_set_specify_pump_work(VarGroupObject *self, PyObject *value, void *clo
 }
 
 static PyObject *
+GeoHourly_get_start_day_of_year(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Geothermal_GeoHourly_start_day_of_year_nget, self->data_ptr);
+}
+
+static int
+GeoHourly_set_start_day_of_year(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_Geothermal_GeoHourly_start_day_of_year_nset, self->data_ptr);
+}
+
+static PyObject *
 GeoHourly_get_startup_frac(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_Geothermal_GeoHourly_startup_frac_nget, self->data_ptr);
@@ -1346,6 +1358,9 @@ static PyGetSetDef GeoHourly_getset[] = {
  	NULL},
 {"specify_pump_work", (getter)GeoHourly_get_specify_pump_work,(setter)GeoHourly_set_specify_pump_work,
 	PyDoc_STR("*float*: Did user specify pump work? [0 or 1]\n\n**Constraints:**\nINTEGER\n\n**Required:**\nTrue\n\nThe value of the following variables depends on ``specify_pump_work``:\n\n\t - num_wells_getem\n"),
+ 	NULL},
+{"start_day_of_year", (getter)GeoHourly_get_start_day_of_year,(setter)GeoHourly_set_start_day_of_year,
+	PyDoc_STR("*float*: Start day of year for TOD periods [0..6]\n\n**Options:**\n0=Monday, 6=Sunday\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
  	NULL},
 {"startup_frac", (getter)GeoHourly_get_startup_frac,(setter)GeoHourly_set_startup_frac,
 	PyDoc_STR("*float*: % thermal power for startup [%]\n\n**Required:**\nRequired if ui_calculations_only=0"),
