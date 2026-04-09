@@ -846,7 +846,7 @@ FinancialParameters_set_term_tenor(VarGroupObject *self, PyObject *value, void *
 
 static PyGetSetDef FinancialParameters_getset[] = {
 {"analysis_period", (getter)FinancialParameters_get_analysis_period,(setter)FinancialParameters_set_analysis_period,
-	PyDoc_STR("*float*: Analyis period [years]\n\n**Constraints:**\nINTEGER,MIN=0,MAX=50\n\n**Required:**\nFalse. Automatically set to 30 if not assigned explicitly or loaded from defaults."),
+	PyDoc_STR("*float*: Analyis period [years]\n\n**Constraints:**\nINTEGER,MIN=0,MAX=100\n\n**Required:**\nFalse. Automatically set to 30 if not assigned explicitly or loaded from defaults."),
  	NULL},
 {"cost_debt_closing", (getter)FinancialParameters_get_cost_debt_closing,(setter)FinancialParameters_set_cost_debt_closing,
 	PyDoc_STR("*float*: Debt closing cost [$]\n\n**Constraints:**\nMIN=0\n\n**Required:**\nFalse. Automatically set to 250000 if not assigned explicitly or loaded from defaults."),

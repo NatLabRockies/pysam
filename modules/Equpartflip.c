@@ -660,7 +660,7 @@ FinancialParameters_set_system_heat_rate(VarGroupObject *self, PyObject *value, 
 
 static PyGetSetDef FinancialParameters_getset[] = {
 {"analysis_period", (getter)FinancialParameters_get_analysis_period,(setter)FinancialParameters_set_analysis_period,
-	PyDoc_STR("*float*: Analyis period [years]\n\n**Constraints:**\nINTEGER,MIN=0,MAX=50\n\n**Required:**\nFalse. Automatically set to 30 if not assigned explicitly or loaded from defaults."),
+	PyDoc_STR("*float*: Analyis period [years]\n\n**Constraints:**\nINTEGER,MIN=0,MAX=100\n\n**Required:**\nFalse. Automatically set to 30 if not assigned explicitly or loaded from defaults."),
  	NULL},
 {"batt_salvage_percentage", (getter)FinancialParameters_get_batt_salvage_percentage,(setter)FinancialParameters_set_batt_salvage_percentage,
 	PyDoc_STR("*float*: Net pre-tax cash battery salvage value [%]\n\n**Constraints:**\nMIN=0,MAX=100\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
