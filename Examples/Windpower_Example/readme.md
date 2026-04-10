@@ -4,7 +4,7 @@ This example illustrates how to work with PySAM's Windpower module for wind turb
 
 The Python script reads Windpower model inputs from the `wind-power-inputs.json` file, which was created by exporting inputs from the `windpower-example.sam` file using SAM's Code Generator with the "PySAM JSON" option.
 
-It then loads wind resource data from the `wind-resource-file.csv` file, which is a file from the NREL WIND Toolkit API: https://developer.nrel.gov/docs/wind/wind-toolkit/wtk-download/.
+It then loads wind resource data from the `wind-resource-file.csv` file, which is a file from the NREL WIND Toolkit API: https://developer.nlr.gov/docs/wind/wind-toolkit/wtk-download/.
 
 Next it loads a set of wind turbine parameters from the `wind-turbines.json` file that has data for three wind turbines. You can use this file as a model to create your own file of wind turbine parameters.
 

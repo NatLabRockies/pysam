@@ -87,7 +87,7 @@ def test_wind_nasa():
 
 def test_resourcefilefetcher():
     load_dotenv()
-    # please get your own API key from here https://developer.nrel.gov/signup/
+    # please get your own API key from here https://developer.nlr.gov/signup/
     #NREL_API_KEY = os.environ.get('NREL_API_KEY')
     #NREL_API_EMAIL = os.environ.get('NREL_API_EMAIL')
     NREL_API_KEY = 'DEMO_KEY'
@@ -137,7 +137,7 @@ def test_resourcefilefetcher():
                     nrel_api_key=NREL_API_KEY,
                     nrel_api_email=NREL_API_EMAIL,
                     resource_dir=resource_dir,
-                    resource_type='psm3',
+                    resource_type='nsrdb-GOES-aggregated-v4-0-0',
                     resource_year='2018',
                     resource_interval_min=30)
     solarfetcher.fetch(lon_lats)
@@ -151,14 +151,14 @@ def test_resourcefilefetcher():
         num_timesteps = 17520
         assert solar_csv.line_num == num_timesteps + 3
 
-    # --- fetch solar tgy for 2018 from psm3-tmy ---
+    # --- fetch solar tgy for 2018 from nsrdb-GOES-tmy-v4-0-0 ---
     solarfetcher = tools.FetchResourceFiles(
                     tech='solar',
                     nrel_api_key=NREL_API_KEY,
                     nrel_api_email=NREL_API_EMAIL,
                     resource_dir=resource_dir,
-                    resource_type='psm3-tmy',
-                    resource_year='tgy-2018')
+                    resource_type='nsrdb-GOES-tmy-v4-0-0',
+                    resource_year='tgy-2024')
     solarfetcher.fetch(lon_lats)
 
     # --- read csv and confirm dimensions ---
@@ -170,7 +170,7 @@ def test_resourcefilefetcher():
         num_timesteps = 8760
         assert solar_csv.line_num == num_timesteps + 3
 
-    # --- fetch 5-minute data for 2018 from psm3-5min ---
+    # --- fetch 5-minute data for 2018 from psm4-5min ---
     # this NSRDB API endpoint not working properly as of 8/21/2020
     #solarfetcher = tools.FetchResourceFiles(
     #                tech='solar',
