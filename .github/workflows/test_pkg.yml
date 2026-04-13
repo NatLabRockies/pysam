@@ -24,13 +24,13 @@ jobs:
       - name: Get PySAM Version Unix
         if: ${{ matrix.os != 'windows-2022' }}
         run: |
-          VER=$(python -c "from files.version import __version__; print(__version__)")
+          VER=$(python -c "from PySAM.version import __version__; print(__version__)")
           echo "VERSION=$VER" >> $GITHUB_ENV
 
       - name: Get PySAM Version Windows
         if: ${{ matrix.os == 'windows-2022'}}
         run: |
-          $VER=$(python -c "from files.version import __version__; print(__version__)")
+          $VER=$(python -c "from PySAM.version import __version__; print(__version__)")
           echo "VERSION=$VER" >> $env:GITHUB_ENV
 
       - name: Install NREL-PySAM
@@ -84,7 +84,7 @@ jobs:
         run: |
           source /Users/runner/.bash_profile
           conda activate pysam_env
-          VER=$(python -c "from files.version import __version__; print(__version__)")
+          VER=$(python -c "from PySAM.version import __version__; print(__version__)")
           echo $VER
           pip install -r requirements.txt
           pip install -r tests/requirements.txt
@@ -137,7 +137,7 @@ jobs:
         run: |
           source /Users/runner/.bash_profile
           conda activate pysam_env
-          VER=$(python -c "from files.version import __version__; print(__version__)")
+          VER=$(python -c "from PySAM.version import __version__; print(__version__)")
           echo $VER
           pip install -r requirements.txt
           pip install -r tests/requirements.txt

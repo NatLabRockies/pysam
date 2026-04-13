@@ -13,7 +13,7 @@ cd ${SAMNTDIR}/../cmake-build-release || exit
 
 if [ "$(python3 -c "import platform; print(platform.processor())")" = "arm" ]
 then
-    cmake -DCMAKE_BUILD_TYPE=Release 
+    cmake -DCMAKE_BUILD_TYPE=Release  \
     -DSAM_SKIP_AUTOGEN=0 -DSAMAPI_EXPORT=1 \
     -DUSE_XPRESS=0 -DUSE_COINOR=1 -DCMAKE_SYSTEM_PREFIX_PATH="$ORTOOLSDIR" \
     -Dabsl_DIR="$ORTOOLSDIR/lib/cmake/absl" -Dutf8_range_DIR="$ORTOOLSDIR/lib/cmake/utf8_range" \
@@ -27,7 +27,7 @@ else
     -Dabsl_DIR="$ORTOOLSDIR/lib/cmake/absl" -Dutf8_range_DIR="$ORTOOLSDIR/lib/cmake/utf8_range" \
     -Dortools_DIR="$ORTOOLSDIR/lib/cmake/ortools" ..
 fi
-cmake --build . --target SAM_api -j 6
+cmake --build . --target SAM_api -j 10
 
 # Building the PyPi and Anaconda packages
 # requires Anaconda installed with an environment per Python version from 3.6 to 3.10
@@ -38,20 +38,27 @@ source $(conda info --base)/etc/profile.d/conda.sh
 rm -rf build
 rm -rf dist/*
 
+# Stage external files (libs, defaults) into PySAM/
+python prepare_build.py || exit
+
 for PYTHONENV in pysam_build_3.9 pysam_build_3.10 pysam_build_3.11 pysam_build_3.12 pysam_build_3.13 pysam_build_3.14
 do
    conda activate $PYTHONENV
    yes | pip install -r tests/requirements.txt
+   yes | pip install build
    yes | pip uninstall NREL-PySAM
-   python setup.py install || exit
+   pip install . || exit
    pytest -s tests
    retVal=$?
    if [ $retVal -ne 0 ]; then
        echo "Error in Tests"
        exit 1
    fi
-   python setup.py bdist_wheel
+   python -m build --wheel
 done
+
+# Clean up staged files
+python prepare_build.py --clean
 
 # yes | $PYSAMDIR/build_conda.sh || exit
 

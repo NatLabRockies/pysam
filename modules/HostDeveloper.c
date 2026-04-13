@@ -4874,6 +4874,18 @@ ChargesByMonth_set_utility_bill_w_sys(VarGroupObject *self, PyObject *value, voi
 	return PySAM_array_setter(value, SAM_HostDeveloper_ChargesByMonth_utility_bill_w_sys_aset, self->data_ptr);
 }
 
+static PyObject *
+ChargesByMonth_get_utility_bill_wo_sys(VarGroupObject *self, void *closure)
+{
+	return PySAM_array_getter(SAM_HostDeveloper_ChargesByMonth_utility_bill_wo_sys_aget, self->data_ptr);
+}
+
+static int
+ChargesByMonth_set_utility_bill_wo_sys(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_array_setter(value, SAM_HostDeveloper_ChargesByMonth_utility_bill_wo_sys_aset, self->data_ptr);
+}
+
 static PyGetSetDef ChargesByMonth_getset[] = {
 {"charge_w_sys_dc_tou_ym", (getter)ChargesByMonth_get_charge_w_sys_dc_tou_ym,(setter)ChargesByMonth_set_charge_w_sys_dc_tou_ym,
 	PyDoc_STR("*sequence[sequence]*: Demand charge with system (TOU) [$]\n\n**Required:**\nTrue"),
@@ -4895,6 +4907,9 @@ static PyGetSetDef ChargesByMonth_getset[] = {
  	NULL},
 {"utility_bill_w_sys", (getter)ChargesByMonth_get_utility_bill_w_sys,(setter)ChargesByMonth_set_utility_bill_w_sys,
 	PyDoc_STR("*sequence*: Electricity bill for system [$]\n\n**Required:**\nTrue"),
+ 	NULL},
+{"utility_bill_wo_sys", (getter)ChargesByMonth_get_utility_bill_wo_sys,(setter)ChargesByMonth_set_utility_bill_wo_sys,
+	PyDoc_STR("*sequence*: Electricity bill without system [$]\n\n**Required:**\nTrue"),
  	NULL},
 	{NULL}  /* Sentinel */
 };

@@ -432,6 +432,7 @@ class HostDeveloper(object):
 		nm_dollars_applied_ym = tuple
 		true_up_credits_ym = tuple
 		utility_bill_w_sys = tuple
+		utility_bill_wo_sys = tuple
 
 
 	class SystemOutput(object):

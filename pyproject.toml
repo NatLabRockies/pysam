@@ -1,3 +1,41 @@
 [build-system]
-requires = ["setuptools"]
+requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "NLR-PySAM"
+description = "National Laboratory of the Rockies' System Advisor Model Python Wrapper"
+readme = {file = "RELEASE.md", content-type = "text/markdown"}
+license = "BSD-3-Clause"
+authors = [
+    {name = "dguittet", email = "dguittet@nlr.gov"},
+]
+requires-python = ">=3.9"
+dependencies = [
+    "requests",
+]
+dynamic = ["version"]
+
+[project.urls]
+Documentation = "https://nlr-pysam.readthedocs.io"
+
+[tool.setuptools.dynamic]
+version = {attr = "PySAM.version.__version__"}
+
+[tool.setuptools.packages.find]
+include = ["PySAM*"]
+
+[tool.setuptools.package-data]
+PySAM = [
+    "*.pyi",
+    "*.so",
+    "*.dll",
+    "*.lib",
+    "defaults/*.df",
+]
+"PySAM.Hybrids" = [
+    "*.pyi",
+]
+
+[tool.pytest.ini_options]
+addopts = "--verbose -s --rootdir=tests"

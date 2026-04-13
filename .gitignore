@@ -28,6 +28,8 @@ manylinux/
 *.eggs
 \.vs/
 files/defaults/
+PySAM/defaults/
+PySAM/.staged_files.json
 *.pyc
 
 .mypy_cache
@@ -35,5 +37,5 @@ files/defaults/
 *.zip
 
 *.dll
-
+*.dylib
 *.lib

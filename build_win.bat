@@ -15,19 +15,30 @@ cd %PYSAMDIR%
 echo y | rmdir build /s
 echo y | del dist\*
 
+REM Stage external files (libs, defaults) into PySAM\
+python prepare_build.py
+if errorlevel 1 (
+    echo Error in prepare_build
+    exit /b %errorlevel%
+)
+
 FOR %%i IN (pysam_build_3.9 pysam_build_3.10 pysam_build_3.11, pysam_build_3.12 pysam_build_3.13 pysam_build_3.14) DO (
 	call deactivate
     call activate %%i
     echo y | pip install -r tests/requirements.txt
+    echo y | pip install build
     echo y | pip uninstall NREL-PySAM
-    python setup.py install
+    pip install .
     pytest -s tests
 	if errorlevel 1 (
 	   echo Error in Tests
 	   exit /b %errorlevel%
 	)
-    python setup.py bdist_wheel
+    python -m build --wheel
 )
+
+REM Clean up staged files
+python prepare_build.py --clean
 REM %bash% build_conda.sh
 REM anaconda upload -u nrel dist/*.tar.bz2
 

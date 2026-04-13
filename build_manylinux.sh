@@ -31,12 +31,16 @@ cmake ${SAMNTDIR}/api -DCMAKE_BUILD_TYPE=Release -DSAMAPI_EXPORT=1 -DSAM_SKIP_AU
 make -j 6 || exit
 
 cd $PYSAMDIR
+
+# Stage external files (libs, defaults) into PySAM/
+/opt/python/cp312-cp312/bin/python prepare_build.py || exit
+
 for PYTHONENV in cp39-cp39 cp310-cp310 cp311-cp311 cp312-cp312 cp313-cp313 cp314-cp314
 do
    yes | /opt/python/$PYTHONENV/bin/pip install -r tests/requirements.txt
-   yes | /opt/python/$PYTHONENV/bin/pip install auditwheel
+   yes | /opt/python/$PYTHONENV/bin/pip install auditwheel build
    yes | /opt/python/$PYTHONENV/bin/pip uninstall NREL-PySAM
-   /opt/python/$PYTHONENV/bin/python setup.py bdist_wheel || exit
+   /opt/python/$PYTHONENV/bin/python -m build --wheel || exit
    WHEEL=$(ls dist/nrel_pysam-*-$PYTHONENV-*linux*.whl)
    auditwheel repair "$WHEEL" -w dist/wheelhouse/
    REPAIRED_WHEEL=$(ls dist/wheelhouse/nrel_pysam-*-$PYTHONENV-*linux*.whl)
@@ -48,3 +52,6 @@ do
        exit 1
    fi
 done
+
+# Clean up staged files
+/opt/python/cp312-cp312/bin/python prepare_build.py --clean
