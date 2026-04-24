@@ -33,4 +33,4 @@ def test_geothermal_costs():
                                                 pump_type=pump_type,
                                                 pump_depth=pump_depth)
 
-    assert(int(total_getem_om_cost) == 110050)
+    assert(int(total_getem_om_cost['total_getem_om_cost']) == 110050)
