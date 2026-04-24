@@ -847,7 +847,7 @@ Linear Molten Salt -- Single Owner
 PVWatts -- Commercial Owner
 ---------------------------------------------------------------------------------
 
-      Photovoltaic system using basic NREL PVWatts V8 algorithm. Does not do detailed degradation or loss modeling. If those are important, please use pvsamv1.. Renewable energy system displaces commercial building electric load.
+      Photovoltaic system using basic NLR PVWatts V8 algorithm. Does not do detailed degradation or loss modeling. If those are important, please use pvsamv1.. Renewable energy system displaces commercial building electric load.
 
       Configuration name for defaults: *"PVWattsCommercial"*
 
@@ -856,7 +856,7 @@ PVWatts -- Commercial Owner
 PVWatts -- Community Solar
 ---------------------------------------------------------------------------------
 
-      Photovoltaic system using basic NREL PVWatts V8 algorithm. Does not do detailed degradation or loss modeling. If those are important, please use pvsamv1.. Community solar owner model.
+      Photovoltaic system using basic NLR PVWatts V8 algorithm. Does not do detailed degradation or loss modeling. If those are important, please use pvsamv1.. Community solar owner model.
 
       Configuration name for defaults: *"PVWattsCommunitySolar"*
 
@@ -865,7 +865,7 @@ PVWatts -- Community Solar
 PVWatts -- LCOE Calculator (FCR Method)
 ---------------------------------------------------------------------------------
 
-      Photovoltaic system using basic NREL PVWatts V8 algorithm. Does not do detailed degradation or loss modeling. If those are important, please use pvsamv1.. Calculate LCOE using fixed charge rate method.
+      Photovoltaic system using basic NLR PVWatts V8 algorithm. Does not do detailed degradation or loss modeling. If those are important, please use pvsamv1.. Calculate LCOE using fixed charge rate method.
 
       Configuration name for defaults: *"PVWattsLCOECalculator"*
 
@@ -874,7 +874,7 @@ PVWatts -- LCOE Calculator (FCR Method)
 PVWatts -- Merchant Plant
 ---------------------------------------------------------------------------------
 
-      Photovoltaic system using basic NREL PVWatts V8 algorithm. Does not do detailed degradation or loss modeling. If those are important, please use pvsamv1.. Merchant plant with constant DSCR and ancillary services revenue, reserve accounts and depreciation allocations.
+      Photovoltaic system using basic NLR PVWatts V8 algorithm. Does not do detailed degradation or loss modeling. If those are important, please use pvsamv1.. Merchant plant with constant DSCR and ancillary services revenue, reserve accounts and depreciation allocations.
 
       Configuration name for defaults: *"PVWattsMerchantPlant"*
 
@@ -883,7 +883,7 @@ PVWatts -- Merchant Plant
 PVWatts -- No Financial Model
 ---------------------------------------------------------------------------------
 
-      Photovoltaic system using basic NREL PVWatts V8 algorithm. Does not do detailed degradation or loss modeling. If those are important, please use pvsamv1.. Run the performance model with no financial model.
+      Photovoltaic system using basic NLR PVWatts V8 algorithm. Does not do detailed degradation or loss modeling. If those are important, please use pvsamv1.. Run the performance model with no financial model.
 
       Configuration name for defaults: *"PVWattsNone"*
 
@@ -892,7 +892,7 @@ PVWatts -- No Financial Model
 PVWatts -- Partnership Flip with Debt
 ---------------------------------------------------------------------------------
 
-      Photovoltaic system using basic NREL PVWatts V8 algorithm. Does not do detailed degradation or loss modeling. If those are important, please use pvsamv1.. Developer/investor partnership flip PPA structure with debt.
+      Photovoltaic system using basic NLR PVWatts V8 algorithm. Does not do detailed degradation or loss modeling. If those are important, please use pvsamv1.. Developer/investor partnership flip PPA structure with debt.
 
       Configuration name for defaults: *"PVWattsLeveragedPartnershipFlip"*
 
@@ -901,7 +901,7 @@ PVWatts -- Partnership Flip with Debt
 PVWatts -- Partnership Flip without Debt
 ---------------------------------------------------------------------------------
 
-      Photovoltaic system using basic NREL PVWatts V8 algorithm. Does not do detailed degradation or loss modeling. If those are important, please use pvsamv1.. Developer/investor partnership flip PPA structure without debt.
+      Photovoltaic system using basic NLR PVWatts V8 algorithm. Does not do detailed degradation or loss modeling. If those are important, please use pvsamv1.. Developer/investor partnership flip PPA structure without debt.
 
       Configuration name for defaults: *"PVWattsAllEquityPartnershipFlip"*
 
@@ -910,7 +910,7 @@ PVWatts -- Partnership Flip without Debt
 PVWatts -- Residential Owner
 ---------------------------------------------------------------------------------
 
-      Photovoltaic system using basic NREL PVWatts V8 algorithm. Does not do detailed degradation or loss modeling. If those are important, please use pvsamv1.. Renewable energy system displaces residential home electric load.
+      Photovoltaic system using basic NLR PVWatts V8 algorithm. Does not do detailed degradation or loss modeling. If those are important, please use pvsamv1.. Renewable energy system displaces residential home electric load.
 
       Configuration name for defaults: *"PVWattsResidential"*
 
@@ -919,7 +919,7 @@ PVWatts -- Residential Owner
 PVWatts -- Sale Leaseback
 ---------------------------------------------------------------------------------
 
-      Photovoltaic system using basic NREL PVWatts V8 algorithm. Does not do detailed degradation or loss modeling. If those are important, please use pvsamv1.. Sale leaseback partnership PPA structure.
+      Photovoltaic system using basic NLR PVWatts V8 algorithm. Does not do detailed degradation or loss modeling. If those are important, please use pvsamv1.. Sale leaseback partnership PPA structure.
 
       Configuration name for defaults: *"PVWattsSaleLeaseback"*
 
@@ -928,7 +928,7 @@ PVWatts -- Sale Leaseback
 PVWatts -- Single Owner
 ---------------------------------------------------------------------------------
 
-      Photovoltaic system using basic NREL PVWatts V8 algorithm. Does not do detailed degradation or loss modeling. If those are important, please use pvsamv1.. Single owner PPA with constant DSCR and IRR target year, reserve accounts and depreciation allocations.
+      Photovoltaic system using basic NLR PVWatts V8 algorithm. Does not do detailed degradation or loss modeling. If those are important, please use pvsamv1.. Single owner PPA with constant DSCR and IRR target year, reserve accounts and depreciation allocations.
 
       Configuration name for defaults: *"PVWattsSingleOwner"*
 
@@ -937,7 +937,7 @@ PVWatts -- Single Owner
 PVWatts -- Third Party - Host / Developer
 ---------------------------------------------------------------------------------
 
-      Photovoltaic system using basic NREL PVWatts V8 algorithm. Does not do detailed degradation or loss modeling. If those are important, please use pvsamv1.. Third party ownershop from host and developer perspective for PPA.
+      Photovoltaic system using basic NLR PVWatts V8 algorithm. Does not do detailed degradation or loss modeling. If those are important, please use pvsamv1.. Third party ownershop from host and developer perspective for PPA.
 
       Configuration name for defaults: *"PVWattsHostDeveloper"*
 
@@ -946,7 +946,7 @@ PVWatts -- Third Party - Host / Developer
 PVWatts -- Third Party Owner - Host
 ---------------------------------------------------------------------------------
 
-      Photovoltaic system using basic NREL PVWatts V8 algorithm. Does not do detailed degradation or loss modeling. If those are important, please use pvsamv1.. Third party ownership from host perspective for PPA or lease agreement.
+      Photovoltaic system using basic NLR PVWatts V8 algorithm. Does not do detailed degradation or loss modeling. If those are important, please use pvsamv1.. Third party ownership from host perspective for PPA or lease agreement.
 
       Configuration name for defaults: *"PVWattsThirdParty"*
 
