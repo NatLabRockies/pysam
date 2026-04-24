@@ -30,9 +30,9 @@ doc_str = "" \
 ########################################################################################
 
 previous_release = 0
-resp = requests.get("https://api.github.com/repos/NREL/pysam/releases").json()
+resp = requests.get("https://api.github.com/repos/NatLabRockies/pysam/releases").json()
 old_release = resp[previous_release]['name']
-sam_resp = requests.get("https://api.github.com/repos/NREL/sam/tags").json()
+sam_resp = requests.get("https://api.github.com/repos/NatLabRockies/sam/tags").json()
 for r in sam_resp:
     if old_release.lower().replace(' ', '-') in r['name']:
         old_release = r['tarball_url']
@@ -217,7 +217,7 @@ new_cmod_variables = get_var_dict()
 
 # get old release
 previous_release = 0
-resp = requests.get("https://api.github.com/repos/NREL/pysam/releases").json()
+resp = requests.get("https://api.github.com/repos/NatLabRockies/pysam/releases").json()
 old_release = resp[previous_release]['tarball_url']
 
 with requests.get(old_release, stream=True) as File:
