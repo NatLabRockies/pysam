@@ -26,7 +26,7 @@ class Hcpv(object):
 	def __init__(self, *args, **kwargs):
 		pass
 
-	class SolarResourceData(object):
+	class SolarResourceInformation(object):
 		def assign(self, dict): 
 			pass
 	

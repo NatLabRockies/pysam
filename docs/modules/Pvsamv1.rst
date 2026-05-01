@@ -129,8 +129,6 @@ The variables listed below are interdependent with other variables. If you chang
 
  - inv_ds_paco
 
- - inv_num_mppt
-
  - inv_pd_eff
 
  - inv_pd_paco
@@ -282,6 +280,10 @@ The variables listed below are interdependent with other variables. If you chang
  - subarray1_gcr
 
  - subarray1_modules_per_string
+
+ - subarray1_nmodx
+
+ - subarray1_nmody
 
  - subarray1_nstrings
 
