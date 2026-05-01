@@ -18,6 +18,15 @@ Please see an example of FetchResource: `FetchResourceFileExample.py <https://gi
     :members:
     :undoc-members:
 
+Pvsamv1 Tools
+-----------------
+
+Access pvsamv1 tools with ``import PySAM.Pvsamv1Tools``.
+
+.. automodule:: files.Pvsamv1Tools
+    :members:
+    :undoc-members:
+
 Battery Tools
 ---------------
 
