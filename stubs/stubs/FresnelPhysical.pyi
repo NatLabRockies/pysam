@@ -393,6 +393,7 @@ class FresnelPhysical(object):
 		dispatch_sched_weekday = tuple
 		dispatch_sched_weekend = tuple
 		dispatch_tod_factors = tuple
+		start_day_of_year = float
 
 
 	class FinancialSolutionMode(object):

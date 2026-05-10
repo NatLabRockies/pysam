@@ -535,7 +535,7 @@ FinancialParameters_set_term_tenor(VarGroupObject *self, PyObject *value, void *
 
 static PyGetSetDef FinancialParameters_getset[] = {
 {"analysis_period", (getter)FinancialParameters_get_analysis_period,(setter)FinancialParameters_set_analysis_period,
-	PyDoc_STR("*float*: Analyis period [years]\n\n**Constraints:**\nINTEGER,MIN=0,MAX=50\n\n**Required:**\nFalse. Automatically set to 30 if not assigned explicitly or loaded from defaults."),
+	PyDoc_STR("*float*: Analyis period [years]\n\n**Constraints:**\nINTEGER,MIN=0,MAX=100\n\n**Required:**\nFalse. Automatically set to 30 if not assigned explicitly or loaded from defaults."),
  	NULL},
 {"batt_salvage_percentage", (getter)FinancialParameters_get_batt_salvage_percentage,(setter)FinancialParameters_set_batt_salvage_percentage,
 	PyDoc_STR("*float*: Net pre-tax cash battery salvage value [%]\n\n**Constraints:**\nMIN=0,MAX=100\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
@@ -11728,7 +11728,7 @@ static PyMethodDef MerchantplantModule_methods[] = {
 		{"new",             Merchantplant_new,         METH_VARARGS,
 				PyDoc_STR("new() -> Merchantplant")},
 		{"default",             Merchantplant_default,         METH_VARARGS,
-				PyDoc_STR("default(config) -> Merchantplant\n\nLoad defaults for the configuration ``config``. Available configurations are:\n\n		- *\"BiopowerMerchantPlant\"*\n\n		- *\"CustomGenerationBatteryMerchantPlant\"*\n\n		- *\"CustomGenerationProfileMerchantPlant\"*\n\n		- *\"DSLFMerchantPlant\"*\n\n		- *\"EmpiricalTroughMerchantPlant\"*\n\n		- *\"FlatPlatePVMerchantPlant\"*\n\n		- *\"GenericCSPSystemMerchantPlant\"*\n\n		- *\"GeothermalPowerMerchantPlant\"*\n\n		- *\"HighXConcentratingPVMerchantPlant\"*\n\n		- *\"MSLFMerchantPlant\"*\n\n		- *\"MSPTMerchantPlant\"*\n\n		- *\"PVBatteryMerchantPlant\"*\n\n		- *\"PVWattsMerchantPlant\"*\n\n		- *\"PhysicalTroughMerchantPlant\"*\n\n		- *\"StandaloneBatteryMerchantPlant\"*\n\n		- *\"WindPowerMerchantPlant\"*\n\n.. note::\n\n	Some inputs do not have default values and may be assigned a value from the variable's **Required** attribute. See variable attribute descriptions below.")},
+				PyDoc_STR("default(config) -> Merchantplant\n\nLoad defaults for the configuration ``config``. Available configurations are:\n\n		- *\"BiopowerMerchantPlant\"*\n\n		- *\"CustomGenerationBatteryMerchantPlant\"*\n\n		- *\"CustomGenerationProfileMerchantPlant\"*\n\n		- *\"DSLFMerchantPlant\"*\n\n		- *\"EmpiricalTroughMerchantPlant\"*\n\n		- *\"FlatPlatePVMerchantPlant\"*\n\n		- *\"GenericCSPSystemMerchantPlant\"*\n\n		- *\"GeothermalPowerMerchantPlant\"*\n\n		- *\"HighXConcentratingPVMerchantPlant\"*\n\n		- *\"MSLFMerchantPlant\"*\n\n		- *\"MSPTMerchantPlant\"*\n\n		- *\"PVBatteryMerchantPlant\"*\n\n		- *\"PVWattsBatteryMerchantPlant\"*\n\n		- *\"PVWattsMerchantPlant\"*\n\n		- *\"PhysicalTroughMerchantPlant\"*\n\n		- *\"StandaloneBatteryMerchantPlant\"*\n\n		- *\"WindPowerMerchantPlant\"*\n\n.. note::\n\n	Some inputs do not have default values and may be assigned a value from the variable's **Required** attribute. See variable attribute descriptions below.")},
 		{"wrap",             Merchantplant_wrap,         METH_VARARGS,
 				PyDoc_STR("wrap(ssc_data_t) -> Merchantplant\n\nLoad data from a PySSC object.\n\n.. warning::\n\n	Do not call PySSC.data_free on the ssc_data_t provided to ``wrap()``")},
 		{"from_existing",   Merchantplant_from_existing,        METH_VARARGS,

@@ -45,6 +45,7 @@ class Utilityrateforecast(object):
 		grid_power = tuple
 		load = tuple
 		rate_escalation = tuple
+		start_day_of_year = float
 		ur_annual_min_charge = float
 		ur_billing_demand_lookback_percentages = tuple
 		ur_billing_demand_lookback_period = float

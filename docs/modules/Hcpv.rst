@@ -53,10 +53,10 @@ Functions
 .. autoclass:: PySAM.Hcpv.Hcpv
 	:members:
 
-SolarResourceData Group
-------------------------
+SolarResourceInformation Group
+-------------------------------
 
-.. autoclass:: PySAM.Hcpv.Hcpv.SolarResourceData
+.. autoclass:: PySAM.Hcpv.Hcpv.SolarResourceInformation
 	:members:
 
 PVWatts Group

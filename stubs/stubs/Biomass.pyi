@@ -137,6 +137,7 @@ class Biomass(object):
 		biopwr_plant_tou_grid = str
 		biopwr_plant_tou_option = float
 		file_name = str
+		start_day_of_year = float
 		system_capacity = float
 
 

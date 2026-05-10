@@ -54,6 +54,7 @@ class SingleownerHeat(object):
 		ppa_soln_min = float
 		ppa_soln_mode = float
 		ppa_soln_tolerance = float
+		start_day_of_year = float
 
 
 	class FinancialParameters(object):
@@ -432,6 +433,7 @@ class SingleownerHeat(object):
 
 		en_electricity_rates = float
 		rate_escalation = tuple
+		start_day_of_year = float
 		ur_annual_min_charge = float
 		ur_billing_demand_lookback_percentages = tuple
 		ur_billing_demand_lookback_period = float

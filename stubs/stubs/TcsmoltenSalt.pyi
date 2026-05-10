@@ -522,6 +522,7 @@ class TcsmoltenSalt(object):
 		dispatch_tod_factors = tuple
 		is_timestep_load_fractions = float
 		ppa_multiplier_model = float
+		start_day_of_year = float
 
 
 	class FinancialSolutionMode(object):

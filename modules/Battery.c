@@ -2996,6 +2996,18 @@ BatteryDispatch_set_dispatch_manual_system_charge_first(VarGroupObject *self, Py
 	return PySAM_double_setter(value, SAM_Battery_BatteryDispatch_dispatch_manual_system_charge_first_nset, self->data_ptr);
 }
 
+static PyObject *
+BatteryDispatch_get_start_day_of_year(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Battery_BatteryDispatch_start_day_of_year_nget, self->data_ptr);
+}
+
+static int
+BatteryDispatch_set_start_day_of_year(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_Battery_BatteryDispatch_start_day_of_year_nset, self->data_ptr);
+}
+
 static PyGetSetDef BatteryDispatch_getset[] = {
 {"batt_custom_dispatch", (getter)BatteryDispatch_get_batt_custom_dispatch,(setter)BatteryDispatch_set_batt_custom_dispatch,
 	PyDoc_STR("*sequence*: Custom battery power for every time step [kW]\n\n**Info:**\nkWAC if AC-connected, else kWDC\n\n**Required:**\nRequired if en_batt=1&en_standalone_batt=0&batt_dispatch_choice=2"),
@@ -3140,6 +3152,9 @@ static PyGetSetDef BatteryDispatch_getset[] = {
  	NULL},
 {"dispatch_manual_system_charge_first", (getter)BatteryDispatch_get_dispatch_manual_system_charge_first,(setter)BatteryDispatch_set_dispatch_manual_system_charge_first,
 	PyDoc_STR("*float*: System charges battery before meeting load [0/1]\n\n**Options:**\n0=LoadFirst,1=ChargeFirst\n\n**Required:**\nRequired if en_batt=1&en_standalone_batt=0&batt_meter_position=0&batt_dispatch_choice=3&batt_dispatch_charge_only_system_exceeds_load=0"),
+ 	NULL},
+{"start_day_of_year", (getter)BatteryDispatch_get_start_day_of_year,(setter)BatteryDispatch_set_start_day_of_year,
+	PyDoc_STR("*float*: Start day of year for TOD periods [0..6]\n\n**Options:**\n0=Monday, 6=Sunday\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
  	NULL},
 	{NULL}  /* Sentinel */
 };
@@ -4542,6 +4557,18 @@ ElectricityRates_set_rate_escalation(VarGroupObject *self, PyObject *value, void
 }
 
 static PyObject *
+ElectricityRates_get_start_day_of_year(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Battery_ElectricityRates_start_day_of_year_nget, self->data_ptr);
+}
+
+static int
+ElectricityRates_set_start_day_of_year(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_Battery_ElectricityRates_start_day_of_year_nset, self->data_ptr);
+}
+
+static PyObject *
 ElectricityRates_get_ur_annual_min_charge(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_Battery_ElectricityRates_ur_annual_min_charge_nget, self->data_ptr);
@@ -4883,6 +4910,9 @@ static PyGetSetDef ElectricityRates_getset[] = {
  	NULL},
 {"rate_escalation", (getter)ElectricityRates_get_rate_escalation,(setter)ElectricityRates_set_rate_escalation,
 	PyDoc_STR("*sequence*: Annual electricity rate escalation [%/year]\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+{"start_day_of_year", (getter)ElectricityRates_get_start_day_of_year,(setter)ElectricityRates_set_start_day_of_year,
+	PyDoc_STR("*float*: Start day of year for TOD periods [0..6]\n\n**Options:**\n0=Monday, 6=Sunday\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
  	NULL},
 {"ur_annual_min_charge", (getter)ElectricityRates_get_ur_annual_min_charge,(setter)ElectricityRates_set_ur_annual_min_charge,
 	PyDoc_STR("*float*: Annual minimum charge [$]\n\n**Required:**\nFalse. Automatically set to 0.0 if not assigned explicitly or loaded from defaults."),
@@ -7022,7 +7052,7 @@ static PyMethodDef BatteryModule_methods[] = {
 		{"new",             Battery_new,         METH_VARARGS,
 				PyDoc_STR("new() -> Battery")},
 		{"default",             Battery_default,         METH_VARARGS,
-				PyDoc_STR("default(config) -> Battery\n\nLoad defaults for the configuration ``config``. Available configurations are:\n\n		- *\"CustomGenerationBatteryAllEquityPartnershipFlip\"*\n\n		- *\"CustomGenerationBatteryCommercial\"*\n\n		- *\"CustomGenerationBatteryHostDeveloper\"*\n\n		- *\"CustomGenerationBatteryLeveragedPartnershipFlip\"*\n\n		- *\"CustomGenerationBatteryMerchantPlant\"*\n\n		- *\"CustomGenerationBatteryResidential\"*\n\n		- *\"CustomGenerationBatterySaleLeaseback\"*\n\n		- *\"CustomGenerationBatterySingleOwner\"*\n\n		- *\"CustomGenerationBatteryThirdParty\"*\n\n		- *\"CustomGenerationPVWattsWindFuelCellBatteryHybridHostDeveloper\"*\n\n		- *\"CustomGenerationPVWattsWindFuelCellBatteryHybridSingleOwner\"*\n\n		- *\"FuelCellCommercial\"*\n\n		- *\"FuelCellSingleOwner\"*\n\n		- *\"MEwaveBatterySingleOwner\"*\n\n		- *\"PVWattsWindBatteryHybridHostDeveloper\"*\n\n		- *\"PVWattsWindBatteryHybridSingleOwner\"*\n\n		- *\"PVWattsWindFuelCellBatteryHybridHostDeveloper\"*\n\n		- *\"PVWattsWindFuelCellBatteryHybridSingleOwner\"*\n\n		- *\"PhotovoltaicWindBatteryHybridHostDeveloper\"*\n\n		- *\"PhotovoltaicWindBatteryHybridSingleOwner\"*\n\n		- *\"StandaloneBatteryAllEquityPartnershipFlip\"*\n\n		- *\"StandaloneBatteryCommercial\"*\n\n		- *\"StandaloneBatteryHostDeveloper\"*\n\n		- *\"StandaloneBatteryLeveragedPartnershipFlip\"*\n\n		- *\"StandaloneBatteryMerchantPlant\"*\n\n		- *\"StandaloneBatteryResidential\"*\n\n		- *\"StandaloneBatterySaleLeaseback\"*\n\n		- *\"StandaloneBatterySingleOwner\"*\n\n		- *\"StandaloneBatteryThirdParty\"*\n\n.. note::\n\n	Some inputs do not have default values and may be assigned a value from the variable's **Required** attribute. See variable attribute descriptions below.")},
+				PyDoc_STR("default(config) -> Battery\n\nLoad defaults for the configuration ``config``. Available configurations are:\n\n		- *\"CustomGenerationBatteryAllEquityPartnershipFlip\"*\n\n		- *\"CustomGenerationBatteryCommercial\"*\n\n		- *\"CustomGenerationBatteryHostDeveloper\"*\n\n		- *\"CustomGenerationBatteryLeveragedPartnershipFlip\"*\n\n		- *\"CustomGenerationBatteryMerchantPlant\"*\n\n		- *\"CustomGenerationBatteryResidential\"*\n\n		- *\"CustomGenerationBatterySaleLeaseback\"*\n\n		- *\"CustomGenerationBatterySingleOwner\"*\n\n		- *\"CustomGenerationBatteryThirdParty\"*\n\n		- *\"CustomGenerationPVWattsWindFuelCellBatteryHybridHostDeveloper\"*\n\n		- *\"CustomGenerationPVWattsWindFuelCellBatteryHybridSingleOwner\"*\n\n		- *\"FuelCellCommercial\"*\n\n		- *\"FuelCellSingleOwner\"*\n\n		- *\"MEwaveBatterySingleOwner\"*\n\n		- *\"PVWattsBatteryAllEquityPartnershipFlip\"*\n\n		- *\"PVWattsBatteryCommercial\"*\n\n		- *\"PVWattsBatteryHostDeveloper\"*\n\n		- *\"PVWattsBatteryLeveragedPartnershipFlip\"*\n\n		- *\"PVWattsBatteryMerchantPlant\"*\n\n		- *\"PVWattsBatteryResidential\"*\n\n		- *\"PVWattsBatterySaleLeaseback\"*\n\n		- *\"PVWattsBatterySingleOwner\"*\n\n		- *\"PVWattsBatteryThirdParty\"*\n\n		- *\"PVWattsWindBatteryHybridHostDeveloper\"*\n\n		- *\"PVWattsWindBatteryHybridSingleOwner\"*\n\n		- *\"PVWattsWindFuelCellBatteryHybridHostDeveloper\"*\n\n		- *\"PVWattsWindFuelCellBatteryHybridSingleOwner\"*\n\n		- *\"PhotovoltaicWindBatteryHybridHostDeveloper\"*\n\n		- *\"PhotovoltaicWindBatteryHybridSingleOwner\"*\n\n		- *\"StandaloneBatteryAllEquityPartnershipFlip\"*\n\n		- *\"StandaloneBatteryCommercial\"*\n\n		- *\"StandaloneBatteryHostDeveloper\"*\n\n		- *\"StandaloneBatteryLeveragedPartnershipFlip\"*\n\n		- *\"StandaloneBatteryMerchantPlant\"*\n\n		- *\"StandaloneBatteryResidential\"*\n\n		- *\"StandaloneBatterySaleLeaseback\"*\n\n		- *\"StandaloneBatterySingleOwner\"*\n\n		- *\"StandaloneBatteryThirdParty\"*\n\n.. note::\n\n	Some inputs do not have default values and may be assigned a value from the variable's **Required** attribute. See variable attribute descriptions below.")},
 		{"wrap",             Battery_wrap,         METH_VARARGS,
 				PyDoc_STR("wrap(ssc_data_t) -> Battery\n\nLoad data from a PySSC object.\n\n.. warning::\n\n	Do not call PySSC.data_free on the ssc_data_t provided to ``wrap()``")},
 		{"from_existing",   Battery_from_existing,        METH_VARARGS,

@@ -309,6 +309,7 @@ class Battery(object):
 		dispatch_manual_sched = tuple
 		dispatch_manual_sched_weekend = tuple
 		dispatch_manual_system_charge_first = float
+		start_day_of_year = float
 
 
 	class SystemCosts(object):
@@ -450,6 +451,7 @@ class Battery(object):
 
 		en_electricity_rates = float
 		rate_escalation = tuple
+		start_day_of_year = float
 		ur_annual_min_charge = float
 		ur_billing_demand_lookback_percentages = tuple
 		ur_billing_demand_lookback_period = float

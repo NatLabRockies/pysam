@@ -392,6 +392,7 @@ class MsptIph(object):
 		dispatch_sched_weekend = tuple
 		dispatch_tod_factors = tuple
 		ppa_multiplier_model = float
+		start_day_of_year = float
 
 
 	class FinancialSolutionMode(object):

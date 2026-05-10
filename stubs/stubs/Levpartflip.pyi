@@ -54,6 +54,7 @@ class Levpartflip(object):
 		ppa_soln_min = float
 		ppa_soln_mode = float
 		ppa_soln_tolerance = float
+		start_day_of_year = float
 
 
 	class FinancialParameters(object):

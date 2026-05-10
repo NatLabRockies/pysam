@@ -929,6 +929,18 @@ FuelCell_set_fuelcell_unit_min_power(VarGroupObject *self, PyObject *value, void
 	return PySAM_double_setter(value, SAM_Fuelcell_FuelCell_fuelcell_unit_min_power_nset, self->data_ptr);
 }
 
+static PyObject *
+FuelCell_get_start_day_of_year(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Fuelcell_FuelCell_start_day_of_year_nget, self->data_ptr);
+}
+
+static int
+FuelCell_set_start_day_of_year(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_Fuelcell_FuelCell_start_day_of_year_nset, self->data_ptr);
+}
+
 static PyGetSetDef FuelCell_getset[] = {
 {"dispatch_manual_fuelcell_sched", (getter)FuelCell_get_dispatch_manual_fuelcell_sched,(setter)FuelCell_set_dispatch_manual_fuelcell_sched,
 	PyDoc_STR("*sequence[sequence]*: Dispatch schedule for weekday"),
@@ -1028,6 +1040,9 @@ static PyGetSetDef FuelCell_getset[] = {
  	NULL},
 {"fuelcell_unit_min_power", (getter)FuelCell_get_fuelcell_unit_min_power,(setter)FuelCell_set_fuelcell_unit_min_power,
 	PyDoc_STR("*float*: Fuel cell min power per unit [kW]\n\nThe value of ``fuelcell_unit_min_power`` depends on the following variables:\n\n\t - fuelcell_unit_max_power\n"),
+ 	NULL},
+{"start_day_of_year", (getter)FuelCell_get_start_day_of_year,(setter)FuelCell_set_start_day_of_year,
+	PyDoc_STR("*float*: Start day of year for TOD periods [0..6]\n\n**Options:**\n0=Monday, 6=Sunday\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
  	NULL},
 	{NULL}  /* Sentinel */
 };

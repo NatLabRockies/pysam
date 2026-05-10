@@ -2330,6 +2330,18 @@ TimeOfDeliveryFactors_set_ppa_multiplier_model(VarGroupObject *self, PyObject *v
 	return PySAM_double_setter(value, SAM_EtesElectricResistance_TimeOfDeliveryFactors_ppa_multiplier_model_nset, self->data_ptr);
 }
 
+static PyObject *
+TimeOfDeliveryFactors_get_start_day_of_year(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_EtesElectricResistance_TimeOfDeliveryFactors_start_day_of_year_nget, self->data_ptr);
+}
+
+static int
+TimeOfDeliveryFactors_set_start_day_of_year(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_EtesElectricResistance_TimeOfDeliveryFactors_start_day_of_year_nset, self->data_ptr);
+}
+
 static PyGetSetDef TimeOfDeliveryFactors_getset[] = {
 {"dispatch_factors_ts", (getter)TimeOfDeliveryFactors_get_dispatch_factors_ts,(setter)TimeOfDeliveryFactors_set_dispatch_factors_ts,
 	PyDoc_STR("*sequence*: Dispatch payment factor timeseries array\n\n**Required:**\nRequired if ppa_multiplier_model=1&etes_financial_model<5&is_dispatch=1&sim_type=1"),
@@ -2345,6 +2357,9 @@ static PyGetSetDef TimeOfDeliveryFactors_getset[] = {
  	NULL},
 {"ppa_multiplier_model", (getter)TimeOfDeliveryFactors_get_ppa_multiplier_model,(setter)TimeOfDeliveryFactors_set_ppa_multiplier_model,
 	PyDoc_STR("*float*: PPA multiplier model [0/1]\n\n**Options:**\n0=diurnal,1=timestep\n\n**Constraints:**\nINTEGER,MIN=0\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+{"start_day_of_year", (getter)TimeOfDeliveryFactors_get_start_day_of_year,(setter)TimeOfDeliveryFactors_set_start_day_of_year,
+	PyDoc_STR("*float*: Start day of year for TOD periods [0..6]\n\n**Options:**\n0=Monday, 6=Sunday\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
  	NULL},
 	{NULL}  /* Sentinel */
 };

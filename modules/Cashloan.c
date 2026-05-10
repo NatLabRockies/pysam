@@ -283,7 +283,7 @@ FinancialParameters_set_system_heat_rate(VarGroupObject *self, PyObject *value, 
 
 static PyGetSetDef FinancialParameters_getset[] = {
 {"analysis_period", (getter)FinancialParameters_get_analysis_period,(setter)FinancialParameters_set_analysis_period,
-	PyDoc_STR("*float*: Analyis period [years]\n\n**Constraints:**\nINTEGER,MIN=0,MAX=50\n\n**Required:**\nFalse. Automatically set to 30 if not assigned explicitly or loaded from defaults."),
+	PyDoc_STR("*float*: Analyis period [years]\n\n**Constraints:**\nINTEGER,MIN=0,MAX=100\n\n**Required:**\nFalse. Automatically set to 30 if not assigned explicitly or loaded from defaults."),
  	NULL},
 {"debt_fraction", (getter)FinancialParameters_get_debt_fraction,(setter)FinancialParameters_set_debt_fraction,
 	PyDoc_STR("*float*: Debt percentage [%]\n\n**Constraints:**\nMIN=0,MAX=100\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
@@ -301,7 +301,7 @@ static PyGetSetDef FinancialParameters_getset[] = {
 	PyDoc_STR("*float*: Loan rate [%]\n\n**Constraints:**\nMIN=0,MAX=100\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
  	NULL},
 {"loan_term", (getter)FinancialParameters_get_loan_term,(setter)FinancialParameters_set_loan_term,
-	PyDoc_STR("*float*: Loan term [years]\n\n**Constraints:**\nINTEGER,MIN=0,MAX=50\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
+	PyDoc_STR("*float*: Loan term [years]\n\n**Constraints:**\nINTEGER,MIN=0,MAX=100\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
  	NULL},
 {"market", (getter)FinancialParameters_get_market,(setter)FinancialParameters_set_market,
 	PyDoc_STR("*float*: Residential or Commercial Market [0/1]\n\n**Options:**\n0=residential,1=comm.\n\n**Constraints:**\nINTEGER,MIN=0,MAX=1\n\n**Required:**\nFalse. Automatically set to 1 if not assigned explicitly or loaded from defaults."),

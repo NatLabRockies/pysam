@@ -15,7 +15,7 @@ yes | conda install conda-build
 yes | conda activate base
 conda update -n base -c defaults conda
 
-for PYTHONVER in 3.9 3.10 3.11 3.12 3.13
+for PYTHONVER in 3.9 3.10 3.11 3.12 3.13 3.14
 do
    export PYTHONVER
    conda-build conda --output-folder=$DIST_DIR --python=$PYTHONVER --prefix-length=0 || exit

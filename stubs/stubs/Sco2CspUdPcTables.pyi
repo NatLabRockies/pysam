@@ -41,15 +41,22 @@ class Sco2CspUdPcTables(object):
 
 
 		T_amb_des = float
+		T_bypass_target = float
 		T_htf_hot_des = float
+		T_target_is_HTF = float
 		W_dot_net_des = float
 		dT_PHX_hot_approach = float
 		dT_mc_approach = float
+		deltaT_bypass = float
 		design_method = float
+		eta_thermal_cutoff = float
 		eta_thermal_des = float
 		htf = float
 		htf_props = tuple
+		is_bypass_ok = float
+		set_HTF_mdot = float
 		site_elevation = float
+		yr_inflation = float
 
 
 	class HeatExchangerDesign(object):
@@ -120,8 +127,10 @@ class Sco2CspUdPcTables(object):
 		eta_isen_pc = float
 		eta_isen_rc = float
 		eta_isen_t = float
+		eta_isen_t2 = float
 		is_apply_default_htf_mins = float
 		is_generate_udpc = float
+		is_turbine_split_ok = float
 		m_dot_htf_ND_high = float
 		m_dot_htf_ND_low = float
 		mc_comp_type = float
@@ -184,8 +193,14 @@ class Sco2CspUdPcTables(object):
 			pass
 
 
+		BPX_co2_deltaP_des = float
+		BPX_cost_bare_erected = float
+		BPX_cost_equipment = float
+		BPX_m_dot = float
+		BPX_min_dT = float
 		HTR_HP_T_in_des = float
 		HTR_HP_deltaP_des = float
+		HTR_HP_m_dot = float
 		HTR_LP_T_out_des = float
 		HTR_LP_deltaP_des = float
 		HTR_UA_assigned = float
@@ -201,6 +216,7 @@ class Sco2CspUdPcTables(object):
 		LTR_cost_bare_erected = float
 		LTR_cost_equipment = float
 		LTR_min_dT = float
+		NTU_BPX = float
 		NTU_HTR = float
 		NTU_LTR = float
 		NTU_PHX = float
@@ -208,6 +224,7 @@ class Sco2CspUdPcTables(object):
 		PHX_cost_bare_erected = float
 		PHX_cost_equipment = float
 		PHX_min_dT = float
+		P_co2_BPX_in = float
 		P_co2_PHX_in = float
 		P_comp_in = float
 		P_comp_out = float
@@ -215,6 +232,7 @@ class Sco2CspUdPcTables(object):
 		P_pc_data = tuple
 		P_rc_data = tuple
 		P_state_points = tuple
+		P_t2_data = tuple
 		P_t_data = tuple
 		T_HTR_HP_data = tuple
 		T_HTR_LP_data = tuple
@@ -222,16 +240,23 @@ class Sco2CspUdPcTables(object):
 		T_LTR_LP_data = tuple
 		T_PHX_data = tuple
 		T_amb_ind = tuple
+		T_co2_BPX_in = float
 		T_co2_PHX_in = float
 		T_comp_in = float
+		T_htf_bp_out_des = float
 		T_htf_cold_des = float
 		T_htf_ind = tuple
+		T_htf_phx_out_des = float
 		T_main_cooler_data = tuple
 		T_pre_cooler_data = tuple
 		T_state_points = tuple
+		T_turb2_in = float
 		T_turb_in = float
+		UA_BPX = float
 		UA_PHX = float
 		W_dot_net_less_cooling = float
+		back_work_ratio = float
+		bypass_frac = float
 		c_tot_W_dot = float
 		c_tot_cost_equip = float
 		cooler_tot_UA = float
@@ -241,16 +266,23 @@ class Sco2CspUdPcTables(object):
 		cycle_cost = float
 		cycle_spec_cost = float
 		cycle_spec_cost_thermal = float
+		cycle_success = float
+		dT_htf_des = float
+		deltaT_HTF_BPX = float
 		deltaT_HTF_PHX = float
+		eff_BPX = float
 		eff_HTR = float
 		eff_LTR = float
 		eff_PHX = float
+		error_int = float
+		error_msg = str
 		eta_thermal_calc = float
 		eta_thermal_net_less_cooling_des = float
 		h_mc_data = tuple
 		h_pc_data = tuple
 		h_rc_data = tuple
 		h_state_points = tuple
+		h_t2_data = tuple
 		h_t_data = tuple
 		m_dot_co2_full = float
 		m_dot_htf_ND_ind = tuple
@@ -306,9 +338,11 @@ class Sco2CspUdPcTables(object):
 		pc_rho_in_des = float
 		pc_tip_ratio_des = tuple
 		piping_inventory_etc_cost = float
+		q_dot_BPX = float
 		q_dot_HTR = float
 		q_dot_LTR = float
 		q_dot_PHX = float
+		q_dot_in_total = float
 		rc_D = tuple
 		rc_N_des = float
 		rc_P_in_des = float
@@ -340,6 +374,19 @@ class Sco2CspUdPcTables(object):
 		s_main_cooler_data = tuple
 		s_pre_cooler_data = tuple
 		s_state_points = tuple
+		t2_D = float
+		t2_N_des = float
+		t2_P_in_des = float
+		t2_P_out_des = float
+		t2_T_out_des = float
+		t2_W_dot = float
+		t2_cost_bare_erected = float
+		t2_cost_equipment = float
+		t2_delta_h_isen_des = float
+		t2_m_dot_des = float
+		t2_nu_des = float
+		t2_rho_in_des = float
+		t2_tip_ratio_des = float
 		t_D = float
 		t_N_des = float
 		t_P_in_des = float
@@ -353,6 +400,9 @@ class Sco2CspUdPcTables(object):
 		t_nu_des = float
 		t_rho_in_des = float
 		t_tip_ratio_des = float
+		t_tot_W_dot = float
+		t_tot_cost_equip = float
+		turbine_split_frac = float
 
 
 
