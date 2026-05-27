@@ -112,6 +112,14 @@ elif sys.platform == "linux":
     copy_ortools("lib64", "linux")
 elif sys.platform == "win32":
     copy_ortools("lib", "win32")
+    # ssc.dll depends on ortools.dll at load time; OR-Tools runtime DLLs live in
+    # bin/, not lib/, so copy_ortools("lib") misses them entirely.
+    ortools_bin_dir = Path(os.environ['ORTOOLSDIR']) / "bin"
+    for lib_file in glob.glob(str(ortools_bin_dir / "*.dll")):
+        dest = libpath / Path(lib_file).name
+        copy(lib_file, str(dest))
+        libfiles.append(dest.name)
+        ortools_libfiles.append(dest)
 
 ###################################################################################################
 #
