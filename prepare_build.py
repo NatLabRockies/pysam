@@ -68,11 +68,29 @@ def stage_platform_libs(pkg_dir, staged):
         search_dirs = [
             Path(samntdir) / ".." / "build_pysam" / "Release",
             Path(samntdir) / ".." / "cmake-build-release" / "Release",
+            Path(samntdir) / ".." / "build_pysam" / "sam" /"api" / "Release",
+            Path(samntdir) / ".." / "build_pysam" / "ssc" / "ssc" / "Release",
         ]
         lib_names = ["SAM_api.dll", "SAM_api.lib", "ssc.dll", "ssc.lib"]
     else:
         print(f"Unsupported platform: {sys.platform}", file=sys.stderr)
         sys.exit(1)
+
+
+    for lib_name in lib_names:
+        found = False
+        for search_dir in search_dirs:
+            lib_path = search_dir / lib_name
+            if lib_path.is_file():
+                dest = pkg_dir / lib_name
+                shutil.copy2(str(lib_path), str(dest))
+                staged.append(str(dest))
+                print(f"  Staged {lib_name} from {search_dir}")
+                found = True
+                break
+        if not found:
+            print(f"ERROR: Could not find {lib_name} in expected locations.", file=sys.stderr)
+            sys.exit(1)
 
 def stage_ortools(pkg_dir, staged):
     """Copy OR-Tools runtime libraries into pkg_dir."""
@@ -118,6 +136,21 @@ def stage_ortools(pkg_dir, staged):
 
             staged.append(str(dest))
             print(f"  Staged OR-Tools lib: {dest.name}")
+
+    if sys.platform == "win32":
+        # copy over dlls
+        dll_subdir = "bin"
+        patterns = ["*dll"]
+        ortools_dll_dir = Path(ortoolsdir) / dll_subdir
+        for pattern in patterns:
+            for dll_file in glob.glob(str(ortools_dll_dir / pattern)):
+                dll_path = Path(dll_file)
+                if dll_path.is_symlink():
+                    continue
+                dest = pkg_dir / dll_path.name
+                shutil.copy2(str(dll_path), str(dest))
+                staged.append(str(dest))
+                print(f"  Staged OR-Tools DLL: {dest.name}")
 
 
 def stage_defaults(pkg_dir, staged):

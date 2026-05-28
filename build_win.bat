@@ -4,7 +4,7 @@ mkdir %SSCDIR%\..\build_pysam
 cd %SSCDIR%\..\build_pysam
 
 REM skip api_autogen since the files should not need to be regenerated
-cmake -G "Visual Studio 17 2022" -DCMAKE_CONFIGURATION_TYPES="Release" -DSAM_SKIP_TOOLS=1 -DSAM_SKIP_TESTS=1 -DSAM_SKIP_AUTOGEN=0 -DSAMAPI_EXPORT=1 DUSE_XPRESS=0 -DUSE_COINOR=1 -DCMAKE_SYSTEM_VERSION=10.0 -DCMAKE_SYSTEM_PREFIX_PATH="%ORTOOLSDIR%" -Dabsl_DIR="%ORTOOLSDIR%\lib\cmake\absl" -Dutf8_range_DIR="%ORTOOLSDIR%\lib\cmake\utf8_range" -Dortools_DIR="%ORTOOLSDIR%\lib\cmake\ortools"..
+cmake -G "Visual Studio 17 2022" -DCMAKE_CONFIGURATION_TYPES="Release" -DSAM_SKIP_TOOLS=1 -DSAM_SKIP_TESTS=1 -DSAM_SKIP_AUTOGEN=0 -DSAMAPI_EXPORT=1 -DUSE_XPRESS=0 -DUSE_COINOR=1 -DCMAKE_SYSTEM_VERSION=10.0 -DCMAKE_SYSTEM_PREFIX_PATH="%ORTOOLSDIR%" -Dabsl_DIR="%ORTOOLSDIR%\lib\cmake\absl" -Dutf8_range_DIR="%ORTOOLSDIR%\lib\cmake\utf8_range" -Dortools_DIR="%ORTOOLSDIR%\lib\cmake\ortools" ..
 devenv /build Release system_advisor_model.sln /Project SAM_api
 if errorlevel 1 (
     echo Error in Build
@@ -23,8 +23,8 @@ if errorlevel 1 (
 )
 
 FOR %%i IN (pysam_build_3.9 pysam_build_3.10 pysam_build_3.11, pysam_build_3.12 pysam_build_3.13 pysam_build_3.14) DO (
-	call deactivate
-    call activate %%i
+	call conda deactivate
+    call conda activate %%i
     echo y | pip install -r tests/requirements.txt
     echo y | pip install build
     echo y | pip uninstall NREL-PySAM

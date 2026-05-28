@@ -140,6 +140,25 @@ class Windpower(object):
 		wake_int_loss = float
 
 
+	class Lifetime(object):
+		def assign(self, dict): 
+			pass
+	
+		def replace(self, dict): 
+			pass
+	
+		def export(self) -> dict:
+			pass
+	
+		def __init__(self, *args, **kwargs): 
+			pass
+
+
+		ac_degradation = tuple
+		analysis_period = float
+		system_use_lifetime_output = float
+
+
 	class AdjustmentFactors(object):
 		def assign(self, dict): 
 			pass

@@ -114,6 +114,18 @@ Plant_set_energy_output_array(VarGroupObject *self, PyObject *value, void *closu
 }
 
 static PyObject *
+Plant_get_energy_output_array_lifetime(VarGroupObject *self, void *closure)
+{
+	return PySAM_array_getter(SAM_CustomGeneration_Plant_energy_output_array_lifetime_aget, self->data_ptr);
+}
+
+static int
+Plant_set_energy_output_array_lifetime(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_array_setter(value, SAM_CustomGeneration_Plant_energy_output_array_lifetime_aset, self->data_ptr);
+}
+
+static PyObject *
 Plant_get_heat_rate(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_CustomGeneration_Plant_heat_rate_nget, self->data_ptr);
@@ -171,11 +183,14 @@ static PyGetSetDef Plant_getset[] = {
 {"energy_output_array", (getter)Plant_get_energy_output_array,(setter)Plant_set_energy_output_array,
 	PyDoc_STR("*sequence*: Array of Energy Output Profile [kW]\n\n**Required:**\nRequired if spec_mode=1"),
  	NULL},
+{"energy_output_array_lifetime", (getter)Plant_get_energy_output_array_lifetime,(setter)Plant_set_energy_output_array_lifetime,
+	PyDoc_STR("*sequence*: Array of Energy Output Profile [kW]\n\n**Required:**\nRequired if spec_mode=2"),
+ 	NULL},
 {"heat_rate", (getter)Plant_get_heat_rate,(setter)Plant_set_heat_rate,
 	PyDoc_STR("*float*: Heat Rate [MMBTUs/MWhe]\n\n**Required:**\nTrue\n\nThe value of the following variables depends on ``heat_rate``:\n\n\t - conv_eff\n"),
  	NULL},
 {"spec_mode", (getter)Plant_get_spec_mode,(setter)Plant_set_spec_mode,
-	PyDoc_STR("*float*: Spec mode: 0=constant CF,1=profile\n\n**Required:**\nTrue"),
+	PyDoc_STR("*float*: Spec mode: 0=constant CF,1=profile,2=lifetime profile \n\n**Required:**\nTrue"),
  	NULL},
 {"system_capacity", (getter)Plant_get_system_capacity,(setter)Plant_set_system_capacity,
 	PyDoc_STR("*float*: Nameplace Capcity [kW]\n\n**INOUT:** This variable is both an input and an output to the compute module.\n\n**Required:**\nTrue"),
@@ -305,6 +320,18 @@ static PyMethodDef Lifetime_methods[] = {
 };
 
 static PyObject *
+Lifetime_get_ac_degradation(VarGroupObject *self, void *closure)
+{
+	return PySAM_array_getter(SAM_CustomGeneration_Lifetime_ac_degradation_aget, self->data_ptr);
+}
+
+static int
+Lifetime_set_ac_degradation(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_array_setter(value, SAM_CustomGeneration_Lifetime_ac_degradation_aset, self->data_ptr);
+}
+
+static PyObject *
 Lifetime_get_analysis_period(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_CustomGeneration_Lifetime_analysis_period_nget, self->data_ptr);
@@ -314,18 +341,6 @@ static int
 Lifetime_set_analysis_period(VarGroupObject *self, PyObject *value, void *closure)
 {
 	return PySAM_double_setter(value, SAM_CustomGeneration_Lifetime_analysis_period_nset, self->data_ptr);
-}
-
-static PyObject *
-Lifetime_get_generic_degradation(VarGroupObject *self, void *closure)
-{
-	return PySAM_array_getter(SAM_CustomGeneration_Lifetime_generic_degradation_aget, self->data_ptr);
-}
-
-static int
-Lifetime_set_generic_degradation(VarGroupObject *self, PyObject *value, void *closure)
-{
-	return PySAM_array_setter(value, SAM_CustomGeneration_Lifetime_generic_degradation_aset, self->data_ptr);
 }
 
 static PyObject *
@@ -341,11 +356,11 @@ Lifetime_set_system_use_lifetime_output(VarGroupObject *self, PyObject *value, v
 }
 
 static PyGetSetDef Lifetime_getset[] = {
+{"ac_degradation", (getter)Lifetime_get_ac_degradation,(setter)Lifetime_set_ac_degradation,
+	PyDoc_STR("*sequence*: Annual AC degradation [%/year]\n\n**Required:**\nRequired if system_use_lifetime_output=1"),
+ 	NULL},
 {"analysis_period", (getter)Lifetime_get_analysis_period,(setter)Lifetime_set_analysis_period,
 	PyDoc_STR("*float*: Lifetime analysis period [years]\n\n**Required:**\nRequired if system_use_lifetime_output=1"),
- 	NULL},
-{"generic_degradation", (getter)Lifetime_get_generic_degradation,(setter)Lifetime_set_generic_degradation,
-	PyDoc_STR("*sequence*: Annual AC degradation [%/year]\n\n**Required:**\nRequired if system_use_lifetime_output=1"),
  	NULL},
 {"system_use_lifetime_output", (getter)Lifetime_get_system_use_lifetime_output,(setter)Lifetime_set_system_use_lifetime_output,
 	PyDoc_STR("*float*: Custom generation profile lifetime simulation [0/1]\n\n**Constraints:**\nINTEGER,MIN=0,MAX=1\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),

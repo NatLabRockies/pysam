@@ -129,6 +129,10 @@ class TroughPhysicalIph(object):
 		Min_rnr_xpans = float
 		N_hdr_per_xpan = float
 		N_max_hdr_diams = float
+		OpticalTable_1 = tuple
+		OpticalTable_2 = tuple
+		OpticalTable_3 = tuple
+		OpticalTable_4 = tuple
 		P_a = tuple
 		Pipe_hl_coef = float
 		Rho_mirror_clean = tuple
@@ -186,6 +190,7 @@ class TroughPhysicalIph(object):
 		nHCEt = float
 		northsouth_field_sep = float
 		offset_xpan_hdr = float
+		opt_model = tuple
 		p_start = float
 		rec_qf_delay = float
 		rec_su_delay = float
@@ -677,7 +682,6 @@ class TroughPhysicalIph(object):
 		E_heater_su_des = float
 		EndLoss_ave = tuple
 		EqOpteff = tuple
-		IAM_ave = tuple
 		K_cpnt = tuple
 		L_cpnt = tuple
 		P_fixed = tuple
@@ -861,6 +865,7 @@ class TroughPhysicalIph(object):
 		operating_modes_a = tuple
 		operating_modes_b = tuple
 		operating_modes_c = tuple
+		opt_derate_ave = tuple
 		pipe_header_P_dsn = tuple
 		pipe_header_T_dsn = tuple
 		pipe_header_diams = tuple

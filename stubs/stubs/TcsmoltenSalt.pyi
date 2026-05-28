@@ -61,8 +61,7 @@ class TcsmoltenSalt(object):
 		F_wc = tuple
 		T_tank_cold_init = float
 		T_tank_hot_init = float
-		ampl_data_dir = str
-		ampl_exec_call = str
+		anc_elec_output = tuple
 		aux_par = float
 		aux_par_0 = float
 		aux_par_1 = float
@@ -92,20 +91,22 @@ class TcsmoltenSalt(object):
 		disp_timeout = float
 		f_turb_tou_periods = tuple
 		is_PAR_HTR_allowed_in = tuple
-		is_ampl_engine = float
+		is_control_target_elec = float
 		is_dispatch = float
 		is_dispatch_targets = float
 		is_field_tracking_init = float
+		is_hybrid = float
 		is_parallel_htr = float
 		is_pc_sb_allowed_in = tuple
 		is_pc_su_allowed_in = tuple
 		is_rec_su_allowed_in = tuple
 		is_tod_pc_target_also_pc_max = float
-		is_write_ampl_dat = float
 		pb_fixed_par = float
 		pc_op_mode_initial = float
 		pc_startup_energy_remain_initial = float
 		pc_startup_time_remain_init = float
+		pv_generation_profile = tuple
+		pv_total_installed_cost = float
 		q_dot_elec_to_PAR_HTR_in = tuple
 		q_pc_max_in = tuple
 		q_pc_target_on_in = tuple
@@ -818,6 +819,8 @@ class TcsmoltenSalt(object):
 		disp_presolve_nconstr_ann = float
 		disp_presolve_nvar = tuple
 		disp_presolve_nvar_ann = float
+		disp_pv_expected = tuple
+		disp_qeh_expected = tuple
 		disp_qpbsu_expected = tuple
 		disp_qsf_expected = tuple
 		disp_qsfprod_expected = tuple
@@ -832,6 +835,7 @@ class TcsmoltenSalt(object):
 		disp_subopt_flag = tuple
 		disp_tes_expected = tuple
 		disp_thermeff_expected = tuple
+		disp_wparasitic_expected = tuple
 		disp_wpb_expected = tuple
 		e_ch_tes = tuple
 		eta = tuple
@@ -919,6 +923,7 @@ class TcsmoltenSalt(object):
 		q_dot_pc_startup = tuple
 		q_dot_pc_target = tuple
 		q_dot_piping_loss_des = float
+		q_dot_rec_abs_from_sf_est_des = float
 		q_dot_rec_des = float
 		q_dot_rec_inc = tuple
 		q_dot_reflection_loss = tuple
@@ -933,6 +938,7 @@ class TcsmoltenSalt(object):
 		rec_defocus = tuple
 		rec_height_calc = float
 		rec_op_mode_final = tuple
+		rec_sm_from_sf_est_des = float
 		rec_startup_energy_remain_final = tuple
 		rec_startup_time_remain_final = tuple
 		refl_image_error = float
@@ -959,6 +965,8 @@ class TcsmoltenSalt(object):
 		twet = tuple
 		ui_direct_subtotal = float
 		vel_rec_htf_des = float
+		w_dot_net_pc_max = tuple
+		w_dot_net_pc_target = tuple
 		wspd = tuple
 
 

@@ -590,6 +590,18 @@ static PyMethodDef Lifetime_methods[] = {
 };
 
 static PyObject *
+Lifetime_get_ac_degradation(VarGroupObject *self, void *closure)
+{
+	return PySAM_array_getter(SAM_MhkWave_Lifetime_ac_degradation_aget, self->data_ptr);
+}
+
+static int
+Lifetime_set_ac_degradation(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_array_setter(value, SAM_MhkWave_Lifetime_ac_degradation_aset, self->data_ptr);
+}
+
+static PyObject *
 Lifetime_get_analysis_period(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_MhkWave_Lifetime_analysis_period_nget, self->data_ptr);
@@ -599,18 +611,6 @@ static int
 Lifetime_set_analysis_period(VarGroupObject *self, PyObject *value, void *closure)
 {
 	return PySAM_double_setter(value, SAM_MhkWave_Lifetime_analysis_period_nset, self->data_ptr);
-}
-
-static PyObject *
-Lifetime_get_generic_degradation(VarGroupObject *self, void *closure)
-{
-	return PySAM_array_getter(SAM_MhkWave_Lifetime_generic_degradation_aget, self->data_ptr);
-}
-
-static int
-Lifetime_set_generic_degradation(VarGroupObject *self, PyObject *value, void *closure)
-{
-	return PySAM_array_setter(value, SAM_MhkWave_Lifetime_generic_degradation_aset, self->data_ptr);
 }
 
 static PyObject *
@@ -626,11 +626,11 @@ Lifetime_set_system_use_lifetime_output(VarGroupObject *self, PyObject *value, v
 }
 
 static PyGetSetDef Lifetime_getset[] = {
+{"ac_degradation", (getter)Lifetime_get_ac_degradation,(setter)Lifetime_set_ac_degradation,
+	PyDoc_STR("*sequence*: Annual AC degradation [%/year]\n\n**Required:**\nRequired if system_use_lifetime_output=1"),
+ 	NULL},
 {"analysis_period", (getter)Lifetime_get_analysis_period,(setter)Lifetime_set_analysis_period,
 	PyDoc_STR("*float*: Lifetime analysis period [years]\n\n**Required:**\nRequired if system_use_lifetime_output=1"),
- 	NULL},
-{"generic_degradation", (getter)Lifetime_get_generic_degradation,(setter)Lifetime_set_generic_degradation,
-	PyDoc_STR("*sequence*: Annual AC degradation [%/year]\n\n**Required:**\nRequired if system_use_lifetime_output=1"),
  	NULL},
 {"system_use_lifetime_output", (getter)Lifetime_get_system_use_lifetime_output,(setter)Lifetime_set_system_use_lifetime_output,
 	PyDoc_STR("*float*: Generic lifetime simulation [0/1]\n\n**Constraints:**\nINTEGER,MIN=0,MAX=1\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),

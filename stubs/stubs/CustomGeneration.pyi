@@ -43,6 +43,7 @@ class CustomGeneration(object):
 		conv_eff = float
 		derate = float
 		energy_output_array = tuple
+		energy_output_array_lifetime = tuple
 		heat_rate = float
 		spec_mode = float
 		system_capacity = float
@@ -63,8 +64,8 @@ class CustomGeneration(object):
 			pass
 
 
+		ac_degradation = tuple
 		analysis_period = float
-		generic_degradation = tuple
 		system_use_lifetime_output = float
 
 

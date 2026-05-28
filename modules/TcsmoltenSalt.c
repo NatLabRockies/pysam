@@ -266,27 +266,15 @@ SystemControl_set_T_tank_hot_init(VarGroupObject *self, PyObject *value, void *c
 }
 
 static PyObject *
-SystemControl_get_ampl_data_dir(VarGroupObject *self, void *closure)
+SystemControl_get_anc_elec_output(VarGroupObject *self, void *closure)
 {
-	return PySAM_string_getter(SAM_TcsmoltenSalt_SystemControl_ampl_data_dir_sget, self->data_ptr);
+	return PySAM_array_getter(SAM_TcsmoltenSalt_SystemControl_anc_elec_output_aget, self->data_ptr);
 }
 
 static int
-SystemControl_set_ampl_data_dir(VarGroupObject *self, PyObject *value, void *closure)
+SystemControl_set_anc_elec_output(VarGroupObject *self, PyObject *value, void *closure)
 {
-	return PySAM_string_setter(value, SAM_TcsmoltenSalt_SystemControl_ampl_data_dir_sset, self->data_ptr);
-}
-
-static PyObject *
-SystemControl_get_ampl_exec_call(VarGroupObject *self, void *closure)
-{
-	return PySAM_string_getter(SAM_TcsmoltenSalt_SystemControl_ampl_exec_call_sget, self->data_ptr);
-}
-
-static int
-SystemControl_set_ampl_exec_call(VarGroupObject *self, PyObject *value, void *closure)
-{
-	return PySAM_string_setter(value, SAM_TcsmoltenSalt_SystemControl_ampl_exec_call_sset, self->data_ptr);
+	return PySAM_array_setter(value, SAM_TcsmoltenSalt_SystemControl_anc_elec_output_aset, self->data_ptr);
 }
 
 static PyObject *
@@ -638,15 +626,15 @@ SystemControl_set_is_PAR_HTR_allowed_in(VarGroupObject *self, PyObject *value, v
 }
 
 static PyObject *
-SystemControl_get_is_ampl_engine(VarGroupObject *self, void *closure)
+SystemControl_get_is_control_target_elec(VarGroupObject *self, void *closure)
 {
-	return PySAM_double_getter(SAM_TcsmoltenSalt_SystemControl_is_ampl_engine_nget, self->data_ptr);
+	return PySAM_double_getter(SAM_TcsmoltenSalt_SystemControl_is_control_target_elec_nget, self->data_ptr);
 }
 
 static int
-SystemControl_set_is_ampl_engine(VarGroupObject *self, PyObject *value, void *closure)
+SystemControl_set_is_control_target_elec(VarGroupObject *self, PyObject *value, void *closure)
 {
-	return PySAM_double_setter(value, SAM_TcsmoltenSalt_SystemControl_is_ampl_engine_nset, self->data_ptr);
+	return PySAM_double_setter(value, SAM_TcsmoltenSalt_SystemControl_is_control_target_elec_nset, self->data_ptr);
 }
 
 static PyObject *
@@ -683,6 +671,18 @@ static int
 SystemControl_set_is_field_tracking_init(VarGroupObject *self, PyObject *value, void *closure)
 {
 	return PySAM_double_setter(value, SAM_TcsmoltenSalt_SystemControl_is_field_tracking_init_nset, self->data_ptr);
+}
+
+static PyObject *
+SystemControl_get_is_hybrid(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_TcsmoltenSalt_SystemControl_is_hybrid_nget, self->data_ptr);
+}
+
+static int
+SystemControl_set_is_hybrid(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_TcsmoltenSalt_SystemControl_is_hybrid_nset, self->data_ptr);
 }
 
 static PyObject *
@@ -746,18 +746,6 @@ SystemControl_set_is_tod_pc_target_also_pc_max(VarGroupObject *self, PyObject *v
 }
 
 static PyObject *
-SystemControl_get_is_write_ampl_dat(VarGroupObject *self, void *closure)
-{
-	return PySAM_double_getter(SAM_TcsmoltenSalt_SystemControl_is_write_ampl_dat_nget, self->data_ptr);
-}
-
-static int
-SystemControl_set_is_write_ampl_dat(VarGroupObject *self, PyObject *value, void *closure)
-{
-	return PySAM_double_setter(value, SAM_TcsmoltenSalt_SystemControl_is_write_ampl_dat_nset, self->data_ptr);
-}
-
-static PyObject *
 SystemControl_get_pb_fixed_par(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_TcsmoltenSalt_SystemControl_pb_fixed_par_nget, self->data_ptr);
@@ -803,6 +791,30 @@ static int
 SystemControl_set_pc_startup_time_remain_init(VarGroupObject *self, PyObject *value, void *closure)
 {
 	return PySAM_double_setter(value, SAM_TcsmoltenSalt_SystemControl_pc_startup_time_remain_init_nset, self->data_ptr);
+}
+
+static PyObject *
+SystemControl_get_pv_generation_profile(VarGroupObject *self, void *closure)
+{
+	return PySAM_array_getter(SAM_TcsmoltenSalt_SystemControl_pv_generation_profile_aget, self->data_ptr);
+}
+
+static int
+SystemControl_set_pv_generation_profile(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_array_setter(value, SAM_TcsmoltenSalt_SystemControl_pv_generation_profile_aset, self->data_ptr);
+}
+
+static PyObject *
+SystemControl_get_pv_total_installed_cost(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_TcsmoltenSalt_SystemControl_pv_total_installed_cost_nget, self->data_ptr);
+}
+
+static int
+SystemControl_set_pv_total_installed_cost(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_TcsmoltenSalt_SystemControl_pv_total_installed_cost_nset, self->data_ptr);
 }
 
 static PyObject *
@@ -1019,11 +1031,8 @@ static PyGetSetDef SystemControl_getset[] = {
 {"T_tank_hot_init", (getter)SystemControl_get_T_tank_hot_init,(setter)SystemControl_set_T_tank_hot_init,
 	PyDoc_STR("*float*: Initial hot tank temp [C]"),
  	NULL},
-{"ampl_data_dir", (getter)SystemControl_get_ampl_data_dir,(setter)SystemControl_set_ampl_data_dir,
-	PyDoc_STR("*str*: AMPL data file directory\n\n**Required:**\nFalse. Automatically set to '' if not assigned explicitly or loaded from defaults."),
- 	NULL},
-{"ampl_exec_call", (getter)SystemControl_get_ampl_exec_call,(setter)SystemControl_set_ampl_exec_call,
-	PyDoc_STR("*str*: System command to run AMPL code\n\n**Required:**\nFalse. Automatically set to 'ampl sdk_solution.run' if not assigned explicitly or loaded from defaults."),
+{"anc_elec_output", (getter)SystemControl_get_anc_elec_output,(setter)SystemControl_set_anc_elec_output,
+	PyDoc_STR("*sequence*: Ancillary electrical generation (PV) [kWe]\n\n**Required:**\nFalse for configuration with default inputs. May be required if a variable dependent on its value changes. Example: For the Detailed PV - Single Owner configuration, only Subarray 1 is enabled in the configuration defaults, so Subarray 2 inputs would not be required; if Subarray 2 is enabled, then Subarray 2 inputs is required."),
  	NULL},
 {"aux_par", (getter)SystemControl_get_aux_par,(setter)SystemControl_set_aux_par,
 	PyDoc_STR("*float*: Aux heater, boiler parasitic [MWe/MWcap]\n\n**Required:**\nTrue"),
@@ -1112,8 +1121,8 @@ static PyGetSetDef SystemControl_getset[] = {
 {"is_PAR_HTR_allowed_in", (getter)SystemControl_get_is_PAR_HTR_allowed_in,(setter)SystemControl_set_is_PAR_HTR_allowed_in,
 	PyDoc_STR("*sequence*: User-provided is electrical heater operation allowed? [-]\n\n**Required:**\nRequired if is_dispatch_targets=1&is_parallel_htr=1"),
  	NULL},
-{"is_ampl_engine", (getter)SystemControl_get_is_ampl_engine,(setter)SystemControl_set_is_ampl_engine,
-	PyDoc_STR("*float*: Run dispatch optimization with external AMPL engine\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
+{"is_control_target_elec", (getter)SystemControl_get_is_control_target_elec,(setter)SystemControl_set_is_control_target_elec,
+	PyDoc_STR("*float*: 0 (default): control targets heat into cycle\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
  	NULL},
 {"is_dispatch", (getter)SystemControl_get_is_dispatch,(setter)SystemControl_set_is_dispatch,
 	PyDoc_STR("*float*: Allow dispatch optimization?\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
@@ -1123,6 +1132,9 @@ static PyGetSetDef SystemControl_getset[] = {
  	NULL},
 {"is_field_tracking_init", (getter)SystemControl_get_is_field_tracking_init,(setter)SystemControl_set_is_field_tracking_init,
 	PyDoc_STR("*float*: Is heliostat field tracking? (1 = true) [-]"),
+ 	NULL},
+{"is_hybrid", (getter)SystemControl_get_is_hybrid,(setter)SystemControl_set_is_hybrid,
+	PyDoc_STR("*float*: Is the system hybrid [0-1]\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
  	NULL},
 {"is_parallel_htr", (getter)SystemControl_get_is_parallel_htr,(setter)SystemControl_set_is_parallel_htr,
 	PyDoc_STR("*float*: Does plant include a HTF heater parallel to solar field?\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
@@ -1139,9 +1151,6 @@ static PyGetSetDef SystemControl_getset[] = {
 {"is_tod_pc_target_also_pc_max", (getter)SystemControl_get_is_tod_pc_target_also_pc_max,(setter)SystemControl_set_is_tod_pc_target_also_pc_max,
 	PyDoc_STR("*float*: Is the TOD target cycle heat input also the max cycle heat input?\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
  	NULL},
-{"is_write_ampl_dat", (getter)SystemControl_get_is_write_ampl_dat,(setter)SystemControl_set_is_write_ampl_dat,
-	PyDoc_STR("*float*: Write AMPL data files for dispatch run\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
- 	NULL},
 {"pb_fixed_par", (getter)SystemControl_get_pb_fixed_par,(setter)SystemControl_set_pb_fixed_par,
 	PyDoc_STR("*float*: Fixed parasitic load - runs at all times [MWe/MWcap]\n\n**Required:**\nTrue"),
  	NULL},
@@ -1153,6 +1162,12 @@ static PyGetSetDef SystemControl_getset[] = {
  	NULL},
 {"pc_startup_time_remain_init", (getter)SystemControl_get_pc_startup_time_remain_init,(setter)SystemControl_set_pc_startup_time_remain_init,
 	PyDoc_STR("*float*: Initial cycle startup time remaining [hr]"),
+ 	NULL},
+{"pv_generation_profile", (getter)SystemControl_get_pv_generation_profile,(setter)SystemControl_set_pv_generation_profile,
+	PyDoc_STR("*sequence*: Co-located PV generation for CSP to dispatch around. [kWe]"),
+ 	NULL},
+{"pv_total_installed_cost", (getter)SystemControl_get_pv_total_installed_cost,(setter)SystemControl_set_pv_total_installed_cost,
+	PyDoc_STR("*float*: Total installed cost of co-located PV system [$]\n\n**Required:**\nFalse. Automatically set to 0.0 if not assigned explicitly or loaded from defaults."),
  	NULL},
 {"q_dot_elec_to_PAR_HTR_in", (getter)SystemControl_get_q_dot_elec_to_PAR_HTR_in,(setter)SystemControl_set_q_dot_elec_to_PAR_HTR_in,
 	PyDoc_STR("*sequence*: User-provided electrical power to parallel heater [-]\n\n**Required:**\nRequired if is_dispatch_targets=1&is_parallel_htr=1"),
@@ -6590,64 +6605,64 @@ FinancialParameters_set_sales_tax_rate(VarGroupObject *self, PyObject *value, vo
 
 static PyGetSetDef FinancialParameters_getset[] = {
 {"const_per_interest_rate1", (getter)FinancialParameters_get_const_per_interest_rate1,(setter)FinancialParameters_set_const_per_interest_rate1,
-	PyDoc_STR("*float*: Interest rate, loan 1 [%]\n\n**Required:**\nTrue"),
+	PyDoc_STR("*float*: Interest rate, loan 1 [%]\n\n**Required:**\nRequired if is_hybrid=0"),
  	NULL},
 {"const_per_interest_rate2", (getter)FinancialParameters_get_const_per_interest_rate2,(setter)FinancialParameters_set_const_per_interest_rate2,
-	PyDoc_STR("*float*: Interest rate, loan 2 [%]\n\n**Required:**\nTrue"),
+	PyDoc_STR("*float*: Interest rate, loan 2 [%]\n\n**Required:**\nRequired if is_hybrid=0"),
  	NULL},
 {"const_per_interest_rate3", (getter)FinancialParameters_get_const_per_interest_rate3,(setter)FinancialParameters_set_const_per_interest_rate3,
-	PyDoc_STR("*float*: Interest rate, loan 3 [%]\n\n**Required:**\nTrue"),
+	PyDoc_STR("*float*: Interest rate, loan 3 [%]\n\n**Required:**\nRequired if is_hybrid=0"),
  	NULL},
 {"const_per_interest_rate4", (getter)FinancialParameters_get_const_per_interest_rate4,(setter)FinancialParameters_set_const_per_interest_rate4,
-	PyDoc_STR("*float*: Interest rate, loan 4 [%]\n\n**Required:**\nTrue"),
+	PyDoc_STR("*float*: Interest rate, loan 4 [%]\n\n**Required:**\nRequired if is_hybrid=0"),
  	NULL},
 {"const_per_interest_rate5", (getter)FinancialParameters_get_const_per_interest_rate5,(setter)FinancialParameters_set_const_per_interest_rate5,
-	PyDoc_STR("*float*: Interest rate, loan 5 [%]\n\n**Required:**\nTrue"),
+	PyDoc_STR("*float*: Interest rate, loan 5 [%]\n\n**Required:**\nRequired if is_hybrid=0"),
  	NULL},
 {"const_per_months1", (getter)FinancialParameters_get_const_per_months1,(setter)FinancialParameters_set_const_per_months1,
-	PyDoc_STR("*float*: Months prior to operation, loan 1\n\n**Required:**\nTrue"),
+	PyDoc_STR("*float*: Months prior to operation, loan 1\n\n**Required:**\nRequired if is_hybrid=0"),
  	NULL},
 {"const_per_months2", (getter)FinancialParameters_get_const_per_months2,(setter)FinancialParameters_set_const_per_months2,
-	PyDoc_STR("*float*: Months prior to operation, loan 2\n\n**Required:**\nTrue"),
+	PyDoc_STR("*float*: Months prior to operation, loan 2\n\n**Required:**\nRequired if is_hybrid=0"),
  	NULL},
 {"const_per_months3", (getter)FinancialParameters_get_const_per_months3,(setter)FinancialParameters_set_const_per_months3,
-	PyDoc_STR("*float*: Months prior to operation, loan 3\n\n**Required:**\nTrue"),
+	PyDoc_STR("*float*: Months prior to operation, loan 3\n\n**Required:**\nRequired if is_hybrid=0"),
  	NULL},
 {"const_per_months4", (getter)FinancialParameters_get_const_per_months4,(setter)FinancialParameters_set_const_per_months4,
-	PyDoc_STR("*float*: Months prior to operation, loan 4\n\n**Required:**\nTrue"),
+	PyDoc_STR("*float*: Months prior to operation, loan 4\n\n**Required:**\nRequired if is_hybrid=0"),
  	NULL},
 {"const_per_months5", (getter)FinancialParameters_get_const_per_months5,(setter)FinancialParameters_set_const_per_months5,
-	PyDoc_STR("*float*: Months prior to operation, loan 5\n\n**Required:**\nTrue"),
+	PyDoc_STR("*float*: Months prior to operation, loan 5\n\n**Required:**\nRequired if is_hybrid=0"),
  	NULL},
 {"const_per_percent1", (getter)FinancialParameters_get_const_per_percent1,(setter)FinancialParameters_set_const_per_percent1,
-	PyDoc_STR("*float*: Percent of total installed cost, loan 1 [%]\n\n**Required:**\nTrue"),
+	PyDoc_STR("*float*: Percent of total installed cost, loan 1 [%]\n\n**Required:**\nRequired if is_hybrid=0"),
  	NULL},
 {"const_per_percent2", (getter)FinancialParameters_get_const_per_percent2,(setter)FinancialParameters_set_const_per_percent2,
-	PyDoc_STR("*float*: Percent of total installed cost, loan 2 [%]\n\n**Required:**\nTrue"),
+	PyDoc_STR("*float*: Percent of total installed cost, loan 2 [%]\n\n**Required:**\nRequired if is_hybrid=0"),
  	NULL},
 {"const_per_percent3", (getter)FinancialParameters_get_const_per_percent3,(setter)FinancialParameters_set_const_per_percent3,
-	PyDoc_STR("*float*: Percent of total installed cost, loan 3 [%]\n\n**Required:**\nTrue"),
+	PyDoc_STR("*float*: Percent of total installed cost, loan 3 [%]\n\n**Required:**\nRequired if is_hybrid=0"),
  	NULL},
 {"const_per_percent4", (getter)FinancialParameters_get_const_per_percent4,(setter)FinancialParameters_set_const_per_percent4,
-	PyDoc_STR("*float*: Percent of total installed cost, loan 4 [%]\n\n**Required:**\nTrue"),
+	PyDoc_STR("*float*: Percent of total installed cost, loan 4 [%]\n\n**Required:**\nRequired if is_hybrid=0"),
  	NULL},
 {"const_per_percent5", (getter)FinancialParameters_get_const_per_percent5,(setter)FinancialParameters_set_const_per_percent5,
-	PyDoc_STR("*float*: Percent of total installed cost, loan 5 [%]\n\n**Required:**\nTrue"),
+	PyDoc_STR("*float*: Percent of total installed cost, loan 5 [%]\n\n**Required:**\nRequired if is_hybrid=0"),
  	NULL},
 {"const_per_upfront_rate1", (getter)FinancialParameters_get_const_per_upfront_rate1,(setter)FinancialParameters_set_const_per_upfront_rate1,
-	PyDoc_STR("*float*: Upfront fee on principal, loan 1 [%]\n\n**Required:**\nTrue"),
+	PyDoc_STR("*float*: Upfront fee on principal, loan 1 [%]\n\n**Required:**\nRequired if is_hybrid=0"),
  	NULL},
 {"const_per_upfront_rate2", (getter)FinancialParameters_get_const_per_upfront_rate2,(setter)FinancialParameters_set_const_per_upfront_rate2,
-	PyDoc_STR("*float*: Upfront fee on principal, loan 2 [%]\n\n**Required:**\nTrue"),
+	PyDoc_STR("*float*: Upfront fee on principal, loan 2 [%]\n\n**Required:**\nRequired if is_hybrid=0"),
  	NULL},
 {"const_per_upfront_rate3", (getter)FinancialParameters_get_const_per_upfront_rate3,(setter)FinancialParameters_set_const_per_upfront_rate3,
-	PyDoc_STR("*float*: Upfront fee on principal, loan 3 [%]\n\n**Required:**\nTrue"),
+	PyDoc_STR("*float*: Upfront fee on principal, loan 3 [%]\n\n**Required:**\nRequired if is_hybrid=0"),
  	NULL},
 {"const_per_upfront_rate4", (getter)FinancialParameters_get_const_per_upfront_rate4,(setter)FinancialParameters_set_const_per_upfront_rate4,
-	PyDoc_STR("*float*: Upfront fee on principal, loan 4 [%]\n\n**Required:**\nTrue"),
+	PyDoc_STR("*float*: Upfront fee on principal, loan 4 [%]\n\n**Required:**\nRequired if is_hybrid=0"),
  	NULL},
 {"const_per_upfront_rate5", (getter)FinancialParameters_get_const_per_upfront_rate5,(setter)FinancialParameters_set_const_per_upfront_rate5,
-	PyDoc_STR("*float*: Upfront fee on principal, loan 5 [%]\n\n**Required:**\nTrue"),
+	PyDoc_STR("*float*: Upfront fee on principal, loan 5 [%]\n\n**Required:**\nRequired if is_hybrid=0"),
  	NULL},
 {"sales_tax_rate", (getter)FinancialParameters_get_sales_tax_rate,(setter)FinancialParameters_set_sales_tax_rate,
 	PyDoc_STR("*float*: Sales tax rate [%]\n\n**Required:**\nTrue"),
@@ -8110,6 +8125,18 @@ Outputs_get_disp_presolve_nvar_ann(VarGroupObject *self, void *closure)
 }
 
 static PyObject *
+Outputs_get_disp_pv_expected(VarGroupObject *self, void *closure)
+{
+	return PySAM_array_getter(SAM_TcsmoltenSalt_Outputs_disp_pv_expected_aget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_disp_qeh_expected(VarGroupObject *self, void *closure)
+{
+	return PySAM_array_getter(SAM_TcsmoltenSalt_Outputs_disp_qeh_expected_aget, self->data_ptr);
+}
+
+static PyObject *
 Outputs_get_disp_qpbsu_expected(VarGroupObject *self, void *closure)
 {
 	return PySAM_array_getter(SAM_TcsmoltenSalt_Outputs_disp_qpbsu_expected_aget, self->data_ptr);
@@ -8191,6 +8218,12 @@ static PyObject *
 Outputs_get_disp_thermeff_expected(VarGroupObject *self, void *closure)
 {
 	return PySAM_array_getter(SAM_TcsmoltenSalt_Outputs_disp_thermeff_expected_aget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_disp_wparasitic_expected(VarGroupObject *self, void *closure)
+{
+	return PySAM_array_getter(SAM_TcsmoltenSalt_Outputs_disp_wparasitic_expected_aget, self->data_ptr);
 }
 
 static PyObject *
@@ -8716,6 +8749,12 @@ Outputs_get_q_dot_piping_loss_des(VarGroupObject *self, void *closure)
 }
 
 static PyObject *
+Outputs_get_q_dot_rec_abs_from_sf_est_des(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_TcsmoltenSalt_Outputs_q_dot_rec_abs_from_sf_est_des_nget, self->data_ptr);
+}
+
+static PyObject *
 Outputs_get_q_dot_rec_des(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_TcsmoltenSalt_Outputs_q_dot_rec_des_nget, self->data_ptr);
@@ -8797,6 +8836,12 @@ static PyObject *
 Outputs_get_rec_op_mode_final(VarGroupObject *self, void *closure)
 {
 	return PySAM_array_getter(SAM_TcsmoltenSalt_Outputs_rec_op_mode_final_aget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_rec_sm_from_sf_est_des(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_TcsmoltenSalt_Outputs_rec_sm_from_sf_est_des_nget, self->data_ptr);
 }
 
 static PyObject *
@@ -8953,6 +8998,18 @@ static PyObject *
 Outputs_get_vel_rec_htf_des(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_TcsmoltenSalt_Outputs_vel_rec_htf_des_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_w_dot_net_pc_max(VarGroupObject *self, void *closure)
+{
+	return PySAM_array_getter(SAM_TcsmoltenSalt_Outputs_w_dot_net_pc_max_aget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_w_dot_net_pc_target(VarGroupObject *self, void *closure)
+{
+	return PySAM_array_getter(SAM_TcsmoltenSalt_Outputs_w_dot_net_pc_target_aget, self->data_ptr);
 }
 
 static PyObject *
@@ -9388,6 +9445,12 @@ static PyGetSetDef Outputs_getset[] = {
 {"disp_presolve_nvar_ann", (getter)Outputs_get_disp_presolve_nvar_ann,(setter)0,
 	PyDoc_STR("*float*: Annual sum of dispatch problem variable count"),
  	NULL},
+{"disp_pv_expected", (getter)Outputs_get_disp_pv_expected,(setter)0,
+	PyDoc_STR("*sequence*: Dispatch expected PV generation [MWe]"),
+ 	NULL},
+{"disp_qeh_expected", (getter)Outputs_get_disp_qeh_expected,(setter)0,
+	PyDoc_STR("*sequence*: Dispatch expected electric heater thermal power [MWt]"),
+ 	NULL},
 {"disp_qpbsu_expected", (getter)Outputs_get_disp_qpbsu_expected,(setter)0,
 	PyDoc_STR("*sequence*: Dispatch expected power cycle startup energy [MWht]"),
  	NULL},
@@ -9429,6 +9492,9 @@ static PyGetSetDef Outputs_getset[] = {
  	NULL},
 {"disp_thermeff_expected", (getter)Outputs_get_disp_thermeff_expected,(setter)0,
 	PyDoc_STR("*sequence*: Dispatch expected SF thermal efficiency adj."),
+ 	NULL},
+{"disp_wparasitic_expected", (getter)Outputs_get_disp_wparasitic_expected,(setter)0,
+	PyDoc_STR("*sequence*: Dispatch expected parasitic power generation [MWe]"),
  	NULL},
 {"disp_wpb_expected", (getter)Outputs_get_disp_wpb_expected,(setter)0,
 	PyDoc_STR("*sequence*: Dispatch expected power generation [MWe]"),
@@ -9691,6 +9757,9 @@ static PyGetSetDef Outputs_getset[] = {
 {"q_dot_piping_loss_des", (getter)Outputs_get_q_dot_piping_loss_des,(setter)0,
 	PyDoc_STR("*float*: Receiver estimated piping loss at design [MWt]"),
  	NULL},
+{"q_dot_rec_abs_from_sf_est_des", (getter)Outputs_get_q_dot_rec_abs_from_sf_est_des,(setter)0,
+	PyDoc_STR("*float*: Estimated receiver thermal power based on field area and guessed optical efficiency [MWt]"),
+ 	NULL},
 {"q_dot_rec_des", (getter)Outputs_get_q_dot_rec_des,(setter)0,
 	PyDoc_STR("*float*: Receiver thermal output at design [MWt]"),
  	NULL},
@@ -9732,6 +9801,9 @@ static PyGetSetDef Outputs_getset[] = {
  	NULL},
 {"rec_op_mode_final", (getter)Outputs_get_rec_op_mode_final,(setter)0,
 	PyDoc_STR("*sequence*: Final receiver operating mode 0: off, 1: startup, 2: on [-]"),
+ 	NULL},
+{"rec_sm_from_sf_est_des", (getter)Outputs_get_rec_sm_from_sf_est_des,(setter)0,
+	PyDoc_STR("*float*: Estimated receiver solar mult based on field area and guessed optical efficiency [-]"),
  	NULL},
 {"rec_startup_energy_remain_final", (getter)Outputs_get_rec_startup_energy_remain_final,(setter)0,
 	PyDoc_STR("*sequence*: Final receiver startup energy remaining [Wh]"),
@@ -9810,6 +9882,12 @@ static PyGetSetDef Outputs_getset[] = {
  	NULL},
 {"vel_rec_htf_des", (getter)Outputs_get_vel_rec_htf_des,(setter)0,
 	PyDoc_STR("*float*: Receiver estimated tube HTF velocity at design [m/s]"),
+ 	NULL},
+{"w_dot_net_pc_max", (getter)Outputs_get_w_dot_net_pc_max,(setter)0,
+	PyDoc_STR("*sequence*: Max PC net electric power [MWe]"),
+ 	NULL},
+{"w_dot_net_pc_target", (getter)Outputs_get_w_dot_net_pc_target,(setter)0,
+	PyDoc_STR("*sequence*: Target PC net electric power [MWe]"),
  	NULL},
 {"wspd", (getter)Outputs_get_wspd,(setter)0,
 	PyDoc_STR("*sequence*: Resource wind velocity [m/s]"),

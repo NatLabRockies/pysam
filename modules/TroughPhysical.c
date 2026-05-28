@@ -1177,6 +1177,54 @@ SolarField_set_N_max_hdr_diams(VarGroupObject *self, PyObject *value, void *clos
 }
 
 static PyObject *
+SolarField_get_OpticalTable_1(VarGroupObject *self, void *closure)
+{
+	return PySAM_matrix_getter(SAM_TroughPhysical_SolarField_OpticalTable_1_mget, self->data_ptr);
+}
+
+static int
+SolarField_set_OpticalTable_1(VarGroupObject *self, PyObject *value, void *closure)
+{
+		return PySAM_matrix_setter(value, SAM_TroughPhysical_SolarField_OpticalTable_1_mset, self->data_ptr);
+}
+
+static PyObject *
+SolarField_get_OpticalTable_2(VarGroupObject *self, void *closure)
+{
+	return PySAM_matrix_getter(SAM_TroughPhysical_SolarField_OpticalTable_2_mget, self->data_ptr);
+}
+
+static int
+SolarField_set_OpticalTable_2(VarGroupObject *self, PyObject *value, void *closure)
+{
+		return PySAM_matrix_setter(value, SAM_TroughPhysical_SolarField_OpticalTable_2_mset, self->data_ptr);
+}
+
+static PyObject *
+SolarField_get_OpticalTable_3(VarGroupObject *self, void *closure)
+{
+	return PySAM_matrix_getter(SAM_TroughPhysical_SolarField_OpticalTable_3_mget, self->data_ptr);
+}
+
+static int
+SolarField_set_OpticalTable_3(VarGroupObject *self, PyObject *value, void *closure)
+{
+		return PySAM_matrix_setter(value, SAM_TroughPhysical_SolarField_OpticalTable_3_mset, self->data_ptr);
+}
+
+static PyObject *
+SolarField_get_OpticalTable_4(VarGroupObject *self, void *closure)
+{
+	return PySAM_matrix_getter(SAM_TroughPhysical_SolarField_OpticalTable_4_mget, self->data_ptr);
+}
+
+static int
+SolarField_set_OpticalTable_4(VarGroupObject *self, PyObject *value, void *closure)
+{
+		return PySAM_matrix_setter(value, SAM_TroughPhysical_SolarField_OpticalTable_4_mset, self->data_ptr);
+}
+
+static PyObject *
 SolarField_get_P_a(VarGroupObject *self, void *closure)
 {
 	return PySAM_matrix_getter(SAM_TroughPhysical_SolarField_P_a_mget, self->data_ptr);
@@ -1873,6 +1921,18 @@ SolarField_set_offset_xpan_hdr(VarGroupObject *self, PyObject *value, void *clos
 }
 
 static PyObject *
+SolarField_get_opt_model(VarGroupObject *self, void *closure)
+{
+	return PySAM_array_getter(SAM_TroughPhysical_SolarField_opt_model_aget, self->data_ptr);
+}
+
+static int
+SolarField_set_opt_model(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_array_setter(value, SAM_TroughPhysical_SolarField_opt_model_aset, self->data_ptr);
+}
+
+static PyObject *
 SolarField_get_p_start(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_TroughPhysical_SolarField_p_start_nget, self->data_ptr);
@@ -2122,6 +2182,18 @@ static PyGetSetDef SolarField_getset[] = {
 {"N_max_hdr_diams", (getter)SolarField_get_N_max_hdr_diams,(setter)SolarField_set_N_max_hdr_diams,
 	PyDoc_STR("*float*: Maximum number of diameters in each of the hot and cold headers [none]\n\n**Required:**\nTrue"),
  	NULL},
+{"OpticalTable_1", (getter)SolarField_get_OpticalTable_1,(setter)SolarField_set_OpticalTable_1,
+	PyDoc_STR("*sequence[sequence]*: Values of the optical efficiency table for collector type 1"),
+ 	NULL},
+{"OpticalTable_2", (getter)SolarField_get_OpticalTable_2,(setter)SolarField_set_OpticalTable_2,
+	PyDoc_STR("*sequence[sequence]*: Values of the optical efficiency table for collector type 2"),
+ 	NULL},
+{"OpticalTable_3", (getter)SolarField_get_OpticalTable_3,(setter)SolarField_set_OpticalTable_3,
+	PyDoc_STR("*sequence[sequence]*: Values of the optical efficiency table for collector type 3"),
+ 	NULL},
+{"OpticalTable_4", (getter)SolarField_get_OpticalTable_4,(setter)SolarField_set_OpticalTable_4,
+	PyDoc_STR("*sequence[sequence]*: Values of the optical efficiency table for collector type 4"),
+ 	NULL},
 {"P_a", (getter)SolarField_get_P_a,(setter)SolarField_set_P_a,
 	PyDoc_STR("*sequence[sequence]*: Annulus gas pressure [torr]\n\n**Required:**\nTrue"),
  	NULL},
@@ -2153,10 +2225,10 @@ static PyGetSetDef SolarField_getset[] = {
 	PyDoc_STR("*float*: Target loop outlet temperature [C]\n\n**Required:**\nTrue"),
  	NULL},
 {"T_shutdown", (getter)SolarField_get_T_shutdown,(setter)SolarField_set_T_shutdown,
-	PyDoc_STR("*float*: Temperature when solar field begins recirculating [C]\n\n**Required:**\nFalse for configuration with default inputs. May be required if a variable dependent on its value changes. Example: For the Detailed PV - Single Owner configuration, only Subarray 1 is enabled in the configuration defaults, so Subarray 2 inputs would not be required; if Subarray 2 is enabled, then Subarray 2 inputs is required."),
+	PyDoc_STR("*float*: Temperature when solar field begins recirculating [C]"),
  	NULL},
 {"T_startup", (getter)SolarField_get_T_startup,(setter)SolarField_set_T_startup,
-	PyDoc_STR("*float*: Required temperature of the system before the power block can be switched on [C]\n\n**Required:**\nFalse for configuration with default inputs. May be required if a variable dependent on its value changes. Example: For the Detailed PV - Single Owner configuration, only Subarray 1 is enabled in the configuration defaults, so Subarray 2 inputs would not be required; if Subarray 2 is enabled, then Subarray 2 inputs is required."),
+	PyDoc_STR("*float*: Required temperature of the system before the power block can be switched on [C]"),
  	NULL},
 {"Tau_envelope", (getter)SolarField_get_Tau_envelope,(setter)SolarField_set_Tau_envelope,
 	PyDoc_STR("*sequence[sequence]*: Envelope transmittance [none]\n\n**Required:**\nTrue"),
@@ -2295,6 +2367,9 @@ static PyGetSetDef SolarField_getset[] = {
  	NULL},
 {"offset_xpan_hdr", (getter)SolarField_get_offset_xpan_hdr,(setter)SolarField_set_offset_xpan_hdr,
 	PyDoc_STR("*float*: Location of first header expansion loop. 1 = after first collector loop [none]\n\n**Required:**\nTrue"),
+ 	NULL},
+{"opt_model", (getter)SolarField_get_opt_model,(setter)SolarField_set_opt_model,
+	PyDoc_STR("*sequence*: Optical model (1=Solar position ; 2=Collector incidence table ; 3=IAM matrix)\n\n**Required:**\nFalse. Automatically set to [3,3,3,3] if not assigned explicitly or loaded from defaults."),
  	NULL},
 {"p_start", (getter)SolarField_get_p_start,(setter)SolarField_set_p_start,
 	PyDoc_STR("*float*: Collector startup energy, per SCA [kWhe]\n\n**Required:**\nTrue"),
@@ -3930,30 +4005,6 @@ static PyMethodDef Tou_methods[] = {
 };
 
 static PyObject *
-Tou_get_ampl_data_dir(VarGroupObject *self, void *closure)
-{
-	return PySAM_string_getter(SAM_TroughPhysical_Tou_ampl_data_dir_sget, self->data_ptr);
-}
-
-static int
-Tou_set_ampl_data_dir(VarGroupObject *self, PyObject *value, void *closure)
-{
-	return PySAM_string_setter(value, SAM_TroughPhysical_Tou_ampl_data_dir_sset, self->data_ptr);
-}
-
-static PyObject *
-Tou_get_ampl_exec_call(VarGroupObject *self, void *closure)
-{
-	return PySAM_string_getter(SAM_TroughPhysical_Tou_ampl_exec_call_sget, self->data_ptr);
-}
-
-static int
-Tou_set_ampl_exec_call(VarGroupObject *self, PyObject *value, void *closure)
-{
-	return PySAM_string_setter(value, SAM_TroughPhysical_Tou_ampl_exec_call_sset, self->data_ptr);
-}
-
-static PyObject *
 Tou_get_can_cycle_use_standby(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_TroughPhysical_Tou_can_cycle_use_standby_nget, self->data_ptr);
@@ -4194,18 +4245,6 @@ Tou_set_f_turb_tou_periods(VarGroupObject *self, PyObject *value, void *closure)
 }
 
 static PyObject *
-Tou_get_is_ampl_engine(VarGroupObject *self, void *closure)
-{
-	return PySAM_double_getter(SAM_TroughPhysical_Tou_is_ampl_engine_nget, self->data_ptr);
-}
-
-static int
-Tou_set_is_ampl_engine(VarGroupObject *self, PyObject *value, void *closure)
-{
-	return PySAM_double_setter(value, SAM_TroughPhysical_Tou_is_ampl_engine_nset, self->data_ptr);
-}
-
-static PyObject *
 Tou_get_is_dispatch(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_TroughPhysical_Tou_is_dispatch_nget, self->data_ptr);
@@ -4239,18 +4278,6 @@ static int
 Tou_set_is_tod_pc_target_also_pc_max(VarGroupObject *self, PyObject *value, void *closure)
 {
 	return PySAM_double_setter(value, SAM_TroughPhysical_Tou_is_tod_pc_target_also_pc_max_nset, self->data_ptr);
-}
-
-static PyObject *
-Tou_get_is_write_ampl_dat(VarGroupObject *self, void *closure)
-{
-	return PySAM_double_getter(SAM_TroughPhysical_Tou_is_write_ampl_dat_nget, self->data_ptr);
-}
-
-static int
-Tou_set_is_write_ampl_dat(VarGroupObject *self, PyObject *value, void *closure)
-{
-	return PySAM_double_setter(value, SAM_TroughPhysical_Tou_is_write_ampl_dat_nset, self->data_ptr);
 }
 
 static PyObject *
@@ -4326,12 +4353,6 @@ Tou_set_weekend_schedule(VarGroupObject *self, PyObject *value, void *closure)
 }
 
 static PyGetSetDef Tou_getset[] = {
-{"ampl_data_dir", (getter)Tou_get_ampl_data_dir,(setter)Tou_set_ampl_data_dir,
-	PyDoc_STR("*str*: AMPL data file directory [-]\n\n**Required:**\nFalse. Automatically set to '' if not assigned explicitly or loaded from defaults."),
- 	NULL},
-{"ampl_exec_call", (getter)Tou_get_ampl_exec_call,(setter)Tou_set_ampl_exec_call,
-	PyDoc_STR("*str*: System command to run AMPL code [-]\n\n**Required:**\nFalse. Automatically set to 'ampl sdk_solution.run' if not assigned explicitly or loaded from defaults."),
- 	NULL},
 {"can_cycle_use_standby", (getter)Tou_get_can_cycle_use_standby,(setter)Tou_set_can_cycle_use_standby,
 	PyDoc_STR("*float*: Can the cycle use standby operation?\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
  	NULL},
@@ -4392,9 +4413,6 @@ static PyGetSetDef Tou_getset[] = {
 {"f_turb_tou_periods", (getter)Tou_get_f_turb_tou_periods,(setter)Tou_set_f_turb_tou_periods,
 	PyDoc_STR("*sequence*: Dispatch logic for turbine load fraction [-]\n\n**Required:**\nTrue"),
  	NULL},
-{"is_ampl_engine", (getter)Tou_get_is_ampl_engine,(setter)Tou_set_is_ampl_engine,
-	PyDoc_STR("*float*: Run dispatch optimization with external AMPL engine [-]\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
- 	NULL},
 {"is_dispatch", (getter)Tou_get_is_dispatch,(setter)Tou_set_is_dispatch,
 	PyDoc_STR("*float*: Allow dispatch optimization? [-]\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
  	NULL},
@@ -4403,9 +4421,6 @@ static PyGetSetDef Tou_getset[] = {
  	NULL},
 {"is_tod_pc_target_also_pc_max", (getter)Tou_get_is_tod_pc_target_also_pc_max,(setter)Tou_set_is_tod_pc_target_also_pc_max,
 	PyDoc_STR("*float*: Is the TOD target cycle heat input also the max cycle heat input?\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
- 	NULL},
-{"is_write_ampl_dat", (getter)Tou_get_is_write_ampl_dat,(setter)Tou_set_is_write_ampl_dat,
-	PyDoc_STR("*float*: Write AMPL data files for dispatch run [-]\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
  	NULL},
 {"ppa_multiplier_model", (getter)Tou_get_ppa_multiplier_model,(setter)Tou_set_ppa_multiplier_model,
 	PyDoc_STR("*float*: PPA multiplier model 0: dispatch factors dispatch_factorX, 1: hourly multipliers dispatch_factors_ts [0/1]\n\n**Options:**\n0=diurnal,1=timestep\n\n**Constraints:**\nINTEGER,MIN=0\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
@@ -6646,12 +6661,6 @@ Outputs_get_EqOpteff(VarGroupObject *self, void *closure)
 }
 
 static PyObject *
-Outputs_get_IAM_ave(VarGroupObject *self, void *closure)
-{
-	return PySAM_array_getter(SAM_TroughPhysical_Outputs_IAM_ave_aget, self->data_ptr);
-}
-
-static PyObject *
 Outputs_get_K_cpnt(VarGroupObject *self, void *closure)
 {
 	return PySAM_matrix_getter(SAM_TroughPhysical_Outputs_K_cpnt_mget, self->data_ptr);
@@ -7732,6 +7741,12 @@ Outputs_get_operating_modes_c(VarGroupObject *self, void *closure)
 }
 
 static PyObject *
+Outputs_get_opt_derate_ave(VarGroupObject *self, void *closure)
+{
+	return PySAM_array_getter(SAM_TroughPhysical_Outputs_opt_derate_ave_aget, self->data_ptr);
+}
+
+static PyObject *
 Outputs_get_pc_op_mode_final(VarGroupObject *self, void *closure)
 {
 	return PySAM_array_getter(SAM_TroughPhysical_Outputs_pc_op_mode_final_aget, self->data_ptr);
@@ -8374,9 +8389,6 @@ static PyGetSetDef Outputs_getset[] = {
 {"EqOpteff", (getter)Outputs_get_EqOpteff,(setter)0,
 	PyDoc_STR("*sequence*: Field optical efficiency before defocus"),
  	NULL},
-{"IAM_ave", (getter)Outputs_get_IAM_ave,(setter)0,
-	PyDoc_STR("*sequence*: Field collector incidence angle modifier"),
- 	NULL},
 {"K_cpnt", (getter)Outputs_get_K_cpnt,(setter)0,
 	PyDoc_STR("*sequence[sequence]*: Minor loss coefficients of the components in each loop interconnect"),
  	NULL},
@@ -8916,6 +8928,9 @@ static PyGetSetDef Outputs_getset[] = {
  	NULL},
 {"operating_modes_c", (getter)Outputs_get_operating_modes_c,(setter)0,
 	PyDoc_STR("*sequence*: Final 3 operating modes tried"),
+ 	NULL},
+{"opt_derate_ave", (getter)Outputs_get_opt_derate_ave,(setter)0,
+	PyDoc_STR("*sequence*: Field collector optical derate modifier"),
  	NULL},
 {"pc_op_mode_final", (getter)Outputs_get_pc_op_mode_final,(setter)0,
 	PyDoc_STR("*sequence*: Final cycle operation mode 0:startup, 1:on, 2:standby, 3:off, 4:startup_controlled [-]"),

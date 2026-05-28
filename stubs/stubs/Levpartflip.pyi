@@ -232,6 +232,7 @@ class Levpartflip(object):
 		depr_alloc_sl_20_percent = float
 		depr_alloc_sl_39_percent = float
 		depr_alloc_sl_5_percent = float
+		depr_basis_mat = tuple
 		depr_bonus_fed = float
 		depr_bonus_fed_custom = float
 		depr_bonus_fed_macrs_15 = float
@@ -249,6 +250,7 @@ class Levpartflip(object):
 		depr_bonus_sta_sl_39 = float
 		depr_bonus_sta_sl_5 = float
 		depr_custom_schedule = tuple
+		depr_en_basis_mat = float
 		depr_fedbas_method = float
 		depr_itc_fed_custom = float
 		depr_itc_fed_macrs_15 = float

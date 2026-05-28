@@ -237,6 +237,7 @@ class Singleowner(object):
 		depr_alloc_sl_20_percent = float
 		depr_alloc_sl_39_percent = float
 		depr_alloc_sl_5_percent = float
+		depr_basis_mat = tuple
 		depr_bonus_fed = float
 		depr_bonus_fed_custom = float
 		depr_bonus_fed_macrs_15 = float
@@ -254,6 +255,7 @@ class Singleowner(object):
 		depr_bonus_sta_sl_39 = float
 		depr_bonus_sta_sl_5 = float
 		depr_custom_schedule = tuple
+		depr_en_basis_mat = float
 		depr_fedbas_method = float
 		depr_itc_fed_custom = float
 		depr_itc_fed_macrs_15 = float
@@ -659,6 +661,30 @@ class Singleowner(object):
 		monthly_energy = tuple
 
 
+	class NonEnergyRevenue(object):
+		def assign(self, dict): 
+			pass
+	
+		def replace(self, dict): 
+			pass
+	
+		def export(self) -> dict:
+			pass
+	
+		def __init__(self, *args, **kwargs): 
+			pass
+
+
+		energy_expenses_ret = tuple
+		energy_revenue_ret = tuple
+		non_energy_expenses = tuple
+		non_energy_expenses_escal = float
+		non_energy_expenses_ret = tuple
+		non_energy_revenue = tuple
+		non_energy_revenue_escal = float
+		non_energy_revenue_ret = tuple
+
+
 	class HybridCosts(object):
 		def assign(self, dict): 
 			pass
@@ -726,8 +752,13 @@ class Singleowner(object):
 		cf_ebitda = tuple
 		cf_effective_tax_frac = tuple
 		cf_energy_curtailed = tuple
+		cf_energy_expenses_paid = tuple
+		cf_energy_expenses_paid_percent = tuple
 		cf_energy_net = tuple
 		cf_energy_purchases = tuple
+		cf_energy_revenue = tuple
+		cf_energy_revenue_retained = tuple
+		cf_energy_revenue_retained_percent = tuple
 		cf_energy_sales = tuple
 		cf_energy_sales_apr = tuple
 		cf_energy_sales_aug = tuple
@@ -796,6 +827,8 @@ class Singleowner(object):
 		cf_land_lease_expense = tuple
 		cf_length = float
 		cf_net_salvage_value = tuple
+		cf_non_energy_expenses = tuple
+		cf_non_energy_revenue = tuple
 		cf_om_batt_capacity_expense = tuple
 		cf_om_batt_fixed_expense = tuple
 		cf_om_capacity1_expense = tuple
@@ -906,6 +939,7 @@ class Singleowner(object):
 		cf_statax_taxable_incentives = tuple
 		cf_state_tax_frac = tuple
 		cf_thermal_value = tuple
+		cf_total_energy_expenses = tuple
 		cf_total_revenue = tuple
 		cf_util_escal_rate = tuple
 		cf_utility_bill = tuple
