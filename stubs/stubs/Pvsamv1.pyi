@@ -71,6 +71,7 @@ class Pvsamv1(object):
 		calculate_rack_shading = float
 		dcoptimizer_loss = float
 		en_snow_model = float
+		snow_array = tuple
 		snow_slide_coefficient = float
 		subarray1_dcwiring_loss = float
 		subarray1_diodeconn_loss = float
@@ -111,6 +112,7 @@ class Pvsamv1(object):
 		transformer_load_loss = float
 		transformer_no_load_loss = float
 		transmission_loss = float
+		use_snow_weather_file = float
 
 
 	class Lifetime(object):
@@ -1043,6 +1045,7 @@ class Pvsamv1(object):
 		dispatch_manual_sched = tuple
 		dispatch_manual_sched_weekend = tuple
 		dispatch_manual_system_charge_first = float
+		start_day_of_year = float
 
 
 	class SystemCosts(object):
@@ -1163,6 +1166,7 @@ class Pvsamv1(object):
 
 		en_electricity_rates = float
 		rate_escalation = tuple
+		start_day_of_year = float
 		ur_annual_min_charge = float
 		ur_billing_demand_lookback_percentages = tuple
 		ur_billing_demand_lookback_period = float

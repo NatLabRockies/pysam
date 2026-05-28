@@ -1219,6 +1219,173 @@ static PyTypeObject Losses_Type = {
 
 
 /*
+ * Lifetime Group
+ */ 
+
+static PyTypeObject Lifetime_Type;
+
+static PyObject *
+Lifetime_new(SAM_Windpower data_ptr)
+{
+	PyObject* new_obj = Lifetime_Type.tp_alloc(&Lifetime_Type,0);
+
+	VarGroupObject* Lifetime_obj = (VarGroupObject*)new_obj;
+
+	Lifetime_obj->data_ptr = (SAM_table)data_ptr;
+
+	return new_obj;
+}
+
+/* Lifetime methods */
+
+static PyObject *
+Lifetime_assign(VarGroupObject *self, PyObject *args)
+{
+	PyObject* dict;
+	if (!PyArg_ParseTuple(args, "O:assign", &dict)){
+		return NULL;
+	}
+
+	if (!PySAM_assign_from_dict(self->data_ptr, dict, "Windpower", "Lifetime")){
+		return NULL;
+	}
+
+	Py_INCREF(Py_None);
+	return Py_None;
+}
+
+static PyObject *
+Lifetime_replace(VarGroupObject *self, PyObject *args)
+{
+	PyObject* dict;
+	if (!PyArg_ParseTuple(args, "O:assign", &dict)){
+		return NULL;
+	}
+	PyTypeObject* tp = &Lifetime_Type;
+
+	if (!PySAM_replace_from_dict(tp, self->data_ptr, dict, "Windpower", "Lifetime")){
+		return NULL;
+	}
+
+	Py_INCREF(Py_None);
+	return Py_None;
+}
+
+static PyObject *
+Lifetime_export(VarGroupObject *self, PyObject *args)
+{
+	PyTypeObject* tp = &Lifetime_Type;
+	PyObject* dict = PySAM_export_to_dict((PyObject *) self, tp);
+	return dict;
+}
+
+static PyMethodDef Lifetime_methods[] = {
+		{"assign",            (PyCFunction)Lifetime_assign,  METH_VARARGS,
+			PyDoc_STR("assign(dict) -> None\n Assign attributes from dictionary, overwriting but not removing values.\n\n``Lifetime_vals = { var: val, ...}``")},
+		{"replace",            (PyCFunction)Lifetime_replace,  METH_VARARGS,
+			PyDoc_STR("replace(dict) -> None\n Replace attributes from dictionary, unassigning values not present in input ``dict``.\n\n``Lifetime_vals = { var: val, ...}``")},
+		{"export",            (PyCFunction)Lifetime_export,  METH_VARARGS,
+			PyDoc_STR("export() -> dict\n Export attributes into dictionary.")},
+		{NULL,              NULL}           /* sentinel */
+};
+
+static PyObject *
+Lifetime_get_ac_degradation(VarGroupObject *self, void *closure)
+{
+	return PySAM_array_getter(SAM_Windpower_Lifetime_ac_degradation_aget, self->data_ptr);
+}
+
+static int
+Lifetime_set_ac_degradation(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_array_setter(value, SAM_Windpower_Lifetime_ac_degradation_aset, self->data_ptr);
+}
+
+static PyObject *
+Lifetime_get_analysis_period(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Windpower_Lifetime_analysis_period_nget, self->data_ptr);
+}
+
+static int
+Lifetime_set_analysis_period(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_Windpower_Lifetime_analysis_period_nset, self->data_ptr);
+}
+
+static PyObject *
+Lifetime_get_system_use_lifetime_output(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Windpower_Lifetime_system_use_lifetime_output_nget, self->data_ptr);
+}
+
+static int
+Lifetime_set_system_use_lifetime_output(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_Windpower_Lifetime_system_use_lifetime_output_nset, self->data_ptr);
+}
+
+static PyGetSetDef Lifetime_getset[] = {
+{"ac_degradation", (getter)Lifetime_get_ac_degradation,(setter)Lifetime_set_ac_degradation,
+	PyDoc_STR("*sequence*: Annual AC degradation for lifetime simulations [%/year]\n\n**Required:**\nRequired if system_use_lifetime_output=1"),
+ 	NULL},
+{"analysis_period", (getter)Lifetime_get_analysis_period,(setter)Lifetime_set_analysis_period,
+	PyDoc_STR("*float*: Analysis period [years]\n\n**Required:**\nRequired if system_use_lifetime_output=1"),
+ 	NULL},
+{"system_use_lifetime_output", (getter)Lifetime_get_system_use_lifetime_output,(setter)Lifetime_set_system_use_lifetime_output,
+	PyDoc_STR("*float*: Run lifetime simulation [0/1]\n\n**INOUT:** This variable is both an input and an output to the compute module.\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+	{NULL}  /* Sentinel */
+};
+
+static PyTypeObject Lifetime_Type = {
+		/* The ob_type field must be initialized in the module init function
+		 * to be portable to Windows without using C++. */
+		PyVarObject_HEAD_INIT(NULL, 0)
+		"Windpower.Lifetime",             /*tp_name*/
+		sizeof(VarGroupObject),          /*tp_basicsize*/
+		0,                          /*tp_itemsize*/
+		/* methods */
+		0,    /*tp_dealloc*/
+		0,                          /*tp_print*/
+		(getattrfunc)0,             /*tp_getattr*/
+		0,                          /*tp_setattr*/
+		0,                          /*tp_reserved*/
+		0,                          /*tp_repr*/
+		0,                          /*tp_as_number*/
+		0,                          /*tp_as_sequence*/
+		0,                          /*tp_as_mapping*/
+		0,                          /*tp_hash*/
+		0,                          /*tp_call*/
+		0,                          /*tp_str*/
+		0,                          /*tp_getattro*/
+		0,                          /*tp_setattro*/
+		0,                          /*tp_as_buffer*/
+		Py_TPFLAGS_DEFAULT,         /*tp_flags*/
+		0,                          /*tp_doc*/
+		0,                          /*tp_traverse*/
+		0,                          /*tp_clear*/
+		0,                          /*tp_richcompare*/
+		0,                          /*tp_weaklistofnset*/
+		0,                          /*tp_iter*/
+		0,                          /*tp_iternext*/
+		Lifetime_methods,         /*tp_methods*/
+		0,                          /*tp_members*/
+		Lifetime_getset,          /*tp_getset*/
+		0,                          /*tp_base*/
+		0,                          /*tp_dict*/
+		0,                          /*tp_descr_get*/
+		0,                          /*tp_descr_set*/
+		0,                          /*tp_dictofnset*/
+		0,                          /*tp_init*/
+		0,                          /*tp_alloc*/
+		0,             /*tp_new*/
+		0,                          /*tp_free*/
+		0,                          /*tp_is_gc*/
+};
+
+
+/*
  * AdjustmentFactors Group
  */ 
 
@@ -2350,6 +2517,10 @@ newWindpowerObject(void* data_ptr)
 	PyDict_SetItemString(attr_dict, "Losses", Losses_obj);
 	Py_DECREF(Losses_obj);
 
+	PyObject* Lifetime_obj = Lifetime_new(self->data_ptr);
+	PyDict_SetItemString(attr_dict, "Lifetime", Lifetime_obj);
+	Py_DECREF(Lifetime_obj);
+
 	PyObject* AdjustmentFactors_obj = AdjustmentFactors_new(self->data_ptr);
 	PyDict_SetItemString(attr_dict, "AdjustmentFactors", AdjustmentFactors_obj);
 	Py_DECREF(AdjustmentFactors_obj);
@@ -2680,6 +2851,13 @@ WindpowerModule_exec(PyObject *m)
 				"Losses",
 				(PyObject*)&Losses_Type);
 	Py_DECREF(&Losses_Type);
+
+	/// Add the Lifetime type object to Windpower_Type
+	if (PyType_Ready(&Lifetime_Type) < 0) { goto fail; }
+	PyDict_SetItemString(Windpower_Type.tp_dict,
+				"Lifetime",
+				(PyObject*)&Lifetime_Type);
+	Py_DECREF(&Lifetime_Type);
 
 	/// Add the AdjustmentFactors type object to Windpower_Type
 	if (PyType_Ready(&AdjustmentFactors_Type) < 0) { goto fail; }

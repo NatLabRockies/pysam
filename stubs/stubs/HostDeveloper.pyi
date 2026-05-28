@@ -54,6 +54,7 @@ class HostDeveloper(object):
 		ppa_soln_min = float
 		ppa_soln_mode = float
 		ppa_soln_tolerance = float
+		start_day_of_year = float
 
 
 	class FinancialParameters(object):
@@ -230,6 +231,7 @@ class HostDeveloper(object):
 		depr_alloc_sl_20_percent = float
 		depr_alloc_sl_39_percent = float
 		depr_alloc_sl_5_percent = float
+		depr_basis_mat = tuple
 		depr_bonus_fed = float
 		depr_bonus_fed_custom = float
 		depr_bonus_fed_macrs_15 = float
@@ -247,6 +249,7 @@ class HostDeveloper(object):
 		depr_bonus_sta_sl_39 = float
 		depr_bonus_sta_sl_5 = float
 		depr_custom_schedule = tuple
+		depr_en_basis_mat = float
 		depr_fedbas_method = float
 		depr_itc_fed_custom = float
 		depr_itc_fed_macrs_15 = float
@@ -431,6 +434,7 @@ class HostDeveloper(object):
 		nm_dollars_applied_ym = tuple
 		true_up_credits_ym = tuple
 		utility_bill_w_sys = tuple
+		utility_bill_wo_sys = tuple
 
 
 	class SystemOutput(object):

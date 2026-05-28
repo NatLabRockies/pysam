@@ -3480,6 +3480,18 @@ TimeOfDeliveryFactors_set_dispatch_tod_factors(VarGroupObject *self, PyObject *v
 	return PySAM_array_setter(value, SAM_FresnelPhysicalIph_TimeOfDeliveryFactors_dispatch_tod_factors_aset, self->data_ptr);
 }
 
+static PyObject *
+TimeOfDeliveryFactors_get_start_day_of_year(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_FresnelPhysicalIph_TimeOfDeliveryFactors_start_day_of_year_nget, self->data_ptr);
+}
+
+static int
+TimeOfDeliveryFactors_set_start_day_of_year(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_FresnelPhysicalIph_TimeOfDeliveryFactors_start_day_of_year_nset, self->data_ptr);
+}
+
 static PyGetSetDef TimeOfDeliveryFactors_getset[] = {
 {"dispatch_sched_weekday", (getter)TimeOfDeliveryFactors_get_dispatch_sched_weekday,(setter)TimeOfDeliveryFactors_set_dispatch_sched_weekday,
 	PyDoc_STR("*sequence[sequence]*: PPA pricing weekday schedule, 12x24\n\n**Required:**\nRequired if ppa_multiplier_model=0&csp_financial_model<5&is_dispatch=1"),
@@ -3489,6 +3501,9 @@ static PyGetSetDef TimeOfDeliveryFactors_getset[] = {
  	NULL},
 {"dispatch_tod_factors", (getter)TimeOfDeliveryFactors_get_dispatch_tod_factors,(setter)TimeOfDeliveryFactors_set_dispatch_tod_factors,
 	PyDoc_STR("*sequence*: TOD factors for periods 1 through 9\n\n**Required:**\nRequired if ppa_multiplier_model=0&csp_financial_model<5&is_dispatch=1"),
+ 	NULL},
+{"start_day_of_year", (getter)TimeOfDeliveryFactors_get_start_day_of_year,(setter)TimeOfDeliveryFactors_set_start_day_of_year,
+	PyDoc_STR("*float*: Start day of year for TOD periods [0..6]\n\n**Options:**\n0=Monday, 6=Sunday\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
  	NULL},
 	{NULL}  /* Sentinel */
 };
@@ -4769,6 +4784,18 @@ ElectricityRates_set_rate_escalation(VarGroupObject *self, PyObject *value, void
 }
 
 static PyObject *
+ElectricityRates_get_start_day_of_year(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_FresnelPhysicalIph_ElectricityRates_start_day_of_year_nget, self->data_ptr);
+}
+
+static int
+ElectricityRates_set_start_day_of_year(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_FresnelPhysicalIph_ElectricityRates_start_day_of_year_nset, self->data_ptr);
+}
+
+static PyObject *
 ElectricityRates_get_ur_annual_min_charge(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_FresnelPhysicalIph_ElectricityRates_ur_annual_min_charge_nget, self->data_ptr);
@@ -5110,6 +5137,9 @@ static PyGetSetDef ElectricityRates_getset[] = {
  	NULL},
 {"rate_escalation", (getter)ElectricityRates_get_rate_escalation,(setter)ElectricityRates_set_rate_escalation,
 	PyDoc_STR("*sequence*: Annual electricity rate escalation [%/year]\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+{"start_day_of_year", (getter)ElectricityRates_get_start_day_of_year,(setter)ElectricityRates_set_start_day_of_year,
+	PyDoc_STR("*float*: Start day of year for TOD periods [0..6]\n\n**Options:**\n0=Monday, 6=Sunday\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
  	NULL},
 {"ur_annual_min_charge", (getter)ElectricityRates_get_ur_annual_min_charge,(setter)ElectricityRates_set_ur_annual_min_charge,
 	PyDoc_STR("*float*: Annual minimum charge [$]\n\n**Required:**\nFalse. Automatically set to 0.0 if not assigned explicitly or loaded from defaults."),

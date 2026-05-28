@@ -957,6 +957,54 @@ SolarField_set_N_max_hdr_diams(VarGroupObject *self, PyObject *value, void *clos
 }
 
 static PyObject *
+SolarField_get_OpticalTable_1(VarGroupObject *self, void *closure)
+{
+	return PySAM_matrix_getter(SAM_TroughPhysicalIph_SolarField_OpticalTable_1_mget, self->data_ptr);
+}
+
+static int
+SolarField_set_OpticalTable_1(VarGroupObject *self, PyObject *value, void *closure)
+{
+		return PySAM_matrix_setter(value, SAM_TroughPhysicalIph_SolarField_OpticalTable_1_mset, self->data_ptr);
+}
+
+static PyObject *
+SolarField_get_OpticalTable_2(VarGroupObject *self, void *closure)
+{
+	return PySAM_matrix_getter(SAM_TroughPhysicalIph_SolarField_OpticalTable_2_mget, self->data_ptr);
+}
+
+static int
+SolarField_set_OpticalTable_2(VarGroupObject *self, PyObject *value, void *closure)
+{
+		return PySAM_matrix_setter(value, SAM_TroughPhysicalIph_SolarField_OpticalTable_2_mset, self->data_ptr);
+}
+
+static PyObject *
+SolarField_get_OpticalTable_3(VarGroupObject *self, void *closure)
+{
+	return PySAM_matrix_getter(SAM_TroughPhysicalIph_SolarField_OpticalTable_3_mget, self->data_ptr);
+}
+
+static int
+SolarField_set_OpticalTable_3(VarGroupObject *self, PyObject *value, void *closure)
+{
+		return PySAM_matrix_setter(value, SAM_TroughPhysicalIph_SolarField_OpticalTable_3_mset, self->data_ptr);
+}
+
+static PyObject *
+SolarField_get_OpticalTable_4(VarGroupObject *self, void *closure)
+{
+	return PySAM_matrix_getter(SAM_TroughPhysicalIph_SolarField_OpticalTable_4_mget, self->data_ptr);
+}
+
+static int
+SolarField_set_OpticalTable_4(VarGroupObject *self, PyObject *value, void *closure)
+{
+		return PySAM_matrix_setter(value, SAM_TroughPhysicalIph_SolarField_OpticalTable_4_mset, self->data_ptr);
+}
+
+static PyObject *
 SolarField_get_P_a(VarGroupObject *self, void *closure)
 {
 	return PySAM_matrix_getter(SAM_TroughPhysicalIph_SolarField_P_a_mget, self->data_ptr);
@@ -1641,6 +1689,18 @@ SolarField_set_offset_xpan_hdr(VarGroupObject *self, PyObject *value, void *clos
 }
 
 static PyObject *
+SolarField_get_opt_model(VarGroupObject *self, void *closure)
+{
+	return PySAM_array_getter(SAM_TroughPhysicalIph_SolarField_opt_model_aget, self->data_ptr);
+}
+
+static int
+SolarField_set_opt_model(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_array_setter(value, SAM_TroughPhysicalIph_SolarField_opt_model_aset, self->data_ptr);
+}
+
+static PyObject *
 SolarField_get_p_start(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_TroughPhysicalIph_SolarField_p_start_nget, self->data_ptr);
@@ -1911,6 +1971,18 @@ static PyGetSetDef SolarField_getset[] = {
 {"N_max_hdr_diams", (getter)SolarField_get_N_max_hdr_diams,(setter)SolarField_set_N_max_hdr_diams,
 	PyDoc_STR("*float*: Maximum number of diameters in each of the hot and cold headers [none]\n\n**Required:**\nTrue"),
  	NULL},
+{"OpticalTable_1", (getter)SolarField_get_OpticalTable_1,(setter)SolarField_set_OpticalTable_1,
+	PyDoc_STR("*sequence[sequence]*: Values of the optical efficiency table for collector type 1"),
+ 	NULL},
+{"OpticalTable_2", (getter)SolarField_get_OpticalTable_2,(setter)SolarField_set_OpticalTable_2,
+	PyDoc_STR("*sequence[sequence]*: Values of the optical efficiency table for collector type 2"),
+ 	NULL},
+{"OpticalTable_3", (getter)SolarField_get_OpticalTable_3,(setter)SolarField_set_OpticalTable_3,
+	PyDoc_STR("*sequence[sequence]*: Values of the optical efficiency table for collector type 3"),
+ 	NULL},
+{"OpticalTable_4", (getter)SolarField_get_OpticalTable_4,(setter)SolarField_set_OpticalTable_4,
+	PyDoc_STR("*sequence[sequence]*: Values of the optical efficiency table for collector type 4"),
+ 	NULL},
 {"P_a", (getter)SolarField_get_P_a,(setter)SolarField_set_P_a,
 	PyDoc_STR("*sequence[sequence]*: Annulus gas pressure [torr]\n\n**Required:**\nTrue"),
  	NULL},
@@ -2081,6 +2153,9 @@ static PyGetSetDef SolarField_getset[] = {
  	NULL},
 {"offset_xpan_hdr", (getter)SolarField_get_offset_xpan_hdr,(setter)SolarField_set_offset_xpan_hdr,
 	PyDoc_STR("*float*: Location of first header expansion loop. 1 = after first collector loop [none]\n\n**Required:**\nTrue"),
+ 	NULL},
+{"opt_model", (getter)SolarField_get_opt_model,(setter)SolarField_set_opt_model,
+	PyDoc_STR("*sequence*: Optical model (1=Solar position ; 2=Collector incidence table ; 3=IAM matrix)\n\n**Required:**\nFalse. Automatically set to [3,3,3,3] if not assigned explicitly or loaded from defaults."),
  	NULL},
 {"p_start", (getter)SolarField_get_p_start,(setter)SolarField_set_p_start,
 	PyDoc_STR("*float*: Collector startup energy, per SCA [kWhe]\n\n**Required:**\nTrue"),
@@ -4767,9 +4842,24 @@ TimeOfDeliveryFactors_set_dispatch_tod_factors(VarGroupObject *self, PyObject *v
 	return PySAM_array_setter(value, SAM_TroughPhysicalIph_TimeOfDeliveryFactors_dispatch_tod_factors_aset, self->data_ptr);
 }
 
+static PyObject *
+TimeOfDeliveryFactors_get_start_day_of_year(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_TroughPhysicalIph_TimeOfDeliveryFactors_start_day_of_year_nget, self->data_ptr);
+}
+
+static int
+TimeOfDeliveryFactors_set_start_day_of_year(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_TroughPhysicalIph_TimeOfDeliveryFactors_start_day_of_year_nset, self->data_ptr);
+}
+
 static PyGetSetDef TimeOfDeliveryFactors_getset[] = {
 {"dispatch_tod_factors", (getter)TimeOfDeliveryFactors_get_dispatch_tod_factors,(setter)TimeOfDeliveryFactors_set_dispatch_tod_factors,
 	PyDoc_STR("*sequence*: TOD factors for periods 1 through 9\n\n**Info:**\nWe added this array input after SAM 2022.12.21 to replace the functionality of former single value inputs dispatch_factor1 through dispatch_factor9\n\n**Required:**\nRequired if ppa_multiplier_model=0&csp_financial_model<5&is_dispatch=1"),
+ 	NULL},
+{"start_day_of_year", (getter)TimeOfDeliveryFactors_get_start_day_of_year,(setter)TimeOfDeliveryFactors_set_start_day_of_year,
+	PyDoc_STR("*float*: Start day of year for TOD periods [0..6]\n\n**Options:**\n0=Monday, 6=Sunday\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
  	NULL},
 	{NULL}  /* Sentinel */
 };
@@ -6247,6 +6337,18 @@ ElectricityRates_set_rate_escalation(VarGroupObject *self, PyObject *value, void
 }
 
 static PyObject *
+ElectricityRates_get_start_day_of_year(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_TroughPhysicalIph_ElectricityRates_start_day_of_year_nget, self->data_ptr);
+}
+
+static int
+ElectricityRates_set_start_day_of_year(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_TroughPhysicalIph_ElectricityRates_start_day_of_year_nset, self->data_ptr);
+}
+
+static PyObject *
 ElectricityRates_get_ur_annual_min_charge(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_TroughPhysicalIph_ElectricityRates_ur_annual_min_charge_nget, self->data_ptr);
@@ -6588,6 +6690,9 @@ static PyGetSetDef ElectricityRates_getset[] = {
  	NULL},
 {"rate_escalation", (getter)ElectricityRates_get_rate_escalation,(setter)ElectricityRates_set_rate_escalation,
 	PyDoc_STR("*sequence*: Annual electricity rate escalation [%/year]\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+{"start_day_of_year", (getter)ElectricityRates_get_start_day_of_year,(setter)ElectricityRates_set_start_day_of_year,
+	PyDoc_STR("*float*: Start day of year for TOD periods [0..6]\n\n**Options:**\n0=Monday, 6=Sunday\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
  	NULL},
 {"ur_annual_min_charge", (getter)ElectricityRates_get_ur_annual_min_charge,(setter)ElectricityRates_set_ur_annual_min_charge,
 	PyDoc_STR("*float*: Annual minimum charge [$]\n\n**Required:**\nFalse. Automatically set to 0.0 if not assigned explicitly or loaded from defaults."),
@@ -6959,12 +7064,6 @@ static PyObject *
 Outputs_get_EqOpteff(VarGroupObject *self, void *closure)
 {
 	return PySAM_array_getter(SAM_TroughPhysicalIph_Outputs_EqOpteff_aget, self->data_ptr);
-}
-
-static PyObject *
-Outputs_get_IAM_ave(VarGroupObject *self, void *closure)
-{
-	return PySAM_array_getter(SAM_TroughPhysicalIph_Outputs_IAM_ave_aget, self->data_ptr);
 }
 
 static PyObject *
@@ -8066,6 +8165,12 @@ Outputs_get_operating_modes_c(VarGroupObject *self, void *closure)
 }
 
 static PyObject *
+Outputs_get_opt_derate_ave(VarGroupObject *self, void *closure)
+{
+	return PySAM_array_getter(SAM_TroughPhysicalIph_Outputs_opt_derate_ave_aget, self->data_ptr);
+}
+
+static PyObject *
 Outputs_get_pipe_header_P_dsn(VarGroupObject *self, void *closure)
 {
 	return PySAM_array_getter(SAM_TroughPhysicalIph_Outputs_pipe_header_P_dsn_aget, self->data_ptr);
@@ -8741,9 +8846,6 @@ static PyGetSetDef Outputs_getset[] = {
 {"EqOpteff", (getter)Outputs_get_EqOpteff,(setter)0,
 	PyDoc_STR("*sequence*: Field optical efficiency before defocus"),
  	NULL},
-{"IAM_ave", (getter)Outputs_get_IAM_ave,(setter)0,
-	PyDoc_STR("*sequence*: Field collector incidence angle modifier"),
- 	NULL},
 {"K_cpnt", (getter)Outputs_get_K_cpnt,(setter)0,
 	PyDoc_STR("*sequence[sequence]*: Minor loss coefficients of the components in each loop interconnect"),
  	NULL},
@@ -9292,6 +9394,9 @@ static PyGetSetDef Outputs_getset[] = {
  	NULL},
 {"operating_modes_c", (getter)Outputs_get_operating_modes_c,(setter)0,
 	PyDoc_STR("*sequence*: Final 3 operating modes tried"),
+ 	NULL},
+{"opt_derate_ave", (getter)Outputs_get_opt_derate_ave,(setter)0,
+	PyDoc_STR("*sequence*: Field collector optical derate modifier"),
  	NULL},
 {"pipe_header_P_dsn", (getter)Outputs_get_pipe_header_P_dsn,(setter)0,
 	PyDoc_STR("*sequence*: Field piping header pressure at design [bar]"),

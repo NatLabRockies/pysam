@@ -14,7 +14,7 @@
       Utility scale wind farm model (adapted from TRNSYS code by P.Quinlan and openWind software by AWS Truepower)
 
 :doc:`../modules/Cashloan` (HD)
-      Residential/Commerical Finance model.
+      Residential/Commercial Finance model.
 
 :doc:`../modules/CashloanHeat` (HD)
       Residential/Commerical Finance model for heat.

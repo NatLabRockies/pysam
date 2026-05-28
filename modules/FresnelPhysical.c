@@ -3947,6 +3947,18 @@ TimeOfDeliveryFactors_set_dispatch_tod_factors(VarGroupObject *self, PyObject *v
 	return PySAM_array_setter(value, SAM_FresnelPhysical_TimeOfDeliveryFactors_dispatch_tod_factors_aset, self->data_ptr);
 }
 
+static PyObject *
+TimeOfDeliveryFactors_get_start_day_of_year(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_FresnelPhysical_TimeOfDeliveryFactors_start_day_of_year_nget, self->data_ptr);
+}
+
+static int
+TimeOfDeliveryFactors_set_start_day_of_year(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_FresnelPhysical_TimeOfDeliveryFactors_start_day_of_year_nset, self->data_ptr);
+}
+
 static PyGetSetDef TimeOfDeliveryFactors_getset[] = {
 {"dispatch_sched_weekday", (getter)TimeOfDeliveryFactors_get_dispatch_sched_weekday,(setter)TimeOfDeliveryFactors_set_dispatch_sched_weekday,
 	PyDoc_STR("*sequence[sequence]*: PPA pricing weekday schedule, 12x24\n\n**Required:**\nRequired if ppa_multiplier_model=0&csp_financial_model<5&is_dispatch=1&sim_type=1"),
@@ -3956,6 +3968,9 @@ static PyGetSetDef TimeOfDeliveryFactors_getset[] = {
  	NULL},
 {"dispatch_tod_factors", (getter)TimeOfDeliveryFactors_get_dispatch_tod_factors,(setter)TimeOfDeliveryFactors_set_dispatch_tod_factors,
 	PyDoc_STR("*sequence*: TOD factors for periods 1 through 9\n\n**Info:**\nWe added this array input after SAM 2022.12.21 to replace the functionality of former single value inputs dispatch_factor1 through dispatch_factor9\n\n**Required:**\nRequired if ppa_multiplier_model=0&csp_financial_model<5&is_dispatch=1&sim_type=1"),
+ 	NULL},
+{"start_day_of_year", (getter)TimeOfDeliveryFactors_get_start_day_of_year,(setter)TimeOfDeliveryFactors_set_start_day_of_year,
+	PyDoc_STR("*float*: Start day of year for TOD periods [0..6]\n\n**Options:**\n0=Monday, 6=Sunday\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
  	NULL},
 	{NULL}  /* Sentinel */
 };

@@ -995,7 +995,34 @@ PVWatts-Battery -- Commercial Owner
 
       Configuration name for defaults: *"PVWattsBatteryCommercial"*
 
-      :doc:`../modules/Pvwattsv8`, :doc:`../modules/Battwatts`, :doc:`../modules/Grid`, :doc:`../modules/Utilityrate5`, :doc:`../modules/Cashloan`
+      :doc:`../modules/Pvwattsv8`, :doc:`../modules/Battery`, :doc:`../modules/Grid`, :doc:`../modules/Utilityrate5`, :doc:`../modules/Cashloan`
+
+PVWatts-Battery -- Merchant Plant
+---------------------------------------------------------------------------------
+
+      PVWatts system model with battery storage. Merchant plant with constant DSCR and ancillary services revenue, reserve accounts and depreciation allocations.
+
+      Configuration name for defaults: *"PVWattsBatteryMerchantPlant"*
+
+      :doc:`../modules/Pvwattsv8`, :doc:`../modules/Battery`, :doc:`../modules/Grid`, :doc:`../modules/Utilityrate5`, :doc:`../modules/Merchantplant`
+
+PVWatts-Battery -- Partnership Flip with Debt
+---------------------------------------------------------------------------------
+
+      PVWatts system model with battery storage. Developer/investor partnership flip PPA structure with debt.
+
+      Configuration name for defaults: *"PVWattsBatteryLeveragedPartnershipFlip"*
+
+      :doc:`../modules/Pvwattsv8`, :doc:`../modules/Battery`, :doc:`../modules/Grid`, :doc:`../modules/Utilityrate5`, :doc:`../modules/Levpartflip`
+
+PVWatts-Battery -- Partnership Flip without Debt
+---------------------------------------------------------------------------------
+
+      PVWatts system model with battery storage. Developer/investor partnership flip PPA structure without debt.
+
+      Configuration name for defaults: *"PVWattsBatteryAllEquityPartnershipFlip"*
+
+      :doc:`../modules/Pvwattsv8`, :doc:`../modules/Battery`, :doc:`../modules/Grid`, :doc:`../modules/Utilityrate5`, :doc:`../modules/Equpartflip`
 
 PVWatts-Battery -- Residential Owner
 ---------------------------------------------------------------------------------
@@ -1004,7 +1031,25 @@ PVWatts-Battery -- Residential Owner
 
       Configuration name for defaults: *"PVWattsBatteryResidential"*
 
-      :doc:`../modules/Pvwattsv8`, :doc:`../modules/Belpe`, :doc:`../modules/Battwatts`, :doc:`../modules/Grid`, :doc:`../modules/Utilityrate5`, :doc:`../modules/Cashloan`
+      :doc:`../modules/Pvwattsv8`, :doc:`../modules/Belpe`, :doc:`../modules/Battery`, :doc:`../modules/Grid`, :doc:`../modules/Utilityrate5`, :doc:`../modules/Cashloan`
+
+PVWatts-Battery -- Sale Leaseback
+---------------------------------------------------------------------------------
+
+      PVWatts system model with battery storage. Sale leaseback partnership PPA structure.
+
+      Configuration name for defaults: *"PVWattsBatterySaleLeaseback"*
+
+      :doc:`../modules/Pvwattsv8`, :doc:`../modules/Battery`, :doc:`../modules/Grid`, :doc:`../modules/Utilityrate5`, :doc:`../modules/Saleleaseback`
+
+PVWatts-Battery -- Single Owner
+---------------------------------------------------------------------------------
+
+      PVWatts system model with battery storage. Single owner PPA with constant DSCR and IRR target year, reserve accounts and depreciation allocations.
+
+      Configuration name for defaults: *"PVWattsBatterySingleOwner"*
+
+      :doc:`../modules/Pvwattsv8`, :doc:`../modules/Battery`, :doc:`../modules/Grid`, :doc:`../modules/Utilityrate5`, :doc:`../modules/Singleowner`
 
 PVWatts-Battery -- Third Party - Host / Developer
 ---------------------------------------------------------------------------------
@@ -1013,7 +1058,7 @@ PVWatts-Battery -- Third Party - Host / Developer
 
       Configuration name for defaults: *"PVWattsBatteryHostDeveloper"*
 
-      :doc:`../modules/Pvwattsv8`, :doc:`../modules/Battwatts`, :doc:`../modules/Grid`, :doc:`../modules/Utilityrate5`, :doc:`../modules/HostDeveloper`
+      :doc:`../modules/Pvwattsv8`, :doc:`../modules/Battery`, :doc:`../modules/Grid`, :doc:`../modules/Utilityrate5`, :doc:`../modules/HostDeveloper`
 
 PVWatts-Battery -- Third Party Owner - Host
 ---------------------------------------------------------------------------------
@@ -1022,7 +1067,7 @@ PVWatts-Battery -- Third Party Owner - Host
 
       Configuration name for defaults: *"PVWattsBatteryThirdParty"*
 
-      :doc:`../modules/Pvwattsv8`, :doc:`../modules/Belpe`, :doc:`../modules/Battwatts`, :doc:`../modules/Grid`, :doc:`../modules/Utilityrate5`, :doc:`../modules/Thirdpartyownership`
+      :doc:`../modules/Pvwattsv8`, :doc:`../modules/Belpe`, :doc:`../modules/Battery`, :doc:`../modules/Grid`, :doc:`../modules/Utilityrate5`, :doc:`../modules/Thirdpartyownership`
 
 Parabolic Trough -- 
 ---------------------------------------------------------------------------------

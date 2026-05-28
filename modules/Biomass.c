@@ -1242,6 +1242,18 @@ Biopower_set_file_name(VarGroupObject *self, PyObject *value, void *closure)
 }
 
 static PyObject *
+Biopower_get_start_day_of_year(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Biomass_Biopower_start_day_of_year_nget, self->data_ptr);
+}
+
+static int
+Biopower_set_start_day_of_year(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_Biomass_Biopower_start_day_of_year_nset, self->data_ptr);
+}
+
+static PyObject *
 Biopower_get_system_capacity(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_Biomass_Biopower_system_capacity_nget, self->data_ptr);
@@ -1544,6 +1556,9 @@ static PyGetSetDef Biopower_getset[] = {
  	NULL},
 {"file_name", (getter)Biopower_get_file_name,(setter)Biopower_set_file_name,
 	PyDoc_STR("*str*: Local weather file path\n\n**Constraints:**\nLOCAL_FILE\n\n**Required:**\nTrue"),
+ 	NULL},
+{"start_day_of_year", (getter)Biopower_get_start_day_of_year,(setter)Biopower_set_start_day_of_year,
+	PyDoc_STR("*float*: Start day of year for TOD periods [0..6]\n\n**Options:**\n0=Monday, 6=Sunday\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
  	NULL},
 {"system_capacity", (getter)Biopower_get_system_capacity,(setter)Biopower_set_system_capacity,
 	PyDoc_STR("*float*: Nameplate capacity [kW]\n\n**Required:**\nTrue"),

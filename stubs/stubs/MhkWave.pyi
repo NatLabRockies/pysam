@@ -82,8 +82,8 @@ class MhkWave(object):
 			pass
 
 
+		ac_degradation = tuple
 		analysis_period = float
-		generic_degradation = tuple
 		system_use_lifetime_output = float
 
 

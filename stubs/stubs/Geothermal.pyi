@@ -115,6 +115,7 @@ class Geothermal(object):
 		rock_thermal_conductivity = float
 		specified_pump_work_amount = float
 		specify_pump_work = float
+		start_day_of_year = float
 		startup_frac = float
 		startup_time = float
 		stim_success_rate = float

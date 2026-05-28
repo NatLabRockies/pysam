@@ -54,6 +54,7 @@ class SingleownerHeat(object):
 		ppa_soln_min = float
 		ppa_soln_mode = float
 		ppa_soln_tolerance = float
+		start_day_of_year = float
 
 
 	class FinancialParameters(object):
@@ -356,6 +357,7 @@ class SingleownerHeat(object):
 		depr_alloc_sl_20_percent = float
 		depr_alloc_sl_39_percent = float
 		depr_alloc_sl_5_percent = float
+		depr_basis_mat = tuple
 		depr_bonus_fed = float
 		depr_bonus_fed_custom = float
 		depr_bonus_fed_macrs_15 = float
@@ -373,6 +375,7 @@ class SingleownerHeat(object):
 		depr_bonus_sta_sl_39 = float
 		depr_bonus_sta_sl_5 = float
 		depr_custom_schedule = tuple
+		depr_en_basis_mat = float
 		depr_fedbas_method = float
 		depr_itc_fed_custom = float
 		depr_itc_fed_macrs_15 = float
@@ -432,6 +435,7 @@ class SingleownerHeat(object):
 
 		en_electricity_rates = float
 		rate_escalation = tuple
+		start_day_of_year = float
 		ur_annual_min_charge = float
 		ur_billing_demand_lookback_percentages = tuple
 		ur_billing_demand_lookback_period = float

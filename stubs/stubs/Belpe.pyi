@@ -63,6 +63,7 @@ class Belpe(object):
 		floor_area = float
 		load = tuple
 		solar_resource_file = str
+		start_day_of_year = float
 
 
 	class Outputs(object):

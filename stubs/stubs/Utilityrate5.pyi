@@ -62,6 +62,7 @@ class Utilityrate5(object):
 		TOU_demand_single_peak = float
 		en_electricity_rates = float
 		rate_escalation = tuple
+		start_day_of_year = float
 		ur_annual_min_charge = float
 		ur_billing_demand_lookback_percentages = tuple
 		ur_billing_demand_lookback_period = float
