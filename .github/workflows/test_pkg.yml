@@ -9,7 +9,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-2022]
-        python-version: ['3.9', '3.10', '3.11', '3.12', '3.13']
+        python-version: ['3.9', '3.10', '3.11', '3.12', '3.13', '3.14']
 
     env: 
       SAMNTDIR: ${{ github.workspace }}/../SAM
@@ -33,11 +33,11 @@ jobs:
           $VER=$(python -c "from PySAM.version import __version__; print(__version__)")
           echo "VERSION=$VER" >> $env:GITHUB_ENV
 
-      - name: Install NREL-PySAM
+      - name: Install NLR-PySAM
         run: |
           pip install -r requirements.txt
           pip install -r tests/requirements.txt
-          pip install nrel-pysam==${{ env.VERSION }}
+          pip install nlr-pysam==${{ env.VERSION }}
 
       - uses: actions/checkout@v3
       - name: Checkout SAM
@@ -55,7 +55,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-14]
-        python-version: [ '3.9', '3.10', '3.11', '3.12', '3.13' ]
+        python-version: [ '3.9', '3.10', '3.11', '3.12', '3.13', '3.14' ]
 
     env: 
       SAMNTDIR: ${{ github.workspace }}/../SAM
@@ -80,7 +80,7 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v3
 
-      - name: Install NREL-PySAM
+      - name: Install NLR-PySAM
         run: |
           source /Users/runner/.bash_profile
           conda activate pysam_env
@@ -88,7 +88,7 @@ jobs:
           echo $VER
           pip install -r requirements.txt
           pip install -r tests/requirements.txt
-          pip install nrel-pysam==$VER
+          pip install nlr-pysam==$VER
       
       - uses: actions/checkout@v3
       - name: Checkout SAM
@@ -108,7 +108,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-14-large]
-        python-version: [ '3.9', '3.10', '3.11', '3.12', '3.13' ]
+        python-version: [ '3.9', '3.10', '3.11', '3.12', '3.13', '3.14' ]
 
     env: 
       SAMNTDIR: ${{ github.workspace }}/../SAM
@@ -133,7 +133,7 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v3
 
-      - name: Install NREL-PySAM
+      - name: Install NLR-PySAM
         run: |
           source /Users/runner/.bash_profile
           conda activate pysam_env
@@ -141,7 +141,7 @@ jobs:
           echo $VER
           pip install -r requirements.txt
           pip install -r tests/requirements.txt
-          pip install nrel-pysam==$VER
+          pip install nlr-pysam==$VER
       
       - uses: actions/checkout@v3
       - name: Checkout SAM

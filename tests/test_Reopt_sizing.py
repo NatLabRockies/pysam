@@ -19,12 +19,11 @@ def test_reopt_sizing_pvwatts():
     while round < 25:   # multiple runs required to check for memory leaks
         round += 1
 
-        sys = pv.default("PVWattsBatteryCommercial")
-        sys.SolarResource.solar_resource_file = solar_resource
-        batt = bt.from_existing(sys, "PVWattsBatteryCommercial")
+        batt = stbt.default("PVWattsBatteryResidential")
+        sys = pv.from_existing(batt, "PVWattsBatteryResidential")
         sys.SolarResource.solar_resource_data = dict({'lat': 3, 'lon': 3})
-        batt.Battery.crit_load = [0] * 8760
-        fin = ur.from_existing(sys, "PVWattsBatteryCommercial")
+        batt.Load.crit_load = [0] * 8760
+        fin = ur.from_existing(sys, "PVWattsBatteryResidential")
 
         post = sys.Reopt_size_battery_post()
 
@@ -43,6 +42,7 @@ def test_reopt_sizing_pvsam():
     sys.SolarResource.use_wf_albedo = 0
     sys.SolarResource.solar_resource_file = solar_resource
     sys.SolarResource.use_wf_albedo = 0
+    sys.Losses.use_snow_weather_file = 1
     bt.Load.crit_load = [0] * 8760
     post = sys.Reopt_size_battery_post()
 

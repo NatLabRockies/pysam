@@ -25,6 +25,7 @@ def test_PhotovoltaicWindBatteryHybridSingleOwner():
     m.default("PhotovoltaicWindBatteryHybridSingleOwner")
     m.pv.SolarResource.solar_resource_file = str(solar_resource_path)
     m.wind.Resource.wind_resource_filename = str(wind_resource_path)
+    m.pv.Losses.use_snow_weather_file = 1
 
     m.execute()
 
@@ -33,10 +34,10 @@ def test_PhotovoltaicWindBatteryHybridSingleOwner():
     battannualenergy = m.battery.value("annual_energy")
     npv = m.singleowner.Outputs.project_return_aftertax_npv
 
-    assert pvannualenergy == pytest.approx(235721657, 1e-2)
+    assert pvannualenergy == pytest.approx(238223831, 1e-2)
     assert windannualenergy == pytest.approx(366975555, 1e-2)
     assert battannualenergy == pytest.approx(598789802, 1e-2)
-    assert npv == pytest.approx(-154982178, 1e-2)
+    assert npv == pytest.approx(-251304082, 1e-2)
 
 
 def test_PVWattsv8WindBatterySingleOwner():
