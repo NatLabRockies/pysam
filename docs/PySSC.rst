@@ -1,12 +1,12 @@
 Working Directly with PySSC
 =============================
 
-PySSC is a wrapper for the `SAM Simulation Core (SSC) API <https://github.com/NREL/ssc/blob/develop/ssc/sscapi.h>`_ PySSC is part of the `SAM Software Development Kit (SDK) <https://sam.nrel.gov/sdk>`_. The PySAM package is built on PySSC.
+PySSC is a wrapper for the `SAM Simulation Core (SSC) API <https://github.com/natlabrockies/ssc/blob/develop/ssc/sscapi.h>`_ PySSC is part of the `SAM Software Development Kit (SDK) <https://sam.nlr.gov/sdk>`_. The PySAM package is built on PySSC.
 
 .. note::
 	PySSC was the original method for running SSC from Python before PySAM was developed. Unless you are very familiar with SSC, we recommend using PySAM instead of PySSC because PySAM provides tools for creating models and accessing variables that are not available with PySSC.
 
-The `SSC Guide <https://sam.nrel.gov/images/web_page_files/ssc_guide.pdf>`_ is a reference to SSC.
+The `SSC Guide <https://sam.nlr.gov/images/web_page_files/ssc_guide.pdf>`_ is a reference to SSC.
 
 To use PySSC, import it with:
 
@@ -16,7 +16,7 @@ To use PySSC, import it with:
 
 PySSC gives you more transparent and direct access to the SSC library than PySAM. It requires a good understanding of SSC. PySAM has supporting functions, such as those for accessing defaults and building configurations, that make it easier to build models without knowledge the underlying SSC library. Some situations where you would want to use PySSC instead of PySAM include:
 
-* To work with a custom SSC library (``ssc.dll`` for Windows, ``ssc.dylib`` for Mac, or ``ssc.so`` for Linux)  `built from SSC <https://github.com/NREL/ssc/wiki>`_ with modified or different compute modules than an official NREL version of SSC.
+* To work with a custom SSC library (``ssc.dll`` for Windows, ``ssc.dylib`` for Mac, or ``ssc.so`` for Linux)  `built from SSC <https://github.com/natlabrockies/ssc/wiki>`_ with modified or different compute modules than an official NREL version of SSC.
 
 * To facilitate debugging of SSC through Python. For example, in Visual Studio, you can use `"Attach to Process" <https://learn.microsoft.com/en-us/visualstudio/debugger/attach-to-running-processes-with-the-visual-studio-debugger?view=vs-2022>`_ to debug SSC from Python while SSC is running. See instructions below.
 

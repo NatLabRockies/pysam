@@ -21,8 +21,8 @@ master_doc = 'index'
 
 # -- Project information -----------------------------------------------------
 
-project = 'NREL-PySAM'
-copyright = '2022, NREL'
+project = 'NLR-PySAM'
+copyright = '2026, National Laboratory of the Rockies'
 author = 'dguittet'
 
 # The full version, including alpha/beta/rc tags

@@ -22,7 +22,7 @@ def SAM_CSV_to_solar_data(filename):
     """
     Format a TMY csv file as 'solar_resource_data' dictionary for use in PySAM.
     For more information about SAM CSV file format,
-    see https://sam.nrel.gov/weather-data/weather-data-publications.html
+    see https://sam.nlr.gov/weather-data/weather-data-publications.html
 
     :param filename: Any csv resource file formatted according to NSRDB
 
@@ -99,7 +99,7 @@ def SRW_to_wind_data(filename):
     """
     Format as 'wind_resource_data' dictionary for use in PySAM.
     For more information about SRW file format, see
-    https://sam.nrel.gov/weather-data/weather-data-publications.html
+    https://sam.nlr.gov/weather-data/weather-data-publications.html
 
     :param filename: A .srw wind resource file
 
@@ -298,13 +298,13 @@ def URDBv7_to_ElectricityRates(urdb_response):
 class FetchResourceFiles():
     """
     Download solar and wind resource files from NREL developer network
-    https://developer.nrel.gov/.
+    https://developer.nlr.gov/.
 
     :param str tech: *Required* Name of technology.
-        'wind' for NREL WIND Toolkit at https://developer.nrel.gov/docs/wind/wind-toolkit/wtk-download/.
-        'solar' for NREL NSRDB at https://developer.nrel.gov/docs/solar/nsrdb/nsrdb_data_query/
+        'wind' for NREL WIND Toolkit at https://developer.nlr.gov/docs/wind/wind-toolkit/wtk-download/.
+        'solar' for NREL NSRDB at https://developer.nlr.gov/docs/solar/nsrdb/nsrdb_data_query/
 
-    :param str nrel_api_key: *Required* NREL developer API key, available at https://developer.nrel.gov/signup/.
+    :param str nrel_api_key: *Required* NREL developer API key, available at https://developer.nlr.gov/signup/.
 
     :param str nrel_api_email: *Required* Email address associated with nrel_api_key.
 
@@ -315,18 +315,18 @@ class FetchResourceFiles():
         Default = 1.
 
     :param str resource_type: Name of API for NSRDB solar data.
-        Default = 'psm3-tmy' for solar, '' for wind.
-        'psm3' for 30- or 60-minute single-year file
-        'psm3-tmy' for 60-minute TMY, TGY, or TDY typical-year file
-        'psm3-5min' for 5-, 30- or 60-minute single-year file
+        Default = 'nsrdb-GOES-tmy-v4-0-0' for solar, '' for wind.
+        'nsrdb-GOES-aggregated-v4-0-0' for 30- or 60-minute single-year file
+        'nsrdb-GOES-conus-v4-0-0' for 5-, 15-, 30- or 60-minute single-year file in CONUS region
+        'nsrdb-GOES-full-disc-v4-0-0' for 10-, 30- or 60-minute single-year file in GOES satellite coverage area
+        'nsrdb-GOES-tmy-v4-0-0' for 60-minute TMY, TGY, or TDY typical-year file
         '' for WIND Toolkit
 
     :param str resource_year: Data year, changes over time so check API documentation for latest information.
         Default = 'tmy' for solar, '2014' for wind.
-        '1998' to '2019', etc. for NSRDB psm3
-        'tmy' for latest TMY file from NSRDB psm3-tmy
-        'tmy-2016' to 'tmy-2018', etc. for NSRDB psm3-tmy
-        '2018', etc. for NSRDB psm3-5min
+        '1998' to '2024' for specific year from NSRDB nsrdb-GOES-aggregated-v4-0-0
+        'tmy' for latest TMY file from NSRDB nsrdb-GOES-tmy-v4-0-0
+        'tmy-2022' to 'tmy-2024' for specific TMY year from NSRDB nsrdb-GOES-tmy-v4-0-0
         '2007' to '2014' for WIND Toolkit
 
     :param int resource_interval_min: Time interval of resource data in minutes. See available intervals under `resource_type` above.
@@ -340,7 +340,7 @@ class FetchResourceFiles():
 
     def __init__(self, tech, nrel_api_key, nrel_api_email,
                  workers=1,
-                 resource_type='psm3-tmy',
+                 resource_type='nsrdb-GOES-tmy-v4-0-0',
                  resource_year='tmy',
                  resource_interval_min=60,
                  resource_height=100,
@@ -360,7 +360,7 @@ class FetchResourceFiles():
 
         # for backward compatibility
         if resource_type == 'tmy':
-            resource_type = 'psm3-tmy'
+            resource_type = 'nsrdb-GOES-tmy-v4-0-0'
         resource_year = str(resource_year)
         if tech == 'pv':
             tech = 'solar'
@@ -486,7 +486,7 @@ class FetchResourceFiles():
                 print("Getting list of available NSRDB files for {}, {}.".format(lat, lon))
 
             # --- Find url for closest point ---
-            lookup_base_url = 'https://developer.nrel.gov/api/nsrdb/v2/solar/'
+            lookup_base_url = 'https://developer.nlr.gov/api/nsrdb/v2/solar/'
             lookup_query_url = "nsrdb-data-query.json?api_key={}&wkt=POINT({}%20{})".format(self.nrel_api_key, lon, lat)
             lookup_url = lookup_base_url + lookup_query_url
             lookup_response = retry_session.get(lookup_url, verify=certifi.where())
@@ -543,8 +543,8 @@ class FetchResourceFiles():
     def _windtk_worker(self, job):
         '''
         Download a CSV file of wind resource data from WIND Toolkit API given a latitude and longitude.
-        This uses wtk-download (https://developer.nrel.gov/docs/wind/wind-toolkit/wtk-download/), which is
-        a different approach than SAM, which uses wtk-srw-download (https://developer.nrel.gov/docs/wind/wind-toolkit/wtk-srw-download/)
+        This uses wtk-download (https://developer.nlr.gov/docs/wind/wind-toolkit/wtk-download/), which is
+        a different approach than SAM, which uses wtk-srw-download (https://developer.nlr.gov/docs/wind/wind-toolkit/wtk-srw-download/)
         '''
 
         # --- unpack job ---
@@ -568,7 +568,7 @@ class FetchResourceFiles():
                 print("Downloading file from WIND Toolkit for {}, {}.".format(lat, lon))
 
             # --- Find url for closest point ---
-            data_base_url = 'https://developer.nrel.gov/api/wind-toolkit/v2/wind/'
+            data_base_url = 'https://developer.nlr.gov/api/wind-toolkit/v2/wind/'
             data_query_url = "wtk-download.csv?api_key={}&wkt=POINT({}+{})&attributes=windspeed_{}m,winddirection_{}m,temperature_{}m,pressure_{}m&names={}&utc=false&interval={}&email={}".format(
                 self.nrel_api_key, lon, lat, self.resource_height, self.resource_height, self.resource_height, 100, self.resource_year, self.resource_interval_min, self.nrel_api_email)
             data_url = data_base_url + data_query_url

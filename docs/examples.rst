@@ -4,12 +4,12 @@ Code Examples
 .. note::
     This section is a draft to be revised and expanded.
 
-For PySAM code examples see the `PySAM repository on GitHub <https://github.com/NREL/pysam/tree/main/Examples>`_.
+For PySAM code examples see the `PySAM repository on GitHub <https://github.com/natlabrockies/pysam/tree/main/Examples>`_.
 
 Generate Inputs for a REopt API Call
 -------------------------------------
 
-The Pvwattsv8 and Pvsamv1 compute modules, when used in a configuration with battery storage, have and option to size and dispatch the battery using the `ReOpt API <https://developer.nrel.gov/docs/energy-optimization/reopt-v1/>`_.
+The Pvwattsv8 and Pvsamv1 compute modules, when used in a configuration with battery storage, have and option to size and dispatch the battery using the `ReOpt API <https://developer.nlr.gov/docs/energy-optimization/reopt-v1/>`_.
 
 This basic code example shows how to use the ``Reopt_size_battery_post()`` function in preparation for a call to the REopt API. The function returns a dictionary of REopt inputs that can be converted to JSON for the API call. A complete model would require the ``Utilityrate5`` compute module for electricity bill calculations, and the ``Cashloan`` module for cash flow calculations.
 

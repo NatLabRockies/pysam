@@ -12,11 +12,11 @@ Finding Relationships between Variables
 
 Use the following resources to identify the relationship between interdependent variables:
 
-* In SAM's user interface, blue "calculated values" indicate interdependent variables, and `SAM's Help system <https://sam.nrel.gov/help>`_ includes descriptions of many of the relationships with equations.
+* In SAM's user interface, blue "calculated values" indicate interdependent variables, and `SAM's Help system <https://sam.nlr.gov/help>`_ includes descriptions of many of the relationships with equations.
 
-* The code for the calculated values in SAM's user interface is in the ``runtime/ui`` folder of the SAM installation on your computer, and also available `on GitHub <https://github.com/NREL/SAM/tree/develop/deploy/runtime/ui>`_.
+* The code for the calculated values in SAM's user interface is in the ``runtime/ui`` folder of the SAM installation on your computer, and also available `on GitHub <https://github.com/natlabrockies/SAM/tree/develop/deploy/runtime/ui>`_.
 
-* The SDKtool application that comes with SAM has a Module Browser that you can use to explore SSC compute modules. Its script editor is also useful for testing code. Learn more on the `SAM Software Development Kit (SDK) page of the SAM website <https://sam.nrel.gov/sdk>`_.
+* The SDKtool application that comes with SAM has a Module Browser that you can use to explore SSC compute modules. Its script editor is also useful for testing code. Learn more on the `SAM Software Development Kit (SDK) page of the SAM website <https://sam.nlr.gov/sdk>`_.
 
 * The compute module documentation accessible from :doc:`ssc-modules` includes lists of interdependent variables: All of a module's interdependent variables are listed at the top of the module's page, and the description of each variable includes a list of any interdependent variables.
 
@@ -57,7 +57,7 @@ We used the following information to figure out why:
 
 * The `Help topic <https://samrepo.nrelcloud.org/help/pv_system_design.htm>`_ for SAM's System Design page.
 
-* SAM `user interface equations <https://github.com/NREL/SAM/blob/develop/deploy/runtime/ui/PV%20System%20Design.txt#L7273>`_ for the System Design page.
+* SAM `user interface equations <https://github.com/natlabrockies/SAM/blob/develop/deploy/runtime/ui/PV%20System%20Design.txt#L7273>`_ for the System Design page.
 
 And then, based on what we learned, wrote the following test script:
 
@@ -118,7 +118,7 @@ Pvsamv1 Ground Coverage Ratio (GCR)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The ground coverage ratio (GCR) is used in two ways by the Pvsamv1 compute module when it is paired with the :doc:`modules/Singleowner` financial model for the Detailed PV -- Single Owner configuration. It used by :doc:`modules/Pvsamv1` for self-shading calculations, and in user interface equations to calculate the land area for :doc:`modules/Singleowner` land-related installation and operating costs. If your Python code changes the value of ``Pvsamv1.SystemDesign.gcr`` to ``x``, and you are including land cost ``y`` in $/acre in your analysis, you need code like the following adapted from the equations for SAM's user interface in
-`runtime/ui/PV System Design.txt <https://github.com/NREL/SAM/blob/446d70d8bbf22f950e2613821a9f6490a7e61f72/deploy/runtime/ui/PV%20System%20Design.txt#L7457>`_ to ensure the change is accounted for in ``Singleowner.SystemCosts.total_installed_cost``:
+`runtime/ui/PV System Design.txt <https://github.com/natlabrockies/SAM/blob/446d70d8bbf22f950e2613821a9f6490a7e61f72/deploy/runtime/ui/PV%20System%20Design.txt#L7457>`_ to ensure the change is accounted for in ``Singleowner.SystemCosts.total_installed_cost``:
 
 ::
 

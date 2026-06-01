@@ -24,7 +24,7 @@ The ``from_existing()`` function ensures that any data that the different module
 
 To work with defaults in PySAM, you need to know the list of compute modules for the configuration and the configuration name for defaults. You can find this information in :doc:`sam-configurations`.
 
-For SAM versions after SAM 2021.12.02 Revision 2, SAM loads defaults from JSON files that come with the SAM installation. As an alternative to the method described here, you could read the defaults directly from those JSON files, which are in the SAM installation folder on your computer at ``path/to/sam/version/runtime/defaults``. You can also find current development versions of the files are available on the `SAM GitHub repository <https://github.com/NREL/SAM/tree/develop/deploy/runtime/defaults>`_.
+For SAM versions after SAM 2021.12.02 Revision 2, SAM loads defaults from JSON files that come with the SAM installation. As an alternative to the method described here, you could read the defaults directly from those JSON files, which are in the SAM installation folder on your computer at ``path/to/sam/version/runtime/defaults``. You can also find current development versions of the files are available on the `SAM GitHub repository <https://github.com/natlabrockies/SAM/tree/develop/deploy/runtime/defaults>`_.
 
 .. note::
     Because of the way the weather file path is stored in SAM, when you build a configuration by loading defaults, you have to explicitly set its value to a valid path on your computer. The group name and variable that stores the weather file path is different for different compute modules. Use the :doc:`ssc-modules` to find the group and variable name for your compute module's weather file path.

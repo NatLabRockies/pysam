@@ -1,7 +1,7 @@
 Building PySAM for NREL DAO-Tk
 =================================================================================================
 
-DAO-TK is the `Design, Analysis, and Operations Toolkit (DAO-Tk) <https://github.com/NREL/dao-tk>`_.
+DAO-TK is the `Design, Analysis, and Operations Toolkit (DAO-Tk) <https://github.com/natlabrockies/dao-tk>`_.
 
 These instructions are for building a special version of PySAM for DAO-Tk for use with NREL LORE.
 
@@ -124,7 +124,7 @@ Creating a DAO-Tk Version of PySAM: Windows and Linux Builds
 First time only setup
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-1. Clone the `PySAM repository <https://github.com/NREL/pysam>`_ into ``path/to/sam_dev/pysam``.
+1. Clone the `PySAM repository <https://github.com/natlabrockies/pysam>`_ into ``path/to/sam_dev/pysam``.
 
 2. Set the environment variable for pysam:
 
@@ -140,7 +140,7 @@ First time only setup
 
        name='NREL-PySAM-DAO-Tk' [append '-stubs' for /stubs/setup.py]
        ...
-       url='https://github.com/NREL/dao-tk'
+       url='https://github.com/natlabrockies/dao-tk'
        description="National Renewable Energy Laboratory's DAO-Tk Python Wrapper" [append ', stub files' for /stubs/setup.py]
        ...
        author="Matthew-Boyd"
@@ -201,7 +201,7 @@ First time and after
 
 6. Copy CMakeLists.txt from ``path/to/lore/pysam/sam_files/`` to ``path/to/sam_dev/sam/api/``, replacing the file there.
 
-7. Run the following commands in the ``path/to/sam_dev`` directory (e.g., in a ``.bat`` file) to delete the contents of ``path/to/sam_dev/build`` and run CMake in that directory to create the DAO-Tk code solution (`step 7.4 <https://github.com/NREL/SAM/wiki/Windows-Build-Instructions#7-run-cmake-to-generate-sam-vs-2019-project-files>`_).
+7. Run the following commands in the ``path/to/sam_dev`` directory (e.g., in a ``.bat`` file) to delete the contents of ``path/to/sam_dev/build`` and run CMake in that directory to create the DAO-Tk code solution (`step 7.4 <https://github.com/natlabrockies/SAM/wiki/Windows-Build-Instructions#7-run-cmake-to-generate-sam-vs-2019-project-files>`_).
 
     .. code-block:: bash
 
@@ -306,4 +306,4 @@ First time and after
 17. Commit the changes to the ``RELEASE.md`` and the two ``version.py`` files and push to the lore repo.
 
 .. note::
-    If there are issues with PySAM, check out previous correlated versions of `PySAM <https://github.com/NREL/pysam/tags>`_ and `SAM <https://github.com/NREL/SAM/tags>`_ from their respective repos for this custom PySAM build. Reference the repo tags to verify version correlation.
+    If there are issues with PySAM, check out previous correlated versions of `PySAM <https://github.com/natlabrockies/pysam/tags>`_ and `SAM <https://github.com/natlabrockies/SAM/tags>`_ from their respective repos for this custom PySAM build. Reference the repo tags to verify version correlation.

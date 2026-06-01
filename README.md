@@ -32,9 +32,9 @@ https://nrel-pysam.readthedocs.io
 May not be compatible with different builds of the CPython reference interpreter, and not with alternative interpreters such as PyPy, IronPython or Jython
 
 ## Usage Examples
-- [Examples](https://github.com/NREL/pysam/blob/master/Examples)
+- [Examples](https://github.com/NatLabRockies/pysam/tree/main/Examples)
 
 
 ## Citing this package
 
-PySAM <Version>. National Renewable Energy Laboratory. Golden, CO. Accessed <date>. https://github.com/nrel/pysam
+PySAM <Version>. National Laboratory of the Rockies. Golden, CO. Accessed <date>. https://github.com/NatLabRockies/pysam

@@ -20,7 +20,7 @@ For this example, you will:
 * Export inputs from SAM to a JSON file.
 * Write a Python script to create the model in PySAM and then read and set inputs from JSON, run the model, and get outputs.
 
-If you are new to SAM, download and install it from the SAM website at https://sam.nrel.gov/download.
+If you are new to SAM, download and install it from the SAM website at https://sam.nlr.gov/download.
 
 This example uses SAM's PVWatts -- No Financial configuration to model a photovoltaic system with no financial model. This runs the ``pvwattsv8`` SSC compute module, equivalent to the "Pvwattsv8" compute module in PySAM.
 
@@ -39,7 +39,7 @@ Create a PVWatts model in SAM
 
 .. tip::
 
-    You can use SAM's `LK script <https://sam.nrel.gov/lk-script.html>`_ editor to find the SSC names of both input and output variables.
+    You can use SAM's `LK script <https://sam.nlr.gov/lk-script.html>`_ editor to find the SSC names of both input and output variables.
 
 Export SAM inputs to JSON
 ~~~~~~~~~~~~~~~~~~~~~~~~~~

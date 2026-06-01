@@ -1,7 +1,7 @@
 PySAM Versions
 ==========================================
 
-For a list of PySAM versions and their equivalent SAM and SSC versions, see https://github.com/NREL/pysam/releases.
+For a list of PySAM versions and their equivalent SAM and SSC versions, see https://github.com/natlabrockies/pysam/releases.
 
 The list below tracks changes in variables between consecutive PySAM versions.
 

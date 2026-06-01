@@ -3,7 +3,7 @@
 PySAM
 ==========================================
 
-PySAM is a Python package for the National Renewable Energy Laboratory's `System Advisor Model (SAM) <https://sam.nrel.gov>`_. It is part of the `SAM Software Development Kit (SDK) <https://sam.nrel.gov/software-development-kit>`_, which provides tools for developers who write code that interacts with the SAM Simulation Core (SSC) application programming interface (API). PySAM is built on the PySSC wrapper for SSC.
+PySAM is a Python package for the National Laboratory of the Rockies' `System Advisor Model (SAM) <https://sam.nlr.gov>`_. It is part of the `SAM Software Development Kit (SDK) <https://sam.nlr.gov/software-development-kit>`_, which provides tools for developers who write code that interacts with the SAM Simulation Core (SSC) application programming interface (API). PySAM is built on the PySSC wrapper for SSC.
 
 To use PySAM successfully, you should be familiar enough with SAM to create and run models, and to identify the names of input and output variables.
 
