@@ -136,6 +136,10 @@ class TroughPhysical(object):
 		Min_rnr_xpans = float
 		N_hdr_per_xpan = float
 		N_max_hdr_diams = float
+		OpticalTable_1 = tuple
+		OpticalTable_2 = tuple
+		OpticalTable_3 = tuple
+		OpticalTable_4 = tuple
 		P_a = tuple
 		Pipe_hl_coef = float
 		Rho_mirror_clean = tuple
@@ -194,6 +198,7 @@ class TroughPhysical(object):
 		nHCEt = float
 		northsouth_field_sep = float
 		offset_xpan_hdr = float
+		opt_model = tuple
 		p_start = float
 		sf_hdr_diams = tuple
 		sf_hdr_lengths = tuple
@@ -344,8 +349,6 @@ class TroughPhysical(object):
 			pass
 
 
-		ampl_data_dir = str
-		ampl_exec_call = str
 		can_cycle_use_standby = float
 		disp_csu_cost_rel = float
 		disp_frequency = float
@@ -366,11 +369,9 @@ class TroughPhysical(object):
 		dispatch_sched_weekday = tuple
 		dispatch_sched_weekend = tuple
 		f_turb_tou_periods = tuple
-		is_ampl_engine = float
 		is_dispatch = float
 		is_timestep_load_fractions = float
 		is_tod_pc_target_also_pc_max = float
-		is_write_ampl_dat = float
 		ppa_multiplier_model = float
 		q_rec_heattrace = float
 		q_rec_standby = float
@@ -445,6 +446,7 @@ class TroughPhysical(object):
 
 
 		dispatch_tod_factors = tuple
+		start_day_of_year = float
 
 
 	class Revenue(object):
@@ -613,7 +615,6 @@ class TroughPhysical(object):
 		D_cpnt = tuple
 		EndLoss_ave = tuple
 		EqOpteff = tuple
-		IAM_ave = tuple
 		K_cpnt = tuple
 		L_cpnt = tuple
 		P_cooling_tower_tot = tuple
@@ -794,6 +795,7 @@ class TroughPhysical(object):
 		operating_modes_a = tuple
 		operating_modes_b = tuple
 		operating_modes_c = tuple
+		opt_derate_ave = tuple
 		pc_op_mode_final = tuple
 		pc_startup_energy_remain_final = tuple
 		pc_startup_time_remain_final = tuple

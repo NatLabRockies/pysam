@@ -283,7 +283,7 @@ FinancialParameters_set_system_heat_rate(VarGroupObject *self, PyObject *value, 
 
 static PyGetSetDef FinancialParameters_getset[] = {
 {"analysis_period", (getter)FinancialParameters_get_analysis_period,(setter)FinancialParameters_set_analysis_period,
-	PyDoc_STR("*float*: Analyis period [years]\n\n**Constraints:**\nINTEGER,MIN=0,MAX=50\n\n**Required:**\nFalse. Automatically set to 30 if not assigned explicitly or loaded from defaults."),
+	PyDoc_STR("*float*: Analyis period [years]\n\n**Constraints:**\nINTEGER,MIN=0,MAX=100\n\n**Required:**\nFalse. Automatically set to 30 if not assigned explicitly or loaded from defaults."),
  	NULL},
 {"debt_fraction", (getter)FinancialParameters_get_debt_fraction,(setter)FinancialParameters_set_debt_fraction,
 	PyDoc_STR("*float*: Debt percentage [%]\n\n**Constraints:**\nMIN=0,MAX=100\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
@@ -301,7 +301,7 @@ static PyGetSetDef FinancialParameters_getset[] = {
 	PyDoc_STR("*float*: Loan rate [%]\n\n**Constraints:**\nMIN=0,MAX=100\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
  	NULL},
 {"loan_term", (getter)FinancialParameters_get_loan_term,(setter)FinancialParameters_set_loan_term,
-	PyDoc_STR("*float*: Loan term [years]\n\n**Constraints:**\nINTEGER,MIN=0,MAX=50\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
+	PyDoc_STR("*float*: Loan term [years]\n\n**Constraints:**\nINTEGER,MIN=0,MAX=100\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
  	NULL},
 {"market", (getter)FinancialParameters_get_market,(setter)FinancialParameters_set_market,
 	PyDoc_STR("*float*: Residential or Commercial Market [0/1]\n\n**Options:**\n0=residential,1=comm.\n\n**Constraints:**\nINTEGER,MIN=0,MAX=1\n\n**Required:**\nFalse. Automatically set to 1 if not assigned explicitly or loaded from defaults."),
@@ -948,7 +948,7 @@ static PyGetSetDef SystemCosts_getset[] = {
 	PyDoc_STR("*float*: Replacement cost escalation [%/year]\n\n**Info:**\nbattery,fuelcell\n\n**Required:**\nFalse. Automatically set to 0.0 if not assigned explicitly or loaded from defaults."),
  	NULL},
 {"total_installed_cost", (getter)SystemCosts_get_total_installed_cost,(setter)SystemCosts_set_total_installed_cost,
-	PyDoc_STR("*float*: Total installed cost [$]\n\n**Constraints:**\nMIN=0\n\n**Required:**\nTrue"),
+	PyDoc_STR("*float*: Total installed cost [$]\n\n**Constraints:**\nMIN=0\n\n**Required:**\nTrue\n\nThe value of the following variables depends on ``total_installed_cost``:\n\n\t - depr_alloc_custom_percent\n\t - depr_alloc_macrs_15_percent\n\t - depr_alloc_macrs_5_percent\n\t - depr_alloc_sl_15_percent\n\t - depr_alloc_sl_20_percent\n\t - depr_alloc_sl_39_percent\n\t - depr_alloc_sl_5_percent\n\t - depr_basis_mat\n"),
  	NULL},
 	{NULL}  /* Sentinel */
 };
@@ -1239,95 +1239,635 @@ static PyMethodDef Depreciation_methods[] = {
 };
 
 static PyObject *
-Depreciation_get_depr_fed_custom(VarGroupObject *self, void *closure)
+Depreciation_get_depr_alloc_custom_percent(VarGroupObject *self, void *closure)
 {
-	return PySAM_array_getter(SAM_CashloanHeat_Depreciation_depr_fed_custom_aget, self->data_ptr);
+	return PySAM_double_getter(SAM_CashloanHeat_Depreciation_depr_alloc_custom_percent_nget, self->data_ptr);
 }
 
 static int
-Depreciation_set_depr_fed_custom(VarGroupObject *self, PyObject *value, void *closure)
+Depreciation_set_depr_alloc_custom_percent(VarGroupObject *self, PyObject *value, void *closure)
 {
-	return PySAM_array_setter(value, SAM_CashloanHeat_Depreciation_depr_fed_custom_aset, self->data_ptr);
+	return PySAM_double_setter(value, SAM_CashloanHeat_Depreciation_depr_alloc_custom_percent_nset, self->data_ptr);
 }
 
 static PyObject *
-Depreciation_get_depr_fed_sl_years(VarGroupObject *self, void *closure)
+Depreciation_get_depr_alloc_macrs_15_percent(VarGroupObject *self, void *closure)
 {
-	return PySAM_double_getter(SAM_CashloanHeat_Depreciation_depr_fed_sl_years_nget, self->data_ptr);
+	return PySAM_double_getter(SAM_CashloanHeat_Depreciation_depr_alloc_macrs_15_percent_nget, self->data_ptr);
 }
 
 static int
-Depreciation_set_depr_fed_sl_years(VarGroupObject *self, PyObject *value, void *closure)
+Depreciation_set_depr_alloc_macrs_15_percent(VarGroupObject *self, PyObject *value, void *closure)
 {
-	return PySAM_double_setter(value, SAM_CashloanHeat_Depreciation_depr_fed_sl_years_nset, self->data_ptr);
+	return PySAM_double_setter(value, SAM_CashloanHeat_Depreciation_depr_alloc_macrs_15_percent_nset, self->data_ptr);
 }
 
 static PyObject *
-Depreciation_get_depr_fed_type(VarGroupObject *self, void *closure)
+Depreciation_get_depr_alloc_macrs_5_percent(VarGroupObject *self, void *closure)
 {
-	return PySAM_double_getter(SAM_CashloanHeat_Depreciation_depr_fed_type_nget, self->data_ptr);
+	return PySAM_double_getter(SAM_CashloanHeat_Depreciation_depr_alloc_macrs_5_percent_nget, self->data_ptr);
 }
 
 static int
-Depreciation_set_depr_fed_type(VarGroupObject *self, PyObject *value, void *closure)
+Depreciation_set_depr_alloc_macrs_5_percent(VarGroupObject *self, PyObject *value, void *closure)
 {
-	return PySAM_double_setter(value, SAM_CashloanHeat_Depreciation_depr_fed_type_nset, self->data_ptr);
+	return PySAM_double_setter(value, SAM_CashloanHeat_Depreciation_depr_alloc_macrs_5_percent_nset, self->data_ptr);
 }
 
 static PyObject *
-Depreciation_get_depr_sta_custom(VarGroupObject *self, void *closure)
+Depreciation_get_depr_alloc_sl_15_percent(VarGroupObject *self, void *closure)
 {
-	return PySAM_array_getter(SAM_CashloanHeat_Depreciation_depr_sta_custom_aget, self->data_ptr);
+	return PySAM_double_getter(SAM_CashloanHeat_Depreciation_depr_alloc_sl_15_percent_nget, self->data_ptr);
 }
 
 static int
-Depreciation_set_depr_sta_custom(VarGroupObject *self, PyObject *value, void *closure)
+Depreciation_set_depr_alloc_sl_15_percent(VarGroupObject *self, PyObject *value, void *closure)
 {
-	return PySAM_array_setter(value, SAM_CashloanHeat_Depreciation_depr_sta_custom_aset, self->data_ptr);
+	return PySAM_double_setter(value, SAM_CashloanHeat_Depreciation_depr_alloc_sl_15_percent_nset, self->data_ptr);
 }
 
 static PyObject *
-Depreciation_get_depr_sta_sl_years(VarGroupObject *self, void *closure)
+Depreciation_get_depr_alloc_sl_20_percent(VarGroupObject *self, void *closure)
 {
-	return PySAM_double_getter(SAM_CashloanHeat_Depreciation_depr_sta_sl_years_nget, self->data_ptr);
+	return PySAM_double_getter(SAM_CashloanHeat_Depreciation_depr_alloc_sl_20_percent_nget, self->data_ptr);
 }
 
 static int
-Depreciation_set_depr_sta_sl_years(VarGroupObject *self, PyObject *value, void *closure)
+Depreciation_set_depr_alloc_sl_20_percent(VarGroupObject *self, PyObject *value, void *closure)
 {
-	return PySAM_double_setter(value, SAM_CashloanHeat_Depreciation_depr_sta_sl_years_nset, self->data_ptr);
+	return PySAM_double_setter(value, SAM_CashloanHeat_Depreciation_depr_alloc_sl_20_percent_nset, self->data_ptr);
 }
 
 static PyObject *
-Depreciation_get_depr_sta_type(VarGroupObject *self, void *closure)
+Depreciation_get_depr_alloc_sl_39_percent(VarGroupObject *self, void *closure)
 {
-	return PySAM_double_getter(SAM_CashloanHeat_Depreciation_depr_sta_type_nget, self->data_ptr);
+	return PySAM_double_getter(SAM_CashloanHeat_Depreciation_depr_alloc_sl_39_percent_nget, self->data_ptr);
 }
 
 static int
-Depreciation_set_depr_sta_type(VarGroupObject *self, PyObject *value, void *closure)
+Depreciation_set_depr_alloc_sl_39_percent(VarGroupObject *self, PyObject *value, void *closure)
 {
-	return PySAM_double_setter(value, SAM_CashloanHeat_Depreciation_depr_sta_type_nset, self->data_ptr);
+	return PySAM_double_setter(value, SAM_CashloanHeat_Depreciation_depr_alloc_sl_39_percent_nset, self->data_ptr);
+}
+
+static PyObject *
+Depreciation_get_depr_alloc_sl_5_percent(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Depreciation_depr_alloc_sl_5_percent_nget, self->data_ptr);
+}
+
+static int
+Depreciation_set_depr_alloc_sl_5_percent(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_CashloanHeat_Depreciation_depr_alloc_sl_5_percent_nset, self->data_ptr);
+}
+
+static PyObject *
+Depreciation_get_depr_basis_mat(VarGroupObject *self, void *closure)
+{
+	return PySAM_matrix_getter(SAM_CashloanHeat_Depreciation_depr_basis_mat_mget, self->data_ptr);
+}
+
+static int
+Depreciation_set_depr_basis_mat(VarGroupObject *self, PyObject *value, void *closure)
+{
+		return PySAM_matrix_setter(value, SAM_CashloanHeat_Depreciation_depr_basis_mat_mset, self->data_ptr);
+}
+
+static PyObject *
+Depreciation_get_depr_bonus_fed(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Depreciation_depr_bonus_fed_nget, self->data_ptr);
+}
+
+static int
+Depreciation_set_depr_bonus_fed(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_CashloanHeat_Depreciation_depr_bonus_fed_nset, self->data_ptr);
+}
+
+static PyObject *
+Depreciation_get_depr_bonus_fed_custom(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Depreciation_depr_bonus_fed_custom_nget, self->data_ptr);
+}
+
+static int
+Depreciation_set_depr_bonus_fed_custom(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_CashloanHeat_Depreciation_depr_bonus_fed_custom_nset, self->data_ptr);
+}
+
+static PyObject *
+Depreciation_get_depr_bonus_fed_macrs_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Depreciation_depr_bonus_fed_macrs_15_nget, self->data_ptr);
+}
+
+static int
+Depreciation_set_depr_bonus_fed_macrs_15(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_CashloanHeat_Depreciation_depr_bonus_fed_macrs_15_nset, self->data_ptr);
+}
+
+static PyObject *
+Depreciation_get_depr_bonus_fed_macrs_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Depreciation_depr_bonus_fed_macrs_5_nget, self->data_ptr);
+}
+
+static int
+Depreciation_set_depr_bonus_fed_macrs_5(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_CashloanHeat_Depreciation_depr_bonus_fed_macrs_5_nset, self->data_ptr);
+}
+
+static PyObject *
+Depreciation_get_depr_bonus_fed_sl_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Depreciation_depr_bonus_fed_sl_15_nget, self->data_ptr);
+}
+
+static int
+Depreciation_set_depr_bonus_fed_sl_15(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_CashloanHeat_Depreciation_depr_bonus_fed_sl_15_nset, self->data_ptr);
+}
+
+static PyObject *
+Depreciation_get_depr_bonus_fed_sl_20(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Depreciation_depr_bonus_fed_sl_20_nget, self->data_ptr);
+}
+
+static int
+Depreciation_set_depr_bonus_fed_sl_20(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_CashloanHeat_Depreciation_depr_bonus_fed_sl_20_nset, self->data_ptr);
+}
+
+static PyObject *
+Depreciation_get_depr_bonus_fed_sl_39(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Depreciation_depr_bonus_fed_sl_39_nget, self->data_ptr);
+}
+
+static int
+Depreciation_set_depr_bonus_fed_sl_39(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_CashloanHeat_Depreciation_depr_bonus_fed_sl_39_nset, self->data_ptr);
+}
+
+static PyObject *
+Depreciation_get_depr_bonus_fed_sl_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Depreciation_depr_bonus_fed_sl_5_nget, self->data_ptr);
+}
+
+static int
+Depreciation_set_depr_bonus_fed_sl_5(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_CashloanHeat_Depreciation_depr_bonus_fed_sl_5_nset, self->data_ptr);
+}
+
+static PyObject *
+Depreciation_get_depr_bonus_sta(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Depreciation_depr_bonus_sta_nget, self->data_ptr);
+}
+
+static int
+Depreciation_set_depr_bonus_sta(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_CashloanHeat_Depreciation_depr_bonus_sta_nset, self->data_ptr);
+}
+
+static PyObject *
+Depreciation_get_depr_bonus_sta_custom(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Depreciation_depr_bonus_sta_custom_nget, self->data_ptr);
+}
+
+static int
+Depreciation_set_depr_bonus_sta_custom(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_CashloanHeat_Depreciation_depr_bonus_sta_custom_nset, self->data_ptr);
+}
+
+static PyObject *
+Depreciation_get_depr_bonus_sta_macrs_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Depreciation_depr_bonus_sta_macrs_15_nget, self->data_ptr);
+}
+
+static int
+Depreciation_set_depr_bonus_sta_macrs_15(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_CashloanHeat_Depreciation_depr_bonus_sta_macrs_15_nset, self->data_ptr);
+}
+
+static PyObject *
+Depreciation_get_depr_bonus_sta_macrs_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Depreciation_depr_bonus_sta_macrs_5_nget, self->data_ptr);
+}
+
+static int
+Depreciation_set_depr_bonus_sta_macrs_5(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_CashloanHeat_Depreciation_depr_bonus_sta_macrs_5_nset, self->data_ptr);
+}
+
+static PyObject *
+Depreciation_get_depr_bonus_sta_sl_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Depreciation_depr_bonus_sta_sl_15_nget, self->data_ptr);
+}
+
+static int
+Depreciation_set_depr_bonus_sta_sl_15(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_CashloanHeat_Depreciation_depr_bonus_sta_sl_15_nset, self->data_ptr);
+}
+
+static PyObject *
+Depreciation_get_depr_bonus_sta_sl_20(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Depreciation_depr_bonus_sta_sl_20_nget, self->data_ptr);
+}
+
+static int
+Depreciation_set_depr_bonus_sta_sl_20(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_CashloanHeat_Depreciation_depr_bonus_sta_sl_20_nset, self->data_ptr);
+}
+
+static PyObject *
+Depreciation_get_depr_bonus_sta_sl_39(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Depreciation_depr_bonus_sta_sl_39_nget, self->data_ptr);
+}
+
+static int
+Depreciation_set_depr_bonus_sta_sl_39(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_CashloanHeat_Depreciation_depr_bonus_sta_sl_39_nset, self->data_ptr);
+}
+
+static PyObject *
+Depreciation_get_depr_bonus_sta_sl_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Depreciation_depr_bonus_sta_sl_5_nget, self->data_ptr);
+}
+
+static int
+Depreciation_set_depr_bonus_sta_sl_5(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_CashloanHeat_Depreciation_depr_bonus_sta_sl_5_nset, self->data_ptr);
+}
+
+static PyObject *
+Depreciation_get_depr_custom_schedule(VarGroupObject *self, void *closure)
+{
+	return PySAM_array_getter(SAM_CashloanHeat_Depreciation_depr_custom_schedule_aget, self->data_ptr);
+}
+
+static int
+Depreciation_set_depr_custom_schedule(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_array_setter(value, SAM_CashloanHeat_Depreciation_depr_custom_schedule_aset, self->data_ptr);
+}
+
+static PyObject *
+Depreciation_get_depr_en_basis_mat(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Depreciation_depr_en_basis_mat_nget, self->data_ptr);
+}
+
+static int
+Depreciation_set_depr_en_basis_mat(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_CashloanHeat_Depreciation_depr_en_basis_mat_nset, self->data_ptr);
+}
+
+static PyObject *
+Depreciation_get_depr_fedbas_method(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Depreciation_depr_fedbas_method_nget, self->data_ptr);
+}
+
+static int
+Depreciation_set_depr_fedbas_method(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_CashloanHeat_Depreciation_depr_fedbas_method_nset, self->data_ptr);
+}
+
+static PyObject *
+Depreciation_get_depr_itc_fed_custom(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Depreciation_depr_itc_fed_custom_nget, self->data_ptr);
+}
+
+static int
+Depreciation_set_depr_itc_fed_custom(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_CashloanHeat_Depreciation_depr_itc_fed_custom_nset, self->data_ptr);
+}
+
+static PyObject *
+Depreciation_get_depr_itc_fed_macrs_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Depreciation_depr_itc_fed_macrs_15_nget, self->data_ptr);
+}
+
+static int
+Depreciation_set_depr_itc_fed_macrs_15(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_CashloanHeat_Depreciation_depr_itc_fed_macrs_15_nset, self->data_ptr);
+}
+
+static PyObject *
+Depreciation_get_depr_itc_fed_macrs_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Depreciation_depr_itc_fed_macrs_5_nget, self->data_ptr);
+}
+
+static int
+Depreciation_set_depr_itc_fed_macrs_5(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_CashloanHeat_Depreciation_depr_itc_fed_macrs_5_nset, self->data_ptr);
+}
+
+static PyObject *
+Depreciation_get_depr_itc_fed_sl_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Depreciation_depr_itc_fed_sl_15_nget, self->data_ptr);
+}
+
+static int
+Depreciation_set_depr_itc_fed_sl_15(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_CashloanHeat_Depreciation_depr_itc_fed_sl_15_nset, self->data_ptr);
+}
+
+static PyObject *
+Depreciation_get_depr_itc_fed_sl_20(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Depreciation_depr_itc_fed_sl_20_nget, self->data_ptr);
+}
+
+static int
+Depreciation_set_depr_itc_fed_sl_20(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_CashloanHeat_Depreciation_depr_itc_fed_sl_20_nset, self->data_ptr);
+}
+
+static PyObject *
+Depreciation_get_depr_itc_fed_sl_39(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Depreciation_depr_itc_fed_sl_39_nget, self->data_ptr);
+}
+
+static int
+Depreciation_set_depr_itc_fed_sl_39(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_CashloanHeat_Depreciation_depr_itc_fed_sl_39_nset, self->data_ptr);
+}
+
+static PyObject *
+Depreciation_get_depr_itc_fed_sl_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Depreciation_depr_itc_fed_sl_5_nget, self->data_ptr);
+}
+
+static int
+Depreciation_set_depr_itc_fed_sl_5(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_CashloanHeat_Depreciation_depr_itc_fed_sl_5_nset, self->data_ptr);
+}
+
+static PyObject *
+Depreciation_get_depr_itc_sta_custom(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Depreciation_depr_itc_sta_custom_nget, self->data_ptr);
+}
+
+static int
+Depreciation_set_depr_itc_sta_custom(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_CashloanHeat_Depreciation_depr_itc_sta_custom_nset, self->data_ptr);
+}
+
+static PyObject *
+Depreciation_get_depr_itc_sta_macrs_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Depreciation_depr_itc_sta_macrs_15_nget, self->data_ptr);
+}
+
+static int
+Depreciation_set_depr_itc_sta_macrs_15(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_CashloanHeat_Depreciation_depr_itc_sta_macrs_15_nset, self->data_ptr);
+}
+
+static PyObject *
+Depreciation_get_depr_itc_sta_macrs_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Depreciation_depr_itc_sta_macrs_5_nget, self->data_ptr);
+}
+
+static int
+Depreciation_set_depr_itc_sta_macrs_5(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_CashloanHeat_Depreciation_depr_itc_sta_macrs_5_nset, self->data_ptr);
+}
+
+static PyObject *
+Depreciation_get_depr_itc_sta_sl_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Depreciation_depr_itc_sta_sl_15_nget, self->data_ptr);
+}
+
+static int
+Depreciation_set_depr_itc_sta_sl_15(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_CashloanHeat_Depreciation_depr_itc_sta_sl_15_nset, self->data_ptr);
+}
+
+static PyObject *
+Depreciation_get_depr_itc_sta_sl_20(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Depreciation_depr_itc_sta_sl_20_nget, self->data_ptr);
+}
+
+static int
+Depreciation_set_depr_itc_sta_sl_20(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_CashloanHeat_Depreciation_depr_itc_sta_sl_20_nset, self->data_ptr);
+}
+
+static PyObject *
+Depreciation_get_depr_itc_sta_sl_39(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Depreciation_depr_itc_sta_sl_39_nget, self->data_ptr);
+}
+
+static int
+Depreciation_set_depr_itc_sta_sl_39(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_CashloanHeat_Depreciation_depr_itc_sta_sl_39_nset, self->data_ptr);
+}
+
+static PyObject *
+Depreciation_get_depr_itc_sta_sl_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Depreciation_depr_itc_sta_sl_5_nget, self->data_ptr);
+}
+
+static int
+Depreciation_set_depr_itc_sta_sl_5(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_CashloanHeat_Depreciation_depr_itc_sta_sl_5_nset, self->data_ptr);
+}
+
+static PyObject *
+Depreciation_get_depr_stabas_method(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Depreciation_depr_stabas_method_nget, self->data_ptr);
+}
+
+static int
+Depreciation_set_depr_stabas_method(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_CashloanHeat_Depreciation_depr_stabas_method_nset, self->data_ptr);
 }
 
 static PyGetSetDef Depreciation_getset[] = {
-{"depr_fed_custom", (getter)Depreciation_get_depr_fed_custom,(setter)Depreciation_set_depr_fed_custom,
-	PyDoc_STR("*sequence*: Federal custom depreciation [%/year]\n\n**Required:**\nRequired if depr_fed_type=3"),
+{"depr_alloc_custom_percent", (getter)Depreciation_get_depr_alloc_custom_percent,(setter)Depreciation_set_depr_alloc_custom_percent,
+	PyDoc_STR("*float*: Custom depreciation federal and state allocation [%]\n\n**Constraints:**\nMIN=0,MAX=100\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults.\n\nThe value of ``depr_alloc_custom_percent`` depends on the following variables:\n\n\t - total_installed_cost\n"),
  	NULL},
-{"depr_fed_sl_years", (getter)Depreciation_get_depr_fed_sl_years,(setter)Depreciation_set_depr_fed_sl_years,
-	PyDoc_STR("*float*: Federal depreciation straight-line Years [years]\n\n**Constraints:**\nINTEGER,POSITIVE\n\n**Required:**\nRequired if depr_fed_type=2"),
+{"depr_alloc_macrs_15_percent", (getter)Depreciation_get_depr_alloc_macrs_15_percent,(setter)Depreciation_set_depr_alloc_macrs_15_percent,
+	PyDoc_STR("*float*: 15-yr MACRS depreciation federal and state allocation [%]\n\n**Constraints:**\nMIN=0,MAX=100\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults.\n\nThe value of ``depr_alloc_macrs_15_percent`` depends on the following variables:\n\n\t - total_installed_cost\n"),
  	NULL},
-{"depr_fed_type", (getter)Depreciation_get_depr_fed_type,(setter)Depreciation_set_depr_fed_type,
-	PyDoc_STR("*float*: Federal depreciation type\n\n**Options:**\n0=none,1=macrs_half_year,2=sl,3=custom\n\n**Constraints:**\nINTEGER,MIN=0,MAX=3\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
+{"depr_alloc_macrs_5_percent", (getter)Depreciation_get_depr_alloc_macrs_5_percent,(setter)Depreciation_set_depr_alloc_macrs_5_percent,
+	PyDoc_STR("*float*: 5-yr MACRS depreciation federal and state allocation [%]\n\n**Constraints:**\nMIN=0,MAX=100\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults.\n\nThe value of ``depr_alloc_macrs_5_percent`` depends on the following variables:\n\n\t - total_installed_cost\n"),
  	NULL},
-{"depr_sta_custom", (getter)Depreciation_get_depr_sta_custom,(setter)Depreciation_set_depr_sta_custom,
-	PyDoc_STR("*sequence*: State custom depreciation [%/year]\n\n**Required:**\nRequired if depr_sta_type=3"),
+{"depr_alloc_sl_15_percent", (getter)Depreciation_get_depr_alloc_sl_15_percent,(setter)Depreciation_set_depr_alloc_sl_15_percent,
+	PyDoc_STR("*float*: 15-yr straight line depreciation federal and state allocation [%]\n\n**Constraints:**\nMIN=0,MAX=100\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults.\n\nThe value of ``depr_alloc_sl_15_percent`` depends on the following variables:\n\n\t - total_installed_cost\n"),
  	NULL},
-{"depr_sta_sl_years", (getter)Depreciation_get_depr_sta_sl_years,(setter)Depreciation_set_depr_sta_sl_years,
-	PyDoc_STR("*float*: State depreciation straight-line years [years]\n\n**Constraints:**\nINTEGER,POSITIVE\n\n**Required:**\nRequired if depr_sta_type=2"),
+{"depr_alloc_sl_20_percent", (getter)Depreciation_get_depr_alloc_sl_20_percent,(setter)Depreciation_set_depr_alloc_sl_20_percent,
+	PyDoc_STR("*float*: 20-yr straight line depreciation federal and state allocation [%]\n\n**Constraints:**\nMIN=0,MAX=100\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults.\n\nThe value of ``depr_alloc_sl_20_percent`` depends on the following variables:\n\n\t - total_installed_cost\n"),
  	NULL},
-{"depr_sta_type", (getter)Depreciation_get_depr_sta_type,(setter)Depreciation_set_depr_sta_type,
-	PyDoc_STR("*float*: State depreciation type\n\n**Options:**\n0=none,1=macrs_half_year,2=sl,3=custom\n\n**Constraints:**\nINTEGER,MIN=0,MAX=3\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
+{"depr_alloc_sl_39_percent", (getter)Depreciation_get_depr_alloc_sl_39_percent,(setter)Depreciation_set_depr_alloc_sl_39_percent,
+	PyDoc_STR("*float*: 39-yr straight line depreciation federal and state allocation [%]\n\n**Constraints:**\nMIN=0,MAX=100\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults.\n\nThe value of ``depr_alloc_sl_39_percent`` depends on the following variables:\n\n\t - total_installed_cost\n"),
+ 	NULL},
+{"depr_alloc_sl_5_percent", (getter)Depreciation_get_depr_alloc_sl_5_percent,(setter)Depreciation_set_depr_alloc_sl_5_percent,
+	PyDoc_STR("*float*: 5-yr straight line depreciation federal and state allocation [%]\n\n**Constraints:**\nMIN=0,MAX=100\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults.\n\nThe value of ``depr_alloc_sl_5_percent`` depends on the following variables:\n\n\t - total_installed_cost\n"),
+ 	NULL},
+{"depr_basis_mat", (getter)Depreciation_get_depr_basis_mat,(setter)Depreciation_set_depr_basis_mat,
+	PyDoc_STR("*sequence[sequence]*: Depreciation Basis Matrix\n\n**Constraints:**\ncol 0=tech no, col 1=basis amount ($), col 2=% of total installed cost, col 3=fed itc qual 0/1, col 4=state itc qual 0/1, col 5=depreciation selection(0=macrs 5, 1=macrs 15, 2=sl 5, 3=sl 15, 4=sl 20, 5=sl 39, 6=custom)\n\n**Required:**\nRequired if depr_en_basis_mat=1\n\nThe value of ``depr_basis_mat`` depends on the following variables:\n\n\t - total_installed_cost\n"),
+ 	NULL},
+{"depr_bonus_fed", (getter)Depreciation_get_depr_bonus_fed,(setter)Depreciation_set_depr_bonus_fed,
+	PyDoc_STR("*float*: Federal bonus depreciation [%]\n\n**Constraints:**\nMIN=0,MAX=100\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+{"depr_bonus_fed_custom", (getter)Depreciation_get_depr_bonus_fed_custom,(setter)Depreciation_set_depr_bonus_fed_custom,
+	PyDoc_STR("*float*: Federal bonus depreciation custom [0/1]\n\n**Constraints:**\nBOOLEAN\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+{"depr_bonus_fed_macrs_15", (getter)Depreciation_get_depr_bonus_fed_macrs_15,(setter)Depreciation_set_depr_bonus_fed_macrs_15,
+	PyDoc_STR("*float*: Federal bonus depreciation 15-yr MACRS [0/1]\n\n**Constraints:**\nBOOLEAN\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+{"depr_bonus_fed_macrs_5", (getter)Depreciation_get_depr_bonus_fed_macrs_5,(setter)Depreciation_set_depr_bonus_fed_macrs_5,
+	PyDoc_STR("*float*: Federal bonus depreciation 5-yr MACRS [0/1]\n\n**Constraints:**\nBOOLEAN\n\n**Required:**\nFalse. Automatically set to 1 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+{"depr_bonus_fed_sl_15", (getter)Depreciation_get_depr_bonus_fed_sl_15,(setter)Depreciation_set_depr_bonus_fed_sl_15,
+	PyDoc_STR("*float*: Federal bonus depreciation 15-yr straight line [0/1]\n\n**Constraints:**\nBOOLEAN\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+{"depr_bonus_fed_sl_20", (getter)Depreciation_get_depr_bonus_fed_sl_20,(setter)Depreciation_set_depr_bonus_fed_sl_20,
+	PyDoc_STR("*float*: Federal bonus depreciation 20-yr straight line [0/1]\n\n**Constraints:**\nBOOLEAN\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+{"depr_bonus_fed_sl_39", (getter)Depreciation_get_depr_bonus_fed_sl_39,(setter)Depreciation_set_depr_bonus_fed_sl_39,
+	PyDoc_STR("*float*: Federal bonus depreciation 39-yr straight line [0/1]\n\n**Constraints:**\nBOOLEAN\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+{"depr_bonus_fed_sl_5", (getter)Depreciation_get_depr_bonus_fed_sl_5,(setter)Depreciation_set_depr_bonus_fed_sl_5,
+	PyDoc_STR("*float*: Federal bonus depreciation 5-yr straight line [0/1]\n\n**Constraints:**\nBOOLEAN\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+{"depr_bonus_sta", (getter)Depreciation_get_depr_bonus_sta,(setter)Depreciation_set_depr_bonus_sta,
+	PyDoc_STR("*float*: State bonus depreciation [%]\n\n**Constraints:**\nMIN=0,MAX=100\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+{"depr_bonus_sta_custom", (getter)Depreciation_get_depr_bonus_sta_custom,(setter)Depreciation_set_depr_bonus_sta_custom,
+	PyDoc_STR("*float*: State bonus depreciation custom [0/1]\n\n**Constraints:**\nBOOLEAN\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+{"depr_bonus_sta_macrs_15", (getter)Depreciation_get_depr_bonus_sta_macrs_15,(setter)Depreciation_set_depr_bonus_sta_macrs_15,
+	PyDoc_STR("*float*: State bonus depreciation 15-yr MACRS [0/1]\n\n**Constraints:**\nBOOLEAN\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+{"depr_bonus_sta_macrs_5", (getter)Depreciation_get_depr_bonus_sta_macrs_5,(setter)Depreciation_set_depr_bonus_sta_macrs_5,
+	PyDoc_STR("*float*: State bonus depreciation 5-yr MACRS [0/1]\n\n**Constraints:**\nBOOLEAN\n\n**Required:**\nFalse. Automatically set to 1 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+{"depr_bonus_sta_sl_15", (getter)Depreciation_get_depr_bonus_sta_sl_15,(setter)Depreciation_set_depr_bonus_sta_sl_15,
+	PyDoc_STR("*float*: State bonus depreciation 15-yr straight line [0/1]\n\n**Constraints:**\nBOOLEAN\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+{"depr_bonus_sta_sl_20", (getter)Depreciation_get_depr_bonus_sta_sl_20,(setter)Depreciation_set_depr_bonus_sta_sl_20,
+	PyDoc_STR("*float*: State bonus depreciation 20-yr straight line [0/1]\n\n**Constraints:**\nBOOLEAN\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+{"depr_bonus_sta_sl_39", (getter)Depreciation_get_depr_bonus_sta_sl_39,(setter)Depreciation_set_depr_bonus_sta_sl_39,
+	PyDoc_STR("*float*: State bonus depreciation 39-yr straight line [0/1]\n\n**Constraints:**\nBOOLEAN\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+{"depr_bonus_sta_sl_5", (getter)Depreciation_get_depr_bonus_sta_sl_5,(setter)Depreciation_set_depr_bonus_sta_sl_5,
+	PyDoc_STR("*float*: State bonus depreciation 5-yr straight line [0/1]\n\n**Constraints:**\nBOOLEAN\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+{"depr_custom_schedule", (getter)Depreciation_get_depr_custom_schedule,(setter)Depreciation_set_depr_custom_schedule,
+	PyDoc_STR("*sequence*: Custom depreciation schedule [%]"),
+ 	NULL},
+{"depr_en_basis_mat", (getter)Depreciation_get_depr_en_basis_mat,(setter)Depreciation_set_depr_en_basis_mat,
+	PyDoc_STR("*float*: Enable Depreciation Basis Matrix [0/1]\n\n**Constraints:**\nBOOLEAN\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+{"depr_fedbas_method", (getter)Depreciation_get_depr_fedbas_method,(setter)Depreciation_set_depr_fedbas_method,
+	PyDoc_STR("*float*: Method of federal depreciation reduction\n\n**Options:**\n0=5yr MACRS,1=Proportional\n\n**Constraints:**\nINTEGER,MIN=0,MAX=1\n\n**Required:**\nFalse. Automatically set to 1 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+{"depr_itc_fed_custom", (getter)Depreciation_get_depr_itc_fed_custom,(setter)Depreciation_set_depr_itc_fed_custom,
+	PyDoc_STR("*float*: Federal ITC depreciation custom [0/1]\n\n**Constraints:**\nBOOLEAN\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+{"depr_itc_fed_macrs_15", (getter)Depreciation_get_depr_itc_fed_macrs_15,(setter)Depreciation_set_depr_itc_fed_macrs_15,
+	PyDoc_STR("*float*: Federal ITC depreciation 15-yr MACRS [0/1]\n\n**Constraints:**\nBOOLEAN\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+{"depr_itc_fed_macrs_5", (getter)Depreciation_get_depr_itc_fed_macrs_5,(setter)Depreciation_set_depr_itc_fed_macrs_5,
+	PyDoc_STR("*float*: Federal ITC depreciation 5-yr MACRS [0/1]\n\n**Constraints:**\nBOOLEAN\n\n**Required:**\nFalse. Automatically set to 1 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+{"depr_itc_fed_sl_15", (getter)Depreciation_get_depr_itc_fed_sl_15,(setter)Depreciation_set_depr_itc_fed_sl_15,
+	PyDoc_STR("*float*: Federal ITC depreciation 15-yr straight line [0/1]\n\n**Constraints:**\nBOOLEAN\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+{"depr_itc_fed_sl_20", (getter)Depreciation_get_depr_itc_fed_sl_20,(setter)Depreciation_set_depr_itc_fed_sl_20,
+	PyDoc_STR("*float*: Federal ITC depreciation 20-yr straight line [0/1]\n\n**Constraints:**\nBOOLEAN\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+{"depr_itc_fed_sl_39", (getter)Depreciation_get_depr_itc_fed_sl_39,(setter)Depreciation_set_depr_itc_fed_sl_39,
+	PyDoc_STR("*float*: Federal ITC depreciation 39-yr straight line [0/1]\n\n**Constraints:**\nBOOLEAN\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+{"depr_itc_fed_sl_5", (getter)Depreciation_get_depr_itc_fed_sl_5,(setter)Depreciation_set_depr_itc_fed_sl_5,
+	PyDoc_STR("*float*: Federal ITC depreciation 5-yr straight line [0/1]\n\n**Constraints:**\nBOOLEAN\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+{"depr_itc_sta_custom", (getter)Depreciation_get_depr_itc_sta_custom,(setter)Depreciation_set_depr_itc_sta_custom,
+	PyDoc_STR("*float*: State ITC depreciation custom [0/1]\n\n**Constraints:**\nBOOLEAN\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+{"depr_itc_sta_macrs_15", (getter)Depreciation_get_depr_itc_sta_macrs_15,(setter)Depreciation_set_depr_itc_sta_macrs_15,
+	PyDoc_STR("*float*: State ITC depreciation 15-yr MACRS [0/1]\n\n**Constraints:**\nBOOLEAN\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+{"depr_itc_sta_macrs_5", (getter)Depreciation_get_depr_itc_sta_macrs_5,(setter)Depreciation_set_depr_itc_sta_macrs_5,
+	PyDoc_STR("*float*: State ITC depreciation 5-yr MACRS [0/1]\n\n**Constraints:**\nBOOLEAN\n\n**Required:**\nFalse. Automatically set to 1 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+{"depr_itc_sta_sl_15", (getter)Depreciation_get_depr_itc_sta_sl_15,(setter)Depreciation_set_depr_itc_sta_sl_15,
+	PyDoc_STR("*float*: State ITC depreciation 15-yr straight line [0/1]\n\n**Constraints:**\nBOOLEAN\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+{"depr_itc_sta_sl_20", (getter)Depreciation_get_depr_itc_sta_sl_20,(setter)Depreciation_set_depr_itc_sta_sl_20,
+	PyDoc_STR("*float*: State ITC depreciation 20-yr straight line [0/1]\n\n**Constraints:**\nBOOLEAN\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+{"depr_itc_sta_sl_39", (getter)Depreciation_get_depr_itc_sta_sl_39,(setter)Depreciation_set_depr_itc_sta_sl_39,
+	PyDoc_STR("*float*: State ITC depreciation 39-yr straight line [0/1]\n\n**Constraints:**\nBOOLEAN\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+{"depr_itc_sta_sl_5", (getter)Depreciation_get_depr_itc_sta_sl_5,(setter)Depreciation_set_depr_itc_sta_sl_5,
+	PyDoc_STR("*float*: State ITC depreciation 5-yr straight line [0/1]\n\n**Constraints:**\nBOOLEAN\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+{"depr_stabas_method", (getter)Depreciation_get_depr_stabas_method,(setter)Depreciation_set_depr_stabas_method,
+	PyDoc_STR("*float*: Method of state depreciation reduction\n\n**Options:**\n0=5yr MACRS,1=Proportional\n\n**Constraints:**\nINTEGER,MIN=0,MAX=1\n\n**Required:**\nFalse. Automatically set to 1 if not assigned explicitly or loaded from defaults."),
  	NULL},
 	{NULL}  /* Sentinel */
 };
@@ -4032,6 +4572,18 @@ ChargesByMonth_set_utility_bill_w_sys(VarGroupObject *self, PyObject *value, voi
 	return PySAM_array_setter(value, SAM_CashloanHeat_ChargesByMonth_utility_bill_w_sys_aset, self->data_ptr);
 }
 
+static PyObject *
+ChargesByMonth_get_utility_bill_wo_sys(VarGroupObject *self, void *closure)
+{
+	return PySAM_array_getter(SAM_CashloanHeat_ChargesByMonth_utility_bill_wo_sys_aget, self->data_ptr);
+}
+
+static int
+ChargesByMonth_set_utility_bill_wo_sys(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_array_setter(value, SAM_CashloanHeat_ChargesByMonth_utility_bill_wo_sys_aset, self->data_ptr);
+}
+
 static PyGetSetDef ChargesByMonth_getset[] = {
 {"charge_w_sys_dc_tou_ym", (getter)ChargesByMonth_get_charge_w_sys_dc_tou_ym,(setter)ChargesByMonth_set_charge_w_sys_dc_tou_ym,
 	PyDoc_STR("*sequence[sequence]*: Demand charge with system (TOU) [$]\n\n**Required:**\nTrue"),
@@ -4053,6 +4605,9 @@ static PyGetSetDef ChargesByMonth_getset[] = {
  	NULL},
 {"utility_bill_w_sys", (getter)ChargesByMonth_get_utility_bill_w_sys,(setter)ChargesByMonth_set_utility_bill_w_sys,
 	PyDoc_STR("*sequence*: Electricity bill for system [$]\n\n**Required:**\nTrue"),
+ 	NULL},
+{"utility_bill_wo_sys", (getter)ChargesByMonth_get_utility_bill_wo_sys,(setter)ChargesByMonth_set_utility_bill_wo_sys,
+	PyDoc_STR("*sequence*: Electricity bill without system [$]\n\n**Required:**\nTrue"),
  	NULL},
 	{NULL}  /* Sentinel */
 };
@@ -5067,7 +5622,7 @@ static PyGetSetDef LCOS_getset[] = {
 	PyDoc_STR("*float*: Net pre-tax cash battery salvage value [%]\n\n**Constraints:**\nMIN=0,MAX=100\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
  	NULL},
 {"battery_total_cost_lcos", (getter)LCOS_get_battery_total_cost_lcos,(setter)LCOS_set_battery_total_cost_lcos,
-	PyDoc_STR("*float*: Battery total investment cost [$]"),
+	PyDoc_STR("*float*: Battery total investment cost [$]\n\nThe value of the following variables depends on ``battery_total_cost_lcos``:\n\n\t - depr_alloc_custom_percent\n\t - depr_alloc_macrs_15_percent\n\t - depr_alloc_macrs_5_percent\n\t - depr_alloc_sl_15_percent\n\t - depr_alloc_sl_20_percent\n\t - depr_alloc_sl_39_percent\n\t - depr_alloc_sl_5_percent\n\t - depr_basis_mat\n"),
  	NULL},
 {"charge_w_sys_ec_ym", (getter)LCOS_get_charge_w_sys_ec_ym,(setter)LCOS_set_charge_w_sys_ec_ym,
 	PyDoc_STR("*sequence[sequence]*: Energy charge with system [$]"),
@@ -5568,18 +6123,6 @@ Outputs_get_cf_energy_without_battery(VarGroupObject *self, void *closure)
 }
 
 static PyObject *
-Outputs_get_cf_fed_depr_sched(VarGroupObject *self, void *closure)
-{
-	return PySAM_array_getter(SAM_CashloanHeat_Outputs_cf_fed_depr_sched_aget, self->data_ptr);
-}
-
-static PyObject *
-Outputs_get_cf_fed_depreciation(VarGroupObject *self, void *closure)
-{
-	return PySAM_array_getter(SAM_CashloanHeat_Outputs_cf_fed_depreciation_aget, self->data_ptr);
-}
-
-static PyObject *
 Outputs_get_cf_fed_incentive_income_less_deductions(VarGroupObject *self, void *closure)
 {
 	return PySAM_array_getter(SAM_CashloanHeat_Outputs_cf_fed_incentive_income_less_deductions_aget, self->data_ptr);
@@ -5601,6 +6144,72 @@ static PyObject *
 Outputs_get_cf_fed_taxable_income_less_deductions(VarGroupObject *self, void *closure)
 {
 	return PySAM_array_getter(SAM_CashloanHeat_Outputs_cf_fed_taxable_income_less_deductions_aget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_cf_feddepr_custom(VarGroupObject *self, void *closure)
+{
+	return PySAM_array_getter(SAM_CashloanHeat_Outputs_cf_feddepr_custom_aget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_cf_feddepr_macrs_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_array_getter(SAM_CashloanHeat_Outputs_cf_feddepr_macrs_15_aget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_cf_feddepr_macrs_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_array_getter(SAM_CashloanHeat_Outputs_cf_feddepr_macrs_5_aget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_cf_feddepr_me1(VarGroupObject *self, void *closure)
+{
+	return PySAM_array_getter(SAM_CashloanHeat_Outputs_cf_feddepr_me1_aget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_cf_feddepr_me2(VarGroupObject *self, void *closure)
+{
+	return PySAM_array_getter(SAM_CashloanHeat_Outputs_cf_feddepr_me2_aget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_cf_feddepr_me3(VarGroupObject *self, void *closure)
+{
+	return PySAM_array_getter(SAM_CashloanHeat_Outputs_cf_feddepr_me3_aget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_cf_feddepr_sl_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_array_getter(SAM_CashloanHeat_Outputs_cf_feddepr_sl_15_aget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_cf_feddepr_sl_20(VarGroupObject *self, void *closure)
+{
+	return PySAM_array_getter(SAM_CashloanHeat_Outputs_cf_feddepr_sl_20_aget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_cf_feddepr_sl_39(VarGroupObject *self, void *closure)
+{
+	return PySAM_array_getter(SAM_CashloanHeat_Outputs_cf_feddepr_sl_39_aget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_cf_feddepr_sl_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_array_getter(SAM_CashloanHeat_Outputs_cf_feddepr_sl_5_aget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_cf_feddepr_total(VarGroupObject *self, void *closure)
+{
+	return PySAM_array_getter(SAM_CashloanHeat_Outputs_cf_feddepr_total_aget, self->data_ptr);
 }
 
 static PyObject *
@@ -5886,18 +6495,6 @@ Outputs_get_cf_sta_and_fed_tax_savings(VarGroupObject *self, void *closure)
 }
 
 static PyObject *
-Outputs_get_cf_sta_depr_sched(VarGroupObject *self, void *closure)
-{
-	return PySAM_array_getter(SAM_CashloanHeat_Outputs_cf_sta_depr_sched_aget, self->data_ptr);
-}
-
-static PyObject *
-Outputs_get_cf_sta_depreciation(VarGroupObject *self, void *closure)
-{
-	return PySAM_array_getter(SAM_CashloanHeat_Outputs_cf_sta_depreciation_aget, self->data_ptr);
-}
-
-static PyObject *
 Outputs_get_cf_sta_incentive_income_less_deductions(VarGroupObject *self, void *closure)
 {
 	return PySAM_array_getter(SAM_CashloanHeat_Outputs_cf_sta_incentive_income_less_deductions_aget, self->data_ptr);
@@ -5919,6 +6516,72 @@ static PyObject *
 Outputs_get_cf_sta_taxable_income_less_deductions(VarGroupObject *self, void *closure)
 {
 	return PySAM_array_getter(SAM_CashloanHeat_Outputs_cf_sta_taxable_income_less_deductions_aget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_cf_stadepr_custom(VarGroupObject *self, void *closure)
+{
+	return PySAM_array_getter(SAM_CashloanHeat_Outputs_cf_stadepr_custom_aget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_cf_stadepr_macrs_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_array_getter(SAM_CashloanHeat_Outputs_cf_stadepr_macrs_15_aget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_cf_stadepr_macrs_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_array_getter(SAM_CashloanHeat_Outputs_cf_stadepr_macrs_5_aget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_cf_stadepr_me1(VarGroupObject *self, void *closure)
+{
+	return PySAM_array_getter(SAM_CashloanHeat_Outputs_cf_stadepr_me1_aget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_cf_stadepr_me2(VarGroupObject *self, void *closure)
+{
+	return PySAM_array_getter(SAM_CashloanHeat_Outputs_cf_stadepr_me2_aget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_cf_stadepr_me3(VarGroupObject *self, void *closure)
+{
+	return PySAM_array_getter(SAM_CashloanHeat_Outputs_cf_stadepr_me3_aget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_cf_stadepr_sl_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_array_getter(SAM_CashloanHeat_Outputs_cf_stadepr_sl_15_aget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_cf_stadepr_sl_20(VarGroupObject *self, void *closure)
+{
+	return PySAM_array_getter(SAM_CashloanHeat_Outputs_cf_stadepr_sl_20_aget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_cf_stadepr_sl_39(VarGroupObject *self, void *closure)
+{
+	return PySAM_array_getter(SAM_CashloanHeat_Outputs_cf_stadepr_sl_39_aget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_cf_stadepr_sl_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_array_getter(SAM_CashloanHeat_Outputs_cf_stadepr_sl_5_aget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_cf_stadepr_total(VarGroupObject *self, void *closure)
+{
+	return PySAM_array_getter(SAM_CashloanHeat_Outputs_cf_stadepr_total_aget, self->data_ptr);
 }
 
 static PyObject *
@@ -5949,6 +6612,1218 @@ static PyObject *
 Outputs_get_cf_value_added(VarGroupObject *self, void *closure)
 {
 	return PySAM_array_getter(SAM_CashloanHeat_Outputs_cf_value_added_aget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_alloc_custom(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_alloc_custom_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_alloc_macrs_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_alloc_macrs_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_alloc_macrs_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_alloc_macrs_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_alloc_none(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_alloc_none_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_alloc_none_percent(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_alloc_none_percent_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_alloc_sl_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_alloc_sl_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_alloc_sl_20(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_alloc_sl_20_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_alloc_sl_39(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_alloc_sl_39_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_alloc_sl_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_alloc_sl_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_alloc_total(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_alloc_total_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_after_itc_custom(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_after_itc_custom_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_after_itc_macrs_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_after_itc_macrs_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_after_itc_macrs_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_after_itc_macrs_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_after_itc_sl_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_after_itc_sl_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_after_itc_sl_20(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_after_itc_sl_20_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_after_itc_sl_39(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_after_itc_sl_39_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_after_itc_sl_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_after_itc_sl_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_after_itc_total(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_after_itc_total_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_cbi_reduc_custom(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_cbi_reduc_custom_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_cbi_reduc_macrs_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_cbi_reduc_macrs_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_cbi_reduc_macrs_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_cbi_reduc_macrs_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_cbi_reduc_sl_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_cbi_reduc_sl_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_cbi_reduc_sl_20(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_cbi_reduc_sl_20_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_cbi_reduc_sl_39(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_cbi_reduc_sl_39_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_cbi_reduc_sl_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_cbi_reduc_sl_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_cbi_reduc_total(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_cbi_reduc_total_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_custom(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_custom_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_first_year_bonus_custom(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_first_year_bonus_custom_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_first_year_bonus_macrs_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_first_year_bonus_macrs_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_first_year_bonus_macrs_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_first_year_bonus_macrs_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_first_year_bonus_sl_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_first_year_bonus_sl_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_first_year_bonus_sl_20(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_first_year_bonus_sl_20_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_first_year_bonus_sl_39(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_first_year_bonus_sl_39_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_first_year_bonus_sl_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_first_year_bonus_sl_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_first_year_bonus_total(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_first_year_bonus_total_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_fixed_amount_custom(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_fixed_amount_custom_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_fixed_amount_macrs_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_fixed_amount_macrs_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_fixed_amount_macrs_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_fixed_amount_macrs_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_fixed_amount_sl_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_fixed_amount_sl_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_fixed_amount_sl_20(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_fixed_amount_sl_20_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_fixed_amount_sl_39(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_fixed_amount_sl_39_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_fixed_amount_sl_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_fixed_amount_sl_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_fixed_amount_total(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_fixed_amount_total_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_ibi_reduc_custom(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_ibi_reduc_custom_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_ibi_reduc_macrs_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_ibi_reduc_macrs_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_ibi_reduc_macrs_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_ibi_reduc_macrs_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_ibi_reduc_sl_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_ibi_reduc_sl_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_ibi_reduc_sl_20(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_ibi_reduc_sl_20_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_ibi_reduc_sl_39(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_ibi_reduc_sl_39_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_ibi_reduc_sl_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_ibi_reduc_sl_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_ibi_reduc_total(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_ibi_reduc_total_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_itc_fed_reduction_custom(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_itc_fed_reduction_custom_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_itc_fed_reduction_macrs_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_itc_fed_reduction_macrs_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_itc_fed_reduction_macrs_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_itc_fed_reduction_macrs_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_itc_fed_reduction_sl_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_itc_fed_reduction_sl_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_itc_fed_reduction_sl_20(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_itc_fed_reduction_sl_20_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_itc_fed_reduction_sl_39(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_itc_fed_reduction_sl_39_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_itc_fed_reduction_sl_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_itc_fed_reduction_sl_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_itc_fed_reduction_total(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_itc_fed_reduction_total_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_itc_sta_reduction_custom(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_itc_sta_reduction_custom_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_itc_sta_reduction_macrs_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_itc_sta_reduction_macrs_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_itc_sta_reduction_macrs_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_itc_sta_reduction_macrs_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_itc_sta_reduction_sl_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_itc_sta_reduction_sl_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_itc_sta_reduction_sl_20(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_itc_sta_reduction_sl_20_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_itc_sta_reduction_sl_39(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_itc_sta_reduction_sl_39_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_itc_sta_reduction_sl_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_itc_sta_reduction_sl_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_itc_sta_reduction_total(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_itc_sta_reduction_total_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_macrs_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_macrs_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_macrs_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_macrs_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_percent_amount_custom(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_percent_amount_custom_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_percent_amount_macrs_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_percent_amount_macrs_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_percent_amount_macrs_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_percent_amount_macrs_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_percent_amount_sl_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_percent_amount_sl_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_percent_amount_sl_20(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_percent_amount_sl_20_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_percent_amount_sl_39(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_percent_amount_sl_39_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_percent_amount_sl_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_percent_amount_sl_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_percent_amount_total(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_percent_amount_total_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_percent_custom(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_percent_custom_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_percent_macrs_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_percent_macrs_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_percent_macrs_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_percent_macrs_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_percent_qual_custom(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_percent_qual_custom_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_percent_qual_macrs_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_percent_qual_macrs_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_percent_qual_macrs_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_percent_qual_macrs_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_percent_qual_sl_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_percent_qual_sl_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_percent_qual_sl_20(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_percent_qual_sl_20_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_percent_qual_sl_39(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_percent_qual_sl_39_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_percent_qual_sl_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_percent_qual_sl_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_percent_qual_total(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_percent_qual_total_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_percent_sl_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_percent_sl_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_percent_sl_20(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_percent_sl_20_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_percent_sl_39(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_percent_sl_39_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_percent_sl_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_percent_sl_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_percent_total(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_percent_total_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_prior_itc_custom(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_prior_itc_custom_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_prior_itc_macrs_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_prior_itc_macrs_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_prior_itc_macrs_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_prior_itc_macrs_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_prior_itc_sl_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_prior_itc_sl_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_prior_itc_sl_20(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_prior_itc_sl_20_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_prior_itc_sl_39(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_prior_itc_sl_39_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_prior_itc_sl_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_prior_itc_sl_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_prior_itc_total(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_prior_itc_total_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_sl_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_sl_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_sl_20(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_sl_20_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_sl_39(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_sl_39_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_sl_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_sl_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_fedbas_total(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_fedbas_total_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_after_itc_custom(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_after_itc_custom_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_after_itc_macrs_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_after_itc_macrs_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_after_itc_macrs_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_after_itc_macrs_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_after_itc_sl_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_after_itc_sl_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_after_itc_sl_20(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_after_itc_sl_20_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_after_itc_sl_39(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_after_itc_sl_39_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_after_itc_sl_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_after_itc_sl_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_after_itc_total(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_after_itc_total_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_cbi_reduc_custom(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_cbi_reduc_custom_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_cbi_reduc_macrs_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_cbi_reduc_macrs_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_cbi_reduc_macrs_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_cbi_reduc_macrs_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_cbi_reduc_sl_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_cbi_reduc_sl_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_cbi_reduc_sl_20(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_cbi_reduc_sl_20_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_cbi_reduc_sl_39(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_cbi_reduc_sl_39_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_cbi_reduc_sl_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_cbi_reduc_sl_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_cbi_reduc_total(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_cbi_reduc_total_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_custom(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_custom_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_first_year_bonus_custom(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_first_year_bonus_custom_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_first_year_bonus_macrs_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_first_year_bonus_macrs_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_first_year_bonus_macrs_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_first_year_bonus_macrs_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_first_year_bonus_sl_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_first_year_bonus_sl_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_first_year_bonus_sl_20(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_first_year_bonus_sl_20_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_first_year_bonus_sl_39(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_first_year_bonus_sl_39_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_first_year_bonus_sl_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_first_year_bonus_sl_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_first_year_bonus_total(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_first_year_bonus_total_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_fixed_amount_custom(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_fixed_amount_custom_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_fixed_amount_macrs_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_fixed_amount_macrs_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_fixed_amount_macrs_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_fixed_amount_macrs_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_fixed_amount_sl_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_fixed_amount_sl_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_fixed_amount_sl_20(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_fixed_amount_sl_20_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_fixed_amount_sl_39(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_fixed_amount_sl_39_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_fixed_amount_sl_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_fixed_amount_sl_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_fixed_amount_total(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_fixed_amount_total_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_ibi_reduc_custom(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_ibi_reduc_custom_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_ibi_reduc_macrs_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_ibi_reduc_macrs_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_ibi_reduc_macrs_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_ibi_reduc_macrs_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_ibi_reduc_sl_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_ibi_reduc_sl_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_ibi_reduc_sl_20(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_ibi_reduc_sl_20_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_ibi_reduc_sl_39(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_ibi_reduc_sl_39_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_ibi_reduc_sl_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_ibi_reduc_sl_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_ibi_reduc_total(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_ibi_reduc_total_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_itc_fed_reduction_custom(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_itc_fed_reduction_custom_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_itc_fed_reduction_macrs_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_itc_fed_reduction_macrs_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_itc_fed_reduction_macrs_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_itc_fed_reduction_macrs_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_itc_fed_reduction_sl_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_itc_fed_reduction_sl_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_itc_fed_reduction_sl_20(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_itc_fed_reduction_sl_20_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_itc_fed_reduction_sl_39(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_itc_fed_reduction_sl_39_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_itc_fed_reduction_sl_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_itc_fed_reduction_sl_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_itc_fed_reduction_total(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_itc_fed_reduction_total_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_itc_sta_reduction_custom(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_itc_sta_reduction_custom_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_itc_sta_reduction_macrs_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_itc_sta_reduction_macrs_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_itc_sta_reduction_macrs_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_itc_sta_reduction_macrs_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_itc_sta_reduction_sl_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_itc_sta_reduction_sl_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_itc_sta_reduction_sl_20(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_itc_sta_reduction_sl_20_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_itc_sta_reduction_sl_39(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_itc_sta_reduction_sl_39_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_itc_sta_reduction_sl_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_itc_sta_reduction_sl_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_itc_sta_reduction_total(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_itc_sta_reduction_total_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_macrs_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_macrs_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_macrs_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_macrs_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_percent_amount_custom(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_percent_amount_custom_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_percent_amount_macrs_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_percent_amount_macrs_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_percent_amount_macrs_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_percent_amount_macrs_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_percent_amount_sl_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_percent_amount_sl_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_percent_amount_sl_20(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_percent_amount_sl_20_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_percent_amount_sl_39(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_percent_amount_sl_39_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_percent_amount_sl_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_percent_amount_sl_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_percent_amount_total(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_percent_amount_total_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_percent_custom(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_percent_custom_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_percent_macrs_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_percent_macrs_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_percent_macrs_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_percent_macrs_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_percent_qual_custom(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_percent_qual_custom_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_percent_qual_macrs_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_percent_qual_macrs_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_percent_qual_macrs_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_percent_qual_macrs_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_percent_qual_sl_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_percent_qual_sl_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_percent_qual_sl_20(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_percent_qual_sl_20_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_percent_qual_sl_39(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_percent_qual_sl_39_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_percent_qual_sl_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_percent_qual_sl_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_percent_qual_total(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_percent_qual_total_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_percent_sl_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_percent_sl_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_percent_sl_20(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_percent_sl_20_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_percent_sl_39(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_percent_sl_39_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_percent_sl_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_percent_sl_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_percent_total(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_percent_total_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_prior_itc_custom(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_prior_itc_custom_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_prior_itc_macrs_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_prior_itc_macrs_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_prior_itc_macrs_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_prior_itc_macrs_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_prior_itc_sl_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_prior_itc_sl_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_prior_itc_sl_20(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_prior_itc_sl_20_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_prior_itc_sl_39(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_prior_itc_sl_39_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_prior_itc_sl_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_prior_itc_sl_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_prior_itc_total(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_prior_itc_total_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_sl_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_sl_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_sl_20(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_sl_20_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_sl_39(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_sl_39_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_sl_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_sl_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_depr_stabas_total(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_depr_stabas_total_nget, self->data_ptr);
 }
 
 static PyObject *
@@ -6009,6 +7884,318 @@ static PyObject *
 Outputs_get_ibi_total_uti(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_CashloanHeat_Outputs_ibi_total_uti_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_disallow_fed_fixed_custom(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_disallow_fed_fixed_custom_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_disallow_fed_fixed_macrs_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_disallow_fed_fixed_macrs_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_disallow_fed_fixed_macrs_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_disallow_fed_fixed_macrs_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_disallow_fed_fixed_sl_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_disallow_fed_fixed_sl_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_disallow_fed_fixed_sl_20(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_disallow_fed_fixed_sl_20_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_disallow_fed_fixed_sl_39(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_disallow_fed_fixed_sl_39_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_disallow_fed_fixed_sl_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_disallow_fed_fixed_sl_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_disallow_fed_fixed_total(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_disallow_fed_fixed_total_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_disallow_fed_percent_custom(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_disallow_fed_percent_custom_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_disallow_fed_percent_macrs_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_disallow_fed_percent_macrs_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_disallow_fed_percent_macrs_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_disallow_fed_percent_macrs_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_disallow_fed_percent_sl_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_disallow_fed_percent_sl_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_disallow_fed_percent_sl_20(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_disallow_fed_percent_sl_20_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_disallow_fed_percent_sl_39(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_disallow_fed_percent_sl_39_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_disallow_fed_percent_sl_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_disallow_fed_percent_sl_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_disallow_fed_percent_total(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_disallow_fed_percent_total_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_disallow_sta_fixed_custom(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_disallow_sta_fixed_custom_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_disallow_sta_fixed_macrs_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_disallow_sta_fixed_macrs_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_disallow_sta_fixed_macrs_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_disallow_sta_fixed_macrs_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_disallow_sta_fixed_sl_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_disallow_sta_fixed_sl_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_disallow_sta_fixed_sl_20(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_disallow_sta_fixed_sl_20_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_disallow_sta_fixed_sl_39(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_disallow_sta_fixed_sl_39_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_disallow_sta_fixed_sl_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_disallow_sta_fixed_sl_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_disallow_sta_fixed_total(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_disallow_sta_fixed_total_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_disallow_sta_percent_custom(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_disallow_sta_percent_custom_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_disallow_sta_percent_macrs_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_disallow_sta_percent_macrs_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_disallow_sta_percent_macrs_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_disallow_sta_percent_macrs_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_disallow_sta_percent_sl_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_disallow_sta_percent_sl_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_disallow_sta_percent_sl_20(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_disallow_sta_percent_sl_20_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_disallow_sta_percent_sl_39(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_disallow_sta_percent_sl_39_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_disallow_sta_percent_sl_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_disallow_sta_percent_sl_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_disallow_sta_percent_total(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_disallow_sta_percent_total_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_fed_fixed_total(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_fed_fixed_total_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_fed_percent_total(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_fed_percent_total_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_fed_qual_custom(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_fed_qual_custom_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_fed_qual_macrs_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_fed_qual_macrs_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_fed_qual_macrs_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_fed_qual_macrs_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_fed_qual_sl_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_fed_qual_sl_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_fed_qual_sl_20(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_fed_qual_sl_20_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_fed_qual_sl_39(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_fed_qual_sl_39_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_fed_qual_sl_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_fed_qual_sl_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_fed_qual_total(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_fed_qual_total_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_sta_fixed_total(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_sta_fixed_total_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_sta_percent_total(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_sta_percent_total_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_sta_qual_custom(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_sta_qual_custom_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_sta_qual_macrs_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_sta_qual_macrs_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_sta_qual_macrs_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_sta_qual_macrs_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_sta_qual_sl_15(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_sta_qual_sl_15_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_sta_qual_sl_20(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_sta_qual_sl_20_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_sta_qual_sl_39(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_sta_qual_sl_39_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_sta_qual_sl_5(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_sta_qual_sl_5_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_itc_sta_qual_total(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_itc_sta_qual_total_nget, self->data_ptr);
 }
 
 static PyObject *
@@ -6123,6 +8310,18 @@ static PyObject *
 Outputs_get_payback(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_CashloanHeat_Outputs_payback_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_pre_depr_alloc_basis(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_pre_depr_alloc_basis_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_pre_itc_qual_basis(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_CashloanHeat_Outputs_pre_itc_qual_basis_nget, self->data_ptr);
 }
 
 static PyObject *
@@ -6273,12 +8472,6 @@ static PyGetSetDef Outputs_getset[] = {
 {"cf_energy_without_battery", (getter)Outputs_get_cf_energy_without_battery,(setter)0,
 	PyDoc_STR("*sequence*: Electricity generated without the battery or curtailment [kWh]"),
  	NULL},
-{"cf_fed_depr_sched", (getter)Outputs_get_cf_fed_depr_sched,(setter)0,
-	PyDoc_STR("*sequence*: Federal depreciation schedule [%]"),
- 	NULL},
-{"cf_fed_depreciation", (getter)Outputs_get_cf_fed_depreciation,(setter)0,
-	PyDoc_STR("*sequence*: Federal depreciation [$]"),
- 	NULL},
 {"cf_fed_incentive_income_less_deductions", (getter)Outputs_get_cf_fed_incentive_income_less_deductions,(setter)0,
 	PyDoc_STR("*sequence*: Federal incentive income less deductions [$]"),
  	NULL},
@@ -6290,6 +8483,39 @@ static PyGetSetDef Outputs_getset[] = {
  	NULL},
 {"cf_fed_taxable_income_less_deductions", (getter)Outputs_get_cf_fed_taxable_income_less_deductions,(setter)0,
 	PyDoc_STR("*sequence*: Federal taxable income less deductions [$]"),
+ 	NULL},
+{"cf_feddepr_custom", (getter)Outputs_get_cf_feddepr_custom,(setter)0,
+	PyDoc_STR("*sequence*: Federal depreciation from custom [$]"),
+ 	NULL},
+{"cf_feddepr_macrs_15", (getter)Outputs_get_cf_feddepr_macrs_15,(setter)0,
+	PyDoc_STR("*sequence*: Federal depreciation from 15-yr MACRS [$]"),
+ 	NULL},
+{"cf_feddepr_macrs_5", (getter)Outputs_get_cf_feddepr_macrs_5,(setter)0,
+	PyDoc_STR("*sequence*: Federal depreciation from 5-yr MACRS [$]"),
+ 	NULL},
+{"cf_feddepr_me1", (getter)Outputs_get_cf_feddepr_me1,(setter)0,
+	PyDoc_STR("*sequence*: Federal depreciation from major equipment 1 [$]"),
+ 	NULL},
+{"cf_feddepr_me2", (getter)Outputs_get_cf_feddepr_me2,(setter)0,
+	PyDoc_STR("*sequence*: Federal depreciation from major equipment 2 [$]"),
+ 	NULL},
+{"cf_feddepr_me3", (getter)Outputs_get_cf_feddepr_me3,(setter)0,
+	PyDoc_STR("*sequence*: Federal depreciation from major equipment 3 [$]"),
+ 	NULL},
+{"cf_feddepr_sl_15", (getter)Outputs_get_cf_feddepr_sl_15,(setter)0,
+	PyDoc_STR("*sequence*: Federal depreciation from 15-yr straight line [$]"),
+ 	NULL},
+{"cf_feddepr_sl_20", (getter)Outputs_get_cf_feddepr_sl_20,(setter)0,
+	PyDoc_STR("*sequence*: Federal depreciation from 20-yr straight line [$]"),
+ 	NULL},
+{"cf_feddepr_sl_39", (getter)Outputs_get_cf_feddepr_sl_39,(setter)0,
+	PyDoc_STR("*sequence*: Federal depreciation from 39-yr straight line [$]"),
+ 	NULL},
+{"cf_feddepr_sl_5", (getter)Outputs_get_cf_feddepr_sl_5,(setter)0,
+	PyDoc_STR("*sequence*: Federal depreciation from 5-yr straight line [$]"),
+ 	NULL},
+{"cf_feddepr_total", (getter)Outputs_get_cf_feddepr_total,(setter)0,
+	PyDoc_STR("*sequence*: Total federal tax depreciation [$]"),
  	NULL},
 {"cf_federal_tax_frac", (getter)Outputs_get_cf_federal_tax_frac,(setter)0,
 	PyDoc_STR("*sequence*: Federal income tax rate [frac]"),
@@ -6432,12 +8658,6 @@ static PyGetSetDef Outputs_getset[] = {
 {"cf_sta_and_fed_tax_savings", (getter)Outputs_get_cf_sta_and_fed_tax_savings,(setter)0,
 	PyDoc_STR("*sequence*: Total tax savings (federal and state) [$]"),
  	NULL},
-{"cf_sta_depr_sched", (getter)Outputs_get_cf_sta_depr_sched,(setter)0,
-	PyDoc_STR("*sequence*: State depreciation schedule [%]"),
- 	NULL},
-{"cf_sta_depreciation", (getter)Outputs_get_cf_sta_depreciation,(setter)0,
-	PyDoc_STR("*sequence*: State depreciation [$]"),
- 	NULL},
 {"cf_sta_incentive_income_less_deductions", (getter)Outputs_get_cf_sta_incentive_income_less_deductions,(setter)0,
 	PyDoc_STR("*sequence*: State incentive income less deductions [$]"),
  	NULL},
@@ -6449,6 +8669,39 @@ static PyGetSetDef Outputs_getset[] = {
  	NULL},
 {"cf_sta_taxable_income_less_deductions", (getter)Outputs_get_cf_sta_taxable_income_less_deductions,(setter)0,
 	PyDoc_STR("*sequence*: State taxable income less deductions [$]"),
+ 	NULL},
+{"cf_stadepr_custom", (getter)Outputs_get_cf_stadepr_custom,(setter)0,
+	PyDoc_STR("*sequence*: State depreciation from custom [$]"),
+ 	NULL},
+{"cf_stadepr_macrs_15", (getter)Outputs_get_cf_stadepr_macrs_15,(setter)0,
+	PyDoc_STR("*sequence*: State depreciation from 15-yr MACRS [$]"),
+ 	NULL},
+{"cf_stadepr_macrs_5", (getter)Outputs_get_cf_stadepr_macrs_5,(setter)0,
+	PyDoc_STR("*sequence*: State depreciation from 5-yr MACRS [$]"),
+ 	NULL},
+{"cf_stadepr_me1", (getter)Outputs_get_cf_stadepr_me1,(setter)0,
+	PyDoc_STR("*sequence*: State depreciation from major equipment 1 [$]"),
+ 	NULL},
+{"cf_stadepr_me2", (getter)Outputs_get_cf_stadepr_me2,(setter)0,
+	PyDoc_STR("*sequence*: State depreciation from major equipment 2 [$]"),
+ 	NULL},
+{"cf_stadepr_me3", (getter)Outputs_get_cf_stadepr_me3,(setter)0,
+	PyDoc_STR("*sequence*: State depreciation from major equipment 3 [$]"),
+ 	NULL},
+{"cf_stadepr_sl_15", (getter)Outputs_get_cf_stadepr_sl_15,(setter)0,
+	PyDoc_STR("*sequence*: State depreciation from 15-yr straight line [$]"),
+ 	NULL},
+{"cf_stadepr_sl_20", (getter)Outputs_get_cf_stadepr_sl_20,(setter)0,
+	PyDoc_STR("*sequence*: State depreciation from 20-yr straight line [$]"),
+ 	NULL},
+{"cf_stadepr_sl_39", (getter)Outputs_get_cf_stadepr_sl_39,(setter)0,
+	PyDoc_STR("*sequence*: State depreciation from 39-yr straight line [$]"),
+ 	NULL},
+{"cf_stadepr_sl_5", (getter)Outputs_get_cf_stadepr_sl_5,(setter)0,
+	PyDoc_STR("*sequence*: State depreciation from 5-yr straight line [$]"),
+ 	NULL},
+{"cf_stadepr_total", (getter)Outputs_get_cf_stadepr_total,(setter)0,
+	PyDoc_STR("*sequence*: Total state tax depreciation [$]"),
  	NULL},
 {"cf_state_tax_frac", (getter)Outputs_get_cf_state_tax_frac,(setter)0,
 	PyDoc_STR("*sequence*: State income tax rate [frac]"),
@@ -6464,6 +8717,612 @@ static PyGetSetDef Outputs_getset[] = {
  	NULL},
 {"cf_value_added", (getter)Outputs_get_cf_value_added,(setter)0,
 	PyDoc_STR("*sequence*: Real estate value added [$]"),
+ 	NULL},
+{"depr_alloc_custom", (getter)Outputs_get_depr_alloc_custom,(setter)0,
+	PyDoc_STR("*float*: Custom straight line depreciation federal and state allocation [$]"),
+ 	NULL},
+{"depr_alloc_macrs_15", (getter)Outputs_get_depr_alloc_macrs_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr MACRS depreciation federal and state allocation [$]"),
+ 	NULL},
+{"depr_alloc_macrs_5", (getter)Outputs_get_depr_alloc_macrs_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr MACRS depreciation federal and state allocation [$]"),
+ 	NULL},
+{"depr_alloc_none", (getter)Outputs_get_depr_alloc_none,(setter)0,
+	PyDoc_STR("*float*: Non-depreciable federal and state allocation [$]"),
+ 	NULL},
+{"depr_alloc_none_percent", (getter)Outputs_get_depr_alloc_none_percent,(setter)0,
+	PyDoc_STR("*float*: Non-depreciable federal and state allocation [%]"),
+ 	NULL},
+{"depr_alloc_sl_15", (getter)Outputs_get_depr_alloc_sl_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr straight line depreciation federal and state allocation [$]"),
+ 	NULL},
+{"depr_alloc_sl_20", (getter)Outputs_get_depr_alloc_sl_20,(setter)0,
+	PyDoc_STR("*float*: 20-yr straight line depreciation federal and state allocation [$]"),
+ 	NULL},
+{"depr_alloc_sl_39", (getter)Outputs_get_depr_alloc_sl_39,(setter)0,
+	PyDoc_STR("*float*: 39-yr straight line depreciation federal and state allocation [$]"),
+ 	NULL},
+{"depr_alloc_sl_5", (getter)Outputs_get_depr_alloc_sl_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr straight line depreciation federal and state allocation [$]"),
+ 	NULL},
+{"depr_alloc_total", (getter)Outputs_get_depr_alloc_total,(setter)0,
+	PyDoc_STR("*float*: Total depreciation federal and state allocation [$]"),
+ 	NULL},
+{"depr_fedbas_after_itc_custom", (getter)Outputs_get_depr_fedbas_after_itc_custom,(setter)0,
+	PyDoc_STR("*float*: Custom straight line federal depreciation basis after ITC reduction [$]"),
+ 	NULL},
+{"depr_fedbas_after_itc_macrs_15", (getter)Outputs_get_depr_fedbas_after_itc_macrs_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr MACRS federal depreciation basis after ITC reduction [$]"),
+ 	NULL},
+{"depr_fedbas_after_itc_macrs_5", (getter)Outputs_get_depr_fedbas_after_itc_macrs_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr MACRS federal depreciation basis after ITC reduction [$]"),
+ 	NULL},
+{"depr_fedbas_after_itc_sl_15", (getter)Outputs_get_depr_fedbas_after_itc_sl_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr straight line federal depreciation basis after ITC reduction [$]"),
+ 	NULL},
+{"depr_fedbas_after_itc_sl_20", (getter)Outputs_get_depr_fedbas_after_itc_sl_20,(setter)0,
+	PyDoc_STR("*float*: 20-yr straight line federal depreciation basis after ITC reduction [$]"),
+ 	NULL},
+{"depr_fedbas_after_itc_sl_39", (getter)Outputs_get_depr_fedbas_after_itc_sl_39,(setter)0,
+	PyDoc_STR("*float*: 39-yr straight line federal depreciation basis after ITC reduction [$]"),
+ 	NULL},
+{"depr_fedbas_after_itc_sl_5", (getter)Outputs_get_depr_fedbas_after_itc_sl_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr straight line federal depreciation basis after ITC reduction [$]"),
+ 	NULL},
+{"depr_fedbas_after_itc_total", (getter)Outputs_get_depr_fedbas_after_itc_total,(setter)0,
+	PyDoc_STR("*float*: Total federal depreciation basis after ITC reduction [$]"),
+ 	NULL},
+{"depr_fedbas_cbi_reduc_custom", (getter)Outputs_get_depr_fedbas_cbi_reduc_custom,(setter)0,
+	PyDoc_STR("*float*: Custom straight line federal CBI reduction [$]"),
+ 	NULL},
+{"depr_fedbas_cbi_reduc_macrs_15", (getter)Outputs_get_depr_fedbas_cbi_reduc_macrs_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr MACRS federal CBI reduction [$]"),
+ 	NULL},
+{"depr_fedbas_cbi_reduc_macrs_5", (getter)Outputs_get_depr_fedbas_cbi_reduc_macrs_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr MACRS federal CBI reduction [$]"),
+ 	NULL},
+{"depr_fedbas_cbi_reduc_sl_15", (getter)Outputs_get_depr_fedbas_cbi_reduc_sl_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr straight line federal CBI reduction [$]"),
+ 	NULL},
+{"depr_fedbas_cbi_reduc_sl_20", (getter)Outputs_get_depr_fedbas_cbi_reduc_sl_20,(setter)0,
+	PyDoc_STR("*float*: 20-yr straight line federal CBI reduction [$]"),
+ 	NULL},
+{"depr_fedbas_cbi_reduc_sl_39", (getter)Outputs_get_depr_fedbas_cbi_reduc_sl_39,(setter)0,
+	PyDoc_STR("*float*: 39-yr straight line federal CBI reduction [$]"),
+ 	NULL},
+{"depr_fedbas_cbi_reduc_sl_5", (getter)Outputs_get_depr_fedbas_cbi_reduc_sl_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr straight line federal CBI reduction [$]"),
+ 	NULL},
+{"depr_fedbas_cbi_reduc_total", (getter)Outputs_get_depr_fedbas_cbi_reduc_total,(setter)0,
+	PyDoc_STR("*float*: Total federal CBI reduction [$]"),
+ 	NULL},
+{"depr_fedbas_custom", (getter)Outputs_get_depr_fedbas_custom,(setter)0,
+	PyDoc_STR("*float*: Custom federal depreciation basis [$]"),
+ 	NULL},
+{"depr_fedbas_first_year_bonus_custom", (getter)Outputs_get_depr_fedbas_first_year_bonus_custom,(setter)0,
+	PyDoc_STR("*float*: Custom straight line federal first year bonus depreciation [$]"),
+ 	NULL},
+{"depr_fedbas_first_year_bonus_macrs_15", (getter)Outputs_get_depr_fedbas_first_year_bonus_macrs_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr MACRS federal first year bonus depreciation [$]"),
+ 	NULL},
+{"depr_fedbas_first_year_bonus_macrs_5", (getter)Outputs_get_depr_fedbas_first_year_bonus_macrs_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr MACRS federal first year bonus depreciation [$]"),
+ 	NULL},
+{"depr_fedbas_first_year_bonus_sl_15", (getter)Outputs_get_depr_fedbas_first_year_bonus_sl_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr straight line federal first year bonus depreciation [$]"),
+ 	NULL},
+{"depr_fedbas_first_year_bonus_sl_20", (getter)Outputs_get_depr_fedbas_first_year_bonus_sl_20,(setter)0,
+	PyDoc_STR("*float*: 20-yr straight line federal first year bonus depreciation [$]"),
+ 	NULL},
+{"depr_fedbas_first_year_bonus_sl_39", (getter)Outputs_get_depr_fedbas_first_year_bonus_sl_39,(setter)0,
+	PyDoc_STR("*float*: 39-yr straight line federal first year bonus depreciation [$]"),
+ 	NULL},
+{"depr_fedbas_first_year_bonus_sl_5", (getter)Outputs_get_depr_fedbas_first_year_bonus_sl_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr straight line federal first year bonus depreciation [$]"),
+ 	NULL},
+{"depr_fedbas_first_year_bonus_total", (getter)Outputs_get_depr_fedbas_first_year_bonus_total,(setter)0,
+	PyDoc_STR("*float*: Total federal first year bonus depreciation [$]"),
+ 	NULL},
+{"depr_fedbas_fixed_amount_custom", (getter)Outputs_get_depr_fedbas_fixed_amount_custom,(setter)0,
+	PyDoc_STR("*float*: Custom straight line depreciation ITC basis from federal fixed amount [$]"),
+ 	NULL},
+{"depr_fedbas_fixed_amount_macrs_15", (getter)Outputs_get_depr_fedbas_fixed_amount_macrs_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr MACRS depreciation ITC basis from federal fixed amount [$]"),
+ 	NULL},
+{"depr_fedbas_fixed_amount_macrs_5", (getter)Outputs_get_depr_fedbas_fixed_amount_macrs_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr MACRS depreciation ITC basis from federal fixed amount [$]"),
+ 	NULL},
+{"depr_fedbas_fixed_amount_sl_15", (getter)Outputs_get_depr_fedbas_fixed_amount_sl_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr straight line depreciation ITC basis from federal fixed amount [$]"),
+ 	NULL},
+{"depr_fedbas_fixed_amount_sl_20", (getter)Outputs_get_depr_fedbas_fixed_amount_sl_20,(setter)0,
+	PyDoc_STR("*float*: 20-yr straight line depreciation ITC basis from federal fixed amount [$]"),
+ 	NULL},
+{"depr_fedbas_fixed_amount_sl_39", (getter)Outputs_get_depr_fedbas_fixed_amount_sl_39,(setter)0,
+	PyDoc_STR("*float*: 39-yr straight line depreciation ITC basis from federal fixed amount [$]"),
+ 	NULL},
+{"depr_fedbas_fixed_amount_sl_5", (getter)Outputs_get_depr_fedbas_fixed_amount_sl_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr straight line depreciation ITC basis from federal fixed amount [$]"),
+ 	NULL},
+{"depr_fedbas_fixed_amount_total", (getter)Outputs_get_depr_fedbas_fixed_amount_total,(setter)0,
+	PyDoc_STR("*float*: Total depreciation ITC basis from federal fixed amount [$]"),
+ 	NULL},
+{"depr_fedbas_ibi_reduc_custom", (getter)Outputs_get_depr_fedbas_ibi_reduc_custom,(setter)0,
+	PyDoc_STR("*float*: Custom straight line federal IBI reduction [$]"),
+ 	NULL},
+{"depr_fedbas_ibi_reduc_macrs_15", (getter)Outputs_get_depr_fedbas_ibi_reduc_macrs_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr MACRS federal IBI reduction [$]"),
+ 	NULL},
+{"depr_fedbas_ibi_reduc_macrs_5", (getter)Outputs_get_depr_fedbas_ibi_reduc_macrs_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr MACRS federal IBI reduction [$]"),
+ 	NULL},
+{"depr_fedbas_ibi_reduc_sl_15", (getter)Outputs_get_depr_fedbas_ibi_reduc_sl_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr straight line federal IBI reduction [$]"),
+ 	NULL},
+{"depr_fedbas_ibi_reduc_sl_20", (getter)Outputs_get_depr_fedbas_ibi_reduc_sl_20,(setter)0,
+	PyDoc_STR("*float*: 20-yr straight line federal IBI reduction [$]"),
+ 	NULL},
+{"depr_fedbas_ibi_reduc_sl_39", (getter)Outputs_get_depr_fedbas_ibi_reduc_sl_39,(setter)0,
+	PyDoc_STR("*float*: 39-yr straight line federal IBI reduction [$]"),
+ 	NULL},
+{"depr_fedbas_ibi_reduc_sl_5", (getter)Outputs_get_depr_fedbas_ibi_reduc_sl_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr straight line federal IBI reduction [$]"),
+ 	NULL},
+{"depr_fedbas_ibi_reduc_total", (getter)Outputs_get_depr_fedbas_ibi_reduc_total,(setter)0,
+	PyDoc_STR("*float*: Total federal IBI reduction [$]"),
+ 	NULL},
+{"depr_fedbas_itc_fed_reduction_custom", (getter)Outputs_get_depr_fedbas_itc_fed_reduction_custom,(setter)0,
+	PyDoc_STR("*float*: Custom straight line federal basis federal ITC reduction [$]"),
+ 	NULL},
+{"depr_fedbas_itc_fed_reduction_macrs_15", (getter)Outputs_get_depr_fedbas_itc_fed_reduction_macrs_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr MACRS federal basis federal ITC reduction [$]"),
+ 	NULL},
+{"depr_fedbas_itc_fed_reduction_macrs_5", (getter)Outputs_get_depr_fedbas_itc_fed_reduction_macrs_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr MACRS federal basis federal ITC reduction [$]"),
+ 	NULL},
+{"depr_fedbas_itc_fed_reduction_sl_15", (getter)Outputs_get_depr_fedbas_itc_fed_reduction_sl_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr straight line federal basis federal ITC reduction [$]"),
+ 	NULL},
+{"depr_fedbas_itc_fed_reduction_sl_20", (getter)Outputs_get_depr_fedbas_itc_fed_reduction_sl_20,(setter)0,
+	PyDoc_STR("*float*: 20-yr straight line federal basis federal ITC reduction [$]"),
+ 	NULL},
+{"depr_fedbas_itc_fed_reduction_sl_39", (getter)Outputs_get_depr_fedbas_itc_fed_reduction_sl_39,(setter)0,
+	PyDoc_STR("*float*: 39-yr straight line federal basis federal ITC reduction [$]"),
+ 	NULL},
+{"depr_fedbas_itc_fed_reduction_sl_5", (getter)Outputs_get_depr_fedbas_itc_fed_reduction_sl_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr straight line federal basis federal ITC reduction [$]"),
+ 	NULL},
+{"depr_fedbas_itc_fed_reduction_total", (getter)Outputs_get_depr_fedbas_itc_fed_reduction_total,(setter)0,
+	PyDoc_STR("*float*: Total federal basis federal ITC reduction [$]"),
+ 	NULL},
+{"depr_fedbas_itc_sta_reduction_custom", (getter)Outputs_get_depr_fedbas_itc_sta_reduction_custom,(setter)0,
+	PyDoc_STR("*float*: Custom straight line federal basis state ITC reduction [$]"),
+ 	NULL},
+{"depr_fedbas_itc_sta_reduction_macrs_15", (getter)Outputs_get_depr_fedbas_itc_sta_reduction_macrs_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr MACRS federal basis state ITC reduction [$]"),
+ 	NULL},
+{"depr_fedbas_itc_sta_reduction_macrs_5", (getter)Outputs_get_depr_fedbas_itc_sta_reduction_macrs_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr MACRS federal basis state ITC reduction [$]"),
+ 	NULL},
+{"depr_fedbas_itc_sta_reduction_sl_15", (getter)Outputs_get_depr_fedbas_itc_sta_reduction_sl_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr straight line federal basis state ITC reduction [$]"),
+ 	NULL},
+{"depr_fedbas_itc_sta_reduction_sl_20", (getter)Outputs_get_depr_fedbas_itc_sta_reduction_sl_20,(setter)0,
+	PyDoc_STR("*float*: 20-yr straight line federal basis state ITC reduction [$]"),
+ 	NULL},
+{"depr_fedbas_itc_sta_reduction_sl_39", (getter)Outputs_get_depr_fedbas_itc_sta_reduction_sl_39,(setter)0,
+	PyDoc_STR("*float*: 39-yr straight line federal basis state ITC reduction [$]"),
+ 	NULL},
+{"depr_fedbas_itc_sta_reduction_sl_5", (getter)Outputs_get_depr_fedbas_itc_sta_reduction_sl_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr straight line federal basis state ITC reduction [$]"),
+ 	NULL},
+{"depr_fedbas_itc_sta_reduction_total", (getter)Outputs_get_depr_fedbas_itc_sta_reduction_total,(setter)0,
+	PyDoc_STR("*float*: Total federal basis state ITC reduction [$]"),
+ 	NULL},
+{"depr_fedbas_macrs_15", (getter)Outputs_get_depr_fedbas_macrs_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr MACRS federal depreciation basis [$]"),
+ 	NULL},
+{"depr_fedbas_macrs_5", (getter)Outputs_get_depr_fedbas_macrs_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr MACRS federal depreciation basis [$]"),
+ 	NULL},
+{"depr_fedbas_percent_amount_custom", (getter)Outputs_get_depr_fedbas_percent_amount_custom,(setter)0,
+	PyDoc_STR("*float*: Custom straight line depreciation ITC basis from federal percentage [$]"),
+ 	NULL},
+{"depr_fedbas_percent_amount_macrs_15", (getter)Outputs_get_depr_fedbas_percent_amount_macrs_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr MACRS depreciation ITC basis from federal percentage [$]"),
+ 	NULL},
+{"depr_fedbas_percent_amount_macrs_5", (getter)Outputs_get_depr_fedbas_percent_amount_macrs_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr MACRS depreciation ITC basis from federal percentage [$]"),
+ 	NULL},
+{"depr_fedbas_percent_amount_sl_15", (getter)Outputs_get_depr_fedbas_percent_amount_sl_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr straight line depreciation ITC basis from federal percentage [$]"),
+ 	NULL},
+{"depr_fedbas_percent_amount_sl_20", (getter)Outputs_get_depr_fedbas_percent_amount_sl_20,(setter)0,
+	PyDoc_STR("*float*: 20-yr straight line depreciation ITC basis from federal percentage [$]"),
+ 	NULL},
+{"depr_fedbas_percent_amount_sl_39", (getter)Outputs_get_depr_fedbas_percent_amount_sl_39,(setter)0,
+	PyDoc_STR("*float*: 39-yr straight line depreciation ITC basis from federal percentage [$]"),
+ 	NULL},
+{"depr_fedbas_percent_amount_sl_5", (getter)Outputs_get_depr_fedbas_percent_amount_sl_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr straight line depreciation ITC basis from federal percentage [$]"),
+ 	NULL},
+{"depr_fedbas_percent_amount_total", (getter)Outputs_get_depr_fedbas_percent_amount_total,(setter)0,
+	PyDoc_STR("*float*: Total depreciation ITC basis from federal percentage [$]"),
+ 	NULL},
+{"depr_fedbas_percent_custom", (getter)Outputs_get_depr_fedbas_percent_custom,(setter)0,
+	PyDoc_STR("*float*: Custom straight line federal percent of total depreciable basis [%]"),
+ 	NULL},
+{"depr_fedbas_percent_macrs_15", (getter)Outputs_get_depr_fedbas_percent_macrs_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr MACRS federal percent of total depreciable basis [%]"),
+ 	NULL},
+{"depr_fedbas_percent_macrs_5", (getter)Outputs_get_depr_fedbas_percent_macrs_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr MACRS federal percent of total depreciable basis [%]"),
+ 	NULL},
+{"depr_fedbas_percent_qual_custom", (getter)Outputs_get_depr_fedbas_percent_qual_custom,(setter)0,
+	PyDoc_STR("*float*: Custom straight line federal percent of qualifying costs [%]"),
+ 	NULL},
+{"depr_fedbas_percent_qual_macrs_15", (getter)Outputs_get_depr_fedbas_percent_qual_macrs_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr MACRS federal percent of qualifying costs [%]"),
+ 	NULL},
+{"depr_fedbas_percent_qual_macrs_5", (getter)Outputs_get_depr_fedbas_percent_qual_macrs_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr MACRS federal percent of qualifying costs [%]"),
+ 	NULL},
+{"depr_fedbas_percent_qual_sl_15", (getter)Outputs_get_depr_fedbas_percent_qual_sl_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr straight line federal percent of qualifying costs [%]"),
+ 	NULL},
+{"depr_fedbas_percent_qual_sl_20", (getter)Outputs_get_depr_fedbas_percent_qual_sl_20,(setter)0,
+	PyDoc_STR("*float*: 20-yr straight line federal percent of qualifying costs [%]"),
+ 	NULL},
+{"depr_fedbas_percent_qual_sl_39", (getter)Outputs_get_depr_fedbas_percent_qual_sl_39,(setter)0,
+	PyDoc_STR("*float*: 39-yr straight line federal percent of qualifying costs [%]"),
+ 	NULL},
+{"depr_fedbas_percent_qual_sl_5", (getter)Outputs_get_depr_fedbas_percent_qual_sl_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr straight line federal percent of qualifying costs [%]"),
+ 	NULL},
+{"depr_fedbas_percent_qual_total", (getter)Outputs_get_depr_fedbas_percent_qual_total,(setter)0,
+	PyDoc_STR("*float*: Total federal percent of qualifying costs [%]"),
+ 	NULL},
+{"depr_fedbas_percent_sl_15", (getter)Outputs_get_depr_fedbas_percent_sl_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr straight line federal percent of total depreciable basis [%]"),
+ 	NULL},
+{"depr_fedbas_percent_sl_20", (getter)Outputs_get_depr_fedbas_percent_sl_20,(setter)0,
+	PyDoc_STR("*float*: 20-yr straight line federal percent of total depreciable basis [%]"),
+ 	NULL},
+{"depr_fedbas_percent_sl_39", (getter)Outputs_get_depr_fedbas_percent_sl_39,(setter)0,
+	PyDoc_STR("*float*: 39-yr straight line federal percent of total depreciable basis [%]"),
+ 	NULL},
+{"depr_fedbas_percent_sl_5", (getter)Outputs_get_depr_fedbas_percent_sl_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr straight line federal percent of total depreciable basis [%]"),
+ 	NULL},
+{"depr_fedbas_percent_total", (getter)Outputs_get_depr_fedbas_percent_total,(setter)0,
+	PyDoc_STR("*float*: Total federal percent of total depreciable basis [%]"),
+ 	NULL},
+{"depr_fedbas_prior_itc_custom", (getter)Outputs_get_depr_fedbas_prior_itc_custom,(setter)0,
+	PyDoc_STR("*float*: Custom straight line federal depreciation basis prior ITC reduction [$]"),
+ 	NULL},
+{"depr_fedbas_prior_itc_macrs_15", (getter)Outputs_get_depr_fedbas_prior_itc_macrs_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr MACRS federal depreciation basis prior ITC reduction [$]"),
+ 	NULL},
+{"depr_fedbas_prior_itc_macrs_5", (getter)Outputs_get_depr_fedbas_prior_itc_macrs_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr MACRS federal depreciation basis prior ITC reduction [$]"),
+ 	NULL},
+{"depr_fedbas_prior_itc_sl_15", (getter)Outputs_get_depr_fedbas_prior_itc_sl_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr straight line federal depreciation basis prior ITC reduction [$]"),
+ 	NULL},
+{"depr_fedbas_prior_itc_sl_20", (getter)Outputs_get_depr_fedbas_prior_itc_sl_20,(setter)0,
+	PyDoc_STR("*float*: 20-yr straight line federal depreciation basis prior ITC reduction [$]"),
+ 	NULL},
+{"depr_fedbas_prior_itc_sl_39", (getter)Outputs_get_depr_fedbas_prior_itc_sl_39,(setter)0,
+	PyDoc_STR("*float*: 39-yr straight line federal depreciation basis prior ITC reduction [$]"),
+ 	NULL},
+{"depr_fedbas_prior_itc_sl_5", (getter)Outputs_get_depr_fedbas_prior_itc_sl_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr straight line federal depreciation basis prior ITC reduction [$]"),
+ 	NULL},
+{"depr_fedbas_prior_itc_total", (getter)Outputs_get_depr_fedbas_prior_itc_total,(setter)0,
+	PyDoc_STR("*float*: Total federal depreciation basis prior ITC reduction [$]"),
+ 	NULL},
+{"depr_fedbas_sl_15", (getter)Outputs_get_depr_fedbas_sl_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr straight line federal depreciation basis [$]"),
+ 	NULL},
+{"depr_fedbas_sl_20", (getter)Outputs_get_depr_fedbas_sl_20,(setter)0,
+	PyDoc_STR("*float*: 20-yr straight line federal depreciation basis [$]"),
+ 	NULL},
+{"depr_fedbas_sl_39", (getter)Outputs_get_depr_fedbas_sl_39,(setter)0,
+	PyDoc_STR("*float*: 39-yr straight line federal depreciation basis [$]"),
+ 	NULL},
+{"depr_fedbas_sl_5", (getter)Outputs_get_depr_fedbas_sl_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr straight line federal depreciation basis [$]"),
+ 	NULL},
+{"depr_fedbas_total", (getter)Outputs_get_depr_fedbas_total,(setter)0,
+	PyDoc_STR("*float*: Total federal depreciation basis [$]"),
+ 	NULL},
+{"depr_stabas_after_itc_custom", (getter)Outputs_get_depr_stabas_after_itc_custom,(setter)0,
+	PyDoc_STR("*float*: Custom straight line state depreciation basis after ITC reduction [$]"),
+ 	NULL},
+{"depr_stabas_after_itc_macrs_15", (getter)Outputs_get_depr_stabas_after_itc_macrs_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr MACRS state depreciation basis after ITC reduction [$]"),
+ 	NULL},
+{"depr_stabas_after_itc_macrs_5", (getter)Outputs_get_depr_stabas_after_itc_macrs_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr MACRS state depreciation basis after ITC reduction [$]"),
+ 	NULL},
+{"depr_stabas_after_itc_sl_15", (getter)Outputs_get_depr_stabas_after_itc_sl_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr straight line state depreciation basis after ITC reduction [$]"),
+ 	NULL},
+{"depr_stabas_after_itc_sl_20", (getter)Outputs_get_depr_stabas_after_itc_sl_20,(setter)0,
+	PyDoc_STR("*float*: 20-yr straight line state depreciation basis after ITC reduction [$]"),
+ 	NULL},
+{"depr_stabas_after_itc_sl_39", (getter)Outputs_get_depr_stabas_after_itc_sl_39,(setter)0,
+	PyDoc_STR("*float*: 39-yr straight line state depreciation basis after ITC reduction [$]"),
+ 	NULL},
+{"depr_stabas_after_itc_sl_5", (getter)Outputs_get_depr_stabas_after_itc_sl_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr straight line state depreciation basis after ITC reduction [$]"),
+ 	NULL},
+{"depr_stabas_after_itc_total", (getter)Outputs_get_depr_stabas_after_itc_total,(setter)0,
+	PyDoc_STR("*float*: Total state depreciation basis after ITC reduction [$]"),
+ 	NULL},
+{"depr_stabas_cbi_reduc_custom", (getter)Outputs_get_depr_stabas_cbi_reduc_custom,(setter)0,
+	PyDoc_STR("*float*: Custom straight line state CBI reduction [$]"),
+ 	NULL},
+{"depr_stabas_cbi_reduc_macrs_15", (getter)Outputs_get_depr_stabas_cbi_reduc_macrs_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr MACRS state CBI reduction [$]"),
+ 	NULL},
+{"depr_stabas_cbi_reduc_macrs_5", (getter)Outputs_get_depr_stabas_cbi_reduc_macrs_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr MACRS state CBI reduction [$]"),
+ 	NULL},
+{"depr_stabas_cbi_reduc_sl_15", (getter)Outputs_get_depr_stabas_cbi_reduc_sl_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr straight line state CBI reduction [$]"),
+ 	NULL},
+{"depr_stabas_cbi_reduc_sl_20", (getter)Outputs_get_depr_stabas_cbi_reduc_sl_20,(setter)0,
+	PyDoc_STR("*float*: 20-yr straight line state CBI reduction [$]"),
+ 	NULL},
+{"depr_stabas_cbi_reduc_sl_39", (getter)Outputs_get_depr_stabas_cbi_reduc_sl_39,(setter)0,
+	PyDoc_STR("*float*: 39-yr straight line state CBI reduction [$]"),
+ 	NULL},
+{"depr_stabas_cbi_reduc_sl_5", (getter)Outputs_get_depr_stabas_cbi_reduc_sl_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr straight line state CBI reduction [$]"),
+ 	NULL},
+{"depr_stabas_cbi_reduc_total", (getter)Outputs_get_depr_stabas_cbi_reduc_total,(setter)0,
+	PyDoc_STR("*float*: Total state CBI reduction [$]"),
+ 	NULL},
+{"depr_stabas_custom", (getter)Outputs_get_depr_stabas_custom,(setter)0,
+	PyDoc_STR("*float*: Custom straight line state depreciation basis [$]"),
+ 	NULL},
+{"depr_stabas_first_year_bonus_custom", (getter)Outputs_get_depr_stabas_first_year_bonus_custom,(setter)0,
+	PyDoc_STR("*float*: Custom straight line state first year bonus depreciation [$]"),
+ 	NULL},
+{"depr_stabas_first_year_bonus_macrs_15", (getter)Outputs_get_depr_stabas_first_year_bonus_macrs_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr MACRS state first year bonus depreciation [$]"),
+ 	NULL},
+{"depr_stabas_first_year_bonus_macrs_5", (getter)Outputs_get_depr_stabas_first_year_bonus_macrs_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr MACRS state first year bonus depreciation [$]"),
+ 	NULL},
+{"depr_stabas_first_year_bonus_sl_15", (getter)Outputs_get_depr_stabas_first_year_bonus_sl_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr straight line state first year bonus depreciation [$]"),
+ 	NULL},
+{"depr_stabas_first_year_bonus_sl_20", (getter)Outputs_get_depr_stabas_first_year_bonus_sl_20,(setter)0,
+	PyDoc_STR("*float*: 20-yr straight line state first year bonus depreciation [$]"),
+ 	NULL},
+{"depr_stabas_first_year_bonus_sl_39", (getter)Outputs_get_depr_stabas_first_year_bonus_sl_39,(setter)0,
+	PyDoc_STR("*float*: 39-yr straight line state first year bonus depreciation [$]"),
+ 	NULL},
+{"depr_stabas_first_year_bonus_sl_5", (getter)Outputs_get_depr_stabas_first_year_bonus_sl_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr straight line state first year bonus depreciation [$]"),
+ 	NULL},
+{"depr_stabas_first_year_bonus_total", (getter)Outputs_get_depr_stabas_first_year_bonus_total,(setter)0,
+	PyDoc_STR("*float*: Total state first year bonus depreciation [$]"),
+ 	NULL},
+{"depr_stabas_fixed_amount_custom", (getter)Outputs_get_depr_stabas_fixed_amount_custom,(setter)0,
+	PyDoc_STR("*float*: Custom straight line depreciation ITC basis from state fixed amount [$]"),
+ 	NULL},
+{"depr_stabas_fixed_amount_macrs_15", (getter)Outputs_get_depr_stabas_fixed_amount_macrs_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr MACRS depreciation ITC basis from state fixed amount [$]"),
+ 	NULL},
+{"depr_stabas_fixed_amount_macrs_5", (getter)Outputs_get_depr_stabas_fixed_amount_macrs_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr MACRS depreciation ITC basis from state fixed amount [$]"),
+ 	NULL},
+{"depr_stabas_fixed_amount_sl_15", (getter)Outputs_get_depr_stabas_fixed_amount_sl_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr straight line depreciation ITC basis from state fixed amount [$]"),
+ 	NULL},
+{"depr_stabas_fixed_amount_sl_20", (getter)Outputs_get_depr_stabas_fixed_amount_sl_20,(setter)0,
+	PyDoc_STR("*float*: 20-yr straight line depreciation ITC basis from state fixed amount [$]"),
+ 	NULL},
+{"depr_stabas_fixed_amount_sl_39", (getter)Outputs_get_depr_stabas_fixed_amount_sl_39,(setter)0,
+	PyDoc_STR("*float*: 39-yr straight line depreciation ITC basis from state fixed amount [$]"),
+ 	NULL},
+{"depr_stabas_fixed_amount_sl_5", (getter)Outputs_get_depr_stabas_fixed_amount_sl_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr straight line depreciation ITC basis from state fixed amount [$]"),
+ 	NULL},
+{"depr_stabas_fixed_amount_total", (getter)Outputs_get_depr_stabas_fixed_amount_total,(setter)0,
+	PyDoc_STR("*float*: Total depreciation ITC basis from state fixed amount [$]"),
+ 	NULL},
+{"depr_stabas_ibi_reduc_custom", (getter)Outputs_get_depr_stabas_ibi_reduc_custom,(setter)0,
+	PyDoc_STR("*float*: Custom straight line state IBI reduction [$]"),
+ 	NULL},
+{"depr_stabas_ibi_reduc_macrs_15", (getter)Outputs_get_depr_stabas_ibi_reduc_macrs_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr MACRS state IBI reduction [$]"),
+ 	NULL},
+{"depr_stabas_ibi_reduc_macrs_5", (getter)Outputs_get_depr_stabas_ibi_reduc_macrs_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr MACRS state IBI reduction [$]"),
+ 	NULL},
+{"depr_stabas_ibi_reduc_sl_15", (getter)Outputs_get_depr_stabas_ibi_reduc_sl_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr straight line state IBI reduction [$]"),
+ 	NULL},
+{"depr_stabas_ibi_reduc_sl_20", (getter)Outputs_get_depr_stabas_ibi_reduc_sl_20,(setter)0,
+	PyDoc_STR("*float*: 20-yr straight line state IBI reduction [$]"),
+ 	NULL},
+{"depr_stabas_ibi_reduc_sl_39", (getter)Outputs_get_depr_stabas_ibi_reduc_sl_39,(setter)0,
+	PyDoc_STR("*float*: 39-yr straight line state IBI reduction [$]"),
+ 	NULL},
+{"depr_stabas_ibi_reduc_sl_5", (getter)Outputs_get_depr_stabas_ibi_reduc_sl_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr straight line state IBI reduction [$]"),
+ 	NULL},
+{"depr_stabas_ibi_reduc_total", (getter)Outputs_get_depr_stabas_ibi_reduc_total,(setter)0,
+	PyDoc_STR("*float*: Total state IBI reduction [$]"),
+ 	NULL},
+{"depr_stabas_itc_fed_reduction_custom", (getter)Outputs_get_depr_stabas_itc_fed_reduction_custom,(setter)0,
+	PyDoc_STR("*float*: Custom straight line state basis federal ITC reduction [$]"),
+ 	NULL},
+{"depr_stabas_itc_fed_reduction_macrs_15", (getter)Outputs_get_depr_stabas_itc_fed_reduction_macrs_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr MACRS state basis federal ITC reduction [$]"),
+ 	NULL},
+{"depr_stabas_itc_fed_reduction_macrs_5", (getter)Outputs_get_depr_stabas_itc_fed_reduction_macrs_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr MACRS state basis federal ITC reduction [$]"),
+ 	NULL},
+{"depr_stabas_itc_fed_reduction_sl_15", (getter)Outputs_get_depr_stabas_itc_fed_reduction_sl_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr straight line state basis federal ITC reduction [$]"),
+ 	NULL},
+{"depr_stabas_itc_fed_reduction_sl_20", (getter)Outputs_get_depr_stabas_itc_fed_reduction_sl_20,(setter)0,
+	PyDoc_STR("*float*: 20-yr straight line state basis federal ITC reduction [$]"),
+ 	NULL},
+{"depr_stabas_itc_fed_reduction_sl_39", (getter)Outputs_get_depr_stabas_itc_fed_reduction_sl_39,(setter)0,
+	PyDoc_STR("*float*: 39-yr straight line state basis federal ITC reduction [$]"),
+ 	NULL},
+{"depr_stabas_itc_fed_reduction_sl_5", (getter)Outputs_get_depr_stabas_itc_fed_reduction_sl_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr straight line state basis federal ITC reduction [$]"),
+ 	NULL},
+{"depr_stabas_itc_fed_reduction_total", (getter)Outputs_get_depr_stabas_itc_fed_reduction_total,(setter)0,
+	PyDoc_STR("*float*: Total state basis federal ITC reduction [$]"),
+ 	NULL},
+{"depr_stabas_itc_sta_reduction_custom", (getter)Outputs_get_depr_stabas_itc_sta_reduction_custom,(setter)0,
+	PyDoc_STR("*float*: Custom straight line state basis state ITC reduction [$]"),
+ 	NULL},
+{"depr_stabas_itc_sta_reduction_macrs_15", (getter)Outputs_get_depr_stabas_itc_sta_reduction_macrs_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr MACRS state basis state ITC reduction [$]"),
+ 	NULL},
+{"depr_stabas_itc_sta_reduction_macrs_5", (getter)Outputs_get_depr_stabas_itc_sta_reduction_macrs_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr MACRS state basis state ITC reduction [$]"),
+ 	NULL},
+{"depr_stabas_itc_sta_reduction_sl_15", (getter)Outputs_get_depr_stabas_itc_sta_reduction_sl_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr straight line state basis state ITC reduction [$]"),
+ 	NULL},
+{"depr_stabas_itc_sta_reduction_sl_20", (getter)Outputs_get_depr_stabas_itc_sta_reduction_sl_20,(setter)0,
+	PyDoc_STR("*float*: 20-yr straight line state basis state ITC reduction [$]"),
+ 	NULL},
+{"depr_stabas_itc_sta_reduction_sl_39", (getter)Outputs_get_depr_stabas_itc_sta_reduction_sl_39,(setter)0,
+	PyDoc_STR("*float*: 39-yr straight line state basis state ITC reduction [$]"),
+ 	NULL},
+{"depr_stabas_itc_sta_reduction_sl_5", (getter)Outputs_get_depr_stabas_itc_sta_reduction_sl_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr straight line state basis state ITC reduction [$]"),
+ 	NULL},
+{"depr_stabas_itc_sta_reduction_total", (getter)Outputs_get_depr_stabas_itc_sta_reduction_total,(setter)0,
+	PyDoc_STR("*float*: Total state basis state ITC reduction [$]"),
+ 	NULL},
+{"depr_stabas_macrs_15", (getter)Outputs_get_depr_stabas_macrs_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr MACRS state depreciation basis [$]"),
+ 	NULL},
+{"depr_stabas_macrs_5", (getter)Outputs_get_depr_stabas_macrs_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr MACRS state depreciation basis [$]"),
+ 	NULL},
+{"depr_stabas_percent_amount_custom", (getter)Outputs_get_depr_stabas_percent_amount_custom,(setter)0,
+	PyDoc_STR("*float*: Custom straight line depreciation ITC basis from state percentage [$]"),
+ 	NULL},
+{"depr_stabas_percent_amount_macrs_15", (getter)Outputs_get_depr_stabas_percent_amount_macrs_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr MACRS depreciation ITC basis from state percentage [$]"),
+ 	NULL},
+{"depr_stabas_percent_amount_macrs_5", (getter)Outputs_get_depr_stabas_percent_amount_macrs_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr MACRS depreciation ITC basis from state percentage [$]"),
+ 	NULL},
+{"depr_stabas_percent_amount_sl_15", (getter)Outputs_get_depr_stabas_percent_amount_sl_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr straight line depreciation ITC basis from state percentage [$]"),
+ 	NULL},
+{"depr_stabas_percent_amount_sl_20", (getter)Outputs_get_depr_stabas_percent_amount_sl_20,(setter)0,
+	PyDoc_STR("*float*: 20-yr straight line depreciation ITC basis from state percentage [$]"),
+ 	NULL},
+{"depr_stabas_percent_amount_sl_39", (getter)Outputs_get_depr_stabas_percent_amount_sl_39,(setter)0,
+	PyDoc_STR("*float*: 39-yr straight line depreciation ITC basis from state percentage [$]"),
+ 	NULL},
+{"depr_stabas_percent_amount_sl_5", (getter)Outputs_get_depr_stabas_percent_amount_sl_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr straight line depreciation ITC basis from state percentage [$]"),
+ 	NULL},
+{"depr_stabas_percent_amount_total", (getter)Outputs_get_depr_stabas_percent_amount_total,(setter)0,
+	PyDoc_STR("*float*: Total depreciation ITC basis from state percentage [$]"),
+ 	NULL},
+{"depr_stabas_percent_custom", (getter)Outputs_get_depr_stabas_percent_custom,(setter)0,
+	PyDoc_STR("*float*: Custom straight line state percent of total depreciable basis [%]"),
+ 	NULL},
+{"depr_stabas_percent_macrs_15", (getter)Outputs_get_depr_stabas_percent_macrs_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr MACRS state percent of total depreciable basis [%]"),
+ 	NULL},
+{"depr_stabas_percent_macrs_5", (getter)Outputs_get_depr_stabas_percent_macrs_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr MACRS state percent of total depreciable basis [%]"),
+ 	NULL},
+{"depr_stabas_percent_qual_custom", (getter)Outputs_get_depr_stabas_percent_qual_custom,(setter)0,
+	PyDoc_STR("*float*: Custom straight line state percent of qualifying costs [%]"),
+ 	NULL},
+{"depr_stabas_percent_qual_macrs_15", (getter)Outputs_get_depr_stabas_percent_qual_macrs_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr MACRS state percent of qualifying costs [%]"),
+ 	NULL},
+{"depr_stabas_percent_qual_macrs_5", (getter)Outputs_get_depr_stabas_percent_qual_macrs_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr MACRS state percent of qualifying costs [%]"),
+ 	NULL},
+{"depr_stabas_percent_qual_sl_15", (getter)Outputs_get_depr_stabas_percent_qual_sl_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr straight line state percent of qualifying costs [%]"),
+ 	NULL},
+{"depr_stabas_percent_qual_sl_20", (getter)Outputs_get_depr_stabas_percent_qual_sl_20,(setter)0,
+	PyDoc_STR("*float*: 20-yr straight line state percent of qualifying costs [%]"),
+ 	NULL},
+{"depr_stabas_percent_qual_sl_39", (getter)Outputs_get_depr_stabas_percent_qual_sl_39,(setter)0,
+	PyDoc_STR("*float*: 39-yr straight line state percent of qualifying costs [%]"),
+ 	NULL},
+{"depr_stabas_percent_qual_sl_5", (getter)Outputs_get_depr_stabas_percent_qual_sl_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr straight line state percent of qualifying costs [%]"),
+ 	NULL},
+{"depr_stabas_percent_qual_total", (getter)Outputs_get_depr_stabas_percent_qual_total,(setter)0,
+	PyDoc_STR("*float*: Total state percent of qualifying costs [%]"),
+ 	NULL},
+{"depr_stabas_percent_sl_15", (getter)Outputs_get_depr_stabas_percent_sl_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr straight line state percent of total depreciable basis [%]"),
+ 	NULL},
+{"depr_stabas_percent_sl_20", (getter)Outputs_get_depr_stabas_percent_sl_20,(setter)0,
+	PyDoc_STR("*float*: 20-yr straight line state percent of total depreciable basis [%]"),
+ 	NULL},
+{"depr_stabas_percent_sl_39", (getter)Outputs_get_depr_stabas_percent_sl_39,(setter)0,
+	PyDoc_STR("*float*: 39-yr straight line state percent of total depreciable basis [%]"),
+ 	NULL},
+{"depr_stabas_percent_sl_5", (getter)Outputs_get_depr_stabas_percent_sl_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr straight line state percent of total depreciable basis [%]"),
+ 	NULL},
+{"depr_stabas_percent_total", (getter)Outputs_get_depr_stabas_percent_total,(setter)0,
+	PyDoc_STR("*float*: Total state percent of total depreciable basis [%]"),
+ 	NULL},
+{"depr_stabas_prior_itc_custom", (getter)Outputs_get_depr_stabas_prior_itc_custom,(setter)0,
+	PyDoc_STR("*float*: Custom straight line state depreciation basis prior ITC reduction [$]"),
+ 	NULL},
+{"depr_stabas_prior_itc_macrs_15", (getter)Outputs_get_depr_stabas_prior_itc_macrs_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr MACRS state depreciation basis prior ITC reduction [$]"),
+ 	NULL},
+{"depr_stabas_prior_itc_macrs_5", (getter)Outputs_get_depr_stabas_prior_itc_macrs_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr MACRS state depreciation basis prior ITC reduction [$]"),
+ 	NULL},
+{"depr_stabas_prior_itc_sl_15", (getter)Outputs_get_depr_stabas_prior_itc_sl_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr straight line state depreciation basis prior ITC reduction [$]"),
+ 	NULL},
+{"depr_stabas_prior_itc_sl_20", (getter)Outputs_get_depr_stabas_prior_itc_sl_20,(setter)0,
+	PyDoc_STR("*float*: 20-yr straight line state depreciation basis prior ITC reduction [$]"),
+ 	NULL},
+{"depr_stabas_prior_itc_sl_39", (getter)Outputs_get_depr_stabas_prior_itc_sl_39,(setter)0,
+	PyDoc_STR("*float*: 39-yr straight line state depreciation basis prior ITC reduction [$]"),
+ 	NULL},
+{"depr_stabas_prior_itc_sl_5", (getter)Outputs_get_depr_stabas_prior_itc_sl_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr straight line state depreciation basis prior ITC reduction [$]"),
+ 	NULL},
+{"depr_stabas_prior_itc_total", (getter)Outputs_get_depr_stabas_prior_itc_total,(setter)0,
+	PyDoc_STR("*float*: Total state depreciation basis prior ITC reduction [$]"),
+ 	NULL},
+{"depr_stabas_sl_15", (getter)Outputs_get_depr_stabas_sl_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr straight line state depreciation basis [$]"),
+ 	NULL},
+{"depr_stabas_sl_20", (getter)Outputs_get_depr_stabas_sl_20,(setter)0,
+	PyDoc_STR("*float*: 20-yr straight line state depreciation basis [$]"),
+ 	NULL},
+{"depr_stabas_sl_39", (getter)Outputs_get_depr_stabas_sl_39,(setter)0,
+	PyDoc_STR("*float*: 39-yr straight line state depreciation basis [$]"),
+ 	NULL},
+{"depr_stabas_sl_5", (getter)Outputs_get_depr_stabas_sl_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr straight line state depreciation basis [$]"),
+ 	NULL},
+{"depr_stabas_total", (getter)Outputs_get_depr_stabas_total,(setter)0,
+	PyDoc_STR("*float*: Total state depreciation basis [$]"),
  	NULL},
 {"discounted_payback", (getter)Outputs_get_discounted_payback,(setter)0,
 	PyDoc_STR("*float*: Discounted payback period [years]"),
@@ -6494,6 +9353,162 @@ static PyGetSetDef Outputs_getset[] = {
  	NULL},
 {"ibi_total_uti", (getter)Outputs_get_ibi_total_uti,(setter)0,
 	PyDoc_STR("*float*: Utility IBI income [$]"),
+ 	NULL},
+{"itc_disallow_fed_fixed_custom", (getter)Outputs_get_itc_disallow_fed_fixed_custom,(setter)0,
+	PyDoc_STR("*float*: Custom straight line depreciation ITC basis disallowance from federal fixed amount [$]"),
+ 	NULL},
+{"itc_disallow_fed_fixed_macrs_15", (getter)Outputs_get_itc_disallow_fed_fixed_macrs_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr MACRS depreciation ITC basis disallowance from federal fixed amount [$]"),
+ 	NULL},
+{"itc_disallow_fed_fixed_macrs_5", (getter)Outputs_get_itc_disallow_fed_fixed_macrs_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr MACRS depreciation ITC basis disallowance from federal fixed amount [$]"),
+ 	NULL},
+{"itc_disallow_fed_fixed_sl_15", (getter)Outputs_get_itc_disallow_fed_fixed_sl_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr straight line depreciation ITC basis disallowance from federal fixed amount [$]"),
+ 	NULL},
+{"itc_disallow_fed_fixed_sl_20", (getter)Outputs_get_itc_disallow_fed_fixed_sl_20,(setter)0,
+	PyDoc_STR("*float*: 20-yr straight line depreciation ITC basis disallowance from federal fixed amount [$]"),
+ 	NULL},
+{"itc_disallow_fed_fixed_sl_39", (getter)Outputs_get_itc_disallow_fed_fixed_sl_39,(setter)0,
+	PyDoc_STR("*float*: 39-yr straight line depreciation ITC basis disallowance from federal fixed amount [$]"),
+ 	NULL},
+{"itc_disallow_fed_fixed_sl_5", (getter)Outputs_get_itc_disallow_fed_fixed_sl_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr straight line depreciation ITC basis disallowance from federal fixed amount [$]"),
+ 	NULL},
+{"itc_disallow_fed_fixed_total", (getter)Outputs_get_itc_disallow_fed_fixed_total,(setter)0,
+	PyDoc_STR("*float*: Total depreciation ITC basis disallowance from federal fixed amount [$]"),
+ 	NULL},
+{"itc_disallow_fed_percent_custom", (getter)Outputs_get_itc_disallow_fed_percent_custom,(setter)0,
+	PyDoc_STR("*float*: Custom straight line depreciation ITC basis disallowance from federal percentage [$]"),
+ 	NULL},
+{"itc_disallow_fed_percent_macrs_15", (getter)Outputs_get_itc_disallow_fed_percent_macrs_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr MACRS depreciation ITC basis disallowance from federal percentage [$]"),
+ 	NULL},
+{"itc_disallow_fed_percent_macrs_5", (getter)Outputs_get_itc_disallow_fed_percent_macrs_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr MACRS depreciation ITC basis disallowance from federal percentage [$]"),
+ 	NULL},
+{"itc_disallow_fed_percent_sl_15", (getter)Outputs_get_itc_disallow_fed_percent_sl_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr straight line depreciation ITC basis disallowance from federal percentage [$]"),
+ 	NULL},
+{"itc_disallow_fed_percent_sl_20", (getter)Outputs_get_itc_disallow_fed_percent_sl_20,(setter)0,
+	PyDoc_STR("*float*: 20-yr straight line depreciation ITC basis disallowance from federal percentage [$]"),
+ 	NULL},
+{"itc_disallow_fed_percent_sl_39", (getter)Outputs_get_itc_disallow_fed_percent_sl_39,(setter)0,
+	PyDoc_STR("*float*: 39-yr straight line depreciation ITC basis disallowance from federal percentage [$]"),
+ 	NULL},
+{"itc_disallow_fed_percent_sl_5", (getter)Outputs_get_itc_disallow_fed_percent_sl_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr straight line depreciation ITC basis disallowance from federal percentage [$]"),
+ 	NULL},
+{"itc_disallow_fed_percent_total", (getter)Outputs_get_itc_disallow_fed_percent_total,(setter)0,
+	PyDoc_STR("*float*: Total depreciation ITC basis disallowance from federal percentage [$]"),
+ 	NULL},
+{"itc_disallow_sta_fixed_custom", (getter)Outputs_get_itc_disallow_sta_fixed_custom,(setter)0,
+	PyDoc_STR("*float*: Custom straight line depreciation ITC basis disallowance from state fixed amount [$]"),
+ 	NULL},
+{"itc_disallow_sta_fixed_macrs_15", (getter)Outputs_get_itc_disallow_sta_fixed_macrs_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr MACRS depreciation ITC basis disallowance from state fixed amount [$]"),
+ 	NULL},
+{"itc_disallow_sta_fixed_macrs_5", (getter)Outputs_get_itc_disallow_sta_fixed_macrs_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr MACRS depreciation ITC basis disallowance from state fixed amount [$]"),
+ 	NULL},
+{"itc_disallow_sta_fixed_sl_15", (getter)Outputs_get_itc_disallow_sta_fixed_sl_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr straight line depreciation ITC basis disallowance from state fixed amount [$]"),
+ 	NULL},
+{"itc_disallow_sta_fixed_sl_20", (getter)Outputs_get_itc_disallow_sta_fixed_sl_20,(setter)0,
+	PyDoc_STR("*float*: 20-yr straight line depreciation ITC basis disallowance from state fixed amount [$]"),
+ 	NULL},
+{"itc_disallow_sta_fixed_sl_39", (getter)Outputs_get_itc_disallow_sta_fixed_sl_39,(setter)0,
+	PyDoc_STR("*float*: 39-yr straight line depreciation ITC basis disallowance from state fixed amount [$]"),
+ 	NULL},
+{"itc_disallow_sta_fixed_sl_5", (getter)Outputs_get_itc_disallow_sta_fixed_sl_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr straight line depreciation ITC basis disallowance from state fixed amount [$]"),
+ 	NULL},
+{"itc_disallow_sta_fixed_total", (getter)Outputs_get_itc_disallow_sta_fixed_total,(setter)0,
+	PyDoc_STR("*float*: Total depreciation ITC basis disallowance from state fixed amount [$]"),
+ 	NULL},
+{"itc_disallow_sta_percent_custom", (getter)Outputs_get_itc_disallow_sta_percent_custom,(setter)0,
+	PyDoc_STR("*float*: Custom straight line depreciation ITC basis disallowance from state percentage [$]"),
+ 	NULL},
+{"itc_disallow_sta_percent_macrs_15", (getter)Outputs_get_itc_disallow_sta_percent_macrs_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr MACRS depreciation ITC basis disallowance from state percentage [$]"),
+ 	NULL},
+{"itc_disallow_sta_percent_macrs_5", (getter)Outputs_get_itc_disallow_sta_percent_macrs_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr MACRS depreciation ITC basis disallowance from state percentage [$]"),
+ 	NULL},
+{"itc_disallow_sta_percent_sl_15", (getter)Outputs_get_itc_disallow_sta_percent_sl_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr straight line depreciation ITC basis disallowance from state percentage [$]"),
+ 	NULL},
+{"itc_disallow_sta_percent_sl_20", (getter)Outputs_get_itc_disallow_sta_percent_sl_20,(setter)0,
+	PyDoc_STR("*float*: 20-yr straight line depreciation ITC basis disallowance from state percentage [$]"),
+ 	NULL},
+{"itc_disallow_sta_percent_sl_39", (getter)Outputs_get_itc_disallow_sta_percent_sl_39,(setter)0,
+	PyDoc_STR("*float*: 39-yr straight line depreciation ITC basis disallowance from state percentage [$]"),
+ 	NULL},
+{"itc_disallow_sta_percent_sl_5", (getter)Outputs_get_itc_disallow_sta_percent_sl_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr straight line depreciation ITC basis disallowance from state percentage [$]"),
+ 	NULL},
+{"itc_disallow_sta_percent_total", (getter)Outputs_get_itc_disallow_sta_percent_total,(setter)0,
+	PyDoc_STR("*float*: Total depreciation ITC basis disallowance from state percentage [$]"),
+ 	NULL},
+{"itc_fed_fixed_total", (getter)Outputs_get_itc_fed_fixed_total,(setter)0,
+	PyDoc_STR("*float*: Federal ITC fixed total [$]"),
+ 	NULL},
+{"itc_fed_percent_total", (getter)Outputs_get_itc_fed_percent_total,(setter)0,
+	PyDoc_STR("*float*: Federal ITC percent total [$]"),
+ 	NULL},
+{"itc_fed_qual_custom", (getter)Outputs_get_itc_fed_qual_custom,(setter)0,
+	PyDoc_STR("*float*: Custom straight line depreciation federal ITC adj qualifying costs [$]"),
+ 	NULL},
+{"itc_fed_qual_macrs_15", (getter)Outputs_get_itc_fed_qual_macrs_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr MACRS depreciation federal ITC adj qualifying costs [$]"),
+ 	NULL},
+{"itc_fed_qual_macrs_5", (getter)Outputs_get_itc_fed_qual_macrs_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr MACRS depreciation federal ITC adj qualifying costs [$]"),
+ 	NULL},
+{"itc_fed_qual_sl_15", (getter)Outputs_get_itc_fed_qual_sl_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr straight line depreciation federal ITC adj qualifying costs [$]"),
+ 	NULL},
+{"itc_fed_qual_sl_20", (getter)Outputs_get_itc_fed_qual_sl_20,(setter)0,
+	PyDoc_STR("*float*: 20-yr straight line depreciation federal ITC adj qualifying costs [$]"),
+ 	NULL},
+{"itc_fed_qual_sl_39", (getter)Outputs_get_itc_fed_qual_sl_39,(setter)0,
+	PyDoc_STR("*float*: 39-yr straight line depreciation federal ITC adj qualifying costs [$]"),
+ 	NULL},
+{"itc_fed_qual_sl_5", (getter)Outputs_get_itc_fed_qual_sl_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr straight line depreciation federal ITC adj qualifying costs [$]"),
+ 	NULL},
+{"itc_fed_qual_total", (getter)Outputs_get_itc_fed_qual_total,(setter)0,
+	PyDoc_STR("*float*: Total federal ITC adj qualifying costs [$]"),
+ 	NULL},
+{"itc_sta_fixed_total", (getter)Outputs_get_itc_sta_fixed_total,(setter)0,
+	PyDoc_STR("*float*: State ITC fixed total [$]"),
+ 	NULL},
+{"itc_sta_percent_total", (getter)Outputs_get_itc_sta_percent_total,(setter)0,
+	PyDoc_STR("*float*: State ITC percent total [$]"),
+ 	NULL},
+{"itc_sta_qual_custom", (getter)Outputs_get_itc_sta_qual_custom,(setter)0,
+	PyDoc_STR("*float*: Custom straight line depreciation state ITC adj qualifying costs [$]"),
+ 	NULL},
+{"itc_sta_qual_macrs_15", (getter)Outputs_get_itc_sta_qual_macrs_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr MACRS depreciation state ITC adj qualifying costs [$]"),
+ 	NULL},
+{"itc_sta_qual_macrs_5", (getter)Outputs_get_itc_sta_qual_macrs_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr MACRS depreciation state ITC adj qualifying costs [$]"),
+ 	NULL},
+{"itc_sta_qual_sl_15", (getter)Outputs_get_itc_sta_qual_sl_15,(setter)0,
+	PyDoc_STR("*float*: 15-yr straight line depreciation state ITC adj qualifying costs [$]"),
+ 	NULL},
+{"itc_sta_qual_sl_20", (getter)Outputs_get_itc_sta_qual_sl_20,(setter)0,
+	PyDoc_STR("*float*: 20-yr straight line depreciation state ITC adj qualifying costs [$]"),
+ 	NULL},
+{"itc_sta_qual_sl_39", (getter)Outputs_get_itc_sta_qual_sl_39,(setter)0,
+	PyDoc_STR("*float*: 39-yr straight line depreciation state ITC adj qualifying costs [$]"),
+ 	NULL},
+{"itc_sta_qual_sl_5", (getter)Outputs_get_itc_sta_qual_sl_5,(setter)0,
+	PyDoc_STR("*float*: 5-yr straight line depreciation state ITC adj qualifying costs [$]"),
+ 	NULL},
+{"itc_sta_qual_total", (getter)Outputs_get_itc_sta_qual_total,(setter)0,
+	PyDoc_STR("*float*: Total state ITC adj qualifying costs [$]"),
  	NULL},
 {"itc_total", (getter)Outputs_get_itc_total,(setter)0,
 	PyDoc_STR("*float*: Total ITC income [$]"),
@@ -6551,6 +9566,12 @@ static PyGetSetDef Outputs_getset[] = {
  	NULL},
 {"payback", (getter)Outputs_get_payback,(setter)0,
 	PyDoc_STR("*float*: Payback period [years]"),
+ 	NULL},
+{"pre_depr_alloc_basis", (getter)Outputs_get_pre_depr_alloc_basis,(setter)0,
+	PyDoc_STR("*float*: Depreciable basis prior to allocation [$]"),
+ 	NULL},
+{"pre_itc_qual_basis", (getter)Outputs_get_pre_itc_qual_basis,(setter)0,
+	PyDoc_STR("*float*: ITC basis prior to qualification [$]"),
  	NULL},
 {"present_value_fuel", (getter)Outputs_get_present_value_fuel,(setter)0,
 	PyDoc_STR("*float*: Present value of fuel expenses [$]"),

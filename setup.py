@@ -1,185 +1,123 @@
-import json, marshal, os, shutil
-from setuptools import setup, Extension
+"""
+Minimal setup.py — only defines C extension modules.
+
+All static metadata lives in pyproject.toml (PEP 621).
+Run `python prepare_build.py` before building to stage shared libraries
+and default files into PySAM/.
+"""
+
+import os
 import sys
-from files.version import __version__
 from pathlib import Path
 
-###################################################################################################
-#
-# Setup for NREL-PySAM Package
-#
-###################################################################################################
+from setuptools import Extension, setup
+from setuptools.command.build_ext import build_ext
 
-latest_version = __version__
+this_directory = Path(__file__).parent.resolve()
+pkg_dir = this_directory / "PySAM"
+samntdir = os.environ.get("SAMNTDIR", "")
 
-DEBUG = False
+# ---------------------------------------------------------------------------
+# Platform-specific compiler / linker flags
+# ---------------------------------------------------------------------------
 
-# defaults and include directories
-defaults_dir = os.environ['SAMNTDIR'] + "/api/api_autogen/library/defaults/"
-includepath = os.environ['SAMNTDIR'] + "/api/include"
-srcpath = os.environ['SAMNTDIR'] + "/api/src"
-
-this_directory = os.environ['PYSAMDIR']
-libpath = this_directory + "/files"
-
-
-# prepare package description
-with open(os.path.join(this_directory, 'RELEASE.md'), encoding='utf-8') as f:
-    long_description = f.read()
-
-
-# prepare package
-libfiles = ['__init__.py', 'version.py']
-extra_compile_args = ["-Wno-implicit-function-declaration", "-Wno-unused-function", "-Wno-strict-prototypes"]
+extra_compile_args = []
 extra_link_args = []
 defines = []
-libs = ['SAM_api']
-if DEBUG:
-    libs += ['sscd']
-else:
-    libs += ['ssc']
+libs = ["SAM_api", "ssc"]
 
-if sys.platform == 'darwin':
-    from distutils import sysconfig
-    vars = sysconfig.get_config_vars()
-    vars['LDSHARED'] = vars['LDSHARED'].replace('-bundle', '-dynamiclib')
-    libfiles += ['libSAM_api.so']
-    if DEBUG:
-        libfiles += ['libsscd.so']
-    else:
-        libfiles += ['libssc.so']
+if sys.platform == "darwin":
+    os.environ["MACOSX_DEPLOYMENT_TARGET"] = "12"
+    extra_compile_args = [
+        "-Wno-implicit-function-declaration",
+        "-Wno-unused-function",
+        "-Wno-strict-prototypes",
+        "-Wno-ignored-attributes",
+    ]
     extra_link_args = ["-headerpad_max_install_names", "-Wl,-rpath,@loader_path/"]
-    extra_compile_args.append("-Wno-ignored-attributes")
 
-if sys.platform == 'linux':
-    libfiles += ['libSAM_api.so']
-    if DEBUG:
-        libfiles += ['libsscd.so']
-    else:
-        libfiles += ['libssc.so']
+elif sys.platform == "linux":
+    extra_compile_args = [
+        "-Wno-implicit-function-declaration",
+        "-Wno-unused-function",
+        "-Wno-strict-prototypes",
+        "-Wno-attributes",
+    ]
     extra_link_args = ["-Wl,-rpath,$ORIGIN/"]
-    extra_compile_args.append('-Wno-attributes')
 
-if sys.platform == 'win32':
-    libfiles += ['SAM_api.dll', 'SAM_api.lib']
-    if DEBUG:
-        libfiles += ['sscd.dll', 'sscd.lib']
-    else:
-        libfiles += ['ssc.dll', 'ssc.lib']
-    defines = [('__WINDOWS__', '1')]
-    extra_compile_args = []
-    if DEBUG:
-        extra_compile_args = ["/DEBUG", "/Od"]
+elif sys.platform == "win32":
+    defines = [("__WINDOWS__", "1")]
 
 
-###################################################################################################
-#
-# Copy Required Source and Data Files
-#
-###################################################################################################
+# ---------------------------------------------------------------------------
+# Discover OR-Tools libraries staged in PySAM/ by prepare_build.py
+# ---------------------------------------------------------------------------
 
-# serialize all defaults into dict
-def _decode(o):
-    if isinstance(o, str):
-        try:
-            return float(o)
-        except ValueError:
-            return o
-    elif isinstance(o, dict):
-        dic = {}
-        for k, v in o.items():
-            if k != "hybrid_dispatch_schedule" and k != "biopwr_plant_tou_grid":
-                dic[k] = _decode(v)
-            else:
-                dic[k] = v
-        return dic
-    elif isinstance(o, list):
-        return [_decode(v) for v in o]
-    else:
-        return o
+def _discover_ortools_libs(pkg_path):
+    """Scan pkg_path for staged OR-Tools shared libraries, return lib names."""
+    found = []
+    if sys.platform in ("darwin", "linux"):
+        for p in sorted(pkg_path.glob("lib*.so")):
+            name = p.stem
+            if name.startswith("lib") and name not in ("libSAM_api", "libssc", "libsscd"):
+                found.append(name[3:])  # strip "lib" prefix
+    elif sys.platform == "win32":
+        for p in sorted(pkg_path.glob("*.lib")):
+            name = p.stem
+            if name not in ("SAM_api", "ssc", "sscd"):
+                found.append(name)
+    return found
+
+libs += _discover_ortools_libs(pkg_dir)
 
 
-defaults_df_dir = 'files/defaults'
-if os.path.exists(defaults_df_dir):
-    shutil.rmtree(defaults_df_dir)
-os.mkdir(defaults_df_dir)
-# generate defaults and copy them into installation
-for filename in os.listdir(defaults_dir):
-    with open(defaults_dir + '/' + filename) as f:
-        name = os.path.splitext(filename)
-        if name[1] != '.json':
-            continue
-        data = json.load(f)
+# ---------------------------------------------------------------------------
+# Include directories for C extensions
+# ---------------------------------------------------------------------------
 
-        dic = data[list(data.keys())[0]]
-        with open('files/defaults/' + name[0].lower() + '.df', "wb") as out:
-            marshal.dump(dic, out)
-
-for filename in os.listdir(defaults_df_dir):
-    libfiles.append('defaults/' + os.path.splitext(filename)[0] + '.df')
-
-# copy over stub pyi files into "files" folder for export
-stub_files = []
-for filename in os.listdir(os.path.join(this_directory, "stubs", "stubs")):
-    if ".pyi" not in filename:
-        continue
-    shutil.copy(os.path.join(this_directory, "stubs", "stubs", filename), os.path.join(this_directory, "files"))
-    stub_files.append(os.path.join(filename))
-libfiles += stub_files
-
-hybrid_stubs = []
-for filename in os.listdir(os.path.join(this_directory, "files", "Hybrids")):
-    if ".pyi" not in filename:
-        continue
-    hybrid_stubs.append(os.path.join("Hybrids", filename))
-libfiles += hybrid_stubs
+include_dirs = [str(this_directory / "csrc")]
+if samntdir:
+    include_dirs += [samntdir + "/api/src", samntdir + "/api/include"]
 
 
-# make list of all extension modules
+# ---------------------------------------------------------------------------
+# Build extension module list from modules/*.c
+# ---------------------------------------------------------------------------
+
 extension_modules = []
-for filename in os.listdir(this_directory + "/modules"):
-    extension_modules.append(Extension('PySAM.' + os.path.splitext(filename)[0],
-                             ['modules/' + filename],
-                            define_macros=defines,
-                            include_dirs=[srcpath, includepath, this_directory + "/src"],
-                            library_dirs=[libpath],
-                            libraries=libs,
-                            extra_compile_args=extra_compile_args,
-                            extra_link_args=extra_link_args
-                            ))
+modules_dir = this_directory / "modules"
+for src_file in sorted(modules_dir.glob("*.c")):
+    mod_name = src_file.stem
+    extension_modules.append(
+        Extension(
+            f"PySAM.{mod_name}",
+            [str(src_file.relative_to(this_directory))],
+            define_macros=defines,
+            include_dirs=include_dirs,
+            library_dirs=[str(pkg_dir)],
+            libraries=libs,
+            extra_compile_args=extra_compile_args,
+            extra_link_args=extra_link_args,
+        )
+    )
 
 
-###################################################################################################
-#
-# setup script
-#
-###################################################################################################
+# ---------------------------------------------------------------------------
+# Custom build_ext to handle macOS LDSHARED quirk
+# ---------------------------------------------------------------------------
 
-def read_lines(filename):
-    with open(filename) as f_in:
-        return f_in.readlines()
+class CustomBuildExt(build_ext):
+    def build_extensions(self):
+        if sys.platform == "darwin":
+            # Ensure extensions link as shared libraries, not bundles
+            self.compiler.linker_so = [
+                x.replace("-bundle", "-dynamiclib")
+                for x in self.compiler.linker_so
+            ]
+        super().build_extensions()
+
 
 setup(
-    name='NREL-PySAM',
-    version=latest_version,
-    url='https://nrel-pysam.readthedocs.io',
-    description="National Laboratory of the Rockies' System Advisor Model Python Wrapper",
-    long_description=long_description,
-    long_description_content_type='text/markdown',
-    license='BSD 3-Clause',
-    author="dguittet",
-    author_email="dguittet@nlr.gov",
-    include_package_data=True,
-    packages=['PySAM', 'PySAM.Hybrids'],
-    package_dir={'PySAM': 'files', 'PySAM.Hybrids': 'files/Hybrids'},
-    package_data={
-        '': libfiles},
-    tests_require=["pytest"],
-    ext_modules=extension_modules
+    ext_modules=extension_modules,
+    cmdclass={"build_ext": CustomBuildExt},
 )
-
-
-# Clean up
-shutil.rmtree(defaults_df_dir)
-for f in stub_files:
-    os.remove(os.path.join(this_directory, "files", f))

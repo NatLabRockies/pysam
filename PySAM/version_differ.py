@@ -210,7 +210,7 @@ def get_var_dict():
     return cmod_variables
 
 
-new_ssc = os.path.join(os.environ.get("PYSAMDIR"), "files", "libssc.so")
+new_ssc = os.path.join(os.environ.get("PYSAMDIR"), "PySAM", "libssc.so")
 ssc = PySSC(new_ssc)
 
 new_cmod_variables = get_var_dict()

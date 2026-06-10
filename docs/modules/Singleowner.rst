@@ -23,6 +23,22 @@ The variables listed below are interdependent with other variables. If you chang
 
  - cp_system_nameplate
 
+ - depr_alloc_custom_percent
+
+ - depr_alloc_macrs_15_percent
+
+ - depr_alloc_macrs_5_percent
+
+ - depr_alloc_sl_15_percent
+
+ - depr_alloc_sl_20_percent
+
+ - depr_alloc_sl_39_percent
+
+ - depr_alloc_sl_5_percent
+
+ - depr_basis_mat
+
  - land_area
 
  - om_batt_nameplate
@@ -147,6 +163,12 @@ Monthly Group
 --------------
 
 .. autoclass:: PySAM.Singleowner.Singleowner.Monthly
+	:members:
+
+NonEnergyRevenue Group
+-----------------------
+
+.. autoclass:: PySAM.Singleowner.Singleowner.NonEnergyRevenue
 	:members:
 
 HybridCosts Group

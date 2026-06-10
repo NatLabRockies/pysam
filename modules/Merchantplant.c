@@ -535,7 +535,7 @@ FinancialParameters_set_term_tenor(VarGroupObject *self, PyObject *value, void *
 
 static PyGetSetDef FinancialParameters_getset[] = {
 {"analysis_period", (getter)FinancialParameters_get_analysis_period,(setter)FinancialParameters_set_analysis_period,
-	PyDoc_STR("*float*: Analyis period [years]\n\n**Constraints:**\nINTEGER,MIN=0,MAX=50\n\n**Required:**\nFalse. Automatically set to 30 if not assigned explicitly or loaded from defaults."),
+	PyDoc_STR("*float*: Analyis period [years]\n\n**Constraints:**\nINTEGER,MIN=0,MAX=100\n\n**Required:**\nFalse. Automatically set to 30 if not assigned explicitly or loaded from defaults."),
  	NULL},
 {"batt_salvage_percentage", (getter)FinancialParameters_get_batt_salvage_percentage,(setter)FinancialParameters_set_batt_salvage_percentage,
 	PyDoc_STR("*float*: Net pre-tax cash battery salvage value [%]\n\n**Constraints:**\nMIN=0,MAX=100\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
@@ -1293,7 +1293,7 @@ static PyGetSetDef SystemCosts_getset[] = {
 	PyDoc_STR("*float*: Recapitalization expenses [0/1]\n\n**Options:**\n0=None,1=Recapitalize\n\n**INOUT:** This variable is both an input and an output to the compute module.\n\n**Constraints:**\nINTEGER,MIN=0\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
  	NULL},
 {"total_installed_cost", (getter)SystemCosts_get_total_installed_cost,(setter)SystemCosts_set_total_installed_cost,
-	PyDoc_STR("*float*: Installed cost [$]\n\n**Required:**\nTrue\n\nThe value of the following variables depends on ``total_installed_cost``:\n\n\t - construction_financing_cost\n"),
+	PyDoc_STR("*float*: Installed cost [$]\n\n**Required:**\nTrue\n\nThe value of the following variables depends on ``total_installed_cost``:\n\n\t - construction_financing_cost\n\t - depr_alloc_custom_percent\n\t - depr_alloc_macrs_15_percent\n\t - depr_alloc_macrs_5_percent\n\t - depr_alloc_sl_15_percent\n\t - depr_alloc_sl_20_percent\n\t - depr_alloc_sl_39_percent\n\t - depr_alloc_sl_5_percent\n\t - depr_basis_mat\n"),
  	NULL},
 	{NULL}  /* Sentinel */
 };
@@ -2090,6 +2090,18 @@ Depreciation_set_depr_alloc_sl_5_percent(VarGroupObject *self, PyObject *value, 
 }
 
 static PyObject *
+Depreciation_get_depr_basis_mat(VarGroupObject *self, void *closure)
+{
+	return PySAM_matrix_getter(SAM_Merchantplant_Depreciation_depr_basis_mat_mget, self->data_ptr);
+}
+
+static int
+Depreciation_set_depr_basis_mat(VarGroupObject *self, PyObject *value, void *closure)
+{
+		return PySAM_matrix_setter(value, SAM_Merchantplant_Depreciation_depr_basis_mat_mset, self->data_ptr);
+}
+
+static PyObject *
 Depreciation_get_depr_bonus_fed(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_Merchantplant_Depreciation_depr_bonus_fed_nget, self->data_ptr);
@@ -2294,6 +2306,18 @@ Depreciation_set_depr_custom_schedule(VarGroupObject *self, PyObject *value, voi
 }
 
 static PyObject *
+Depreciation_get_depr_en_basis_mat(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Merchantplant_Depreciation_depr_en_basis_mat_nget, self->data_ptr);
+}
+
+static int
+Depreciation_set_depr_en_basis_mat(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_Merchantplant_Depreciation_depr_en_basis_mat_nset, self->data_ptr);
+}
+
+static PyObject *
 Depreciation_get_depr_fedbas_method(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_Merchantplant_Depreciation_depr_fedbas_method_nget, self->data_ptr);
@@ -2487,25 +2511,28 @@ Depreciation_set_depr_stabas_method(VarGroupObject *self, PyObject *value, void 
 
 static PyGetSetDef Depreciation_getset[] = {
 {"depr_alloc_custom_percent", (getter)Depreciation_get_depr_alloc_custom_percent,(setter)Depreciation_set_depr_alloc_custom_percent,
-	PyDoc_STR("*float*: Custom depreciation federal and state allocation [%]\n\n**Constraints:**\nMIN=0,MAX=100\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
+	PyDoc_STR("*float*: Custom depreciation federal and state allocation [%]\n\n**Constraints:**\nMIN=0,MAX=100\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults.\n\nThe value of ``depr_alloc_custom_percent`` depends on the following variables:\n\n\t - total_installed_cost\n"),
  	NULL},
 {"depr_alloc_macrs_15_percent", (getter)Depreciation_get_depr_alloc_macrs_15_percent,(setter)Depreciation_set_depr_alloc_macrs_15_percent,
-	PyDoc_STR("*float*: 15-yr MACRS depreciation federal and state allocation [%]\n\n**Constraints:**\nMIN=0,MAX=100\n\n**Required:**\nFalse. Automatically set to 1.5 if not assigned explicitly or loaded from defaults."),
+	PyDoc_STR("*float*: 15-yr MACRS depreciation federal and state allocation [%]\n\n**Constraints:**\nMIN=0,MAX=100\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults.\n\nThe value of ``depr_alloc_macrs_15_percent`` depends on the following variables:\n\n\t - total_installed_cost\n"),
  	NULL},
 {"depr_alloc_macrs_5_percent", (getter)Depreciation_get_depr_alloc_macrs_5_percent,(setter)Depreciation_set_depr_alloc_macrs_5_percent,
-	PyDoc_STR("*float*: 5-yr MACRS depreciation federal and state allocation [%]\n\n**Constraints:**\nMIN=0,MAX=100\n\n**Required:**\nFalse. Automatically set to 89 if not assigned explicitly or loaded from defaults."),
+	PyDoc_STR("*float*: 5-yr MACRS depreciation federal and state allocation [%]\n\n**Constraints:**\nMIN=0,MAX=100\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults.\n\nThe value of ``depr_alloc_macrs_5_percent`` depends on the following variables:\n\n\t - total_installed_cost\n"),
  	NULL},
 {"depr_alloc_sl_15_percent", (getter)Depreciation_get_depr_alloc_sl_15_percent,(setter)Depreciation_set_depr_alloc_sl_15_percent,
-	PyDoc_STR("*float*: 15-yr straight line depreciation federal and state allocation [%]\n\n**Constraints:**\nMIN=0,MAX=100\n\n**Required:**\nFalse. Automatically set to 3 if not assigned explicitly or loaded from defaults."),
+	PyDoc_STR("*float*: 15-yr straight line depreciation federal and state allocation [%]\n\n**Constraints:**\nMIN=0,MAX=100\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults.\n\nThe value of ``depr_alloc_sl_15_percent`` depends on the following variables:\n\n\t - total_installed_cost\n"),
  	NULL},
 {"depr_alloc_sl_20_percent", (getter)Depreciation_get_depr_alloc_sl_20_percent,(setter)Depreciation_set_depr_alloc_sl_20_percent,
-	PyDoc_STR("*float*: 20-yr straight line depreciation federal and state allocation [%]\n\n**Constraints:**\nMIN=0,MAX=100\n\n**Required:**\nFalse. Automatically set to 3 if not assigned explicitly or loaded from defaults."),
+	PyDoc_STR("*float*: 20-yr straight line depreciation federal and state allocation [%]\n\n**Constraints:**\nMIN=0,MAX=100\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults.\n\nThe value of ``depr_alloc_sl_20_percent`` depends on the following variables:\n\n\t - total_installed_cost\n"),
  	NULL},
 {"depr_alloc_sl_39_percent", (getter)Depreciation_get_depr_alloc_sl_39_percent,(setter)Depreciation_set_depr_alloc_sl_39_percent,
-	PyDoc_STR("*float*: 39-yr straight line depreciation federal and state allocation [%]\n\n**Constraints:**\nMIN=0,MAX=100\n\n**Required:**\nFalse. Automatically set to 0.5 if not assigned explicitly or loaded from defaults."),
+	PyDoc_STR("*float*: 39-yr straight line depreciation federal and state allocation [%]\n\n**Constraints:**\nMIN=0,MAX=100\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults.\n\nThe value of ``depr_alloc_sl_39_percent`` depends on the following variables:\n\n\t - total_installed_cost\n"),
  	NULL},
 {"depr_alloc_sl_5_percent", (getter)Depreciation_get_depr_alloc_sl_5_percent,(setter)Depreciation_set_depr_alloc_sl_5_percent,
-	PyDoc_STR("*float*: 5-yr straight line depreciation federal and state allocation [%]\n\n**Constraints:**\nMIN=0,MAX=100\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
+	PyDoc_STR("*float*: 5-yr straight line depreciation federal and state allocation [%]\n\n**Constraints:**\nMIN=0,MAX=100\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults.\n\nThe value of ``depr_alloc_sl_5_percent`` depends on the following variables:\n\n\t - total_installed_cost\n"),
+ 	NULL},
+{"depr_basis_mat", (getter)Depreciation_get_depr_basis_mat,(setter)Depreciation_set_depr_basis_mat,
+	PyDoc_STR("*sequence[sequence]*: Depreciation Basis Matrix\n\n**Constraints:**\ncol 0=tech no, col 1=basis amount ($), col 2=% of total installed cost, col 3=fed itc qual 0/1, col 4=state itc qual 0/1, col 5=depreciation selection(0=macrs 5, 1=macrs 15, 2=sl 5, 3=sl 15, 4=sl 20, 5=sl 39, 6=custom)\n\n**Required:**\nRequired if depr_en_basis_mat=1\n\nThe value of ``depr_basis_mat`` depends on the following variables:\n\n\t - total_installed_cost\n"),
  	NULL},
 {"depr_bonus_fed", (getter)Depreciation_get_depr_bonus_fed,(setter)Depreciation_set_depr_bonus_fed,
 	PyDoc_STR("*float*: Federal bonus depreciation [%]\n\n**Constraints:**\nMIN=0,MAX=100\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
@@ -2556,7 +2583,10 @@ static PyGetSetDef Depreciation_getset[] = {
 	PyDoc_STR("*float*: State bonus depreciation 5-yr straight line [0/1]\n\n**Constraints:**\nBOOLEAN\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
  	NULL},
 {"depr_custom_schedule", (getter)Depreciation_get_depr_custom_schedule,(setter)Depreciation_set_depr_custom_schedule,
-	PyDoc_STR("*sequence*: Custom depreciation schedule [%]\n\n**Required:**\nTrue"),
+	PyDoc_STR("*sequence*: Custom depreciation schedule [%]"),
+ 	NULL},
+{"depr_en_basis_mat", (getter)Depreciation_get_depr_en_basis_mat,(setter)Depreciation_set_depr_en_basis_mat,
+	PyDoc_STR("*float*: Enable Depreciation Basis Matrix [0/1]\n\n**Constraints:**\nBOOLEAN\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
  	NULL},
 {"depr_fedbas_method", (getter)Depreciation_get_depr_fedbas_method,(setter)Depreciation_set_depr_fedbas_method,
 	PyDoc_STR("*float*: Method of federal depreciation reduction\n\n**Options:**\n0=5yr MACRS,1=Proportional\n\n**Constraints:**\nINTEGER,MIN=0,MAX=1\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
@@ -6344,7 +6374,7 @@ static PyGetSetDef LCOS_getset[] = {
 	PyDoc_STR("*float*: Net pre-tax cash battery salvage value [%]\n\n**Constraints:**\nMIN=0,MAX=100\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
  	NULL},
 {"battery_total_cost_lcos", (getter)LCOS_get_battery_total_cost_lcos,(setter)LCOS_set_battery_total_cost_lcos,
-	PyDoc_STR("*float*: Battery total investment cost [$]"),
+	PyDoc_STR("*float*: Battery total investment cost [$]\n\nThe value of the following variables depends on ``battery_total_cost_lcos``:\n\n\t - depr_alloc_custom_percent\n\t - depr_alloc_macrs_15_percent\n\t - depr_alloc_macrs_5_percent\n\t - depr_alloc_sl_15_percent\n\t - depr_alloc_sl_20_percent\n\t - depr_alloc_sl_39_percent\n\t - depr_alloc_sl_5_percent\n\t - depr_basis_mat\n"),
  	NULL},
 {"charge_w_sys_ec_ym", (getter)LCOS_get_charge_w_sys_ec_ym,(setter)LCOS_set_charge_w_sys_ec_ym,
 	PyDoc_STR("*sequence[sequence]*: Energy charge with system [$]"),
@@ -10400,7 +10430,7 @@ static PyGetSetDef Outputs_getset[] = {
 	PyDoc_STR("*float*: Total federal CBI reduction [$]"),
  	NULL},
 {"depr_fedbas_custom", (getter)Outputs_get_depr_fedbas_custom,(setter)0,
-	PyDoc_STR("*float*: Custom straight line federal depreciation basis [$]"),
+	PyDoc_STR("*float*: Custom federal depreciation basis [$]"),
  	NULL},
 {"depr_fedbas_first_year_bonus_custom", (getter)Outputs_get_depr_fedbas_first_year_bonus_custom,(setter)0,
 	PyDoc_STR("*float*: Custom straight line federal first year bonus depreciation [$]"),
@@ -11728,7 +11758,7 @@ static PyMethodDef MerchantplantModule_methods[] = {
 		{"new",             Merchantplant_new,         METH_VARARGS,
 				PyDoc_STR("new() -> Merchantplant")},
 		{"default",             Merchantplant_default,         METH_VARARGS,
-				PyDoc_STR("default(config) -> Merchantplant\n\nLoad defaults for the configuration ``config``. Available configurations are:\n\n		- *\"BiopowerMerchantPlant\"*\n\n		- *\"CustomGenerationBatteryMerchantPlant\"*\n\n		- *\"CustomGenerationProfileMerchantPlant\"*\n\n		- *\"DSLFMerchantPlant\"*\n\n		- *\"EmpiricalTroughMerchantPlant\"*\n\n		- *\"FlatPlatePVMerchantPlant\"*\n\n		- *\"GenericCSPSystemMerchantPlant\"*\n\n		- *\"GeothermalPowerMerchantPlant\"*\n\n		- *\"HighXConcentratingPVMerchantPlant\"*\n\n		- *\"MSLFMerchantPlant\"*\n\n		- *\"MSPTMerchantPlant\"*\n\n		- *\"PVBatteryMerchantPlant\"*\n\n		- *\"PVWattsMerchantPlant\"*\n\n		- *\"PhysicalTroughMerchantPlant\"*\n\n		- *\"StandaloneBatteryMerchantPlant\"*\n\n		- *\"WindPowerMerchantPlant\"*\n\n.. note::\n\n	Some inputs do not have default values and may be assigned a value from the variable's **Required** attribute. See variable attribute descriptions below.")},
+				PyDoc_STR("default(config) -> Merchantplant\n\nLoad defaults for the configuration ``config``. Available configurations are:\n\n		- *\"BiopowerMerchantPlant\"*\n\n		- *\"CustomGenerationBatteryMerchantPlant\"*\n\n		- *\"CustomGenerationProfileMerchantPlant\"*\n\n		- *\"DSLFMerchantPlant\"*\n\n		- *\"EmpiricalTroughMerchantPlant\"*\n\n		- *\"FlatPlatePVMerchantPlant\"*\n\n		- *\"GenericCSPSystemMerchantPlant\"*\n\n		- *\"GeothermalPowerMerchantPlant\"*\n\n		- *\"HighXConcentratingPVMerchantPlant\"*\n\n		- *\"MSLFMerchantPlant\"*\n\n		- *\"MSPTMerchantPlant\"*\n\n		- *\"PVBatteryMerchantPlant\"*\n\n		- *\"PVWattsBatteryMerchantPlant\"*\n\n		- *\"PVWattsMerchantPlant\"*\n\n		- *\"PhysicalTroughMerchantPlant\"*\n\n		- *\"StandaloneBatteryMerchantPlant\"*\n\n		- *\"WindPowerMerchantPlant\"*\n\n.. note::\n\n	Some inputs do not have default values and may be assigned a value from the variable's **Required** attribute. See variable attribute descriptions below.")},
 		{"wrap",             Merchantplant_wrap,         METH_VARARGS,
 				PyDoc_STR("wrap(ssc_data_t) -> Merchantplant\n\nLoad data from a PySSC object.\n\n.. warning::\n\n	Do not call PySSC.data_free on the ssc_data_t provided to ``wrap()``")},
 		{"from_existing",   Merchantplant_from_existing,        METH_VARARGS,

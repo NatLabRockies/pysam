@@ -10,6 +10,8 @@ import PySAM.Battery as battery
 from pympler.tracker import SummaryTracker
 from PySAM.PySSC import PySSC
 import PySAM.WaveFileReader as wavefile
+import PySAM.Hcpv as hcpv
+import PySAM.CustomGeneration as custom
 
 ssc = PySSC()
 
@@ -384,7 +386,12 @@ def assign_values(mod, i):
             continue
         default = os.path.basename(default).split('.')[0].split('_')[1]
         m = i.default(default)
-        if mod == "Pvsamv1" or mod == "Pvwattsv7" or mod == "Pvwattsv5" or mod =="Pvwattsv8":
+        if mod == "Pvsamv1" :
+            m.SolarResource.solar_resource_file = sf
+            m.SolarResource.use_wf_albedo = 0
+            m.SolarResource.albedo = (0.1,) * 12
+            m.Losses.use_snow_weather_file = 1
+        elif mod == "Pvwattsv7" or mod == "Pvwattsv5" or mod =="Pvwattsv8":
             m.SolarResource.solar_resource_file = sf
             m.SolarResource.use_wf_albedo = 0
             m.SolarResource.albedo = (0.1,) * 12
@@ -393,7 +400,7 @@ def assign_values(mod, i):
         elif mod == "Biomass":
             m.Biopower.file_name = sf
         elif mod == "Hcpv":
-            m.SolarResourceData.file_name = sf
+            m.SolarResourceInformation.file_name = sf
         elif mod == "Pvwattsv5Lifetime" or mod == "TcsdirectSteam" or mod == "Tcsiscc":
             m.Weather.solar_resource_file = sf
         elif "Physical" in mod:
@@ -401,7 +408,7 @@ def assign_values(mod, i):
         elif mod == "Windpower":
             m.Resource.wind_resource_filename = wf
         elif mod == "CustomGeneration":
-            m.Lifetime.generic_degradation = [0, ]
+            m.Lifetime.ac_degradation = [0, ]
         elif mod == "Grid":
             m.SystemOutput.gen = [1 for i in range(8760)]
             m.Lifetime.system_use_lifetime_output = 0
@@ -444,6 +451,7 @@ def assign_values(mod, i):
 
 def test_run_all():
     # only run test on first Python version to be built, since this test is very time consuming
+    print(f"\nRunning tests for PySAM modules...")
     minor_ver = sys.version_info[1]
     if minor_ver != 9:
         return
@@ -452,7 +460,8 @@ def test_run_all():
         "FresnelPhysical", "FresnelPhysicalIph",
         "LinearFresnelDsgIph", "MhkTidal", "MhkWave",
         "MsptIph",
-        "Pvsamv1", "Pvwattsv8", "Pvwattsv7", "Pvwattsv5", "TcsmoltenSalt", "Hcpv", "Swh", "CustomGeneration", "Grid",
+        "Pvsamv1", "Pvwattsv8", "Pvwattsv7", "Pvwattsv5", "TcsmoltenSalt", "Hcpv", "Swh", 
+        "CustomGeneration", "Grid",
         "TcsgenericSolar", "TcslinearFresnel", "TcstroughEmpirical",
         "TroughPhysical", "TroughPhysicalIph", "Windpower")
     for mod in techs:
@@ -463,7 +472,7 @@ def test_run_all():
 
 def test_ssc_exceptions():
     tests_passed = 0
-    
+
     pv = pvsamv1.default("FlatPlatePVSingleOwner")
     # Try to run the PV model without a valid weather file path - expect exception
     try:

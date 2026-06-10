@@ -17,6 +17,22 @@ The variables listed below are interdependent with other variables. If you chang
 
  - battery_total_cost_lcos
 
+ - depr_alloc_custom_percent
+
+ - depr_alloc_macrs_15_percent
+
+ - depr_alloc_macrs_5_percent
+
+ - depr_alloc_sl_15_percent
+
+ - depr_alloc_sl_20_percent
+
+ - depr_alloc_sl_39_percent
+
+ - depr_alloc_sl_5_percent
+
+ - depr_basis_mat
+
  - om_batt_nameplate
 
  - total_installed_cost

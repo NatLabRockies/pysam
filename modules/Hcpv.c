@@ -7,34 +7,34 @@
 
 
 /*
- * SolarResourceData Group
+ * SolarResourceInformation Group
  */ 
 
-static PyTypeObject SolarResourceData_Type;
+static PyTypeObject SolarResourceInformation_Type;
 
 static PyObject *
-SolarResourceData_new(SAM_Hcpv data_ptr)
+SolarResourceInformation_new(SAM_Hcpv data_ptr)
 {
-	PyObject* new_obj = SolarResourceData_Type.tp_alloc(&SolarResourceData_Type,0);
+	PyObject* new_obj = SolarResourceInformation_Type.tp_alloc(&SolarResourceInformation_Type,0);
 
-	VarGroupObject* SolarResourceData_obj = (VarGroupObject*)new_obj;
+	VarGroupObject* SolarResourceInformation_obj = (VarGroupObject*)new_obj;
 
-	SolarResourceData_obj->data_ptr = (SAM_table)data_ptr;
+	SolarResourceInformation_obj->data_ptr = (SAM_table)data_ptr;
 
 	return new_obj;
 }
 
-/* SolarResourceData methods */
+/* SolarResourceInformation methods */
 
 static PyObject *
-SolarResourceData_assign(VarGroupObject *self, PyObject *args)
+SolarResourceInformation_assign(VarGroupObject *self, PyObject *args)
 {
 	PyObject* dict;
 	if (!PyArg_ParseTuple(args, "O:assign", &dict)){
 		return NULL;
 	}
 
-	if (!PySAM_assign_from_dict(self->data_ptr, dict, "Hcpv", "SolarResourceData")){
+	if (!PySAM_assign_from_dict(self->data_ptr, dict, "Hcpv", "SolarResourceInformation")){
 		return NULL;
 	}
 
@@ -43,15 +43,15 @@ SolarResourceData_assign(VarGroupObject *self, PyObject *args)
 }
 
 static PyObject *
-SolarResourceData_replace(VarGroupObject *self, PyObject *args)
+SolarResourceInformation_replace(VarGroupObject *self, PyObject *args)
 {
 	PyObject* dict;
 	if (!PyArg_ParseTuple(args, "O:assign", &dict)){
 		return NULL;
 	}
-	PyTypeObject* tp = &SolarResourceData_Type;
+	PyTypeObject* tp = &SolarResourceInformation_Type;
 
-	if (!PySAM_replace_from_dict(tp, self->data_ptr, dict, "Hcpv", "SolarResourceData")){
+	if (!PySAM_replace_from_dict(tp, self->data_ptr, dict, "Hcpv", "SolarResourceInformation")){
 		return NULL;
 	}
 
@@ -60,47 +60,47 @@ SolarResourceData_replace(VarGroupObject *self, PyObject *args)
 }
 
 static PyObject *
-SolarResourceData_export(VarGroupObject *self, PyObject *args)
+SolarResourceInformation_export(VarGroupObject *self, PyObject *args)
 {
-	PyTypeObject* tp = &SolarResourceData_Type;
+	PyTypeObject* tp = &SolarResourceInformation_Type;
 	PyObject* dict = PySAM_export_to_dict((PyObject *) self, tp);
 	return dict;
 }
 
-static PyMethodDef SolarResourceData_methods[] = {
-		{"assign",            (PyCFunction)SolarResourceData_assign,  METH_VARARGS,
-			PyDoc_STR("assign(dict) -> None\n Assign attributes from dictionary, overwriting but not removing values.\n\n``SolarResourceData_vals = { var: val, ...}``")},
-		{"replace",            (PyCFunction)SolarResourceData_replace,  METH_VARARGS,
-			PyDoc_STR("replace(dict) -> None\n Replace attributes from dictionary, unassigning values not present in input ``dict``.\n\n``SolarResourceData_vals = { var: val, ...}``")},
-		{"export",            (PyCFunction)SolarResourceData_export,  METH_VARARGS,
+static PyMethodDef SolarResourceInformation_methods[] = {
+		{"assign",            (PyCFunction)SolarResourceInformation_assign,  METH_VARARGS,
+			PyDoc_STR("assign(dict) -> None\n Assign attributes from dictionary, overwriting but not removing values.\n\n``SolarResourceInformation_vals = { var: val, ...}``")},
+		{"replace",            (PyCFunction)SolarResourceInformation_replace,  METH_VARARGS,
+			PyDoc_STR("replace(dict) -> None\n Replace attributes from dictionary, unassigning values not present in input ``dict``.\n\n``SolarResourceInformation_vals = { var: val, ...}``")},
+		{"export",            (PyCFunction)SolarResourceInformation_export,  METH_VARARGS,
 			PyDoc_STR("export() -> dict\n Export attributes into dictionary.")},
 		{NULL,              NULL}           /* sentinel */
 };
 
 static PyObject *
-SolarResourceData_get_file_name(VarGroupObject *self, void *closure)
+SolarResourceInformation_get_file_name(VarGroupObject *self, void *closure)
 {
-	return PySAM_string_getter(SAM_Hcpv_SolarResourceData_file_name_sget, self->data_ptr);
+	return PySAM_string_getter(SAM_Hcpv_SolarResourceInformation_file_name_sget, self->data_ptr);
 }
 
 static int
-SolarResourceData_set_file_name(VarGroupObject *self, PyObject *value, void *closure)
+SolarResourceInformation_set_file_name(VarGroupObject *self, PyObject *value, void *closure)
 {
-	return PySAM_string_setter(value, SAM_Hcpv_SolarResourceData_file_name_sset, self->data_ptr);
+	return PySAM_string_setter(value, SAM_Hcpv_SolarResourceInformation_file_name_sset, self->data_ptr);
 }
 
-static PyGetSetDef SolarResourceData_getset[] = {
-{"file_name", (getter)SolarResourceData_get_file_name,(setter)SolarResourceData_set_file_name,
+static PyGetSetDef SolarResourceInformation_getset[] = {
+{"file_name", (getter)SolarResourceInformation_get_file_name,(setter)SolarResourceInformation_set_file_name,
 	PyDoc_STR("*str*: Weather file in TMY2, TMY3, EPW, or SMW.\n\n**Constraints:**\nLOCAL_FILE\n\n**Required:**\nTrue"),
  	NULL},
 	{NULL}  /* Sentinel */
 };
 
-static PyTypeObject SolarResourceData_Type = {
+static PyTypeObject SolarResourceInformation_Type = {
 		/* The ob_type field must be initialized in the module init function
 		 * to be portable to Windows without using C++. */
 		PyVarObject_HEAD_INIT(NULL, 0)
-		"Hcpv.SolarResourceData",             /*tp_name*/
+		"Hcpv.SolarResourceInformation",             /*tp_name*/
 		sizeof(VarGroupObject),          /*tp_basicsize*/
 		0,                          /*tp_itemsize*/
 		/* methods */
@@ -127,9 +127,9 @@ static PyTypeObject SolarResourceData_Type = {
 		0,                          /*tp_weaklistofnset*/
 		0,                          /*tp_iter*/
 		0,                          /*tp_iternext*/
-		SolarResourceData_methods,         /*tp_methods*/
+		SolarResourceInformation_methods,         /*tp_methods*/
 		0,                          /*tp_members*/
-		SolarResourceData_getset,          /*tp_getset*/
+		SolarResourceInformation_getset,          /*tp_getset*/
 		0,                          /*tp_base*/
 		0,                          /*tp_dict*/
 		0,                          /*tp_descr_get*/
@@ -1995,9 +1995,9 @@ newHcpvObject(void* data_ptr)
 
 	PySAM_TECH_ATTR()
 
-	PyObject* SolarResourceData_obj = SolarResourceData_new(self->data_ptr);
-	PyDict_SetItemString(attr_dict, "SolarResourceData", SolarResourceData_obj);
-	Py_DECREF(SolarResourceData_obj);
+	PyObject* SolarResourceInformation_obj = SolarResourceInformation_new(self->data_ptr);
+	PyDict_SetItemString(attr_dict, "SolarResourceInformation", SolarResourceInformation_obj);
+	Py_DECREF(SolarResourceInformation_obj);
 
 	PyObject* PVWatts_obj = PVWatts_new(self->data_ptr);
 	PyDict_SetItemString(attr_dict, "PVWatts", PVWatts_obj);
@@ -2118,9 +2118,9 @@ static PyMethodDef Hcpv_methods[] = {
 		{"execute",           (PyCFunction)Hcpv_execute,  METH_VARARGS,
 				PyDoc_STR("execute(int verbosity) -> None\n Execute simulation with verbosity level 0 (default) or 1")},
 		{"assign",            (PyCFunction)Hcpv_assign,  METH_VARARGS,
-				PyDoc_STR("assign(dict) -> None\n Assign attributes from nested dictionary, except for Outputs\n\n``nested_dict = { 'SolarResourceData': { var: val, ...}, ...}``")},
+				PyDoc_STR("assign(dict) -> None\n Assign attributes from nested dictionary, except for Outputs\n\n``nested_dict = { 'SolarResourceInformation': { var: val, ...}, ...}``")},
 		{"replace",            (PyCFunction)Hcpv_replace,  METH_VARARGS,
-				PyDoc_STR("replace(dict) -> None\n Replace attributes from nested dictionary, except for Outputs. Unassigns all values in each Group then assigns from the input dict.\n\n``nested_dict = { 'SolarResourceData': { var: val, ...}, ...}``")},
+				PyDoc_STR("replace(dict) -> None\n Replace attributes from nested dictionary, except for Outputs. Unassigns all values in each Group then assigns from the input dict.\n\n``nested_dict = { 'SolarResourceInformation': { var: val, ...}, ...}``")},
 		{"export",            (PyCFunction)Hcpv_export,  METH_VARARGS,
 				PyDoc_STR("export() -> dict\n Export attributes into nested dictionary")},
 		{"value",             (PyCFunction)Hcpv_value, METH_VARARGS,
@@ -2310,12 +2310,12 @@ HcpvModule_exec(PyObject *m)
 	Hcpv_Type.tp_dict = PyDict_New();
 	if (!Hcpv_Type.tp_dict) { goto fail; }
 
-	/// Add the SolarResourceData type object to Hcpv_Type
-	if (PyType_Ready(&SolarResourceData_Type) < 0) { goto fail; }
+	/// Add the SolarResourceInformation type object to Hcpv_Type
+	if (PyType_Ready(&SolarResourceInformation_Type) < 0) { goto fail; }
 	PyDict_SetItemString(Hcpv_Type.tp_dict,
-				"SolarResourceData",
-				(PyObject*)&SolarResourceData_Type);
-	Py_DECREF(&SolarResourceData_Type);
+				"SolarResourceInformation",
+				(PyObject*)&SolarResourceInformation_Type);
+	Py_DECREF(&SolarResourceInformation_Type);
 
 	/// Add the PVWatts type object to Hcpv_Type
 	if (PyType_Ready(&PVWatts_Type) < 0) { goto fail; }

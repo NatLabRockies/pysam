@@ -102,11 +102,14 @@ def test_resourcefilefetcher():
                     tech='solar',
                     nrel_api_key=NREL_API_KEY,
                     nrel_api_email=NREL_API_EMAIL,
-                    resource_dir=resource_dir)
+                    resource_dir=resource_dir,
+                    resource_year='2024',
+                    resource_type='nsrdb-GOES-aggregated-v4-0-0')
     solarfetcher.fetch(lon_lats)
 
     # --- read csv and confirm dimensions ---
     solar_path_dict = solarfetcher.resource_file_paths_dict
+    print(solar_path_dict)
     solar_fp = solar_path_dict[lon_lats[0]]
     with open(solar_fp, mode='r') as f:
         reader = csv.DictReader(f)
@@ -119,7 +122,9 @@ def test_resourcefilefetcher():
                     tech='pv',
                     nrel_api_key=NREL_API_KEY,
                     nrel_api_email=NREL_API_EMAIL,
-                    resource_dir=resource_dir)
+                    resource_dir=resource_dir,
+                    resource_year='2024',
+                    resource_type='nsrdb-GOES-aggregated-v4-0-0')
     solarfetcher.fetch(lon_lats)
 
     # --- read csv and confirm dimensions ---

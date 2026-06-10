@@ -29,6 +29,24 @@ The variables listed below are interdependent with other variables. If you chang
 
  - cbi_uti_amount_heat_btu
 
+ - depr_alloc_custom_percent
+
+ - depr_alloc_macrs_15_percent
+
+ - depr_alloc_macrs_5_percent
+
+ - depr_alloc_sl_15_percent
+
+ - depr_alloc_sl_20_percent
+
+ - depr_alloc_sl_39_percent
+
+ - depr_alloc_sl_5_percent
+
+ - depr_basis_mat
+
+ - total_installed_cost
+
 Functions
 -----------
 
