@@ -54,7 +54,6 @@ jobs:
             7z x or-tools-$ORTOOLS_VER.zip
 
       - name: Checkout SAM
-        uses: actions/checkout@v3
         run: |
           cd ..
           git config --global url.https://github.com/.insteadOf git://github.com/
