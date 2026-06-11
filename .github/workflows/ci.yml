@@ -30,6 +30,7 @@ jobs:
           msbuild-architecture: x64
 
       - name: Set relative paths
+        shell: bash
         run: | 
             LKDIR=$GITHUB_WORKSPACE/lk
             echo "LKDIR=$LKDIR" >> $GITHUB_ENV
