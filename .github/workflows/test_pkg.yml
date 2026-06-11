@@ -1,7 +1,10 @@
 name: Test Package
 
-on: [ push ]
-
+#on: [ push ]
+on:
+  push:
+    branches: [ main, dev ]
+    
 jobs:
   build_1:
 
