@@ -21,9 +21,9 @@ jobs:
       NREL_API_EMAIL: ${{ secrets.NREL_API_EMAIL }}
 
     name: Add msbuild to PATH
-      uses: microsoft/setup-msbuild@v2
-      with:
-        msbuild-architecture: x64
+    uses: microsoft/setup-msbuild@v2
+    with:
+      msbuild-architecture: x64
 
     name: Set relative paths
       run: | 
