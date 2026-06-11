@@ -44,17 +44,17 @@ jobs:
 
     name: Download OR-Tools
     if: steps.cached-ortools-restore.outputs.cache-hit != 'true'
-      shell: bash
-      run: |
+    shell: bash
+    run: |
         curl -L https://github.com/google/or-tools/releases/download/v$ORTOOLS_VER/or-tools_x64_VisualStudio2022_cpp_v$ORTOOLS_VER.$ORTOOLS_RELEASE.zip -o or-tools-$ORTOOLS_VER.zip
         7z x or-tools-$ORTOOLS_VER.zip
 
     uses: actions/checkout@v3
     name: Checkout SAM
-      run: |
-        cd ..
-        git config --global url.https://github.com/.insteadOf git://github.com/
-        git clone https://github.com/natlabrockies/SAM.git
+    run: |
+      cd ..
+      git config --global url.https://github.com/.insteadOf git://github.com/
+      git clone https://github.com/natlabrockies/SAM.git
 
     name: ${{ matrix.os }} ${{ matrix.python-version }}
     steps:
