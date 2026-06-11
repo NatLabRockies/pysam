@@ -24,7 +24,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
           activate-environment: test-env
 #          environment-file: environment.yml # Optional: if you have a file
-          auto-activate-base: false
+          auto-activate: true
 
       - name: Verify Conda Installation
         run: |
