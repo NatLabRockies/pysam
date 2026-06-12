@@ -55,6 +55,9 @@ jobs:
             curl -L https://github.com/google/or-tools/releases/download/v$ORTOOLS_VER/or-tools_x64_VisualStudio2022_cpp_v$ORTOOLS_VER.$ORTOOLS_RELEASE.zip -o or-tools-$ORTOOLS_VER.zip
             7z x or-tools-$ORTOOLS_VER.zip
 
+      - name: Checkout pysam (current repo)
+        uses: actions/checkout@v3
+
       - name: Checkout SAM
         run: |
           cd ..
@@ -64,7 +67,7 @@ jobs:
       - name: Build SAM_api
         run: |
           cmake -G "Visual Studio 17 2022" -DCMAKE_CONFIGURATION_TYPES="Release" -DSAM_SKIP_TOOLS=1 -DSAM_SKIP_TESTS=1 -DSAM_SKIP_AUTOGEN=0 -DSAMAPI_EXPORT=1 -DUSE_XPRESS=0 -DUSE_COINOR=1 -DCMAKE_SYSTEM_VERSION=10.0 -DCMAKE_SYSTEM_PREFIX_PATH="${ORTOOLSDIR}" -Dabsl_DIR="${ORTOOLSDIR}\lib\cmake\absl" -Dutf8_range_DIR="${ORTOOLSDIR}\lib\cmake\utf8_range" -Dortools_DIR="${ORTOOLSDIR}\lib\cmake\ortools" ..
-          msbuild.exe /build Release system_advisor_model.sln /Project SAM_api
+          msbuild.exe /t:Build /p:Configuration=Release system_advisor_model.sln -target:SAM_api
 
 
       - name: Install conda 
@@ -80,9 +83,6 @@ jobs:
       - name: Conda list
         shell: pwsh
         run: conda list
-
-      - name: Checkout Repo
-        uses: actions/checkout@v3
 
       - name: Unit tests
         run: |
