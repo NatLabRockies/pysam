@@ -13,7 +13,7 @@ jobs:
 
     env: 
       BUILD_TYPE: Release
-      DEFAULT_BRANCH: develop
+      DEFAULT_BRANCH: 191-full-pysam-build-in-github-ci
       WX_VERSION: '3.2.8.1'
       ORTOOLS_VER: "9.14"
       ORTOOLS_RELEASE: "6206"
