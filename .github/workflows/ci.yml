@@ -64,7 +64,7 @@ jobs:
       - name: Checkout SAM
         run: |
           git config --global url.https://github.com/.insteadOf git://github.com/
-          git clone https://github.com/natlabrockies/SAM.git
+          git clone -b $DEFAULT_BRANCH https://github.com/natlabrockies/SAM.git
 
       - name: Build SAM_api
         run: |
