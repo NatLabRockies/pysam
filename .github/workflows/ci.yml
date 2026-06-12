@@ -60,7 +60,7 @@ jobs:
       - name: Checkout pysam (current repo)
         uses: actions/checkout@v3
 
-# use default branch 
+# use default branch - env variable does not work
       - name: Checkout SAM
         run: |
           git config --global url.https://github.com/.insteadOf git://github.com/
