@@ -8,7 +8,8 @@ jobs:
     strategy:
       matrix:
         os: [windows-latest]
-        python-version: [ '3.9', '3.10', '3.11', '3.12', '3.13', '3.14' ]
+        python-version: [ '3.9']
+#        python-version: [ '3.9', '3.10', '3.11', '3.12', '3.13', '3.14' ]
 
     env: 
       BUILD_TYPE: Release
@@ -60,6 +61,10 @@ jobs:
           git config --global url.https://github.com/.insteadOf git://github.com/
           git clone https://github.com/natlabrockies/SAM.git
 
+      - name: Build SAM_api
+        run: |
+          cmake -G "Visual Studio 17 2022" -DCMAKE_CONFIGURATION_TYPES="Release" -DSAM_SKIP_TOOLS=1 -DSAM_SKIP_TESTS=1 -DSAM_SKIP_AUTOGEN=0 -DSAMAPI_EXPORT=1 -DUSE_XPRESS=0 -DUSE_COINOR=1 -DCMAKE_SYSTEM_VERSION=10.0 -DCMAKE_SYSTEM_PREFIX_PATH="${ORTOOLSDIR}" -Dabsl_DIR="${ORTOOLSDIR}\lib\cmake\absl" -Dutf8_range_DIR="${ORTOOLSDIR}\lib\cmake\utf8_range" -Dortools_DIR="${ORTOOLSDIR}\lib\cmake\ortools" ..
+          msbuild.exe /build Release system_advisor_model.sln /Project SAM_api
 
 
       - name: Install conda 
