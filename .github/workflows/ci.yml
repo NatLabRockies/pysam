@@ -7,7 +7,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [windows-latest]
+#        os: [windows-latest] # note that windows-latest supports vs2026 not vs2022
+        os: [windows-2022]
         python-version: [ '3.9']
 #        python-version: [ '3.9', '3.10', '3.11', '3.12', '3.13', '3.14' ]
 
@@ -57,6 +58,132 @@ jobs:
             curl -L https://github.com/google/or-tools/releases/download/v$ORTOOLS_VER/or-tools_x64_VisualStudio2022_cpp_v$ORTOOLS_VER.$ORTOOLS_RELEASE.zip -o or-tools-$ORTOOLS_VER.zip
             7z x or-tools-$ORTOOLS_VER.zip
 
+      - name: Get cached build of wxWidgets
+        uses: actions/cache@v4
+        id: cachedwx
+        with:
+          path: ${{env.WXMSW3}}/
+          key: wxWidgets-${{ env.WX_VERSION }}-windows
+      - name: Download wxWidgets
+        if: steps.cachedwx.outputs.cache-hit != 'true'
+        shell: bash
+        run: |
+          curl -L https://github.com/wxWidgets/wxWidgets/releases/download/v$WX_VERSION/wxWidgets-$WX_VERSION.tar.bz2 -o wxWidgets-$WX_VERSION.tar.bz2
+          tar jxf wxWidgets-$WX_VERSION.tar.bz2
+      - name: Install wxWidgets
+        if: steps.cachedwx.outputs.cache-hit != 'true'
+        run: |
+          cd wxWidgets-$env:WX_VERSION
+          msbuild build/msw/wx_vc17.sln /t:Build /p:Configuration=Release /p:Platform=x64
+          mkdir $env:WXMSW3
+          cp -r include $env:WXMSW3
+          cp -r lib $env:WXMSW3
+
+      - name: Get branch name for pull request
+        shell: bash
+        if: ${{ github.event_name == 'pull_request' }}
+        run:  |
+          echo "GIT_BRANCH=${{ github.head_ref }}" >> $GITHUB_ENV
+          echo "DEFAULT_BRANCH=$GITHUB_BASE_REF" >> $GITHUB_ENV
+      - name: Get branch name for push
+        shell: bash
+        if: ${{ github.event_name == 'push' }}
+        run:  |
+          echo "GIT_BRANCH=${{ github.ref_name }}" >> $GITHUB_ENV
+      - name: Determine branches for other repos
+        continue-on-error: true
+        shell: bash {0}
+        run: |
+          echo "GITHUB_REPOSITORY_OWNER=${GITHUB_REPOSITORY_OWNER}" >> $GITHUB_ENV
+          git ls-remote --heads --exit-code https://github.com/${GITHUB_REPOSITORY_OWNER}/lk.git $GIT_BRANCH
+          if [[ $? != "0" ]]; then echo "LK_BRANCH=$DEFAULT_BRANCH" >> $GITHUB_ENV; else echo "LK_BRANCH=$GIT_BRANCH" >> $GITHUB_ENV; fi
+          git ls-remote --heads --exit-code https://github.com/${GITHUB_REPOSITORY_OWNER}/wex.git $GIT_BRANCH
+          if [[ $? != "0" ]]; then echo "WEX_BRANCH=$DEFAULT_BRANCH" >> $GITHUB_ENV; else echo "WEX_BRANCH=$GIT_BRANCH" >> $GITHUB_ENV; fi
+          git ls-remote --heads --exit-code https://github.com/${GITHUB_REPOSITORY_OWNER}/ssc.git $GIT_BRANCH
+          if [[ $? != "0" ]]; then echo "SSC_BRANCH=$DEFAULT_BRANCH" >> $GITHUB_ENV; else echo "SSC_BRANCH=$GIT_BRANCH" >> $GITHUB_ENV; fi
+      - name: Get git ref of sibling dependencies
+        shell: bash
+        run: |
+          ref=$(git ls-remote --exit-code https://github.com/NREL/lk.git refs/heads/$LK_BRANCH | awk '{print $1}')
+          echo "ref_of_lk=$ref" | tee --append $GITHUB_ENV
+          ref=$(git ls-remote --exit-code https://github.com/NREL/wex.git refs/heads/$WEX_BRANCH | awk '{print $1}')
+          echo "ref_of_wex=$ref" | tee --append $GITHUB_ENV
+          ref=$(git ls-remote --exit-code https://github.com/NREL/ssc.git refs/heads/$SSC_BRANCH | awk '{print $1}')
+          echo "ref_of_ssc=$ref" | tee --append $GITHUB_ENV
+
+      - name: Get cached build data of sibling dependency LK
+        uses: actions/cache@v4
+        id: cachedlk
+        with:
+          path: lk
+          key: windows-${{ env.ref_of_lk }}-LK
+      - name: Clone sibling dependency LK
+        if: steps.cachedlk.outputs.cache-hit != 'true'
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.ref_of_lk }}
+          path: lk
+          repository: NREL/lk
+      - name: Get cached build data of sibling dependency WEX
+        uses: actions/cache@v4
+        id: cachedwex
+        with:
+          path: wex
+          key: windows-${{ env.ref_of_wex }}-WEX
+      - name: Clone sibling dependency WEX
+        if: steps.cachedwex.outputs.cache-hit != 'true'
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.ref_of_wex }}
+          path: wex
+          repository: NREL/wex
+      - name: Get cached build data of sibling dependency SSC
+        uses: actions/cache@v4
+        id: cachedssc
+        with:
+          path: ssc
+          key: windows-${{ env.ref_of_ssc }}-SSC
+      - name: Clone sibling dependency SSC
+        if: steps.cachedssc.outputs.cache-hit != 'true'
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.ref_of_ssc }}
+          path: ssc
+          repository: NREL/ssc
+
+      - name: Build LK
+        if: steps.cachedlk.outputs.cache-hit != 'true'
+        run: |
+          cd lk
+          mkdir build
+          cd build
+          cmake .. -G "Visual Studio 17 2022" -DCMAKE_CONFIGURATION_TYPES="Release" -DCMAKE_SYSTEM_VERSION=10 -DSAM_SKIP_TOOLS=1
+          MSBuild.exe .\lk.sln /m /t:Build /p:Configuration=Release
+      - name: Build WEX
+        if: steps.cachedwex.outputs.cache-hit != 'true'
+        run: |
+          cd wex
+          mkdir build
+          cd build
+          cmake -G "Visual Studio 17 2022" -DCMAKE_CONFIGURATION_TYPES="Release" -DCMAKE_SYSTEM_VERSION=10 -DSAM_SKIP_TOOLS=1  ..
+          MSBuild.exe .\wex.sln /m /t:Build /p:Configuration=Release
+      - name: Configure SSC
+        shell: bash
+        if: steps.cachedssc.outputs.cache-hit != 'true'
+        run: |
+          cd ssc
+          mkdir build
+          cd build
+          cmake -G "Visual Studio 17 2022" -DCMAKE_CONFIGURATION_TYPES="Release"  -DSAM_SKIP_TESTS=1 -DSAMAPI_EXPORT=0 -DSAM_SKIP_TOOLS=1 -DUSE_XPRESS=0 -DUSE_COINOR=1 -DCMAKE_SYSTEM_VERSION=10.0 -DCMAKE_SYSTEM_PREFIX_PATH=${ORTOOLSDIR} -Dabsl_DIR=${ORTOOLSDIR}\lib\cmake\absl" -Dutf8_range_DIR=${ORTOOLSDIR}\lib\cmake\utf8_range"  ..
+      - name: Build SSC
+        if: steps.cachedssc.outputs.cache-hit != 'true'
+        run: |
+          cd ssc
+          cd build
+          MSBuild.exe ./sam_simulation_core.sln /m /t:Build /p:Configuration=Release
+
+
+
       - name: Checkout pysam (current repo)
         uses: actions/checkout@v3
 
@@ -68,11 +195,11 @@ jobs:
 
       - name: Build SAM_api # failing to configure for non-existent wxWidgets dependencies for SAM_api
         run: |
-          cd sam
+          cd sam/api/api_autogen
           mkdir build
           cd build
-          cmake -DCMAKE_CONFIGURATION_TYPES="Release" -DSAM_SKIP_TOOLS=1 -DSAM_SKIP_TESTS=1 -DSAM_SKIP_AUTOGEN=0 -DSAMAPI_EXPORT=1 -DUSE_XPRESS=0 -DUSE_COINOR=1 -DCMAKE_SYSTEM_VERSION=10.0 -DCMAKE_SYSTEM_PREFIX_PATH="${ORTOOLSDIR}" -Dabsl_DIR="${ORTOOLSDIR}\lib\cmake\absl" -Dutf8_range_DIR="${ORTOOLSDIR}\lib\cmake\utf8_range" -Dortools_DIR="${ORTOOLSDIR}\lib\cmake\ortools" ..
-          msbuild.exe system_advisor_model.sln -target:SAM_api /p:Configuration=Release 
+          cmake -G "Visual Studio 17 2022" -DCMAKE_BUILD_TYPE=Release ..
+          msbuild.exe .\export_config.vcxproj /m /t:Build /p:Configuration=Release
 
 
       - name: Install conda 

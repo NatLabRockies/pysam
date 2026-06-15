@@ -7397,6 +7397,18 @@ NonEnergyRevenue_set_non_energy_expenses(VarGroupObject *self, PyObject *value, 
 }
 
 static PyObject *
+NonEnergyRevenue_get_non_energy_expenses_ds(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Singleowner_NonEnergyRevenue_non_energy_expenses_ds_nget, self->data_ptr);
+}
+
+static int
+NonEnergyRevenue_set_non_energy_expenses_ds(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_Singleowner_NonEnergyRevenue_non_energy_expenses_ds_nset, self->data_ptr);
+}
+
+static PyObject *
 NonEnergyRevenue_get_non_energy_expenses_escal(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_Singleowner_NonEnergyRevenue_non_energy_expenses_escal_nget, self->data_ptr);
@@ -7433,6 +7445,18 @@ NonEnergyRevenue_set_non_energy_revenue(VarGroupObject *self, PyObject *value, v
 }
 
 static PyObject *
+NonEnergyRevenue_get_non_energy_revenue_ds(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Singleowner_NonEnergyRevenue_non_energy_revenue_ds_nget, self->data_ptr);
+}
+
+static int
+NonEnergyRevenue_set_non_energy_revenue_ds(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_Singleowner_NonEnergyRevenue_non_energy_revenue_ds_nset, self->data_ptr);
+}
+
+static PyObject *
 NonEnergyRevenue_get_non_energy_revenue_escal(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_Singleowner_NonEnergyRevenue_non_energy_revenue_escal_nget, self->data_ptr);
@@ -7466,6 +7490,9 @@ static PyGetSetDef NonEnergyRevenue_getset[] = {
 {"non_energy_expenses", (getter)NonEnergyRevenue_get_non_energy_expenses,(setter)NonEnergyRevenue_set_non_energy_expenses,
 	PyDoc_STR("*sequence*: Gross non-energy expenses [$]"),
  	NULL},
+{"non_energy_expenses_ds", (getter)NonEnergyRevenue_get_non_energy_expenses_ds,(setter)NonEnergyRevenue_set_non_energy_expenses_ds,
+	PyDoc_STR("*float*: Non-energy expenses impact debt service [%]\n\n**Required:**\nFalse. Automatically set to 1 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
 {"non_energy_expenses_escal", (getter)NonEnergyRevenue_get_non_energy_expenses_escal,(setter)NonEnergyRevenue_set_non_energy_expenses_escal,
 	PyDoc_STR("*float*: Non-energy expenses escalation [%]\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
  	NULL},
@@ -7474,6 +7501,9 @@ static PyGetSetDef NonEnergyRevenue_getset[] = {
  	NULL},
 {"non_energy_revenue", (getter)NonEnergyRevenue_get_non_energy_revenue,(setter)NonEnergyRevenue_set_non_energy_revenue,
 	PyDoc_STR("*sequence*: Gross non-energy revenue [$]"),
+ 	NULL},
+{"non_energy_revenue_ds", (getter)NonEnergyRevenue_get_non_energy_revenue_ds,(setter)NonEnergyRevenue_set_non_energy_revenue_ds,
+	PyDoc_STR("*float*: Non-energy revenue available for debt service [%]\n\n**Required:**\nFalse. Automatically set to 1 if not assigned explicitly or loaded from defaults."),
  	NULL},
 {"non_energy_revenue_escal", (getter)NonEnergyRevenue_get_non_energy_revenue_escal,(setter)NonEnergyRevenue_set_non_energy_revenue_escal,
 	PyDoc_STR("*float*: Non-energy revenue escalation [%]\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
