@@ -170,36 +170,36 @@ jobs:
           cd build
           cmake -G "Visual Studio 17 2022" -DCMAKE_CONFIGURATION_TYPES="Release" -DCMAKE_SYSTEM_VERSION=10 -DSAM_SKIP_TOOLS=1  ..
           MSBuild.exe .\wex.sln /m /t:Build /p:Configuration=Release
-      - name: Configure SSC
-        shell: bash
-        if: steps.cachedssc.outputs.cache-hit != 'true'
-        run: |
-          cd ${SSCDIR}
-          mkdir build
-          cd build
-          cmake -G "Visual Studio 17 2022" -DCMAKE_CONFIGURATION_TYPES="Release"  -DSAM_SKIP_TESTS=1 -DSAMAPI_EXPORT=0 -DSAM_SKIP_TOOLS=1 -DUSE_XPRESS=0 -DUSE_COINOR=1 -DCMAKE_SYSTEM_VERSION=10.0 -DCMAKE_SYSTEM_PREFIX_PATH=${ORTOOLSDIR} -Dabsl_DIR=${ORTOOLSDIR}\lib\cmake\absl" -Dutf8_range_DIR=${ORTOOLSDIR}\lib\cmake\utf8_range"  ..
-      - name: Build SSC
-        if: steps.cachedssc.outputs.cache-hit != 'true'
-        run: |
-          cd $env::SSCDIR
-          cd build
-          MSBuild.exe ./sam_simulation_core.sln /m /t:Build /p:Configuration=Release
+#      - name: Configure SSC
+#        shell: bash
+#        if: steps.cachedssc.outputs.cache-hit != 'true'
+#        run: |
+#          cd ${SSCDIR}
+#          mkdir build
+#          cd build
+#          cmake -G "Visual Studio 17 2022" -DCMAKE_CONFIGURATION_TYPES="Release"  -DSAM_SKIP_TESTS=1 -DSAMAPI_EXPORT=0 -DSAM_SKIP_TOOLS=1 -DUSE_XPRESS=0 -DUSE_COINOR=1 -DCMAKE_SYSTEM_VERSION=10.0 -DCMAKE_SYSTEM_PREFIX_PATH=${ORTOOLSDIR} -Dabsl_DIR=${ORTOOLSDIR}\lib\cmake\absl" -Dutf8_range_DIR=${ORTOOLSDIR}\lib\cmake\utf8_range"  ..
+ #     - name: Build SSC
+ #       if: steps.cachedssc.outputs.cache-hit != 'true'
+ #       run: |
+ #         cd $env::SSCDIR
+ #         cd build
+ #         MSBuild.exe ./sam_simulation_core.sln /m /t:Build /p:Configuration=Release
 
 
 
 # use default branch - env variable does not work
-      - name: Checkout SAM
-        run: |
-          git config --global url.https://github.com/.insteadOf git://github.com/
-          git clone -b 191-full-pysam-build-in-github-ci https://github.com/natlabrockies/SAM.git
+#      - name: Checkout SAM
+#        run: |
+#          git config --global url.https://github.com/.insteadOf git://github.com/
+#          git clone -b 191-full-pysam-build-in-github-ci https://github.com/natlabrockies/SAM.git
 
-      - name: Build SAM_api # failing to configure for non-existent wxWidgets dependencies for SAM_api
-        run: |
-          cd sam/api/api_autogen
-          mkdir build
-          cd build
-          cmake -G "Visual Studio 17 2022" -DCMAKE_BUILD_TYPE=Release ..
-          msbuild.exe .\export_config.vcxproj /m /t:Build /p:Configuration=Release
+#      - name: Build SAM_api # failing to configure for non-existent wxWidgets dependencies for SAM_api
+#        run: |
+#          cd sam/api/api_autogen
+#          mkdir build
+#          cd build
+#          cmake -G "Visual Studio 17 2022" -DCMAKE_BUILD_TYPE=Release ..
+#          msbuild.exe .\export_config.vcxproj /m /t:Build /p:Configuration=Release
 
 
 #      - name: Install conda 
