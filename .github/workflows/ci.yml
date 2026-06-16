@@ -157,7 +157,7 @@ jobs:
       - name: Build LK
         if: steps.cachedlk.outputs.cache-hit != 'true'
         run: |
-          cd ${LKDIR}
+          cd /lk
           mkdir build
           cd build
           cmake .. -G "Visual Studio 17 2022" -DCMAKE_CONFIGURATION_TYPES="Release" -DCMAKE_SYSTEM_VERSION=10 -DSAM_SKIP_TOOLS=1
@@ -165,7 +165,7 @@ jobs:
       - name: Build WEX
         if: steps.cachedwex.outputs.cache-hit != 'true'
         run: |
-          cd ${WEXDIR}
+          cd /wex
           mkdir build
           cd build
           cmake -G "Visual Studio 17 2022" -DCMAKE_CONFIGURATION_TYPES="Release" -DCMAKE_SYSTEM_VERSION=10 -DSAM_SKIP_TOOLS=1  ..
@@ -174,14 +174,14 @@ jobs:
         shell: bash
         if: steps.cachedssc.outputs.cache-hit != 'true'
         run: |
-          cd ${SSCDIR}
+          cd /ssc
           mkdir build
           cd build
           cmake -G "Visual Studio 17 2022" -DCMAKE_CONFIGURATION_TYPES="Release"  -DSAM_SKIP_TESTS=1 -DSAMAPI_EXPORT=0 -DSAM_SKIP_TOOLS=1 -DUSE_XPRESS=0 -DUSE_COINOR=1 -DCMAKE_SYSTEM_VERSION=10.0 -DCMAKE_SYSTEM_PREFIX_PATH=${ORTOOLSDIR} -Dabsl_DIR=${ORTOOLSDIR}\lib\cmake\absl" -Dutf8_range_DIR=${ORTOOLSDIR}\lib\cmake\utf8_range"  ..
       - name: Build SSC
         if: steps.cachedssc.outputs.cache-hit != 'true'
         run: |
-          cd ssc
+          cd /ssc
           cd build
           MSBuild.exe ./sam_simulation_core.sln /m /t:Build /p:Configuration=Release
 
@@ -195,7 +195,7 @@ jobs:
 
       - name: Build SAM_api # failing to configure for non-existent wxWidgets dependencies for SAM_api
         run: |
-          cd sam/api/api_autogen
+          cd /sam/api/api_autogen
           mkdir build
           cd build
           cmake -G "Visual Studio 17 2022" -DCMAKE_BUILD_TYPE=Release ..
