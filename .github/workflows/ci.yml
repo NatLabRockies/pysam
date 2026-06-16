@@ -110,6 +110,9 @@ jobs:
           echo "ref_of_wex=$ref" | tee --append $GITHUB_ENV
           ref=$(git ls-remote --exit-code https://github.com/NREL/ssc.git refs/heads/$SSC_BRANCH | awk '{print $1}')
           echo "ref_of_ssc=$ref" | tee --append $GITHUB_ENV
+# needed for ssc and SAM/api/api_autogen post build events
+      - name: Checkout pysam (current repo)
+        uses: actions/checkout@v3
 
       - name: Get cached build data of sibling dependency LK
         uses: actions/cache@v4
@@ -154,7 +157,7 @@ jobs:
       - name: Build LK
         if: steps.cachedlk.outputs.cache-hit != 'true'
         run: |
-          cd lk
+          cd ${LKDIR}
           mkdir build
           cd build
           cmake .. -G "Visual Studio 17 2022" -DCMAKE_CONFIGURATION_TYPES="Release" -DCMAKE_SYSTEM_VERSION=10 -DSAM_SKIP_TOOLS=1
@@ -162,7 +165,7 @@ jobs:
       - name: Build WEX
         if: steps.cachedwex.outputs.cache-hit != 'true'
         run: |
-          cd wex
+          cd ${WEXDIR}
           mkdir build
           cd build
           cmake -G "Visual Studio 17 2022" -DCMAKE_CONFIGURATION_TYPES="Release" -DCMAKE_SYSTEM_VERSION=10 -DSAM_SKIP_TOOLS=1  ..
@@ -171,7 +174,7 @@ jobs:
         shell: bash
         if: steps.cachedssc.outputs.cache-hit != 'true'
         run: |
-          cd ssc
+          cd ${SSCDIR}
           mkdir build
           cd build
           cmake -G "Visual Studio 17 2022" -DCMAKE_CONFIGURATION_TYPES="Release"  -DSAM_SKIP_TESTS=1 -DSAMAPI_EXPORT=0 -DSAM_SKIP_TOOLS=1 -DUSE_XPRESS=0 -DUSE_COINOR=1 -DCMAKE_SYSTEM_VERSION=10.0 -DCMAKE_SYSTEM_PREFIX_PATH=${ORTOOLSDIR} -Dabsl_DIR=${ORTOOLSDIR}\lib\cmake\absl" -Dutf8_range_DIR=${ORTOOLSDIR}\lib\cmake\utf8_range"  ..
@@ -183,9 +186,6 @@ jobs:
           MSBuild.exe ./sam_simulation_core.sln /m /t:Build /p:Configuration=Release
 
 
-
-      - name: Checkout pysam (current repo)
-        uses: actions/checkout@v3
 
 # use default branch - env variable does not work
       - name: Checkout SAM
