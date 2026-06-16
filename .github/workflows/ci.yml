@@ -171,7 +171,6 @@ jobs:
           cmake -G "Visual Studio 17 2022" -DCMAKE_CONFIGURATION_TYPES="Release" -DCMAKE_SYSTEM_VERSION=10 -DSAM_SKIP_TOOLS=1  ..
           MSBuild.exe .\wex.sln /m /t:Build /p:Configuration=Release
       - name: Configure SSC
-#        shell: bash
         if: steps.cachedssc.outputs.cache-hit != 'true'
         run: |
           cd $env:SSCDIR
