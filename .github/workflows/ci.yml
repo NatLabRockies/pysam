@@ -41,7 +41,7 @@ jobs:
             SSCDIR=$GITHUB_WORKSPACE/ssc
             echo "SSCDIR=$SSCDIR" >> $GITHUB_ENV
             PYSAMDIR=$GITHUB_WORKSPACE/pysam
-            echo "SSCDIR=$PYSAMDIR" >> $GITHUB_ENV
+            echo "PYSAMDIR=$PYSAMDIR" >> $GITHUB_ENV
             RAPIDJSONDIR=$GITHUB_WORKSPACE/ssc
             echo "RAPIDJSONDIR=$RAPIDJSONDIR" >> $GITHUB_ENV
             SAMNTDIR=$GITHUB_WORKSPACE/sam
