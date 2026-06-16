@@ -189,3 +189,8 @@ def test_liion_sizing_high_tolerence():
     assert (model.BatterySystem.batt_power_charge_max_kwac == pytest.approx(1.1, 0.1))
     assert(model.BatterySystem.batt_current_discharge_max == pytest.approx(4.8, 0.1))
     assert(model.BatterySystem.batt_current_charge_max == pytest.approx(4.8, 0.1))
+
+def test_ssc_eqns_sizing_fcn():
+    model = batt.default("CustomGenerationBatteryResidential")
+    model.Size_battery(5, 13, 240)
+    #model.Size_battery(5, 13, 240, 0, 13, 100, 0.05)
