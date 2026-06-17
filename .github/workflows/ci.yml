@@ -188,6 +188,8 @@ jobs:
       - name: Configure SSC
         if: steps.cachedssc.outputs.cache-hit != 'true'
         run: |
+          echo "=== Content of ssc ==="
+          ls -R $env:SSCDIR
           cd $env:SSCDIR
           mkdir build
           cd build
