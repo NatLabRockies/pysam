@@ -34,21 +34,21 @@ jobs:
       - name: Set relative paths
         shell: bash
         run: | 
-            LKDIR=$GITHUB_WORKSPACE/lk
+            LKDIR=$GITHUB_WORKSPACE\\lk
             echo "LKDIR=$LKDIR" >> $GITHUB_ENV
-            WEXDIR=$GITHUB_WORKSPACE/wex
+            WEXDIR=$GITHUB_WORKSPACE\\wex
             echo "WEXDIR=$WEXDIR" >> $GITHUB_ENV
-            SSCDIR=$GITHUB_WORKSPACE/ssc
+            SSCDIR=$GITHUB_WORKSPACE\\ssc
             echo "SSCDIR=$SSCDIR" >> $GITHUB_ENV
-            PYSAMDIR=$GITHUB_WORKSPACE/pysam
+            PYSAMDIR=$GITHUB_WORKSPACE\\pysam
             echo "PYSAMDIR=$PYSAMDIR" >> $GITHUB_ENV
-            RAPIDJSONDIR=$GITHUB_WORKSPACE/ssc
+            RAPIDJSONDIR=$GITHUB_WORKSPACE\\ssc
             echo "RAPIDJSONDIR=$RAPIDJSONDIR" >> $GITHUB_ENV
-            SAMNTDIR=$GITHUB_WORKSPACE/sam
+            SAMNTDIR=$GITHUB_WORKSPACE\\sam
             echo "SAMNTDIR=$SAMNTDIR" >> $GITHUB_ENV
             WXMSW3=$HOME/wx-$WX_VERSION
             echo "WXMSW3=$WXMSW3" >> $GITHUB_ENV
-            ORTOOLSDIR=$GITHUB_WORKSPACE/or-tools_x64_VisualStudio2022_cpp_v$ORTOOLS_VER.$ORTOOLS_RELEASE
+            ORTOOLSDIR=$GITHUB_WORKSPACE\\or-tools_x64_VisualStudio2022_cpp_v$ORTOOLS_VER.$ORTOOLS_RELEASE
             echo "ORTOOLSDIR=$ORTOOLSDIR" >> $GITHUB_ENV
 
       - name: Download OR-Tools
@@ -195,7 +195,7 @@ jobs:
           mkdir build
           cd build
           echo "=== Content of lib/cmake/ortools ==="
-          ls -R ${ORTOOLSDIR}\lib\cmake
+          ls -R ${ORTOOLSDIR}\\lib\\cmake
           cmake -G "Visual Studio 17 2022" -DCMAKE_CONFIGURATION_TYPES="Release"  -DSAM_SKIP_TESTS=1 -DSAMAPI_EXPORT=0 -DSAM_SKIP_TOOLS=1 -DUSE_XPRESS=0 -DUSE_COINOR=1 -DCMAKE_SYSTEM_VERSION=10.0 -DCMAKE_SYSTEM_PREFIX_PATH=${ORTOOLSDIR} -Dortools_DIR=${ORTOOLSDIR}/lib/cmake/ortools -Dabsl_DIR=${ORTOOLSDIR}/lib/cmake/absl -Dutf8_range_DIR=${ORTOOLSDIR}/lib/cmake/utf8_range  ..      
 
       - name: Build SSC
