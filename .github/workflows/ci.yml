@@ -189,12 +189,12 @@ jobs:
         shell: bash
         if: steps.cachedssc.outputs.cache-hit != 'true'
         env:
-          CMAKE_PREFIX_PATH: ${{ github.workspace }}/or-tools_x64_VisualStudio2022_cpp_v$ORTOOLS_VER.$ORTOOLS_RELEASE
+          CMAKE_PREFIX_PATH: ${{ github.workspace }}/or-tools_x64_VisualStudio2022_cpp_v$ORTOOLS_VER.$ORTOOLS_RELEASE/lib/cmake
         run: |
           cd ${SSCDIR}
           mkdir build
           cd build
-          cmake -G "Visual Studio 17 2022" -DCMAKE_CONFIGURATION_TYPES="Release;Debug"  -DSAM_SKIP_TESTS=1 -DSAMAPI_EXPORT=0 -DSAM_SKIP_TOOLS=1 -DUSE_XPRESS=0 -DUSE_COINOR=1 -DCMAKE_SYSTEM_VERSION=10.0 -Dortools_DIR=${ORTOOLSDIR}\lib\cmake\ortools -Dabsl_DIR=${ORTOOLSDIR}\lib\cmake\absl" -Dutf8_range_DIR=${ORTOOLSDIR}\lib\cmake\utf8_range"  ..
+          cmake -G "Visual Studio 17 2022" -DCMAKE_CONFIGURATION_TYPES="Release"  -DSAM_SKIP_TESTS=1 -DSAMAPI_EXPORT=0 -DSAM_SKIP_TOOLS=1 -DUSE_XPRESS=0 -DUSE_COINOR=1 -DCMAKE_SYSTEM_VERSION=10.0 -Dortools_DIR=${ORTOOLSDIR}\lib\cmake\ortools -Dabsl_DIR=${ORTOOLSDIR}\lib\cmake\absl -Dutf8_range_DIR=${ORTOOLSDIR}\lib\cmake\utf8_range  ..
       - name: Build SSC
         if: steps.cachedssc.outputs.cache-hit != 'true'
         run: |
