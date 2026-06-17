@@ -58,6 +58,14 @@ jobs:
             curl -L https://github.com/google/or-tools/releases/download/v$ORTOOLS_VER/or-tools_x64_VisualStudio2022_cpp_v$ORTOOLS_VER.$ORTOOLS_RELEASE.zip -o or-tools-$ORTOOLS_VER.zip
             7z x or-tools-$ORTOOLS_VER.zip
 
+# Debugging - verify ortools path
+      - name: List files in folder
+        run: |
+          echo "=== Content of my-folder ==="
+          ls -R $env:ORTOOLSDIR
+
+
+
       - name: Get cached build of wxWidgets
         uses: actions/cache@v4
         id: cachedwx
