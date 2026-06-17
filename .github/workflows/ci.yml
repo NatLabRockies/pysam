@@ -58,7 +58,6 @@ jobs:
             curl -L https://github.com/google/or-tools/releases/download/v$ORTOOLS_VER/or-tools_x64_VisualStudio2022_cpp_v$ORTOOLS_VER.$ORTOOLS_RELEASE.zip -o or-tools-$ORTOOLS_VER.zip
             7z x or-tools-$ORTOOLS_VER.zip
 
-# Debugging - verify ortools path
       - name: List files in folder
         run: |
           echo "=== Content of my-folder ==="
@@ -148,19 +147,19 @@ jobs:
           ref: ${{ env.ref_of_wex }}
           path: wex
           repository: NREL/wex
-#      - name: Get cached build data of sibling dependency SSC
-#        uses: actions/cache@v4
-#        id: cachedssc
-#        with:
-#          path: ssc
-#          key: windows-${{ env.ref_of_ssc }}-SSC
-#      - name: Clone sibling dependency SSC
-#        if: steps.cachedssc.outputs.cache-hit != 'true'
-#        uses: actions/checkout@v4
-#        with:
-#          ref: ${{ env.ref_of_ssc }}
-#          path: ssc
-#          repository: NREL/ssc
+      - name: Get cached build data of sibling dependency SSC
+        uses: actions/cache@v4
+        id: cachedssc
+        with:
+          path: ssc
+          key: windows-${{ env.ref_of_ssc }}-SSC
+      - name: Clone sibling dependency SSC
+        if: steps.cachedssc.outputs.cache-hit != 'true'
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.ref_of_ssc }}
+          path: ssc
+          repository: NREL/ssc
 
       - name: Build LK
         if: steps.cachedlk.outputs.cache-hit != 'true'
@@ -179,17 +178,14 @@ jobs:
           cmake -G "Visual Studio 17 2022" -DCMAKE_CONFIGURATION_TYPES="Release" -DCMAKE_SYSTEM_VERSION=10 -DSAM_SKIP_TOOLS=1  ..
           MSBuild.exe .\wex.sln /m /t:Build /p:Configuration=Release
 
-      #testing since git checkout is returning a detached head in log files    
-      - name: Checkout ssc
+      - name: List files in ortools cmake
         run: |
-          git config --global url.https://github.com/.insteadOf git://github.com/
-          git clone -b develop https://github.com/natlabrockies/ssc.git
+          echo "=== Content of my-folder ==="
+          ls -R $env:ORTOOLSDIR\lib\cmake
 
       - name: Configure SSC
         if: steps.cachedssc.outputs.cache-hit != 'true'
         run: |
-          echo "=== Content of lib/cmake/ortools ==="
-          ls -R $env:ORTOOLSDIR
           cd $env:SSCDIR
           mkdir build
           cd build
