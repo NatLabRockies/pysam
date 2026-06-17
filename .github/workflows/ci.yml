@@ -190,8 +190,6 @@ jobs:
         run: |
           echo "=== Content of lib/cmake/ortools ==="
           ls -R $env:ORTOOLSDIR
-#          echo "=== Content of ssc ==="
-#          ls -R $env:SSCDIR
           cd $env:SSCDIR
           mkdir build
           cd build
