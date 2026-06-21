@@ -182,7 +182,7 @@ jobs:
         run: |
           echo "=== Content of lib\cmake\ortools ==="
           ls -R $env:ORTOOLSDIR\lib\cmake\ortools
-
+          echo "checking branch of ssc 191-full-pysam-build-in-github-ci"
           cd $env:SSCDIR
           mkdir build
           cd build
