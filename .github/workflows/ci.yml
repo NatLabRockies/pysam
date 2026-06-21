@@ -180,6 +180,9 @@ jobs:
       - name: Configure SSC
         if: steps.cachedssc.outputs.cache-hit != 'true'
         run: |
+          echo "=== Content of my-folder ==="
+          ls -R $env:ORTOOLSDIR\lib\cmake
+
           cd $env:SSCDIR
           mkdir build
           cd build
