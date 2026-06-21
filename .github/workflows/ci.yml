@@ -107,6 +107,12 @@ jobs:
       - name: Checkout pysam (current repo)
         uses: actions/checkout@v3
 
+      - name: create files folder in pysam for ssc
+        run: |
+          cd $env:PYSAMDIR
+          mkdir files
+
+
       - name: Get cached build data of sibling dependency LK
         uses: actions/cache@v4
         id: cachedlk
