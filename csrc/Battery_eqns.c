@@ -74,10 +74,16 @@ static PyObject* Size_battery(PyObject *self, PyObject *args, PyObject *keywds)
     double module_capacity = -1.;
     double module_surface_area = -1.;
     double tol = 0.05;
+    double batt_cell_power_discharge_max = 0.;
+    double batt_cell_power_charge_max = 0.;
+    double batt_cell_current_discharge_max = 0.;
+    double batt_cell_current_charge_max = 0.;
 
-    if (!PyArg_ParseTupleAndKeywords(args, keywds, "ddd|iddd", kwlist,
+    if (!PyArg_ParseTupleAndKeywords(args, keywds, "ddd|iddddddd", kwlist,
                                      &desired_power, &desired_capacity, &desired_voltage, &size_by_ac_not_dc,
-                                     &module_capacity, &module_surface_area, &tol))
+                                     &module_capacity, &module_surface_area, &tol,
+                                     &batt_cell_power_discharge_max, &batt_cell_power_charge_max,
+                                     &batt_cell_current_discharge_max, &batt_cell_current_charge_max))
         return NULL;
 
     CmodObject* self_obj = (CmodObject*)self;
@@ -91,6 +97,10 @@ static PyObject* Size_battery(PyObject *self, PyObject *args, PyObject *keywds)
     SAM_table_set_num(data, "module_capacity", module_capacity, NULL);
     SAM_table_set_num(data, "module_surface_area", module_surface_area, NULL);
     SAM_table_set_num(data, "tol", tol, NULL);
+    SAM_table_set_num(data, "batt_cell_power_discharge_max", batt_cell_power_discharge_max, NULL);
+    SAM_table_set_num(data, "batt_cell_power_charge_max", batt_cell_power_charge_max, NULL);
+    SAM_table_set_num(data, "batt_cell_current_discharge_max", batt_cell_current_discharge_max, NULL);
+    SAM_table_set_num(data, "batt_cell_current_charge_max", batt_cell_current_charge_max, NULL);
 
     SAM_error error = new_error();
 
@@ -109,5 +119,9 @@ static PyObject* Size_battery(PyObject *self, PyObject *args, PyObject *keywds)
     SAM_table_unassign_entry(data, "module_capacity", NULL);
     SAM_table_unassign_entry(data, "module_surface_area", NULL);
     SAM_table_unassign_entry(data, "tol", NULL);
+    SAM_table_unassign_entry(data, "batt_cell_power_discharge_max", NULL);
+    SAM_table_unassign_entry(data, "batt_cell_power_charge_max", NULL);
+    SAM_table_unassign_entry(data, "batt_cell_current_discharge_max", NULL);
+    SAM_table_unassign_entry(data, "batt_cell_current_charge_max", NULL);
     return Py_None;
 }

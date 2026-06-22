@@ -678,9 +678,11 @@ class Singleowner(object):
 		energy_expenses_ret = tuple
 		energy_revenue_ret = tuple
 		non_energy_expenses = tuple
+		non_energy_expenses_ds = float
 		non_energy_expenses_escal = float
 		non_energy_expenses_ret = tuple
 		non_energy_revenue = tuple
+		non_energy_revenue_ds = float
 		non_energy_revenue_escal = float
 		non_energy_revenue_ret = tuple
 

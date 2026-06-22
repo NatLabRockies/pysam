@@ -28,6 +28,8 @@ class Battery(object):
 
 	def Reopt_size_standalone_battery_post(self, args):
 		pass
+	def Size_battery(self, args):
+		pass
 	class Simulation(object):
 		def assign(self, dict): 
 			pass
