@@ -65,7 +65,8 @@ char Size_battery_doc[] =
 static PyObject* Size_battery(PyObject *self, PyObject *args, PyObject *keywds)
 {
 
-    static char *kwlist[] = {"desired_power", "desired_capacity", "desired_voltage", "size_by_ac_not_dc", "module_capacity", "module_surface_area", "tol", NULL};
+    static char *kwlist[] = {"desired_power", "desired_capacity", "desired_voltage", "size_by_ac_not_dc", "module_capacity", "module_surface_area", "tol", "batt_cell_power_discharge_max", "batt_cell_power_charge_max",
+                                     "batt_cell_current_discharge_max", "batt_cell_current_charge_max", NULL};
 
     double desired_power;
     double desired_capacity;

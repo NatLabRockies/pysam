@@ -22,7 +22,7 @@ if errorlevel 1 (
     exit /b %errorlevel%
 )
 
-FOR %%i IN (pysam_build_3.9 pysam_build_3.10 pysam_build_3.11, pysam_build_3.12 pysam_build_3.13 pysam_build_3.14) DO (
+FOR %%i IN (pysam_ssc_eqns_test) DO (
 	call conda deactivate
     call conda activate %%i
     echo y | pip install -r tests/requirements.txt

@@ -193,4 +193,23 @@ def test_liion_sizing_high_tolerence():
 def test_ssc_eqns_sizing_fcn():
     model = batt.default("CustomGenerationBatteryResidential")
     model.Size_battery(5, 13, 240)
-    #model.Size_battery(5, 13, 240, 0, 13, 100, 0.05)
+
+    assert (model.BatterySystem.batt_computed_bank_capacity == pytest.approx(13, 0.1))
+    assert (model.BatterySystem.batt_power_discharge_max_kwdc == pytest.approx(5, 0.1))
+    assert (model.BatterySystem.batt_computed_strings == pytest.approx(23, 1))
+    assert (model.BatterySystem.batt_computed_series == pytest.approx(61, 1))
+
+def test_ssc_eqns_sizing_fcn_flow_battery():
+    model = batt.default("CustomGenerationBatteryCommercial")
+    model.BatteryCell.batt_chem = 2
+    model.BatterySystem.batt_current_choice = 1
+    model.Size_battery(100, 400, 500, batt_cell_current_discharge_max=200, batt_cell_current_charge_max=200)
+
+    assert (model.BatterySystem.batt_computed_bank_capacity == pytest.approx(400, 0.1))
+    assert (model.BatterySystem.batt_power_discharge_max_kwdc == pytest.approx(100, 0.1))
+    assert (model.BatterySystem.batt_computed_strings == pytest.approx(1, 1))
+    assert (model.BatterySystem.batt_computed_series == pytest.approx(358, 1))
+    assert(model.BatterySystem.batt_current_discharge_max == pytest.approx(200, 0.1))
+    assert(model.BatterySystem.batt_current_charge_max == pytest.approx(200, 0.1))
+    assert(model.BatterySystem.batt_power_discharge_max_kwdc == pytest.approx(100, 0.1))
+    assert(model.BatterySystem.batt_power_charge_max_kwdc == pytest.approx(100, 0.1))
