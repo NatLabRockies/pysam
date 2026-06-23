@@ -1,3 +1,4 @@
+from asyncio.windows_events import NULL
 from typing import Union
 import math
 
@@ -80,81 +81,39 @@ def size_battery(model, desired_power, desired_capacity, desired_voltage, size_b
     if type(model) != Batt.Battery and type(model) != PVBatt.Pvsamv1:
         raise TypeError
 
-    #
-    # calculate size
-    #
-    sizing_inputs = dict()
-
-    original_capacity = model.value('batt_computed_bank_capacity')
-    chem = int(model.BatteryCell.batt_chem)
-
-    # lead acid specific parameters, reuse them if new ones aren't provided
-    if chem == 0:
-        string_cap_ratio = model.BatterySystem.batt_computed_strings * model.BatteryCell.batt_Qfull * 0.01
-        leadacid_q10 = model.BatteryCell.LeadAcid_q10_computed
-        leadacid_q20 = model.BatteryCell.LeadAcid_q20_computed
-        leadacid_qn = model.BatteryCell.LeadAcid_qn_computed
-        leadacid_tn = model.BatteryCell.LeadAcid_tn
-        sizing_inputs['LeadAcid_q10'] = leadacid_q10
-        sizing_inputs['LeadAcid_q20'] = leadacid_q20
-        sizing_inputs['LeadAcid_qn'] = leadacid_qn
-        sizing_inputs['LeadAcid_tn'] = leadacid_tn
-
-    input_names = ('batt_chem', 'batt_Qfull', 'batt_Vnom_default', 'batt_ac_or_dc',
-                   'batt_dc_ac_efficiency', 'batt_dc_dc_efficiency')
-
-    for name in input_names:
-        sizing_inputs[name] = model.value(name)
-
-    sizing_inputs['desired_power'] = desired_power
-    sizing_inputs['desired_capacity'] = desired_capacity
-    sizing_inputs['desired_voltage'] = desired_voltage
-    if size_by_ac_not_dc is not None:
-        sizing_inputs['size_by_ac_not_dc'] = size_by_ac_not_dc
+    result = NULL
+    if module_dict is not None and size_by_ac_not_dc is not None:
+        result =model.Size_battery(desired_power, desired_capacity, desired_voltage, size_by_ac_not_dc=size_by_ac_not_dc, module_capacity=module_dict['capacity'], module_surface_area=module_dict['surface_area'], tol=tol)
+    elif module_dict is not None:
+        result = model.Size_battery(desired_power, desired_capacity, desired_voltage, module_capacity=module_dict['capacity'], module_surface_area=module_dict['surface_area'], tol=tol)
+    elif size_by_ac_not_dc is not None:
+        result = model.Size_battery(desired_power, desired_capacity, desired_voltage, size_by_ac_not_dc=size_by_ac_not_dc, tol=tol)
     else:
-        sizing_inputs['size_by_ac_not_dc'] = sizing_inputs['batt_ac_or_dc']
+        result = model.Size_battery(desired_power, desired_capacity, desired_voltage, tol=tol)
 
-    if not sizing_inputs['batt_ac_or_dc']:
-        inv_model = int(model.Inverter.inverter_model)
-        if inv_model == 0:
-            sizing_inputs['inverter_eff'] = model.Inverter.inv_snl_eff_cec
-        elif inv_model == 1:
-            sizing_inputs['inverter_eff'] = model.Inverter.inv_ds_eff
-        elif inv_model == 2:
-            sizing_inputs['inverter_eff'] = model.Inverter.inv_pd_eff
-        elif inv_model == 3:
-            sizing_inputs['inverter_eff'] = model.Inverter.inv_cec_cg_eff_cec
-        else:
-            raise ValueError
+    if result == NULL:
+        raise ValueError("Battery sizing failed. Check inputs and try again.")
 
-    sizing_outputs = calculate_battery_size(sizing_inputs, tol)
+    output_dict = {}
+    
+    # Note - these assume LiIon or Lead Acid. Need to rework for flow batteries. These were not implentened in 7.1.1, so need to update the function more generally if flow batteries are desired.
+    output_dict['voltage'] = model.BatteryCell.batt_Vnom_default * model.BatterySystem.batt_computed_series
+    output_dict['batt_computed_series'] = model.value('batt_computed_series')
+    output_dict['batt_computed_strings'] = model.value('batt_computed_strings')
+    if (model.BatterySystem.batt_ac_or_dc):
+        output_dict['power'] = model.value('batt_power_discharge_max_kwac')
+    else:
+        output_dict['power'] = model.value('batt_power_discharge_max_kwdc')
+    output_dict['batt_computed_bank_capacity'] = model.value('batt_computed_bank_capacity')
+    output_dict['time_capacity'] = output_dict['batt_computed_bank_capacity'] / output_dict['power']
+    output_dict['batt_power_discharge_max_kwdc'] = model.value('batt_power_discharge_max_kwdc')
+    output_dict['batt_power_charge_max_kwdc'] = model.value('batt_power_charge_max_kwdc')
+    output_dict['batt_current_charge_max'] = model.value('batt_current_charge_max')
+    output_dict['batt_current_discharge_max'] = model.value('batt_current_discharge_max')
+    output_dict['batt_power_discharge_max_kwac'] = model.value('batt_power_discharge_max_kwac')
+    output_dict['batt_power_charge_max_kwac'] = model.value('batt_power_charge_max_kwac')
 
-    computed_inputs = ('batt_computed_bank_capacity', 'batt_computed_series', 'batt_computed_strings',
-                       'batt_current_charge_max', 'batt_current_discharge_max', 'batt_power_charge_max_kwac',
-                       'batt_power_discharge_max_kwac', 'batt_power_charge_max_kwdc', 'batt_power_discharge_max_kwdc')
-
-    for name in computed_inputs:
-        model.value(name, sizing_outputs[name])
-
-    #
-    # calculate thermal
-    #
-    thermal_inputs = {
-        'mass': model.value('batt_mass'),
-        'surface_area': model.value('batt_surface_area'),
-        'original_capacity': original_capacity,
-        'desired_capacity': sizing_outputs['batt_computed_bank_capacity']
-    }
-    if module_dict is not None:
-        module_dict = {'module_'+k: v for k, v in module_dict.items()}
-        thermal_inputs.update(module_dict)
-
-    thermal_outputs = calculate_thermal_params(thermal_inputs)
-
-    model.value('batt_mass', thermal_outputs['mass'])
-    model.value('batt_surface_area', thermal_outputs['surface_area'])
-
-    return sizing_outputs.update(thermal_outputs)
+    return output_dict
 
 
 def size_batterystateful(model: BattStfl.BatteryStateful, _, desired_capacity, desired_voltage, module_dict=None):
