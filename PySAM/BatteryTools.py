@@ -81,18 +81,15 @@ def size_battery(model, desired_power, desired_capacity, desired_voltage, size_b
     if type(model) != Batt.Battery and type(model) != PVBatt.Pvsamv1:
         raise TypeError
 
-    result = NULL
+    # Note - Size_battery is capable of throwing a general Exception - should this be narrowed locally?
     if module_dict is not None and size_by_ac_not_dc is not None:
-        result =model.Size_battery(desired_power, desired_capacity, desired_voltage, size_by_ac_not_dc=size_by_ac_not_dc, module_capacity=module_dict['capacity'], module_surface_area=module_dict['surface_area'], tol=tol)
+        model.Size_battery(desired_power, desired_capacity, desired_voltage, size_by_ac_not_dc=size_by_ac_not_dc, module_capacity=module_dict['capacity'], module_surface_area=module_dict['surface_area'], tol=tol)
     elif module_dict is not None:
-        result = model.Size_battery(desired_power, desired_capacity, desired_voltage, module_capacity=module_dict['capacity'], module_surface_area=module_dict['surface_area'], tol=tol)
+        model.Size_battery(desired_power, desired_capacity, desired_voltage, module_capacity=module_dict['capacity'], module_surface_area=module_dict['surface_area'], tol=tol)
     elif size_by_ac_not_dc is not None:
-        result = model.Size_battery(desired_power, desired_capacity, desired_voltage, size_by_ac_not_dc=size_by_ac_not_dc, tol=tol)
+        model.Size_battery(desired_power, desired_capacity, desired_voltage, size_by_ac_not_dc=size_by_ac_not_dc, tol=tol)
     else:
-        result = model.Size_battery(desired_power, desired_capacity, desired_voltage, tol=tol)
-
-    if result == NULL:
-        raise ValueError("Battery sizing failed. Check inputs and try again.")
+        model.Size_battery(desired_power, desired_capacity, desired_voltage, tol=tol)
 
     output_dict = {}
     

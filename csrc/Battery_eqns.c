@@ -104,13 +104,30 @@ static PyObject* Size_battery(PyObject *self, PyObject *args, PyObject *keywds)
     SAM_table_set_num(data, "batt_cell_current_charge_max", batt_cell_current_charge_max, NULL);
 
     SAM_error error = new_error();
+    int success = 0;
 
-    PyObject* reopt_post_obj = NULL;
+    /* Ensure the key exists so the getter below does not raise on missing entry. */
+    SAM_table_set_string(data, "error", "", NULL);
+
     SAM_size_battery(data, &error);
 
-    if (PySAM_has_error(error)){
-        return NULL;
+    if (PySAM_has_error(error))
+        goto cleanup;
+
+    error = new_error();
+    const char* error_msg = SAM_table_get_string(data, "error", &error);
+    // First check if there were any runtime errors or exec errors
+    if (PySAM_has_error(error))
+        goto cleanup;
+
+    // Then check if ssc set an error message and returned gracefully
+    if (error_msg != NULL && error_msg[0] != '\0') {
+        PySAM_error_set_with_context(error_msg);
+        goto cleanup;
     }
+
+    success = 1;
+
 
     cleanup:
     SAM_table_unassign_entry(data, "desired_power", NULL);
@@ -124,5 +141,8 @@ static PyObject* Size_battery(PyObject *self, PyObject *args, PyObject *keywds)
     SAM_table_unassign_entry(data, "batt_cell_power_charge_max", NULL);
     SAM_table_unassign_entry(data, "batt_cell_current_discharge_max", NULL);
     SAM_table_unassign_entry(data, "batt_cell_current_charge_max", NULL);
-    return Py_None;
+    SAM_table_unassign_entry(data, "error", NULL);
+    if (!success)
+        return NULL;
+    Py_RETURN_TRUE;
 }
