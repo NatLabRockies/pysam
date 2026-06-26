@@ -156,6 +156,26 @@ def test_resourcefilefetcher():
         num_timesteps = 17520
         assert solar_csv.line_num == num_timesteps + 3
 
+    # --- test fetching using auto-resource code ---
+    solarfetcher = tools.FetchResourceFiles(
+                    tech='solar',
+                    nrel_api_key=NREL_API_KEY,
+                    nrel_api_email=NREL_API_EMAIL,
+                    resource_dir=resource_dir,
+                    resource_type='',
+                    resource_year='2018',
+                    resource_interval_min=30)
+    solarfetcher.fetch(lon_lats)
+
+    # --- read csv and confirm dimensions ---
+    solar_path_dict = solarfetcher.resource_file_paths_dict
+    solar_fp = solar_path_dict[lon_lats[0]]
+    with open(solar_fp, mode='r') as f:
+        solar_csv = csv.DictReader(f)
+        list(solar_csv)
+        num_timesteps = 17520
+        assert solar_csv.line_num == num_timesteps + 3
+
     # --- fetch solar tgy for 2018 from nsrdb-GOES-tmy-v4-0-0 ---
     solarfetcher = tools.FetchResourceFiles(
                     tech='solar',

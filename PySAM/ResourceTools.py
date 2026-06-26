@@ -320,6 +320,7 @@ class FetchResourceFiles():
         'nsrdb-GOES-conus-v4-0-0' for 5-, 15-, 30- or 60-minute single-year file in CONUS region
         'nsrdb-GOES-full-disc-v4-0-0' for 10-, 30- or 60-minute single-year file in GOES satellite coverage area
         'nsrdb-GOES-tmy-v4-0-0' for 60-minute TMY, TGY, or TDY typical-year file
+        '' for solar will automatically assign a relevant resource at the location
         '' for WIND Toolkit
 
     :param str resource_year: Data year, changes over time so check API documentation for latest information.
@@ -502,14 +503,59 @@ class FetchResourceFiles():
                     print('No URLS available for {}, {}.'.format(lat, lon))
                     return
                 ok = False
-                for output in outputs:
-                    if output['name'] == self.resource_type:
+                if self.resource_type == '':
+                    available_names = {}
+                    for i, dataset in enumerate(outputs):
+                        available_names[dataset['name']] = i
+                    
+                    dataset_name = None
+
+                    if self.resource_year == 'tmy':
+                        if 'nsrdb-polar-tmy-v4-0-0' in available_names:
+                            dataset_name = 'nsrdb-polar-tmy-v4-0-0'
+                        elif 'nsrdb-GOES-tmy-v4-0-0' in available_names:
+                            dataset_name = 'nsrdb-GOES-tmy-v4-0-0'
+                        elif 'himawari-tmy' in available_names:
+                            dataset_name = 'himawari-tmy'
+                        elif 'suny-india-tmy' in available_names:
+                            dataset_name = 'suny-india-tmy'
+                        elif 'nsrdb-msg-v1-0-0-tmy' in available_names:
+                            dataset_name = 'nsrdb-msg-v1-0-0-tmy'
+                    else:
+                        if 'nsrdb-polar-tmy-v4-0-0' in available_names:
+                            dataset_name = 'nsrdb-polar-tmy-v4-0-0'
+                        elif 'nsrdb-GOES-aggregated-v4-0-0' in available_names:
+                            dataset_name = 'nsrdb-GOES-aggregated-v4-0-0'
+                        elif 'himawari' in available_names:
+                            dataset_name = 'himawari'
+                        elif 'full-disc' in available_names:
+                            dataset_name = 'full-disc'
+                        elif 'msg-iodc' in available_names:
+                            dataset_name = 'msg-iodc'
+                    
+                    dataset_idx = available_names[dataset_name] if dataset_name is not None else -1
+                    
+
+                    if dataset_idx == -1:
+                        print('No URL available for {}, {}.'.format(lat, lon))
+                    else:
+                        output = outputs[dataset_idx]
                         for link in output['links']:
-                            if self.resource_year == str(link['year']) and self.resource_interval_min == link['interval']:
-                                ok = True
-                                data_url = link['link'].replace(
-                                    'yourapikey', self.nrel_api_key).replace(
-                                    'youremail', self.nrel_api_email) + '&utc=false'
+                                if self.resource_year == str(link['year']) and self.resource_interval_min == link['interval']:
+                                    ok = True
+                                    data_url = link['link'].replace(
+                                                'yourapikey', self.nrel_api_key).replace(
+                                                    'youremail', self.nrel_api_email) + '&utc=false'
+
+                else:
+                    for output in outputs:
+                        if output['name'] == self.resource_type:
+                            for link in output['links']:
+                                if self.resource_year == str(link['year']) and self.resource_interval_min == link['interval']:
+                                    ok = True
+                                    data_url = link['link'].replace(
+                                        'yourapikey', self.nrel_api_key).replace(
+                                        'youremail', self.nrel_api_email) + '&utc=false'
 
                 # --- Get data ---
                 if ok:

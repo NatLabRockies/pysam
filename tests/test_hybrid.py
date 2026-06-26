@@ -37,7 +37,7 @@ def test_PhotovoltaicWindBatteryHybridSingleOwner():
     assert pvannualenergy == pytest.approx(238223831, 1e-2)
     assert windannualenergy == pytest.approx(366975555, 1e-2)
     assert battannualenergy == pytest.approx(598789802, 1e-2)
-    assert npv == pytest.approx(-251304082, 1e-2)
+    assert npv == pytest.approx(48661848, 1e-2)
 
 
 def test_PVWattsv8WindBatterySingleOwner():

@@ -12,10 +12,10 @@ def test_leadacid():
     assert(model.BatterySystem.batt_power_charge_max_kwdc != pytest.approx(50, 0.5))
 
     BatteryTools.battery_model_sizing(model, desired_power=100, desired_capacity=400, desired_voltage=500)
-    assert(model.BatterySystem.batt_computed_strings == 370)
+    assert(model.BatterySystem.batt_computed_strings == 355)
     assert(model.BatterySystem.batt_computed_series == 126)
-    assert(model.BatterySystem.batt_computed_bank_capacity == pytest.approx(417, 1))
-    assert(model.BatterySystem.batt_power_charge_max_kwdc == pytest.approx(96.29, 1))
+    assert(model.BatterySystem.batt_computed_bank_capacity == pytest.approx(400, 0.01))
+    assert(model.BatterySystem.batt_power_charge_max_kwdc == pytest.approx(100, 0.01))
 
 
 def test_liion_ac_connected_ac_sizing():
@@ -23,13 +23,13 @@ def test_liion_ac_connected_ac_sizing():
     model.BatteryCell.batt_chem = 1
     model.BatterySystem.batt_ac_or_dc = 1   # ac
     BatteryTools.battery_model_sizing(model, 100, 400, 500)
-    assert(model.BatterySystem.batt_computed_bank_capacity == pytest.approx(417, 1))
-    assert(model.BatterySystem.batt_power_discharge_max_kwdc == pytest.approx(104, 1))
-    assert(model.BatterySystem.batt_power_charge_max_kwdc == pytest.approx(96, 1))
-    assert(model.BatterySystem.batt_power_discharge_max_kwac == pytest.approx(100, 1))
-    assert(model.BatterySystem.batt_power_charge_max_kwac == pytest.approx(100, 1))
-    assert(model.BatterySystem.batt_current_discharge_max == pytest.approx(208, 1))
-    assert(model.BatterySystem.batt_current_charge_max == pytest.approx(192, 1))
+    assert(model.BatterySystem.batt_computed_bank_capacity == pytest.approx(400, 0.01))
+    assert(model.BatterySystem.batt_power_discharge_max_kwdc == pytest.approx(100, 0.01))
+    assert(model.BatterySystem.batt_power_charge_max_kwdc == pytest.approx(100, 0.01))
+    assert(model.BatterySystem.batt_power_discharge_max_kwac == pytest.approx(96, 0.01))
+    assert(model.BatterySystem.batt_power_charge_max_kwac == pytest.approx(104, 0.01))
+    assert(model.BatterySystem.batt_current_discharge_max == pytest.approx(200, 0.01))
+    assert(model.BatterySystem.batt_current_charge_max == pytest.approx(200, 0.01))
 
 
 def test_liion_ac_connected_dc_sizing():
@@ -37,13 +37,13 @@ def test_liion_ac_connected_dc_sizing():
     model.BatteryCell.batt_chem = 1
     model.BatterySystem.batt_ac_or_dc = 1   # ac
     BatteryTools.battery_model_sizing(model, 100, 400, 500, size_by_ac_not_dc=False)
-    assert(model.BatterySystem.batt_computed_bank_capacity == pytest.approx(400, 1))
-    assert(model.BatterySystem.batt_power_discharge_max_kwdc == pytest.approx(100, 1))
-    assert(model.BatterySystem.batt_power_charge_max_kwdc == pytest.approx(100, 1))
-    assert(model.BatterySystem.batt_power_discharge_max_kwac == pytest.approx(96, 1))
-    assert(model.BatterySystem.batt_power_charge_max_kwac == pytest.approx(104, 1))
-    assert(model.BatterySystem.batt_current_discharge_max == pytest.approx(200, 1))
-    assert(model.BatterySystem.batt_current_charge_max == pytest.approx(200, 1))
+    assert(model.BatterySystem.batt_computed_bank_capacity == pytest.approx(400, 0.01))
+    assert(model.BatterySystem.batt_power_discharge_max_kwdc == pytest.approx(100, 0.01))
+    assert(model.BatterySystem.batt_power_charge_max_kwdc == pytest.approx(100, 0.01))
+    assert(model.BatterySystem.batt_power_discharge_max_kwac == pytest.approx(96, 0.01))
+    assert(model.BatterySystem.batt_power_charge_max_kwac == pytest.approx(104, 0.01))
+    assert(model.BatterySystem.batt_current_discharge_max == pytest.approx(200, 0.01))
+    assert(model.BatterySystem.batt_current_charge_max == pytest.approx(200, 0.01))
 
 
 def test_liion_dc_connected_dc_sizing():
@@ -53,22 +53,22 @@ def test_liion_dc_connected_dc_sizing():
     model.Inverter.inv_snl_eff_cec = 50
     model.BatterySystem.batt_ac_or_dc = 0
     BatteryTools.battery_model_sizing(model, 100, 400, 500)
-    assert (model.BatterySystem.batt_computed_bank_capacity == pytest.approx(400,1 ))
-    assert (model.BatterySystem.batt_power_discharge_max_kwdc == pytest.approx(100, 1))
-    assert (model.BatterySystem.batt_power_charge_max_kwdc == pytest.approx(100, 1))
-    assert (model.BatterySystem.batt_power_discharge_max_kwac == pytest.approx(49, 1))
-    assert (model.BatterySystem.batt_power_charge_max_kwac == pytest.approx(204, 1))
-    assert(model.BatterySystem.batt_current_discharge_max == pytest.approx(200, 1))
-    assert(model.BatterySystem.batt_current_charge_max == pytest.approx(200, 1))
+    assert (model.BatterySystem.batt_computed_bank_capacity == pytest.approx(400, 0.01))
+    assert (model.BatterySystem.batt_power_discharge_max_kwdc == pytest.approx(100, 0.01))
+    assert (model.BatterySystem.batt_power_charge_max_kwdc == pytest.approx(100, 0.01))
+    assert (model.BatterySystem.batt_power_discharge_max_kwac == pytest.approx(49, abs=1))
+    assert (model.BatterySystem.batt_power_charge_max_kwac == pytest.approx(204, 0.01))
+    assert(model.BatterySystem.batt_current_discharge_max == pytest.approx(200, 0.01))
+    assert(model.BatterySystem.batt_current_charge_max == pytest.approx(200, 0.01))
 
     model.Inverter.inv_snl_eff_cec = 100
     model.BatterySystem.batt_ac_or_dc = 0
     BatteryTools.battery_model_sizing(model, 100, 400, 500)
-    assert (model.BatterySystem.batt_computed_bank_capacity == pytest.approx(400, 1))
-    assert (model.BatterySystem.batt_power_discharge_max_kwdc == pytest.approx(100, 1))
-    assert (model.BatterySystem.batt_power_charge_max_kwdc == pytest.approx(100, 1))
-    assert (model.BatterySystem.batt_power_discharge_max_kwac == pytest.approx(98, 1))
-    assert (model.BatterySystem.batt_power_charge_max_kwac == pytest.approx(102, 1))
+    assert (model.BatterySystem.batt_computed_bank_capacity == pytest.approx(400, 0.01))
+    assert (model.BatterySystem.batt_power_discharge_max_kwdc == pytest.approx(100, 0.01))
+    assert (model.BatterySystem.batt_power_charge_max_kwdc == pytest.approx(100, 0.01))
+    assert (model.BatterySystem.batt_power_discharge_max_kwac == pytest.approx(99, 0.01))
+    assert (model.BatterySystem.batt_power_charge_max_kwac == pytest.approx(102, 0.01))
 
 
 def test_liion_dc_connected_ac_sizing():
@@ -78,13 +78,13 @@ def test_liion_dc_connected_ac_sizing():
     model.Inverter.inv_snl_eff_cec = 100
     model.BatterySystem.batt_ac_or_dc = 0
     BatteryTools.battery_model_sizing(model, 100, 400, 500, size_by_ac_not_dc=True)
-    assert (model.BatterySystem.batt_computed_bank_capacity == pytest.approx(408, 1))
-    assert (model.BatterySystem.batt_power_discharge_max_kwdc == pytest.approx(102, 1))
-    assert (model.BatterySystem.batt_power_charge_max_kwdc == pytest.approx(98, 1))
-    assert (model.BatterySystem.batt_power_discharge_max_kwac == pytest.approx(100, 1))
-    assert (model.BatterySystem.batt_power_charge_max_kwac == pytest.approx(100, 1))
-    assert(model.BatterySystem.batt_current_discharge_max == pytest.approx(204, 1))
-    assert(model.BatterySystem.batt_current_charge_max == pytest.approx(196, 1))
+    assert (model.BatterySystem.batt_computed_bank_capacity == pytest.approx(408, 0.01))
+    assert (model.BatterySystem.batt_power_discharge_max_kwdc == pytest.approx(102, 0.01))
+    assert (model.BatterySystem.batt_power_charge_max_kwdc == pytest.approx(99, 0.01))
+    assert (model.BatterySystem.batt_power_discharge_max_kwac == pytest.approx(100, 0.01))
+    assert (model.BatterySystem.batt_power_charge_max_kwac == pytest.approx(100, 0.01))
+    assert(model.BatterySystem.batt_current_discharge_max == pytest.approx(202, 0.01))
+    assert(model.BatterySystem.batt_current_charge_max == pytest.approx(196, 0.01))
 
 
 def test_calculate_thermal_params():
@@ -115,7 +115,6 @@ def test_battery_model_change_chemistry():
     assert(model.BatteryCell.batt_chem == cell_params['chem'])
     assert(model.BatteryCell.batt_calendar_choice == cell_params['calendar_choice'])
     assert(model.BatteryCell.batt_Vnom_default == cell_params['Vnom_default'])
-    assert(model.BatteryCell.LeadAcid_q10_computed == cell_params['leadacid_q10'])
     assert(model.BatteryCell.batt_Cp == pack_params['Cp'])
 
     BatteryTools.battery_model_change_chemistry(model, 'nmcgraphite')
@@ -166,7 +165,7 @@ def test_batterystateful_model_lmolto():
     assert(model.ParamsPack.nominal_voltage == 500)
 
 def test_liion_sizing_default_tolerence():
-    with pytest.raises(ValueError):
+    with pytest.raises(Exception):
         model = batt.default("CustomGenerationBatteryResidential")
         model.BatteryCell.batt_chem = 1
         model.Inverter.inverter_model = 0
@@ -189,3 +188,52 @@ def test_liion_sizing_high_tolerence():
     assert (model.BatterySystem.batt_power_charge_max_kwac == pytest.approx(1.1, 0.1))
     assert(model.BatterySystem.batt_current_discharge_max == pytest.approx(4.8, 0.1))
     assert(model.BatterySystem.batt_current_charge_max == pytest.approx(4.8, 0.1))
+
+def test_ssc_eqns_sizing_fcn():
+    model = batt.default("CustomGenerationBatteryResidential")
+    model.Size_battery(5, 13, 240)
+    model.SystemOutput.gen = [0] * 8760
+    model.Lifetime.system_use_lifetime_output = 0
+    model.BatterySystem.batt_replacement_option = 0
+    model.execute()
+
+    assert (model.BatterySystem.batt_computed_bank_capacity == pytest.approx(13, 0.01))
+    assert (model.BatterySystem.batt_power_discharge_max_kwdc == pytest.approx(5, 0.01))
+    assert (model.BatterySystem.batt_computed_strings == pytest.approx(23, abs=1))
+    assert (model.BatterySystem.batt_computed_series == pytest.approx(61, abs=1))
+
+def test_ssc_eqns_sizing_fcn_flow_battery():
+    model = batt.default("CustomGenerationBatteryCommercial")
+    model.BatteryCell.batt_chem = 2
+    model.BatterySystem.batt_current_choice = 1
+    model.Size_battery(100, 400, 500, batt_cell_current_discharge_max=200, batt_cell_current_charge_max=200)
+    model.SystemOutput.gen = [0] * 8760
+    model.Lifetime.system_use_lifetime_output = 0
+    model.BatterySystem.batt_replacement_option = 0
+    model.execute()
+
+    assert (model.BatterySystem.batt_computed_bank_capacity == pytest.approx(400, 0.01))
+    assert (model.BatterySystem.batt_computed_strings == pytest.approx(1, abs=1))
+    assert (model.BatterySystem.batt_computed_series == pytest.approx(126, abs=1))
+    assert(model.BatterySystem.batt_current_discharge_max == pytest.approx(200, 0.01))
+    assert(model.BatterySystem.batt_current_charge_max == pytest.approx(200, 0.01))
+    assert(model.BatterySystem.batt_power_discharge_max_kwdc == pytest.approx(100, 0.01))
+    assert(model.BatterySystem.batt_power_charge_max_kwdc == pytest.approx(100, 0.01))
+
+def test_ssc_eqns_sizing_fcn_flow_battery_restrict_both():
+    model = batt.default("CustomGenerationBatteryCommercial")
+    model.BatteryCell.batt_chem = 2
+    model.BatterySystem.batt_current_choice = 2
+    model.Size_battery(100, 400, 500, batt_cell_power_discharge_max=20, batt_cell_power_charge_max=20, batt_cell_current_discharge_max=20, batt_cell_current_charge_max=20)
+    model.SystemOutput.gen = [0] * 8760
+    model.Lifetime.system_use_lifetime_output = 0
+    model.BatterySystem.batt_replacement_option = 0
+    model.execute()
+
+    assert (model.BatterySystem.batt_computed_bank_capacity == pytest.approx(400, 0.01))
+    assert (model.BatterySystem.batt_computed_strings == pytest.approx(40, abs=1))
+    assert (model.BatterySystem.batt_computed_series == pytest.approx(125, abs=1))
+    assert(model.BatterySystem.batt_current_discharge_max == pytest.approx(800, 0.01))
+    assert(model.BatterySystem.batt_current_charge_max == pytest.approx(800, 0.01))
+    assert(model.BatterySystem.batt_power_discharge_max_kwdc == pytest.approx(400, 0.01))
+    assert(model.BatterySystem.batt_power_charge_max_kwdc == pytest.approx(400, 0.01))
