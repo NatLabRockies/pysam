@@ -554,7 +554,7 @@ Geothermal -- Merchant Plant
 
       Configuration name for defaults: *"GeothermalPowerMerchantPlant"*
 
-      :doc:`../modules/Geothermal`, :doc:`../modules/Grid`, :doc:`../modules/Utilityrate5`, :doc:`../modules/Merchantplant`
+      :doc:`../modules/Geothermal`, :doc:`../modules/Grid`, :doc:`../modules/Merchantplant`
 
 Geothermal -- No Financial Model
 ---------------------------------------------------------------------------------
@@ -572,7 +572,7 @@ Geothermal -- Partnership Flip with Debt
 
       Configuration name for defaults: *"GeothermalPowerLeveragedPartnershipFlip"*
 
-      :doc:`../modules/Geothermal`, :doc:`../modules/Grid`, :doc:`../modules/Utilityrate5`, :doc:`../modules/Levpartflip`
+      :doc:`../modules/Geothermal`, :doc:`../modules/Grid`, :doc:`../modules/Levpartflip`
 
 Geothermal -- Partnership Flip without Debt
 ---------------------------------------------------------------------------------
@@ -581,7 +581,7 @@ Geothermal -- Partnership Flip without Debt
 
       Configuration name for defaults: *"GeothermalPowerAllEquityPartnershipFlip"*
 
-      :doc:`../modules/Geothermal`, :doc:`../modules/Grid`, :doc:`../modules/Utilityrate5`, :doc:`../modules/Equpartflip`
+      :doc:`../modules/Geothermal`, :doc:`../modules/Grid`, :doc:`../modules/Equpartflip`
 
 Geothermal -- Sale Leaseback
 ---------------------------------------------------------------------------------
@@ -590,7 +590,7 @@ Geothermal -- Sale Leaseback
 
       Configuration name for defaults: *"GeothermalPowerSaleLeaseback"*
 
-      :doc:`../modules/Geothermal`, :doc:`../modules/Grid`, :doc:`../modules/Utilityrate5`, :doc:`../modules/Saleleaseback`
+      :doc:`../modules/Geothermal`, :doc:`../modules/Grid`, :doc:`../modules/Saleleaseback`
 
 Geothermal -- Single Owner
 ---------------------------------------------------------------------------------
@@ -599,7 +599,7 @@ Geothermal -- Single Owner
 
       Configuration name for defaults: *"GeothermalPowerSingleOwner"*
 
-      :doc:`../modules/Geothermal`, :doc:`../modules/Grid`, :doc:`../modules/Utilityrate5`, :doc:`../modules/Singleowner`
+      :doc:`../modules/Geothermal`, :doc:`../modules/Grid`, :doc:`../modules/Singleowner`
 
 High Concentration PV -- LCOE Calculator (FCR Method)
 ---------------------------------------------------------------------------------
@@ -1517,7 +1517,7 @@ Wave -- Single Owner
 
       Configuration name for defaults: *"MEwaveSingleOwner"*
 
-      :doc:`../modules/WaveFileReader`, :doc:`../modules/MhkWave`, :doc:`../modules/Grid`, :doc:`../modules/Utilityrate5`, :doc:`../modules/Singleowner`
+      :doc:`../modules/WaveFileReader`, :doc:`../modules/MhkWave`, :doc:`../modules/Grid`, :doc:`../modules/Singleowner`
 
 Wave Battery -- Single Owner
 ---------------------------------------------------------------------------------
