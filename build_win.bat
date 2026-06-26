@@ -32,21 +32,18 @@ IF NOT "%1"=="" (
 )
 if "%version%"=="3.9" (
      SET "python_version=pysam_build_3.9"
-)
-if "%version%"=="3.10" (
+) else if "%version%"=="3.10" (
     SET "python_version=pysam_build_3.10"
-)
-if "%version%"=="3.11" (
+) else if "%version%"=="3.11" (
     SET "python_version=pysam_build_3.11"
-)
-if "%version%"=="3.12" (
+) else if "%version%"=="3.12" (
     SET "python_version=pysam_build_3.12"
-)
-if "%version%"=="3.13" (
+) else if "%version%"=="3.13" (
     SET "python_version=pysam_build_3.13"
-)
-if "%version%"=="3.14" (
+) else if "%version%"=="3.14" (
     SET "python_version=pysam_build_3.14"
+) else if NOT "%version%"=="" (
+    SET "python_version=%version%"
 )
 
 ECHO python = %python_version%
