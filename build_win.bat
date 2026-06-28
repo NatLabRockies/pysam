@@ -10,6 +10,8 @@ REM e.g. build_win.bat -python=3.12 -tests=skip to build python 3.12 wheel and s
 REM e.g. build_win.bat -tests=skip to build python 3.9, 3.10,3.11, 3.12, 3.13, 3.14 wheels and skip running tests
 REM for each python version 3.n a conda environment named python_build_3.n is required
 REM e.g. for python 3.14, use conda create -n pysam_build_3.14 python=3.14 
+REM for custom conda environments, use -python="your conda environment"
+REM e.g. build_win.bat -python="myenv" to create using the conda environment "myenv"
 
 
 REM do not persist variables for subsequent runs
