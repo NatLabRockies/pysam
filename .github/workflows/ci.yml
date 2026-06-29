@@ -197,18 +197,18 @@ jobs:
 
 
 # use default branch - env variable does not work
-#      - name: Checkout SAM
-#        run: |
-#          git config --global url.https://github.com/.insteadOf git://github.com/
-#          git clone -b 191-full-pysam-build-in-github-ci https://github.com/natlabrockies/SAM.git
+      - name: Checkout SAM
+        run: |
+          git config --global url.https://github.com/.insteadOf git://github.com/
+          git clone -b 191-full-pysam-build-in-github-ci https://github.com/natlabrockies/SAM.git
 
 #      - name: Build SAM_api # failing to configure for non-existent wxWidgets dependencies for SAM_api
-#        run: |
-#          cd sam/api/api_autogen
-#          mkdir build
-#          cd build
-#          cmake -G "Visual Studio 17 2022" -DCMAKE_BUILD_TYPE=Release ..
-#          msbuild.exe .\export_config.vcxproj /m /t:Build /p:Configuration=Release
+        run: |
+          cd sam/api/api_autogen
+          mkdir build
+          cd build
+          cmake -G "Visual Studio 17 2022" -DCMAKE_BUILD_TYPE=Release ..
+          msbuild.exe .\export_config.vcxproj /m /t:Build /p:Configuration=Release
 
 
 #      - name: Install conda 
