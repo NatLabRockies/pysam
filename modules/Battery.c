@@ -6894,6 +6894,8 @@ static PyMethodDef Battery_methods[] = {
 				PyDoc_STR("get_data_ptr() -> Pointer\n Get ssc_data_t pointer")},
 		{"Reopt_size_standalone_battery_post", (PyCFunction)Reopt_size_standalone_battery_post, METH_VARARGS | METH_KEYWORDS,
 			Reopt_size_standalone_battery_post_doc},
+		{"Size_battery", (PyCFunction)Size_battery, METH_VARARGS | METH_KEYWORDS,
+			Size_battery_doc},
 		{NULL,              NULL}           /* sentinel */
 };
 
