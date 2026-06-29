@@ -203,6 +203,7 @@ jobs:
           git clone -b 191-full-pysam-build-in-github-ci https://github.com/natlabrockies/SAM.git
 
 #      - name: Build SAM_api # failing to configure for non-existent wxWidgets dependencies for SAM_api
+      - name: Build api_autogen
         run: |
           cd sam/api/api_autogen
           mkdir build
