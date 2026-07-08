@@ -61,8 +61,12 @@ class Wfreader(object):
 		albedo = tuple
 		annual_albedo = float
 		annual_beam = float
+		annual_csky_beam = float
+		annual_csky_diff = float
+		annual_csky_glob = float
 		annual_diff = float
 		annual_glob = float
+		annual_precipitation = float
 		annual_snow = float
 		annual_tdry = float
 		annual_twet = float
@@ -85,6 +89,7 @@ class Wfreader(object):
 		nrecords = float
 		poa = tuple
 		pres = tuple
+		pwater = tuple
 		rhum = tuple
 		snow = tuple
 		source = str

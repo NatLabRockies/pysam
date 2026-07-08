@@ -14171,6 +14171,263 @@ static PyTypeObject GridLimits_Type = {
 
 
 /*
+ * SpectralCorrection Group
+ */ 
+
+static PyTypeObject SpectralCorrection_Type;
+
+static PyObject *
+SpectralCorrection_new(SAM_Pvsamv1 data_ptr)
+{
+	PyObject* new_obj = SpectralCorrection_Type.tp_alloc(&SpectralCorrection_Type,0);
+
+	VarGroupObject* SpectralCorrection_obj = (VarGroupObject*)new_obj;
+
+	SpectralCorrection_obj->data_ptr = (SAM_table)data_ptr;
+
+	return new_obj;
+}
+
+/* SpectralCorrection methods */
+
+static PyObject *
+SpectralCorrection_assign(VarGroupObject *self, PyObject *args)
+{
+	PyObject* dict;
+	if (!PyArg_ParseTuple(args, "O:assign", &dict)){
+		return NULL;
+	}
+
+	if (!PySAM_assign_from_dict(self->data_ptr, dict, "Pvsamv1", "SpectralCorrection")){
+		return NULL;
+	}
+
+	Py_INCREF(Py_None);
+	return Py_None;
+}
+
+static PyObject *
+SpectralCorrection_replace(VarGroupObject *self, PyObject *args)
+{
+	PyObject* dict;
+	if (!PyArg_ParseTuple(args, "O:assign", &dict)){
+		return NULL;
+	}
+	PyTypeObject* tp = &SpectralCorrection_Type;
+
+	if (!PySAM_replace_from_dict(tp, self->data_ptr, dict, "Pvsamv1", "SpectralCorrection")){
+		return NULL;
+	}
+
+	Py_INCREF(Py_None);
+	return Py_None;
+}
+
+static PyObject *
+SpectralCorrection_export(VarGroupObject *self, PyObject *args)
+{
+	PyTypeObject* tp = &SpectralCorrection_Type;
+	PyObject* dict = PySAM_export_to_dict((PyObject *) self, tp);
+	return dict;
+}
+
+static PyMethodDef SpectralCorrection_methods[] = {
+		{"assign",            (PyCFunction)SpectralCorrection_assign,  METH_VARARGS,
+			PyDoc_STR("assign(dict) -> None\n Assign attributes from dictionary, overwriting but not removing values.\n\n``SpectralCorrection_vals = { var: val, ...}``")},
+		{"replace",            (PyCFunction)SpectralCorrection_replace,  METH_VARARGS,
+			PyDoc_STR("replace(dict) -> None\n Replace attributes from dictionary, unassigning values not present in input ``dict``.\n\n``SpectralCorrection_vals = { var: val, ...}``")},
+		{"export",            (PyCFunction)SpectralCorrection_export,  METH_VARARGS,
+			PyDoc_STR("export() -> dict\n Export attributes into dictionary.")},
+		{NULL,              NULL}           /* sentinel */
+};
+
+static PyObject *
+SpectralCorrection_get_celltech(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Pvsamv1_SpectralCorrection_celltech_nget, self->data_ptr);
+}
+
+static int
+SpectralCorrection_set_celltech(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_Pvsamv1_SpectralCorrection_celltech_nset, self->data_ptr);
+}
+
+static PyObject *
+SpectralCorrection_get_coeff_inputs_king(VarGroupObject *self, void *closure)
+{
+	return PySAM_array_getter(SAM_Pvsamv1_SpectralCorrection_coeff_inputs_king_aget, self->data_ptr);
+}
+
+static int
+SpectralCorrection_set_coeff_inputs_king(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_array_setter(value, SAM_Pvsamv1_SpectralCorrection_coeff_inputs_king_aset, self->data_ptr);
+}
+
+static PyObject *
+SpectralCorrection_get_coeff_inputs_lee(VarGroupObject *self, void *closure)
+{
+	return PySAM_array_getter(SAM_Pvsamv1_SpectralCorrection_coeff_inputs_lee_aget, self->data_ptr);
+}
+
+static int
+SpectralCorrection_set_coeff_inputs_lee(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_array_setter(value, SAM_Pvsamv1_SpectralCorrection_coeff_inputs_lee_aset, self->data_ptr);
+}
+
+static PyObject *
+SpectralCorrection_get_coeff_inputs_pelland(VarGroupObject *self, void *closure)
+{
+	return PySAM_array_getter(SAM_Pvsamv1_SpectralCorrection_coeff_inputs_pelland_aget, self->data_ptr);
+}
+
+static int
+SpectralCorrection_set_coeff_inputs_pelland(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_array_setter(value, SAM_Pvsamv1_SpectralCorrection_coeff_inputs_pelland_aset, self->data_ptr);
+}
+
+static PyObject *
+SpectralCorrection_get_max_abs_airmass(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Pvsamv1_SpectralCorrection_max_abs_airmass_nget, self->data_ptr);
+}
+
+static int
+SpectralCorrection_set_max_abs_airmass(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_Pvsamv1_SpectralCorrection_max_abs_airmass_nset, self->data_ptr);
+}
+
+static PyObject *
+SpectralCorrection_get_max_prec_water(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Pvsamv1_SpectralCorrection_max_prec_water_nget, self->data_ptr);
+}
+
+static int
+SpectralCorrection_set_max_prec_water(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_Pvsamv1_SpectralCorrection_max_prec_water_nset, self->data_ptr);
+}
+
+static PyObject *
+SpectralCorrection_get_min_abs_airmass(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Pvsamv1_SpectralCorrection_min_abs_airmass_nget, self->data_ptr);
+}
+
+static int
+SpectralCorrection_set_min_abs_airmass(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_Pvsamv1_SpectralCorrection_min_abs_airmass_nset, self->data_ptr);
+}
+
+static PyObject *
+SpectralCorrection_get_min_prec_water(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Pvsamv1_SpectralCorrection_min_prec_water_nget, self->data_ptr);
+}
+
+static int
+SpectralCorrection_set_min_prec_water(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_Pvsamv1_SpectralCorrection_min_prec_water_nset, self->data_ptr);
+}
+
+static PyObject *
+SpectralCorrection_get_spectral_correction_model_choice(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Pvsamv1_SpectralCorrection_spectral_correction_model_choice_nget, self->data_ptr);
+}
+
+static int
+SpectralCorrection_set_spectral_correction_model_choice(VarGroupObject *self, PyObject *value, void *closure)
+{
+	return PySAM_double_setter(value, SAM_Pvsamv1_SpectralCorrection_spectral_correction_model_choice_nset, self->data_ptr);
+}
+
+static PyGetSetDef SpectralCorrection_getset[] = {
+{"celltech", (getter)SpectralCorrection_get_celltech,(setter)SpectralCorrection_set_celltech,
+	PyDoc_STR("*float*: Cell technology\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+{"coeff_inputs_king", (getter)SpectralCorrection_get_coeff_inputs_king,(setter)SpectralCorrection_set_coeff_inputs_king,
+	PyDoc_STR("*sequence*: Coefficients for King spectral correction function\n\n**Constraints:**\nLENGTH=5\n\n**Required:**\nFalse for configuration with default inputs. May be required if a variable dependent on its value changes. Example: For the Detailed PV - Single Owner configuration, only Subarray 1 is enabled in the configuration defaults, so Subarray 2 inputs would not be required; if Subarray 2 is enabled, then Subarray 2 inputs is required."),
+ 	NULL},
+{"coeff_inputs_lee", (getter)SpectralCorrection_get_coeff_inputs_lee,(setter)SpectralCorrection_set_coeff_inputs_lee,
+	PyDoc_STR("*sequence*: Coefficients for Lee spectral correction function\n\n**Constraints:**\nLENGTH=6\n\n**Required:**\nFalse for configuration with default inputs. May be required if a variable dependent on its value changes. Example: For the Detailed PV - Single Owner configuration, only Subarray 1 is enabled in the configuration defaults, so Subarray 2 inputs would not be required; if Subarray 2 is enabled, then Subarray 2 inputs is required."),
+ 	NULL},
+{"coeff_inputs_pelland", (getter)SpectralCorrection_get_coeff_inputs_pelland,(setter)SpectralCorrection_set_coeff_inputs_pelland,
+	PyDoc_STR("*sequence*: Coefficients for Pelland spectral correction function\n\n**Constraints:**\nLENGTH=3\n\n**Required:**\nFalse for configuration with default inputs. May be required if a variable dependent on its value changes. Example: For the Detailed PV - Single Owner configuration, only Subarray 1 is enabled in the configuration defaults, so Subarray 2 inputs would not be required; if Subarray 2 is enabled, then Subarray 2 inputs is required."),
+ 	NULL},
+{"max_abs_airmass", (getter)SpectralCorrection_get_max_abs_airmass,(setter)SpectralCorrection_set_max_abs_airmass,
+	PyDoc_STR("*float*: Maximum absolute airmass\n\n**Required:**\nFalse. Automatically set to 10 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+{"max_prec_water", (getter)SpectralCorrection_get_max_prec_water,(setter)SpectralCorrection_set_max_prec_water,
+	PyDoc_STR("*float*: Maximum precipitable water\n\n**Required:**\nFalse. Automatically set to 8 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+{"min_abs_airmass", (getter)SpectralCorrection_get_min_abs_airmass,(setter)SpectralCorrection_set_min_abs_airmass,
+	PyDoc_STR("*float*: Minimum absolute airmass\n\n**Required:**\nFalse. Automatically set to 0.58 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+{"min_prec_water", (getter)SpectralCorrection_get_min_prec_water,(setter)SpectralCorrection_set_min_prec_water,
+	PyDoc_STR("*float*: Minimum precipitable water\n\n**Required:**\nFalse. Automatically set to 0.1 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+{"spectral_correction_model_choice", (getter)SpectralCorrection_get_spectral_correction_model_choice,(setter)SpectralCorrection_set_spectral_correction_model_choice,
+	PyDoc_STR("*float*: Spectral correction model choice [0/1/2]\n\n**Required:**\nFalse. Automatically set to 0 if not assigned explicitly or loaded from defaults."),
+ 	NULL},
+	{NULL}  /* Sentinel */
+};
+
+static PyTypeObject SpectralCorrection_Type = {
+		/* The ob_type field must be initialized in the module init function
+		 * to be portable to Windows without using C++. */
+		PyVarObject_HEAD_INIT(NULL, 0)
+		"Pvsamv1.SpectralCorrection",             /*tp_name*/
+		sizeof(VarGroupObject),          /*tp_basicsize*/
+		0,                          /*tp_itemsize*/
+		/* methods */
+		0,    /*tp_dealloc*/
+		0,                          /*tp_print*/
+		(getattrfunc)0,             /*tp_getattr*/
+		0,                          /*tp_setattr*/
+		0,                          /*tp_reserved*/
+		0,                          /*tp_repr*/
+		0,                          /*tp_as_number*/
+		0,                          /*tp_as_sequence*/
+		0,                          /*tp_as_mapping*/
+		0,                          /*tp_hash*/
+		0,                          /*tp_call*/
+		0,                          /*tp_str*/
+		0,                          /*tp_getattro*/
+		0,                          /*tp_setattro*/
+		0,                          /*tp_as_buffer*/
+		Py_TPFLAGS_DEFAULT,         /*tp_flags*/
+		0,                          /*tp_doc*/
+		0,                          /*tp_traverse*/
+		0,                          /*tp_clear*/
+		0,                          /*tp_richcompare*/
+		0,                          /*tp_weaklistofnset*/
+		0,                          /*tp_iter*/
+		0,                          /*tp_iternext*/
+		SpectralCorrection_methods,         /*tp_methods*/
+		0,                          /*tp_members*/
+		SpectralCorrection_getset,          /*tp_getset*/
+		0,                          /*tp_base*/
+		0,                          /*tp_dict*/
+		0,                          /*tp_descr_get*/
+		0,                          /*tp_descr_set*/
+		0,                          /*tp_dictofnset*/
+		0,                          /*tp_init*/
+		0,                          /*tp_alloc*/
+		0,             /*tp_new*/
+		0,                          /*tp_free*/
+		0,                          /*tp_is_gc*/
+};
+
+
+/*
  * HybridCosts Group
  */ 
 
@@ -18841,6 +19098,10 @@ newPvsamv1Object(void* data_ptr)
 	PyDict_SetItemString(attr_dict, "GridLimits", GridLimits_obj);
 	Py_DECREF(GridLimits_obj);
 
+	PyObject* SpectralCorrection_obj = SpectralCorrection_new(self->data_ptr);
+	PyDict_SetItemString(attr_dict, "SpectralCorrection", SpectralCorrection_obj);
+	Py_DECREF(SpectralCorrection_obj);
+
 	PyObject* HybridCosts_obj = HybridCosts_new(self->data_ptr);
 	PyDict_SetItemString(attr_dict, "HybridCosts", HybridCosts_obj);
 	Py_DECREF(HybridCosts_obj);
@@ -19354,6 +19615,13 @@ Pvsamv1Module_exec(PyObject *m)
 				"GridLimits",
 				(PyObject*)&GridLimits_Type);
 	Py_DECREF(&GridLimits_Type);
+
+	/// Add the SpectralCorrection type object to Pvsamv1_Type
+	if (PyType_Ready(&SpectralCorrection_Type) < 0) { goto fail; }
+	PyDict_SetItemString(Pvsamv1_Type.tp_dict,
+				"SpectralCorrection",
+				(PyObject*)&SpectralCorrection_Type);
+	Py_DECREF(&SpectralCorrection_Type);
 
 	/// Add the HybridCosts type object to Pvsamv1_Type
 	if (PyType_Ready(&HybridCosts_Type) < 0) { goto fail; }

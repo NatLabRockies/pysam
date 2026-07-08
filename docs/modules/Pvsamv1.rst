@@ -505,6 +505,12 @@ GridLimits Group
 .. autoclass:: PySAM.Pvsamv1.Pvsamv1.GridLimits
 	:members:
 
+SpectralCorrection Group
+-------------------------
+
+.. autoclass:: PySAM.Pvsamv1.Pvsamv1.SpectralCorrection
+	:members:
+
 HybridCosts Group
 ------------------
 

@@ -55,6 +55,12 @@ AdjustmentFactors Group
 .. autoclass:: PySAM.Pvwattsv8.Pvwattsv8.AdjustmentFactors
 	:members:
 
+SpectralCorrection Group
+-------------------------
+
+.. autoclass:: PySAM.Pvwattsv8.Pvwattsv8.SpectralCorrection
+	:members:
+
 HybridCosts Group
 ------------------
 
