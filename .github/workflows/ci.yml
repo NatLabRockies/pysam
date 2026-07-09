@@ -26,17 +26,9 @@ jobs:
 
     name: ${{ matrix.os }} ${{ matrix.python-version }}
     steps:
-#handle deprecation notice about node 20
-# Source - https://stackoverflow.com/a/79794673
-# Posted by Raphaël Balet, modified by community. See post 'Timeline' for change history
-# Retrieved 2026-07-09, License - CC BY-SA 4.0
-      - name: Set up Node js
-        uses: actions/setup-node@v6
-        with:
-          node-version: 24
 
       - name: Add msbuild to PATH
-        uses: microsoft/setup-msbuild@v2
+        uses: microsoft/setup-msbuild@v3
         with:
           msbuild-architecture: x64
 
@@ -61,7 +53,7 @@ jobs:
             echo "ORTOOLSDIR=$ORTOOLSDIR" >> $GITHUB_ENV
 
       - name: Get cached build of wxWidgets
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         id: cachedwx
         with:
           path: ${{env.WXMSW3}}/
@@ -114,7 +106,7 @@ jobs:
           echo "ref_of_ssc=$ref" | tee --append $GITHUB_ENV
 
       - name: Checkout pysam (current repo)
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
 
       - name: create files folder in pysam for ssc
         run: |
@@ -123,40 +115,40 @@ jobs:
 
 
       - name: Get cached build data of sibling dependency LK
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         id: cachedlk
         with:
           path: lk
           key: windows-${{ env.ref_of_lk }}-LK
       - name: Clone sibling dependency LK
         if: steps.cachedlk.outputs.cache-hit != 'true'
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           ref: ${{ env.ref_of_lk }}
           path: lk
           repository: NREL/lk
       - name: Get cached build data of sibling dependency WEX
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         id: cachedwex
         with:
           path: wex
           key: windows-${{ env.ref_of_wex }}-WEX
       - name: Clone sibling dependency WEX
         if: steps.cachedwex.outputs.cache-hit != 'true'
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           ref: ${{ env.ref_of_wex }}
           path: wex
           repository: NREL/wex
       - name: Get cached build data of sibling dependency SSC
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         id: cachedssc
         with:
           path: ssc
           key: windows-${{ env.ref_of_ssc }}-SSC
       - name: Clone sibling dependency SSC
         if: steps.cachedssc.outputs.cache-hit != 'true'
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           ref: ${{ env.ref_of_ssc }}
           path: ssc
