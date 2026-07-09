@@ -221,8 +221,8 @@ jobs:
 
       - name: Prepare pysam
         run: |
-          cd pysam
-          python prepare_build.py
+         cd $env:PYSAMDIR
+         python prepare_build.py
 
 #      - name: Conda info
 #        shell: bash -el {0}
