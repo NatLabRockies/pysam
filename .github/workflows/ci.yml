@@ -220,7 +220,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: Prepare pysam
-          run: |
+        run: |
           cd pysam
           python prepare_build.py
 
