@@ -3,6 +3,7 @@ name: Test Package
 on: [ push ]
 
 jobs:
+
   build1: 
     runs-on: ${{ matrix.os }}
     strategy:
@@ -25,6 +26,14 @@ jobs:
 
     name: ${{ matrix.os }} ${{ matrix.python-version }}
     steps:
+#handle deprecation notice about node 20
+# Source - https://stackoverflow.com/a/79794673
+# Posted by Raphaël Balet, modified by community. See post 'Timeline' for change history
+# Retrieved 2026-07-09, License - CC BY-SA 4.0
+      - name: Set up Node js
+        uses: actions/setup-node@v6
+        width: 
+        node-version: 24
 
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v2
