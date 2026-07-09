@@ -223,7 +223,7 @@ jobs:
         shell: bash
         run: |
          cd ${PYSAMDIR}
-         python ./prepare_build.py
+         python ./PySAM/prepare_build.py
 
 #      - name: Conda info
 #        shell: bash -el {0}
