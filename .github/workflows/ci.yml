@@ -213,11 +213,16 @@ jobs:
           msbuild.exe .\export_config.vcxproj /m /t:Build /p:Configuration=Release
 
 
-#      - name: Install conda 
-#        uses: conda-incubator/setup-miniconda@v4
-#        with:
-#          auto-update-conda: true
-#          python-version: ${{ matrix.python-version }}
+      - name: Install conda 
+        uses: conda-incubator/setup-miniconda@v4
+        with:
+          auto-update-conda: true
+          python-version: ${{ matrix.python-version }}
+
+      - name: Prepare pysam
+          run: |
+          cd pysam
+          python prepare_build.py
 
 #      - name: Conda info
 #        shell: bash -el {0}
@@ -227,8 +232,10 @@ jobs:
  #       shell: pwsh
  #       run: conda list
 
- #     - name: Unit tests
- #       run: |
- #         source /Users/runner/.bash_profile
- #         conda activate pysam_env
- #         pytest tests
+
+
+#      - name: Unit tests
+#        run: |
+#          source /Users/runner/.bash_profile
+#          conda activate pysam_env
+#          pytest tests
