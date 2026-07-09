@@ -220,9 +220,10 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: Prepare pysam
+        shell: bash
         run: |
-         cd $env:PYSAMDIR
-         python prepare_build.py
+         cd ${PYSAMDIR}
+         python ./prepare_build.py
 
 #      - name: Conda info
 #        shell: bash -el {0}
