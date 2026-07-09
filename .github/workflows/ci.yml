@@ -32,7 +32,6 @@ jobs:
 # Retrieved 2026-07-09, License - CC BY-SA 4.0
       - name: Set up Node js
         uses: actions/setup-node@v6
-        width: 
         node-version: 24
 
       - name: Add msbuild to PATH
