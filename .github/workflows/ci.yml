@@ -110,12 +110,6 @@ jobs:
         with:
             path: pysam
 
-      - name: create files folder in pysam for ssc
-        run: |
-          cd $env:PYSAMDIR
-          mkdir files
-
-
       - name: Get cached build data of sibling dependency LK
         uses: actions/cache@v6
         id: cachedlk
