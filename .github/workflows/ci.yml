@@ -107,6 +107,8 @@ jobs:
 
       - name: Checkout pysam (current repo)
         uses: actions/checkout@v7
+        with:
+            path: pysam
 
       - name: create files folder in pysam for ssc
         run: |
