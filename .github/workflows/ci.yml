@@ -222,8 +222,10 @@ jobs:
       - name: Prepare pysam
         shell: bash
         run: |
-         cd ${PYSAMDIR}
+         cd pysam
+         pwd
          ls -la
+
 #         python ./PySAM/prepare_build.py
 
 #      - name: Conda info
