@@ -231,12 +231,11 @@ jobs:
           auto-update-conda: true
           python-version: ${{ matrix.python-version }}
 
- #     - name: Prepare pysam
- #       shell: bash
- #       run: |
- #         cd pysam
- #         ls -al ./files
- #         python prepare_build.py
+      - name: Prepare pysam
+        shell: bash
+        run: |
+          cd pysam
+          python prepare_build.py
 
 #      - name: Conda info
 #        shell: bash -el {0}
