@@ -230,6 +230,7 @@ jobs:
         with:
           auto-update-conda: true
           python-version: ${{ matrix.python-version }}
+          activate-environment: ${{ matrix.python-version }}
 
       - name: Prepare pysam
         shell: bash
@@ -237,13 +238,13 @@ jobs:
           cd pysam
           python prepare_build.py
 
-
+# CRITICAL: You must use the bash login shell layout for conda to be recognized
       - name: Requirements and Test and Wheel
-        shell: bash
+        shell: bash -l {0}
         run: |
           cd pysam
           conda deactivate
-          conda activate test
+          conda activate ${{ matrix.python-version }}
           pip install -r tests/requirements.txt
           pip uninstall NLR-PySAM
           pip install .
