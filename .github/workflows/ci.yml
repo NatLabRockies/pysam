@@ -237,9 +237,9 @@ jobs:
           cd pysam
           python prepare_build.py
 
-#      - name: Conda info
-#        shell: bash -el {0}
-#        run: conda info
+      - name: Conda info
+        shell: bash -el {0}
+        run: conda info
 
  #     - name: Conda list
  #       shell: pwsh
