@@ -95,6 +95,8 @@ jobs:
           if [[ $? != "0" ]]; then echo "WEX_BRANCH=$DEFAULT_BRANCH" >> $GITHUB_ENV; else echo "WEX_BRANCH=$GIT_BRANCH" >> $GITHUB_ENV; fi
           git ls-remote --heads --exit-code https://github.com/${GITHUB_REPOSITORY_OWNER}/ssc.git $GIT_BRANCH
           if [[ $? != "0" ]]; then echo "SSC_BRANCH=$DEFAULT_BRANCH" >> $GITHUB_ENV; else echo "SSC_BRANCH=$GIT_BRANCH" >> $GITHUB_ENV; fi
+          git ls-remote --heads --exit-code https://github.com/${GITHUB_REPOSITORY_OWNER}/SAM.git $GIT_BRANCH
+          if [[ $? != "0" ]]; then echo "SAM_BRANCH=$DEFAULT_BRANCH" >> $GITHUB_ENV; else echo "SAM_BRANCH=$GIT_BRANCH" >> $GITHUB_ENV; fi
       - name: Get git ref of sibling dependencies
         shell: bash
         run: |
@@ -104,6 +106,8 @@ jobs:
           echo "ref_of_wex=$ref" | tee --append $GITHUB_ENV
           ref=$(git ls-remote --exit-code https://github.com/NREL/ssc.git refs/heads/$SSC_BRANCH | awk '{print $1}')
           echo "ref_of_ssc=$ref" | tee --append $GITHUB_ENV
+          ref=$(git ls-remote --exit-code https://github.com/NREL/SAM.git refs/heads/$SAM_BRANCH | awk '{print $1}')
+          echo "ref_of_sam=$ref" | tee --append $GITHUB_ENV
 
       - name: Checkout pysam (current repo)
         uses: actions/checkout@v7
@@ -122,7 +126,7 @@ jobs:
         with:
           ref: ${{ env.ref_of_lk }}
           path: lk
-          repository: NREL/lk
+          repository: NatLabRockies/lk
       - name: Get cached build data of sibling dependency WEX
         uses: actions/cache@v6
         id: cachedwex
@@ -135,7 +139,7 @@ jobs:
         with:
           ref: ${{ env.ref_of_wex }}
           path: wex
-          repository: NREL/wex
+          repository: NatLabRockies/wex
       - name: Get cached build data of sibling dependency SSC
         uses: actions/cache@v6
         id: cachedssc
@@ -148,7 +152,20 @@ jobs:
         with:
           ref: ${{ env.ref_of_ssc }}
           path: ssc
-          repository: NREL/ssc
+          repository: NatLabRockies/ssc
+      - name: Get cached build data of sibling dependency SAM
+        uses: actions/cache@v6
+        id: cachedsam
+        with:
+          path: sam
+          key: windows-${{ env.ref_of_ssc }}-SAM
+      - name: Clone sibling dependency SAM
+        if: steps.cachedsam.outputs.cache-hit != 'true'
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ env.ref_of_sam }}
+          path: sam
+          repository: NatLabRockies/SAM
 
       - name: Build LK
         if: steps.cachedlk.outputs.cache-hit != 'true'
@@ -179,12 +196,10 @@ jobs:
           echo "=== Content of lib\cmake\ortools ==="
           ls -R $env:ORTOOLSDIR\lib\cmake\ortools
 
-      - name: Configure SSC - bash
+      - name: build SSC - bash
         shell: bash
         if: steps.cachedssc.outputs.cache-hit != 'true'
         run: |
-          echo "=== Content of lib\cmake\ortools ==="
-          ls -R ${ORTOOLSDIR}/lib/cmake/ortools
           cd ssc
           mkdir build
           cd build
@@ -200,13 +215,14 @@ jobs:
 #          git clone -b 191-full-pysam-build-in-github-ci https://github.com/natlabrockies/SAM.git
 
 #      - name: Build SAM_api # failing to configure for non-existent wxWidgets dependencies for SAM_api
-#      - name: Build api_autogen
-#        run: |
-#          cd sam/api
-#          mkdir build
-#          cd build
-#          cmake -G "Visual Studio 17 2022" -DCMAKE_BUILD_TYPE=Release ..
-#          msbuild.exe .\SAM_api.vcxproj /m /t:Build /p:Configuration=Release
+      - name: Build api_autogen
+        if: steps.cachedsam.outputs.cache-hit != 'true'
+        run: |
+          cd sam/api
+          mkdir build
+          cd build
+          cmake -G "Visual Studio 17 2022" -DCMAKE_BUILD_TYPE=Release ..
+          msbuild.exe .\SAM_api.vcxproj /m /t:Build /p:Configuration=Release
 
 
       - name: Install conda 
