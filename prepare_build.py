@@ -49,6 +49,9 @@ def _decode(o):
 def stage_platform_libs(pkg_dir, staged):
     """Copy SAM_api and ssc shared libraries into pkg_dir."""
     samntdir = os.environ["SAMNTDIR"]
+    # GA
+    sscdir = os.environ["SSCDIR"]
+
 
     if sys.platform == "darwin":
         # Look for libs in the typical cmake build output locations
@@ -70,6 +73,9 @@ def stage_platform_libs(pkg_dir, staged):
             Path(samntdir) / ".." / "cmake-build-release" / "Release",
             Path(samntdir) / ".." / "build_pysam" / "sam" /"api" / "Release",
             Path(samntdir) / ".." / "build_pysam" / "ssc" / "ssc" / "Release",
+            # GA
+            Path(samntdir) / "api" /"build" / "Release",
+            Path(sscdir) / "ssc" / "build" / "Release",
         ]
         lib_names = ["SAM_api.dll", "SAM_api.lib", "ssc.dll", "ssc.lib"]
     else:
