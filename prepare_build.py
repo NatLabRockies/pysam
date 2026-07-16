@@ -75,7 +75,7 @@ def stage_platform_libs(pkg_dir, staged):
             Path(samntdir) / ".." / "build_pysam" / "ssc" / "ssc" / "Release",
             # GA
             Path(samntdir) / "api" /"build" / "Release",
-            Path(sscdir) / "ssc" / "build" / "Release",
+            Path(sscdir) / "build" / "ssc" / "Release",
         ]
         lib_names = ["SAM_api.dll", "SAM_api.lib", "ssc.dll", "ssc.lib"]
     else:
