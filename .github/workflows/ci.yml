@@ -237,9 +237,23 @@ jobs:
           cd pysam
           python prepare_build.py
 
-      - name: Conda info
-        shell: bash -el {0}
-        run: conda info
+
+      - name: Requirements and Test and Wheel
+        shell: bash
+        run: |
+          cd pysam
+          conda deactivate
+          conda activate test
+          pip install -r tests/requirements.txt
+          pip uninstall NLR-PySAM
+          pip install .
+          pytest -s tests
+          python -m build --wheel
+
+
+ #     - name: Conda info
+ #       shell: bash -el {0}
+ #       run: conda info
 
  #     - name: Conda list
  #       shell: pwsh
