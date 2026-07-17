@@ -19,7 +19,6 @@ jobs:
       WX_VERSION: '3.2.8.1'
       ORTOOLS_VER: "9.14"
       ORTOOLS_RELEASE: "6206"
-  #    SAMNTDIR: ${{ github.workspace }}/../SAM
       NREL_API_KEY: ${{ secrets.NREL_API_KEY }}
       NREL_API_EMAIL: ${{ secrets.NREL_API_EMAIL }}
 
@@ -191,12 +190,7 @@ jobs:
             curl -L https://github.com/google/or-tools/releases/download/v$ORTOOLS_VER/or-tools_x64_VisualStudio2022_cpp_v$ORTOOLS_VER.$ORTOOLS_RELEASE.zip -o or-tools-$ORTOOLS_VER.zip
             7z x or-tools-$ORTOOLS_VER.zip
 
-      - name: List files in folder
-        run: |
-          echo "=== Content of lib\cmake\ortools ==="
-          ls -R $env:ORTOOLSDIR\lib\cmake\ortools
-
-      - name: build SSC - bash
+      - name: build SSC
         shell: bash
         if: steps.cachedssc.outputs.cache-hit != 'true'
         run: |
@@ -207,14 +201,6 @@ jobs:
           MSBuild.exe ./sam_simulation_core.sln //t:Build //p:Configuration=Release
 
 
-
-# use default branch - env variable does not work
-#      - name: Checkout SAM
-#        run: |
-#          git config --global url.https://github.com/.insteadOf git://github.com/
-#          git clone -b 191-full-pysam-build-in-github-ci https://github.com/natlabrockies/SAM.git
-
-#      - name: Build SAM_api # failing to configure for non-existent wxWidgets dependencies for SAM_api
       - name: Build api_autogen
         if: steps.cachedsam.outputs.cache-hit != 'true'
         run: |
@@ -248,22 +234,8 @@ jobs:
           pip install -r tests/requirements.txt
           pip uninstall NLR-PySAM
           pip install .
-          pytest -s tests/test_Pvsamv1Tools.py
+# should be on pull requests only?
+          pytest -s tests
+#should be on releases or patches only?          
           python -m build --wheel
 
-
- #     - name: Conda info
- #       shell: bash -el {0}
- #       run: conda info
-
- #     - name: Conda list
- #       shell: pwsh
- #       run: conda list
-
-
-
-#      - name: Unit tests
-#        run: |
-#          source /Users/runner/.bash_profile
-#          conda activate pysam_env
-#          pytest tests
