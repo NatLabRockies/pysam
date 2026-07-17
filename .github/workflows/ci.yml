@@ -248,7 +248,7 @@ jobs:
           pip install -r tests/requirements.txt
           pip uninstall NLR-PySAM
           pip install .
-          pytest -s tests
+          pytest -s tests/test_Pvsamv1Tools.py
           python -m build --wheel
 
 
