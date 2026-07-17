@@ -234,8 +234,6 @@ jobs:
           pip install -r tests/requirements.txt
           pip uninstall NLR-PySAM
           pip install .
-# should be on pull requests only?
           pytest -s tests
-#should be on releases or patches only?          
           python -m build --wheel
 
