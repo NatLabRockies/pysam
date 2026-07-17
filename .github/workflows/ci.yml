@@ -1,6 +1,12 @@
 name: Test Package
 
-on: [ push ]
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - '**'
 
 jobs:
 
@@ -235,5 +241,13 @@ jobs:
           pip uninstall NLR-PySAM
           pip install .
           pytest -s tests
-          python -m build --wheel
 
+      - name: Wheel on pull request only
+        shell: bash -l {0}
+        if: ${{ github.event_name == 'pull_request' }}
+        run: |
+          cd pysam
+          conda deactivate
+          conda activate ${{ matrix.python-version }}
+          python -m pip install --upgrade build
+          python -m build --wheel
