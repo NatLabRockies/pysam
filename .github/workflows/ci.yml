@@ -231,15 +231,22 @@ jobs:
           python prepare_build.py
 
 # CRITICAL: You must use the bash login shell layout for conda to be recognized
-      - name: Requirements and Test and Wheel
+      - name: Create pysam
+        shell: bash -l {0}
+        run: |
+          cd pysam
+          conda deactivate
+          conda activate ${{ matrix.python-version }}
+          pip uninstall NLR-PySAM
+          pip install .
+
+      - name: Run Tests
         shell: bash -l {0}
         run: |
           cd pysam
           conda deactivate
           conda activate ${{ matrix.python-version }}
           pip install -r tests/requirements.txt
-          pip uninstall NLR-PySAM
-          pip install .
           pytest -s tests
 
       - name: Wheel on pull request only
