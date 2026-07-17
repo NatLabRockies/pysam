@@ -6,4 +6,3 @@ python-dotenv
 pympler
 requests
 setuptools
-pip-system-certs
