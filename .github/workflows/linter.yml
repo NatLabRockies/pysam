@@ -2,7 +2,7 @@ name: Lint Code Base
 
 on:
   push:
-    branches: [ main, dev ]
+    branches: [ main, develop, patch ]
 
 jobs:
   build:

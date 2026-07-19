@@ -16,12 +16,12 @@ jobs:
       matrix:
 #        os: [windows-latest] # note that windows-latest supports vs2026 not vs2022
         os: [windows-2022]
-        python-version: [ '3.11'] # tests will fail with 3.10 or lower with ssl error ssl.SSLError: [ASN1: NOT_ENOUGH_DATA]
+        python-version: [ '3.11'] # cec module and inverter tests will fail with 3.10 or lower with ssl error ssl.SSLError: [ASN1: NOT_ENOUGH_DATA]
 #        python-version: [ '3.9', '3.10', '3.11', '3.12', '3.13', '3.14' ]
 
     env: 
       BUILD_TYPE: Release
-      DEFAULT_BRANCH: develop
+      DEFAULT_BRANCH: patch
       WX_VERSION: '3.2.8.1'
       ORTOOLS_VER: "9.14"
       ORTOOLS_RELEASE: "6206"
