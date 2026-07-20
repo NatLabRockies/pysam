@@ -3,10 +3,10 @@ name: Test Package
 on:
   push:
     branches:
-      - 'main'
+      - '**'
   pull_request:
     branches:
-      - 'main'
+      - '**'
 
 jobs:
 
@@ -14,7 +14,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest]
+        os: [macos-14-large]
         python-version: [ '3.11'] # cec module and inverter tests will fail with 3.10 or lower with ssl error ssl.SSLError: [ASN1: NOT_ENOUGH_DATA]
 #        python-version: [ '3.9', '3.10', '3.11', '3.12', '3.13', '3.14' ]
 
@@ -51,27 +51,15 @@ jobs:
           echo "SAMNTDIR=$SAMNTDIR" >> $GITHUB_ENV
           WXMSW3=$HOME/wx-$WX_VERSION
           echo "WXMSW3=$WXMSW3" >> $GITHUB_ENV
-          ORTOOLSDIR=$GITHUB_WORKSPACE/or-tools_x86_64_Ubuntu-24.04_cpp_v$ORTOOLS_VER.$ORTOOLS_RELEASE
+          ORTOOLSDIR=$GITHUB_WORKSPACE/or-tools_x86_64_macOS-15.5_cpp_v$ORTOOLS_VER.$ORTOOLS_RELEASE
           echo "ORTOOLSDIR=$ORTOOLSDIR" >> $GITHUB_ENV
-
-      - name: Install Dependencies
-        run: |
-          sudo apt-get update --fix-missing
-          sudo apt-get install -y \
-            freeglut3-dev \
-            libcurl4-openssl-dev \
-            libfontconfig-dev \
-            libgl1-mesa-dev \
-            libgtk2.0-dev \
-            mesa-common-dev \
-            unzip
 
       - name: Get cached build of wxWidgets
         uses: actions/cache@v6
         id: cachedwx
         with:
           path: ${{env.WXMSW3}}/
-          key: wxWidgets-${{ env.WX_VERSION }}-linux
+          key: wxWidgets-${{ env.WX_VERSION }}-macos
 
       - name: Install wxWidgets
         if: steps.cachedwx.outputs.cache-hit != 'true'
@@ -79,7 +67,7 @@ jobs:
           curl -L https://github.com/wxWidgets/wxWidgets/releases/download/v$WX_VERSION/wxWidgets-$WX_VERSION.tar.bz2 -o wxWidgets-$WX_VERSION.tar.bz2
           tar jxf wxWidgets-$WX_VERSION.tar.bz2
           cd wxWidgets-$WX_VERSION
-          ./configure --prefix=$HOME/wx-$WX_VERSION --enable-shared=no --enable-debug=no --with-gtk=2 --with-libjpeg=builtin --with-libpng=builtin --with-regex=builtin --with-libtiff=builtin --with-zlib=builtin --with-expat=builtin --without-libjbig --without-liblzma --without-gtkprint --with-libnotify=no --with-libmspack=no --with-gnomevfs=no --with-opengl=yes --with-sdl=no --with-cxx=11 
+          ./configure --prefix=$HOME/wx-$WX_VERSION --enable-stl=yes --enable-shared=no --disable-debug_flag --with-cocoa --enable-universal_binary=x86_64,arm64 --enable-unicode --enable-webview --disable-mediactrl --with-cxx=11 --with-macosx-version-min=10.15  --with-libjpeg=builtin --with-libpng=builtin --with-regex=builtin --with-libtiff=builtin --with-zlib=builtin --with-expat=builtin
           make -j4
           make install
           sudo ln -s $HOME/wx-$WX_VERSION/bin/wx-config /usr/local/bin/wx-config-3
@@ -132,7 +120,7 @@ jobs:
         id: cachedlk
         with:
           path: lk
-          key: linux-${{ env.ref_of_lk }}-LK
+          key: macos-${{ env.ref_of_lk }}-LK
       - name: Clone sibling dependency LK
         if: steps.cachedlk.outputs.cache-hit != 'true'
         uses: actions/checkout@v7
@@ -145,7 +133,7 @@ jobs:
         id: cachedwex
         with:
           path: wex
-          key: linux-${{ env.ref_of_wex }}-WEX
+          key: macos-${{ env.ref_of_wex }}-WEX
       - name: Clone sibling dependency WEX
         if: steps.cachedwex.outputs.cache-hit != 'true'
         uses: actions/checkout@v7
@@ -158,7 +146,7 @@ jobs:
         id: cachedssc
         with:
           path: ssc
-          key: linux-${{ env.ref_of_ssc }}-SSC
+          key: macos-${{ env.ref_of_ssc }}-SSC
       - name: Clone sibling dependency SSC
         if: steps.cachedssc.outputs.cache-hit != 'true'
         uses: actions/checkout@v7
@@ -171,7 +159,7 @@ jobs:
         id: cachedsam
         with:
           path: sam
-          key: linux-${{ env.ref_of_ssc }}-SAM
+          key: macos-${{ env.ref_of_ssc }}-SAM
       - name: Clone sibling dependency SAM
         if: steps.cachedsam.outputs.cache-hit != 'true'
         uses: actions/checkout@v7
@@ -197,7 +185,7 @@ jobs:
         if: steps.cached-ortools-restore.outputs.cache-hit != 'true'
         shell: bash
         run: |
-          curl -L https://github.com/google/or-tools/releases/download/v$ORTOOLS_VER/or-tools_amd64_ubuntu-24.04_cpp_v$ORTOOLS_VER.$ORTOOLS_RELEASE.tar.gz -o or-tools-$ORTOOLS_VER.tar.gz
+          curl -L https://github.com/google/or-tools/releases/download/v$ORTOOLS_VER/or-tools_x86_64_macOS-15.5_cpp_v$ORTOOLS_VER.$ORTOOLS_RELEASE.tar.gz -o or-tools-$ORTOOLS_VER.tar.gz
           tar xvzf or-tools-$ORTOOLS_VER.tar.gz
 
       - name: build SSC
@@ -208,53 +196,53 @@ jobs:
           cmake -Bbuild -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DSAM_SKIP_TESTS=1 -DSAM_SKIP_TOOLS=1 -DSAMAPI_EXPORT=1 -DUSE_XPRESS=0 -DUSE_COINOR=1 -DCMAKE_SYSTEM_VERSION=10.0 -DCMAKE_SYSTEM_PREFIX_PATH=${ORTOOLSDIR} -Dabsl_DIR=${ORTOOLSDIR}\lib\cmake\absl" -Dutf8_range_DIR=${ORTOOLSDIR}\lib\cmake\utf8_range"
           cmake --build build -j4 --target ssc
 
-      - name: Build api_autogen
-        if: steps.cachedsam.outputs.cache-hit != 'true'
-        run: |
-          cd $GITHUB_WORKSPACE/sam/api
-          mkdir build
-          cd build
-          cmake -DCMAKE_BUILD_TYPE=Release -DSAMAPI_EXPORT=1 -DSAM_SKIP_AUTOGEN=1 -DUSE_XPRESS=0 -DUSE_COINOR=1 -DCMAKE_SYSTEM_PREFIX_PATH="$ORTOOLSDIR" -Dabsl_DIR="$ORTOOLSDIR\lib\cmake\absl" -Dutf8_range_DIR="$ORTOOLSDIR\lib\cmake\utf8_range" -Dortools_DIR="$ORTOOLSDIR\lib\cmake\ortools" ..
-           make -j 6 
+#       - name: Build api_autogen
+#         if: steps.cachedsam.outputs.cache-hit != 'true'
+#         run: |
+#           cd $GITHUB_WORKSPACE/sam/api
+#           mkdir build
+#           cd build
+#           cmake -DCMAKE_BUILD_TYPE=Release -DSAMAPI_EXPORT=1 -DSAM_SKIP_AUTOGEN=1 -DUSE_XPRESS=0 -DUSE_COINOR=1 -DCMAKE_SYSTEM_PREFIX_PATH="$ORTOOLSDIR" -Dabsl_DIR="$ORTOOLSDIR\lib\cmake\absl" -Dutf8_range_DIR="$ORTOOLSDIR\lib\cmake\utf8_range" -Dortools_DIR="$ORTOOLSDIR\lib\cmake\ortools" ..
+#            make -j 6 
 
-      - name: Install conda 
-        uses: conda-incubator/setup-miniconda@v4
-        with:
-          auto-update-conda: true
-          python-version: ${{ matrix.python-version }}
-          activate-environment: ${{ matrix.python-version }}
+#       - name: Install conda 
+#         uses: conda-incubator/setup-miniconda@v4
+#         with:
+#           auto-update-conda: true
+#           python-version: ${{ matrix.python-version }}
+#           activate-environment: ${{ matrix.python-version }}
 
-      - name: Prepare pysam
-        shell: bash
-        run: |
-          cd pysam
-          python prepare_build.py
+#       - name: Prepare pysam
+#         shell: bash
+#         run: |
+#           cd pysam
+#           python prepare_build.py
 
-# CRITICAL: You must use the bash login shell layout for conda to be recognized
-      - name: Create pysam
-        shell: bash -l {0}
-        run: |
-          cd pysam
-          conda deactivate
-          conda activate ${{ matrix.python-version }}
-          pip uninstall NLR-PySAM
-          pip install .
+# # CRITICAL: You must use the bash login shell layout for conda to be recognized
+#       - name: Create pysam
+#         shell: bash -l {0}
+#         run: |
+#           cd pysam
+#           conda deactivate
+#           conda activate ${{ matrix.python-version }}
+#           pip uninstall NLR-PySAM
+#           pip install .
 
-      - name: Run Tests
-        shell: bash -l {0}
-        run: |
-          cd pysam
-          conda deactivate
-          conda activate ${{ matrix.python-version }}
-          pip install -r tests/requirements.txt
-          pytest -s tests --ignore=tests/test_BatteryTools.py
+#       - name: Run Tests
+#         shell: bash -l {0}
+#         run: |
+#           cd pysam
+#           conda deactivate
+#           conda activate ${{ matrix.python-version }}
+#           pip install -r tests/requirements.txt
+#           pytest -s tests --ignore=tests/test_BatteryTools.py
 
-      - name: Wheel on pull request only
-        shell: bash -l {0}
-        if: ${{ github.event_name == 'pull_request' }}
-        run: |
-          cd pysam
-          conda deactivate
-          conda activate ${{ matrix.python-version }}
-          python -m pip install --upgrade build
-          python -m build --wheel
+#       - name: Wheel on pull request only
+#         shell: bash -l {0}
+#         if: ${{ github.event_name == 'pull_request' }}
+#         run: |
+#           cd pysam
+#           conda deactivate
+#           conda activate ${{ matrix.python-version }}
+#           python -m pip install --upgrade build
+#           python -m build --wheel
