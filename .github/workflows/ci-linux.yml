@@ -247,7 +247,7 @@ jobs:
           conda deactivate
           conda activate ${{ matrix.python-version }}
           pip install -r tests/requirements.txt
-          pytest -s tests/test_Pvsamv1Tools.py
+          pytest -s tests --ignore=tests/test_BatteryTools.py
 
       - name: Wheel on pull request only
         shell: bash -l {0}
