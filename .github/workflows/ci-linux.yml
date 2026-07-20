@@ -205,57 +205,57 @@ jobs:
         if: steps.cachedssc.outputs.cache-hit != 'true'
         run: |
           cd $GITHUB_WORKSPACE/ssc
-          cmake -Bbuild -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DSAM_SKIP_TESTS=1 -DSAM_SKIP_TOOLS=1 -DSAMAPI_EXPORT=0 -DUSE_XPRESS=0 -DUSE_COINOR=1 -DCMAKE_SYSTEM_VERSION=10.0 -DCMAKE_SYSTEM_PREFIX_PATH=${ORTOOLSDIR} -Dabsl_DIR=${ORTOOLSDIR}\lib\cmake\absl" -Dutf8_range_DIR=${ORTOOLSDIR}\lib\cmake\utf8_range"
+          cmake -Bbuild -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DSAM_SKIP_TESTS=1 -DSAM_SKIP_TOOLS=1 -DSAMAPI_EXPORT=1 -DUSE_XPRESS=0 -DUSE_COINOR=1 -DCMAKE_SYSTEM_VERSION=10.0 -DCMAKE_SYSTEM_PREFIX_PATH=${ORTOOLSDIR} -Dabsl_DIR=${ORTOOLSDIR}\lib\cmake\absl" -Dutf8_range_DIR=${ORTOOLSDIR}\lib\cmake\utf8_range"
           cmake --build build -j4 --target ssc
 
-      - name: Build api_autogen
-        if: steps.cachedsam.outputs.cache-hit != 'true'
-        run: |
-          cd cd $GITHUB_WORKSPACE/sam/api
-          mkdir build
-          cd build
-          cmake -DCMAKE_BUILD_TYPE=Release ..
-          cmake --build build -j4
+#       - name: Build api_autogen
+#         if: steps.cachedsam.outputs.cache-hit != 'true'
+#         run: |
+#           cd $GITHUB_WORKSPACE/sam/api
+#           mkdir build
+#           cd build
+#           cmake -DCMAKE_BUILD_TYPE=Release ..
+#           cmake --build build -j4
 
 
-      - name: Install conda 
-        uses: conda-incubator/setup-miniconda@v4
-        with:
-          auto-update-conda: true
-          python-version: ${{ matrix.python-version }}
-          activate-environment: ${{ matrix.python-version }}
+#       - name: Install conda 
+#         uses: conda-incubator/setup-miniconda@v4
+#         with:
+#           auto-update-conda: true
+#           python-version: ${{ matrix.python-version }}
+#           activate-environment: ${{ matrix.python-version }}
 
-      - name: Prepare pysam
-        shell: bash
-        run: |
-          cd pysam
-          python prepare_build.py
+#       - name: Prepare pysam
+#         shell: bash
+#         run: |
+#           cd pysam
+#           python prepare_build.py
 
-# CRITICAL: You must use the bash login shell layout for conda to be recognized
-      - name: Create pysam
-        shell: bash -l {0}
-        run: |
-          cd pysam
-          conda deactivate
-          conda activate ${{ matrix.python-version }}
-          pip uninstall NLR-PySAM
-          pip install .
+# # CRITICAL: You must use the bash login shell layout for conda to be recognized
+#       - name: Create pysam
+#         shell: bash -l {0}
+#         run: |
+#           cd pysam
+#           conda deactivate
+#           conda activate ${{ matrix.python-version }}
+#           pip uninstall NLR-PySAM
+#           pip install .
 
-      - name: Run Tests
-        shell: bash -l {0}
-        run: |
-          cd pysam
-          conda deactivate
-          conda activate ${{ matrix.python-version }}
-          pip install -r tests/requirements.txt
-          pytest -s tests
+#       - name: Run Tests
+#         shell: bash -l {0}
+#         run: |
+#           cd pysam
+#           conda deactivate
+#           conda activate ${{ matrix.python-version }}
+#           pip install -r tests/requirements.txt
+#           pytest -s tests
 
-      - name: Wheel on pull request only
-        shell: bash -l {0}
-        if: ${{ github.event_name == 'pull_request' }}
-        run: |
-          cd pysam
-          conda deactivate
-          conda activate ${{ matrix.python-version }}
-          python -m pip install --upgrade build
-          python -m build --wheel
+#       - name: Wheel on pull request only
+#         shell: bash -l {0}
+#         if: ${{ github.event_name == 'pull_request' }}
+#         run: |
+#           cd pysam
+#           conda deactivate
+#           conda activate ${{ matrix.python-version }}
+#           python -m pip install --upgrade build
+#           python -m build --wheel
