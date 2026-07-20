@@ -66,8 +66,8 @@ def stage_platform_libs(pkg_dir, staged):
             Path("/io/build_linux_ssc"),
             Path(samntdir) / ".." / "cmake-build-release",
             # GA
-            Path(samntdir) / "api" /"build" / "Release",
-            Path(sscdir) / "build" / "ssc" / "Release",
+            Path(samntdir) / "api" /"build", 
+            Path(sscdir) / "build" / "ssc",
         ]
         lib_names = ["libSAM_api.so", "libssc.so"]
     elif sys.platform == "win32":
