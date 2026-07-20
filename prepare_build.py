@@ -58,6 +58,9 @@ def stage_platform_libs(pkg_dir, staged):
         search_dirs = [
             Path(samntdir) / ".." / "cmake-build-release",
             Path(samntdir) / ".." / "build_pysam",
+            # GA
+            Path(samntdir) / "api" /"build", 
+            Path(sscdir) / "build" / "ssc",
         ]
         lib_names = ["libSAM_api.so", "libssc.so"]
     elif sys.platform == "linux":
