@@ -208,14 +208,14 @@ jobs:
           cmake -Bbuild -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DSAM_SKIP_TESTS=1 -DSAM_SKIP_TOOLS=1 -DSAMAPI_EXPORT=1 -DUSE_XPRESS=0 -DUSE_COINOR=1 -DCMAKE_SYSTEM_VERSION=10.0 -DCMAKE_SYSTEM_PREFIX_PATH=${ORTOOLSDIR} -Dabsl_DIR=${ORTOOLSDIR}\lib\cmake\absl" -Dutf8_range_DIR=${ORTOOLSDIR}\lib\cmake\utf8_range"
           cmake --build build -j4 --target ssc
 
-#       - name: Build api_autogen
-#         if: steps.cachedsam.outputs.cache-hit != 'true'
-#         run: |
-#           cd $GITHUB_WORKSPACE/sam/api
-#           mkdir build
-#           cd build
-#           cmake -DCMAKE_BUILD_TYPE=Release ..
-#           cmake --build build -j4
+       - name: Build api_autogen
+         if: steps.cachedsam.outputs.cache-hit != 'true'
+         run: |
+           cd $GITHUB_WORKSPACE/sam/api
+           mkdir build
+           cd build
+           cmake -DCMAKE_BUILD_TYPE=Release ..
+           cmake --build build -j4
 
 
 #       - name: Install conda 
