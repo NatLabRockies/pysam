@@ -189,9 +189,9 @@ jobs:
       - name: Build WEX
         if: steps.cachedwex.outputs.cache-hit != 'true'
         run: |
-        cd $GITHUB_WORKSPACE/wex
-        cmake -Bbuild -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DSAM_SKIP_TOOLS=1 
-        cmake --build build -j4
+          cd $GITHUB_WORKSPACE/wex
+          cmake -Bbuild -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DSAM_SKIP_TOOLS=1 
+          cmake --build build -j4
 
       - name: Download OR-Tools
         if: steps.cached-ortools-restore.outputs.cache-hit != 'true'
