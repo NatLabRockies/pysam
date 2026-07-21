@@ -5,8 +5,8 @@ Any list of floats with length analysis_period * steps_in_year can be used for d
 This example requires a typical model year (tmy) weather file, which can be downloaded using the SAM GUI
 
 Additional financial models, inputs, and outputs can be found at:
-* PV: https://nrel-pysam.readthedocs.io/en/master/modules/Pvsamv1.html
-* Battery: https://nrel-pysam.readthedocs.io/en/master/modules/Battery.html
+* PV: https://nlr-pysam.readthedocs.io/en/master/modules/Pvsamv1.html
+* Battery: https://nlr-pysam.readthedocs.io/en/master/modules/Battery.html
 
 Most recently tested against PySAM 7.1.0
 

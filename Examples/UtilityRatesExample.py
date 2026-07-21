@@ -4,7 +4,7 @@ This example script shows how to set up the utility rate module using a rate dow
 This example requires an NLR developer key, which can be obtained from https://developer.nlr.gov/signup/
 
 Additional financial models, inputs, and outputs can be found at:
-* PV: https://nrel-pysam.readthedocs.io/en/master/modules/Utilityrate5.html
+* PV: https://nlr-pysam.readthedocs.io/en/master/modules/Utilityrate5.html
 
 Most recently tested against PySAM 7.1.0
 Requires: nrel-pysam, requests
