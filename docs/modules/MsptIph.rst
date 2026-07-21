@@ -6,7 +6,7 @@ MsptIph
 .. automodule:: PySAM.MsptIph
 	:members:
 
-MsptIph is a wrapper for the SSC compute module `cmod_mspt_iph.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_mspt_iph.cpp>`_
+MsptIph is a wrapper for the SSC compute module `cmod_mspt_iph.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_mspt_iph.cpp>`_
 
 Interdependent Variables
 --------------------------

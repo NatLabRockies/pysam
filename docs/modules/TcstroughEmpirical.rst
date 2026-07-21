@@ -6,7 +6,7 @@ TcstroughEmpirical
 .. automodule:: PySAM.TcstroughEmpirical
 	:members:
 
-TcstroughEmpirical is a wrapper for the SSC compute module `cmod_tcstrough_empirical.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_tcstrough_empirical.cpp>`_
+TcstroughEmpirical is a wrapper for the SSC compute module `cmod_tcstrough_empirical.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_tcstrough_empirical.cpp>`_
 
 Interdependent Variables
 --------------------------

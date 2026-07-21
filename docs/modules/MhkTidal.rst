@@ -6,7 +6,7 @@ MhkTidal
 .. automodule:: PySAM.MhkTidal
 	:members:
 
-MhkTidal is a wrapper for the SSC compute module `cmod_mhk_tidal.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_mhk_tidal.cpp>`_
+MhkTidal is a wrapper for the SSC compute module `cmod_mhk_tidal.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_mhk_tidal.cpp>`_
 
 Interdependent Variables
 --------------------------

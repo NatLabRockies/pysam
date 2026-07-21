@@ -6,7 +6,7 @@ Levpartflip
 .. automodule:: PySAM.Levpartflip
 	:members:
 
-Levpartflip is a wrapper for the SSC compute module `cmod_levpartflip.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_levpartflip.cpp>`_
+Levpartflip is a wrapper for the SSC compute module `cmod_levpartflip.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_levpartflip.cpp>`_
 
 Interdependent Variables
 --------------------------

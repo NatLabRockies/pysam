@@ -6,7 +6,7 @@ TcslinearFresnel
 .. automodule:: PySAM.TcslinearFresnel
 	:members:
 
-TcslinearFresnel is a wrapper for the SSC compute module `cmod_tcslinear_fresnel.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_tcslinear_fresnel.cpp>`_
+TcslinearFresnel is a wrapper for the SSC compute module `cmod_tcslinear_fresnel.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_tcslinear_fresnel.cpp>`_
 
 Interdependent Variables
 --------------------------

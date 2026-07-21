@@ -6,7 +6,7 @@ Singleowner
 .. automodule:: PySAM.Singleowner
 	:members:
 
-Singleowner is a wrapper for the SSC compute module `cmod_singleowner.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_singleowner.cpp>`_
+Singleowner is a wrapper for the SSC compute module `cmod_singleowner.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_singleowner.cpp>`_
 
 Interdependent Variables
 --------------------------

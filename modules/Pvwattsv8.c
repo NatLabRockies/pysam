@@ -2777,7 +2777,7 @@ static PyMethodDef Pvwattsv8Module_methods[] = {
 };
 
 PyDoc_STRVAR(module_doc,
-			 "Photovoltaic system using basic NREL PVWatts V8 algorithm. Does not do detailed degradation or loss modeling. If those are important, please use pvsamv1.");
+			 "Photovoltaic system using basic NLR PVWatts V8 algorithm. Does not do detailed degradation or loss modeling. If those are important, please use pvsamv1.");
 
 
 static int

@@ -6,7 +6,7 @@ PtesDesignPoint
 .. automodule:: PySAM.PtesDesignPoint
 	:members:
 
-PtesDesignPoint is a wrapper for the SSC compute module `cmod_ptes_design_point.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_ptes_design_point.cpp>`_
+PtesDesignPoint is a wrapper for the SSC compute module `cmod_ptes_design_point.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_ptes_design_point.cpp>`_
 
 Interdependent Variables
 --------------------------

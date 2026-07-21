@@ -6,7 +6,7 @@ HybridSteps
 .. automodule:: PySAM.HybridSteps
 	:members:
 
-HybridSteps is a wrapper for the SSC compute module `cmod_hybrid_steps.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_hybrid_steps.cpp>`_
+HybridSteps is a wrapper for the SSC compute module `cmod_hybrid_steps.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_hybrid_steps.cpp>`_
 
 Interdependent Variables
 --------------------------

@@ -6,7 +6,7 @@ CustomGeneration
 .. automodule:: PySAM.CustomGeneration
 	:members:
 
-CustomGeneration is a wrapper for the SSC compute module `cmod_custom_generation.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_custom_generation.cpp>`_
+CustomGeneration is a wrapper for the SSC compute module `cmod_custom_generation.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_custom_generation.cpp>`_
 
 Interdependent Variables
 --------------------------

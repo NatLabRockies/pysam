@@ -6,7 +6,7 @@ HostDeveloper
 .. automodule:: PySAM.HostDeveloper
 	:members:
 
-HostDeveloper is a wrapper for the SSC compute module `cmod_host_developer.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_host_developer.cpp>`_
+HostDeveloper is a wrapper for the SSC compute module `cmod_host_developer.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_host_developer.cpp>`_
 
 Interdependent Variables
 --------------------------

@@ -6,7 +6,7 @@ Wfreader
 .. automodule:: PySAM.Wfreader
 	:members:
 
-Wfreader is a wrapper for the SSC compute module `cmod_wfreader.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_wfreader.cpp>`_
+Wfreader is a wrapper for the SSC compute module `cmod_wfreader.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_wfreader.cpp>`_
 
 Interdependent Variables
 --------------------------

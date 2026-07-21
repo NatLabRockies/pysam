@@ -6,7 +6,7 @@ Merchantplant
 .. automodule:: PySAM.Merchantplant
 	:members:
 
-Merchantplant is a wrapper for the SSC compute module `cmod_merchantplant.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_merchantplant.cpp>`_
+Merchantplant is a wrapper for the SSC compute module `cmod_merchantplant.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_merchantplant.cpp>`_
 
 Interdependent Variables
 --------------------------

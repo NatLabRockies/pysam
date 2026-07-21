@@ -1,4 +1,4 @@
-{% set name = "NREL-PySAM" %}
+{% set name = "NLR-PySAM" %}
 {% set version = environ.get('VERSION') %}
 
 package:

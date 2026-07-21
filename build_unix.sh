@@ -47,6 +47,7 @@ do
    yes | pip install -r tests/requirements.txt
    yes | pip install build
    yes | pip uninstall NREL-PySAM
+   yes | pip uninstall NLR-PySAM
    pip install . || exit
    pytest -s tests
    retVal=$?

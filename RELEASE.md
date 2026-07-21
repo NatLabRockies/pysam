@@ -1,7 +1,10 @@
 # Release Notes
 
+## Version 8.0.0, July 22, 2026 - SAM 2026.7.3, SSC Version 308
+* [SAM Release updates for Version 2026.7.3](https://NatLabRockies.github.io/SAM/doc/releasenotes.html)
+
 ## Version 7.1.1, April 24, 2026 - SAM 2025.4.16 Revision 2, SSC Version 306
-* [SAM Release updates for Version 2025.4.16 Revision 2](https://natlabrockies.github.io/SAM/doc/releasenotes.html)
+* [SAM Release updates for Version 2025.4.16 Revision 2](https://NatLabRockies.github.io/SAM/doc/releasenotes.html)
 
 ## Version 7.1.0, July 24, 2025 - SAM 2025.4.16 Revision 1, SSC Version 303
 * [SAM Release updates for Version 2025.4.16 Revision 1](https://nrel.github.io/SAM/doc/releasenotes.html)

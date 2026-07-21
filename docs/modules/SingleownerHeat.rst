@@ -6,7 +6,7 @@ SingleownerHeat
 .. automodule:: PySAM.SingleownerHeat
 	:members:
 
-SingleownerHeat is a wrapper for the SSC compute module `cmod_singleowner_heat.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_singleowner_heat.cpp>`_
+SingleownerHeat is a wrapper for the SSC compute module `cmod_singleowner_heat.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_singleowner_heat.cpp>`_
 
 Interdependent Variables
 --------------------------

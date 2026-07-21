@@ -6,7 +6,7 @@ MsptSfAndRecIsolated
 .. automodule:: PySAM.MsptSfAndRecIsolated
 	:members:
 
-MsptSfAndRecIsolated is a wrapper for the SSC compute module `cmod_mspt_sf_and_rec_isolated.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_mspt_sf_and_rec_isolated.cpp>`_
+MsptSfAndRecIsolated is a wrapper for the SSC compute module `cmod_mspt_sf_and_rec_isolated.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_mspt_sf_and_rec_isolated.cpp>`_
 
 Interdependent Variables
 --------------------------

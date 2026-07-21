@@ -6,7 +6,7 @@ Snowmodel
 .. automodule:: PySAM.Snowmodel
 	:members:
 
-Snowmodel is a wrapper for the SSC compute module `cmod_snowmodel.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_snowmodel.cpp>`_
+Snowmodel is a wrapper for the SSC compute module `cmod_snowmodel.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_snowmodel.cpp>`_
 
 Interdependent Variables
 --------------------------

@@ -6,7 +6,7 @@ MhkWave
 .. automodule:: PySAM.MhkWave
 	:members:
 
-MhkWave is a wrapper for the SSC compute module `cmod_mhk_wave.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_mhk_wave.cpp>`_
+MhkWave is a wrapper for the SSC compute module `cmod_mhk_wave.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_mhk_wave.cpp>`_
 
 Interdependent Variables
 --------------------------

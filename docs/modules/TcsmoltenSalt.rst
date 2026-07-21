@@ -6,7 +6,7 @@ TcsmoltenSalt
 .. automodule:: PySAM.TcsmoltenSalt
 	:members:
 
-TcsmoltenSalt is a wrapper for the SSC compute module `cmod_tcsmolten_salt.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_tcsmolten_salt.cpp>`_
+TcsmoltenSalt is a wrapper for the SSC compute module `cmod_tcsmolten_salt.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_tcsmolten_salt.cpp>`_
 
 Functions
 -----------

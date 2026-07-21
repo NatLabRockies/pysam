@@ -83,6 +83,7 @@ FOR %%i IN (%python_version%) DO (
     echo y | pip install -r tests/requirements.txt
     echo y | pip install build
     echo y | pip uninstall NREL-PySAM
+    echo y | pip uninstall NLR-PySAM
     pip install .
     if NOT "%tests%"=="skip" (
         pytest -s tests

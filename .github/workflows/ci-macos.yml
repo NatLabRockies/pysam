@@ -101,11 +101,11 @@ jobs:
       - name: Get git ref of sibling dependencies
         shell: bash
         run: |
-          ref=$(git ls-remote --exit-code https://github.com/NREL/lk.git refs/heads/$LK_BRANCH | awk '{print $1}')
+          ref=$(git ls-remote --exit-code https://github.com/NatLabRockies/lk.git refs/heads/$LK_BRANCH | awk '{print $1}')
           echo "ref_of_lk=$ref" | tee -a $GITHUB_ENV
-          ref=$(git ls-remote --exit-code https://github.com/NREL/wex.git refs/heads/$WEX_BRANCH | awk '{print $1}')
+          ref=$(git ls-remote --exit-code https://github.com/NatLabRockies/wex.git refs/heads/$WEX_BRANCH | awk '{print $1}')
           echo "ref_of_wex=$ref" | tee -a $GITHUB_ENV
-          ref=$(git ls-remote --exit-code https://github.com/NREL/ssc.git refs/heads/$SSC_BRANCH | awk '{print $1}')
+          ref=$(git ls-remote --exit-code https://github.com/NatLabRockies/ssc.git refs/heads/$SSC_BRANCH | awk '{print $1}')
           echo "ref_of_ssc=$ref" | tee -a $GITHUB_ENV
 
       - name: Checkout pysam (current repo)

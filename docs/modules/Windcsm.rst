@@ -6,7 +6,7 @@ Windcsm
 .. automodule:: PySAM.Windcsm
 	:members:
 
-Windcsm is a wrapper for the SSC compute module `cmod_windcsm.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_windcsm.cpp>`_
+Windcsm is a wrapper for the SSC compute module `cmod_windcsm.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_windcsm.cpp>`_
 
 Interdependent Variables
 --------------------------

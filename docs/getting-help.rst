@@ -1,7 +1,7 @@
 Getting Help
 ==============
 
-NREL provides several resources for getting help with PySAM.
+NLR provides several resources for getting help with PySAM.
 
 * SDK/PySAM forum on SAM website: https://sam.nlr.gov/forum/forum-sdk.html. Search the forum to find answers to your questions, and post your own questions and answers.
 

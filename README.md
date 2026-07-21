@@ -1,6 +1,6 @@
 # PySAM Package
 
-https://nrel-pysam.readthedocs.io
+https://nlr-pysam.readthedocs.io
 
 * Provides a wrapper around the SAM library that groups together the C API functions by technology or financial model into modules.
 * Includes error-checking, explicit input and output definition, and conversion between Python data types.
@@ -10,23 +10,23 @@ https://nrel-pysam.readthedocs.io
 
 
 ## Requirements
-1. Python 3.9 - 3.13, 64 bit
+1. Python 3.9 - 3.14, 64 bit
 2. Operating system:
-	- MacOSX 10.7+
+	- MacOSX 12.0+
 	- Most Linux
-	- Windows 7, x64
+	- Windows 10, x64
 3. CMake 3.20+
 
 
 ## Installing
 1. PyPi:
 	```
-	pip install nrel-pysam
+	pip install nlr-pysam
 	```
 
 2. Anaconda (Versions > 1.2.1, < 6.0.0 only):
 	```
-	conda install -c nrel nrel-pysam
+	conda install -c nlr nlr-pysam
 	```
 
 May not be compatible with different builds of the CPython reference interpreter, and not with alternative interpreters such as PyPy, IronPython or Jython

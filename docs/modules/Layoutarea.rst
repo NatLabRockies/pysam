@@ -6,7 +6,7 @@ Layoutarea
 .. automodule:: PySAM.Layoutarea
 	:members:
 
-Layoutarea is a wrapper for the SSC compute module `cmod_layoutarea.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_layoutarea.cpp>`_
+Layoutarea is a wrapper for the SSC compute module `cmod_layoutarea.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_layoutarea.cpp>`_
 
 Interdependent Variables
 --------------------------

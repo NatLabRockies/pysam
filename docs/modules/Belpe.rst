@@ -6,7 +6,7 @@ Belpe
 .. automodule:: PySAM.Belpe
 	:members:
 
-Belpe is a wrapper for the SSC compute module `cmod_belpe.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_belpe.cpp>`_
+Belpe is a wrapper for the SSC compute module `cmod_belpe.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_belpe.cpp>`_
 
 Interdependent Variables
 --------------------------

@@ -6,7 +6,7 @@ CbEmpiricalHceHeatLoss
 .. automodule:: PySAM.CbEmpiricalHceHeatLoss
 	:members:
 
-CbEmpiricalHceHeatLoss is a wrapper for the SSC compute module `cmod_cb_empirical_hce_heat_loss.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_cb_empirical_hce_heat_loss.cpp>`_
+CbEmpiricalHceHeatLoss is a wrapper for the SSC compute module `cmod_cb_empirical_hce_heat_loss.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_cb_empirical_hce_heat_loss.cpp>`_
 
 Interdependent Variables
 --------------------------

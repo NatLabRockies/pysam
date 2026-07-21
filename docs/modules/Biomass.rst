@@ -6,7 +6,7 @@ Biomass
 .. automodule:: PySAM.Biomass
 	:members:
 
-Biomass is a wrapper for the SSC compute module `cmod_biomass.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_biomass.cpp>`_
+Biomass is a wrapper for the SSC compute module `cmod_biomass.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_biomass.cpp>`_
 
 Interdependent Variables
 --------------------------

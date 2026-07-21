@@ -6,7 +6,7 @@ Grid
 .. automodule:: PySAM.Grid
 	:members:
 
-Grid is a wrapper for the SSC compute module `cmod_grid.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_grid.cpp>`_
+Grid is a wrapper for the SSC compute module `cmod_grid.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_grid.cpp>`_
 
 Interdependent Variables
 --------------------------

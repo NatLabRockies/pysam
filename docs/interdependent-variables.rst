@@ -39,7 +39,7 @@ SAM's user interface displays "calculated values" in blue boxes that you cannot 
 
 .. note::
 
-    For some compute modules, including TroughPhysical and Tscmoltensalt, the equations in the user interface used for calculated values have been migrated to SSC eliminating the problem of interdependent variables for those modules. NREL is working to migrate equations for other modules for future versions of SAM and PySAM.
+    For some compute modules, including TroughPhysical and Tscmoltensalt, the equations in the user interface used for calculated values have been migrated to SSC eliminating the problem of interdependent variables for those modules. NLR is working to migrate equations for other modules for future versions of SAM and PySAM.
 
 Examples
 ---------

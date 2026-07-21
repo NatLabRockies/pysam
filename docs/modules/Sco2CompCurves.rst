@@ -6,7 +6,7 @@ Sco2CompCurves
 .. automodule:: PySAM.Sco2CompCurves
 	:members:
 
-Sco2CompCurves is a wrapper for the SSC compute module `cmod_sco2_comp_curves.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_sco2_comp_curves.cpp>`_
+Sco2CompCurves is a wrapper for the SSC compute module `cmod_sco2_comp_curves.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_sco2_comp_curves.cpp>`_
 
 Interdependent Variables
 --------------------------

@@ -40,6 +40,7 @@ do
    yes | /opt/python/$PYTHONENV/bin/pip install -r tests/requirements.txt
    yes | /opt/python/$PYTHONENV/bin/pip install auditwheel build
    yes | /opt/python/$PYTHONENV/bin/pip uninstall NREL-PySAM
+   yes | /opt/python/$PYTHONENV/bin/pip uninstall NLR-PySAM
    /opt/python/$PYTHONENV/bin/python -m build --wheel || exit
    WHEEL=$(ls dist/nrel_pysam-*-$PYTHONENV-*linux*.whl)
    auditwheel repair "$WHEEL" -w dist/wheelhouse/

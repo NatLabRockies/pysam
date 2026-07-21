@@ -6,7 +6,7 @@ IphToLcoefcr
 .. automodule:: PySAM.IphToLcoefcr
 	:members:
 
-IphToLcoefcr is a wrapper for the SSC compute module `cmod_iph_to_lcoefcr.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_iph_to_lcoefcr.cpp>`_
+IphToLcoefcr is a wrapper for the SSC compute module `cmod_iph_to_lcoefcr.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_iph_to_lcoefcr.cpp>`_
 
 Interdependent Variables
 --------------------------

@@ -4,7 +4,7 @@ char Reopt_size_standalone_battery_post_doc[] =
         "Given a PV system with Utilityrate5 parameters, get the optimal battery size.\n"
         "Maps SAM compute module inputs to those of the ReOpt API:\n"
         "Pvsamv1 model linked with Battery, Utilityrate5, with Cashloan optional.\n\n"
-        "For more information on which PySAM variables are used, see: https://github.com/NREL/ssc/blob/develop/ssc/cmod_battery_eqns.h\n\n"
+        "For more information on which PySAM variables are used, see: https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_battery_eqns.h\n\n"
         "For an example, see the 'Examples' readthedocs page.";
 
 static PyObject* Reopt_size_standalone_battery_post(PyObject *self, PyObject *args, PyObject *keywds)

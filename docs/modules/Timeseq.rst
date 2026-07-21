@@ -6,7 +6,7 @@ Timeseq
 .. automodule:: PySAM.Timeseq
 	:members:
 
-Timeseq is a wrapper for the SSC compute module `cmod_timeseq.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_timeseq.cpp>`_
+Timeseq is a wrapper for the SSC compute module `cmod_timeseq.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_timeseq.cpp>`_
 
 Interdependent Variables
 --------------------------

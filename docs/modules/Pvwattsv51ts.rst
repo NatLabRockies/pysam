@@ -6,7 +6,7 @@ Pvwattsv51ts
 .. automodule:: PySAM.Pvwattsv51ts
 	:members:
 
-Pvwattsv51ts is a wrapper for the SSC compute module `cmod_pvwattsv5_1ts.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_pvwattsv5_1ts.cpp>`_
+Pvwattsv51ts is a wrapper for the SSC compute module `cmod_pvwattsv5_1ts.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_pvwattsv5_1ts.cpp>`_
 
 Interdependent Variables
 --------------------------

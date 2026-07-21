@@ -6,7 +6,7 @@ MhkCosts
 .. automodule:: PySAM.MhkCosts
 	:members:
 
-MhkCosts is a wrapper for the SSC compute module `cmod_mhk_costs.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_mhk_costs.cpp>`_
+MhkCosts is a wrapper for the SSC compute module `cmod_mhk_costs.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_mhk_costs.cpp>`_
 
 Interdependent Variables
 --------------------------

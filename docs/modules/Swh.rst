@@ -6,7 +6,7 @@ Swh
 .. automodule:: PySAM.Swh
 	:members:
 
-Swh is a wrapper for the SSC compute module `cmod_swh.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_swh.cpp>`_
+Swh is a wrapper for the SSC compute module `cmod_swh.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_swh.cpp>`_
 
 Interdependent Variables
 --------------------------

@@ -17,6 +17,6 @@ The PySAM GitHub repository includes `code examples <https://github.com/natlabro
 
     SAM's user interface performs internal calculations to size system components, calculate values for SSC inputs, and other functions that are either not part of SSC or are integrated into the SSC compute modules in a way that is not transparent. Before you create a model in PySAM, create it in SAM and run test simulations to verify that the model works as you expect. Then set it up in PySAM and compare results with SAM. See xxxGotcha for more details.
 
-Recordings of `NREL webinars on PySAM <https://sam.nlr.gov/pysam>`_ are available on the SAM website, along with more information and documentation about SAM.
+Recordings of `NLR webinars on PySAM <https://sam.nlr.gov/pysam>`_ are available on the SAM website, along with more information and documentation about SAM.
 
-For help with PySAM, please use the `SAM SDK and PySAM forum <https://sam.nlr.gov/forum/forum-sdk.html>`_. If you are an NREL researcher getting started using PySAM, please `contact SAM Support for guidance <mailto:sam.support@nlr.gov?subject='PySAM%20Support'>`_.
+For help with PySAM, please use the `SAM SDK and PySAM forum <https://sam.nlr.gov/forum/forum-sdk.html>`_. If you are an NLR researcher getting started using PySAM, please `contact SAM Support for guidance <mailto:sam.support@nlr.gov?subject='PySAM%20Support'>`_.

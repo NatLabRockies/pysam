@@ -6,7 +6,7 @@ UiUdpcChecks
 .. automodule:: PySAM.UiUdpcChecks
 	:members:
 
-UiUdpcChecks is a wrapper for the SSC compute module `cmod_ui_udpc_checks.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_ui_udpc_checks.cpp>`_
+UiUdpcChecks is a wrapper for the SSC compute module `cmod_ui_udpc_checks.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_ui_udpc_checks.cpp>`_
 
 Interdependent Variables
 --------------------------

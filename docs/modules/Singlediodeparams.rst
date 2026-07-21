@@ -6,7 +6,7 @@ Singlediodeparams
 .. automodule:: PySAM.Singlediodeparams
 	:members:
 
-Singlediodeparams is a wrapper for the SSC compute module `cmod_singlediodeparams.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_singlediodeparams.cpp>`_
+Singlediodeparams is a wrapper for the SSC compute module `cmod_singlediodeparams.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_singlediodeparams.cpp>`_
 
 Interdependent Variables
 --------------------------
