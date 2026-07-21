@@ -1,0 +1,260 @@
+name: Test Package
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+
+  build1: 
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+#        os: [windows-latest] # note that windows-latest supports vs2026 not vs2022
+        os: [windows-2022]
+        python-version: [ '3.11'] # cec module and inverter tests will fail with 3.10 or lower with ssl error ssl.SSLError: [ASN1: NOT_ENOUGH_DATA]
+#        python-version: [ '3.9', '3.10', '3.11', '3.12', '3.13', '3.14' ]
+
+    env: 
+      BUILD_TYPE: Release
+      DEFAULT_BRANCH: patch
+      WX_VERSION: '3.2.8.1'
+      ORTOOLS_VER: "9.14"
+      ORTOOLS_RELEASE: "6206"
+      NREL_API_KEY: ${{ secrets.NREL_API_KEY }}
+      NREL_API_EMAIL: ${{ secrets.NREL_API_EMAIL }}
+
+
+    name: ${{ matrix.os }} ${{ matrix.python-version }}
+    steps:
+
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v3
+        with:
+          msbuild-architecture: x64
+
+      - name: Set relative paths
+        shell: bash
+        run: | 
+            LKDIR=$GITHUB_WORKSPACE\\lk
+            echo "LKDIR=$LKDIR" >> $GITHUB_ENV
+            WEXDIR=$GITHUB_WORKSPACE\\wex
+            echo "WEXDIR=$WEXDIR" >> $GITHUB_ENV
+            SSCDIR=$GITHUB_WORKSPACE\\ssc
+            echo "SSCDIR=$SSCDIR" >> $GITHUB_ENV
+            PYSAMDIR=$GITHUB_WORKSPACE\\pysam
+            echo "PYSAMDIR=$PYSAMDIR" >> $GITHUB_ENV
+            RAPIDJSONDIR=$GITHUB_WORKSPACE\\ssc
+            echo "RAPIDJSONDIR=$RAPIDJSONDIR" >> $GITHUB_ENV
+            SAMNTDIR=$GITHUB_WORKSPACE\\sam
+            echo "SAMNTDIR=$SAMNTDIR" >> $GITHUB_ENV
+            WXMSW3=$HOME/wx-$WX_VERSION
+            echo "WXMSW3=$WXMSW3" >> $GITHUB_ENV
+            ORTOOLSDIR=$GITHUB_WORKSPACE\\or-tools_x64_VisualStudio2022_cpp_v$ORTOOLS_VER.$ORTOOLS_RELEASE
+            echo "ORTOOLSDIR=$ORTOOLSDIR" >> $GITHUB_ENV
+
+      - name: Get cached build of wxWidgets
+        uses: actions/cache@v6
+        id: cachedwx
+        with:
+          path: ${{env.WXMSW3}}/
+          key: wxWidgets-${{ env.WX_VERSION }}-windows
+      - name: Download wxWidgets
+        if: steps.cachedwx.outputs.cache-hit != 'true'
+        shell: bash
+        run: |
+          curl -L https://github.com/wxWidgets/wxWidgets/releases/download/v$WX_VERSION/wxWidgets-$WX_VERSION.tar.bz2 -o wxWidgets-$WX_VERSION.tar.bz2
+          tar jxf wxWidgets-$WX_VERSION.tar.bz2
+      - name: Install wxWidgets
+        if: steps.cachedwx.outputs.cache-hit != 'true'
+        run: |
+          cd wxWidgets-$env:WX_VERSION
+          msbuild build/msw/wx_vc17.sln /t:Build /p:Configuration=Release /p:Platform=x64
+          mkdir $env:WXMSW3
+          cp -r include $env:WXMSW3
+          cp -r lib $env:WXMSW3
+
+      - name: Get branch name for pull request
+        shell: bash
+        if: ${{ github.event_name == 'pull_request' }}
+        run:  |
+          echo "GIT_BRANCH=${{ github.head_ref }}" >> $GITHUB_ENV
+          echo "DEFAULT_BRANCH=$GITHUB_BASE_REF" >> $GITHUB_ENV
+      - name: Get branch name for push
+        shell: bash
+        if: ${{ github.event_name == 'push' }}
+        run:  |
+          echo "GIT_BRANCH=${{ github.ref_name }}" >> $GITHUB_ENV
+      - name: Determine branches for other repos
+        continue-on-error: true
+        shell: bash {0}
+        run: |
+          echo "GITHUB_REPOSITORY_OWNER=${GITHUB_REPOSITORY_OWNER}" >> $GITHUB_ENV
+          git ls-remote --heads --exit-code https://github.com/${GITHUB_REPOSITORY_OWNER}/lk.git $GIT_BRANCH
+          if [[ $? != "0" ]]; then echo "LK_BRANCH=$DEFAULT_BRANCH" >> $GITHUB_ENV; else echo "LK_BRANCH=$GIT_BRANCH" >> $GITHUB_ENV; fi
+          git ls-remote --heads --exit-code https://github.com/${GITHUB_REPOSITORY_OWNER}/wex.git $GIT_BRANCH
+          if [[ $? != "0" ]]; then echo "WEX_BRANCH=$DEFAULT_BRANCH" >> $GITHUB_ENV; else echo "WEX_BRANCH=$GIT_BRANCH" >> $GITHUB_ENV; fi
+          git ls-remote --heads --exit-code https://github.com/${GITHUB_REPOSITORY_OWNER}/ssc.git $GIT_BRANCH
+          if [[ $? != "0" ]]; then echo "SSC_BRANCH=$DEFAULT_BRANCH" >> $GITHUB_ENV; else echo "SSC_BRANCH=$GIT_BRANCH" >> $GITHUB_ENV; fi
+          git ls-remote --heads --exit-code https://github.com/${GITHUB_REPOSITORY_OWNER}/SAM.git $GIT_BRANCH
+          if [[ $? != "0" ]]; then echo "SAM_BRANCH=$DEFAULT_BRANCH" >> $GITHUB_ENV; else echo "SAM_BRANCH=$GIT_BRANCH" >> $GITHUB_ENV; fi
+      - name: Get git ref of sibling dependencies
+        shell: bash
+        run: |
+          ref=$(git ls-remote --exit-code https://github.com/NREL/lk.git refs/heads/$LK_BRANCH | awk '{print $1}')
+          echo "ref_of_lk=$ref" | tee --append $GITHUB_ENV
+          ref=$(git ls-remote --exit-code https://github.com/NREL/wex.git refs/heads/$WEX_BRANCH | awk '{print $1}')
+          echo "ref_of_wex=$ref" | tee --append $GITHUB_ENV
+          ref=$(git ls-remote --exit-code https://github.com/NREL/ssc.git refs/heads/$SSC_BRANCH | awk '{print $1}')
+          echo "ref_of_ssc=$ref" | tee --append $GITHUB_ENV
+          ref=$(git ls-remote --exit-code https://github.com/NREL/SAM.git refs/heads/$SAM_BRANCH | awk '{print $1}')
+          echo "ref_of_sam=$ref" | tee --append $GITHUB_ENV
+
+      - name: Checkout pysam (current repo)
+        uses: actions/checkout@v7
+        with:
+            path: pysam
+
+      - name: Get cached build data of sibling dependency LK
+        uses: actions/cache@v6
+        id: cachedlk
+        with:
+          path: lk
+          key: windows-${{ env.ref_of_lk }}-LK
+      - name: Clone sibling dependency LK
+        if: steps.cachedlk.outputs.cache-hit != 'true'
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ env.ref_of_lk }}
+          path: lk
+          repository: NatLabRockies/lk
+      - name: Get cached build data of sibling dependency WEX
+        uses: actions/cache@v6
+        id: cachedwex
+        with:
+          path: wex
+          key: windows-${{ env.ref_of_wex }}-WEX
+      - name: Clone sibling dependency WEX
+        if: steps.cachedwex.outputs.cache-hit != 'true'
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ env.ref_of_wex }}
+          path: wex
+          repository: NatLabRockies/wex
+      - name: Get cached build data of sibling dependency SSC
+        uses: actions/cache@v6
+        id: cachedssc
+        with:
+          path: ssc
+          key: windows-${{ env.ref_of_ssc }}-SSC
+      - name: Clone sibling dependency SSC
+        if: steps.cachedssc.outputs.cache-hit != 'true'
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ env.ref_of_ssc }}
+          path: ssc
+          repository: NatLabRockies/ssc
+      - name: Get cached build data of sibling dependency SAM
+        uses: actions/cache@v6
+        id: cachedsam
+        with:
+          path: sam
+          key: windows-${{ env.ref_of_ssc }}-SAM
+      - name: Clone sibling dependency SAM
+        if: steps.cachedsam.outputs.cache-hit != 'true'
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ env.ref_of_sam }}
+          path: sam
+          repository: NatLabRockies/SAM
+
+      - name: Build LK
+        if: steps.cachedlk.outputs.cache-hit != 'true'
+        run: |
+          cd $env:LKDIR
+          mkdir build
+          cd build
+          cmake .. -G "Visual Studio 17 2022" -DCMAKE_CONFIGURATION_TYPES="Release" -DCMAKE_SYSTEM_VERSION=10 -DSAM_SKIP_TOOLS=1
+          MSBuild.exe .\lk.sln /t:Build /p:Configuration=Release
+      - name: Build WEX
+        if: steps.cachedwex.outputs.cache-hit != 'true'
+        run: |
+          cd $env:WEXDIR
+          mkdir build
+          cd build
+          cmake -G "Visual Studio 17 2022" -DCMAKE_CONFIGURATION_TYPES="Release" -DCMAKE_SYSTEM_VERSION=10 -DSAM_SKIP_TOOLS=1  ..
+          MSBuild.exe .\wex.sln /t:Build /p:Configuration=Release
+
+      - name: Download OR-Tools
+        if: steps.cached-ortools-restore.outputs.cache-hit != 'true'
+        shell: bash
+        run: |
+            curl -L https://github.com/google/or-tools/releases/download/v$ORTOOLS_VER/or-tools_x64_VisualStudio2022_cpp_v$ORTOOLS_VER.$ORTOOLS_RELEASE.zip -o or-tools-$ORTOOLS_VER.zip
+            7z x or-tools-$ORTOOLS_VER.zip
+
+      - name: build SSC
+        shell: bash
+        if: steps.cachedssc.outputs.cache-hit != 'true'
+        run: |
+          cd ssc
+          mkdir build
+          cd build
+          cmake -G "Visual Studio 17 2022" -DCMAKE_CONFIGURATION_TYPES="Release;Debug"  -DSAM_SKIP_TESTS=1 -DSAMAPI_EXPORT=0 -DSAM_SKIP_TOOLS=1 -DUSE_XPRESS=0 -DUSE_COINOR=1 -DCMAKE_SYSTEM_VERSION=10.0 -DCMAKE_SYSTEM_PREFIX_PATH=${ORTOOLSDIR} -Dabsl_DIR=${ORTOOLSDIR}/lib/cmake/absl" -Dutf8_range_DIR=${ORTOOLSDIR}/lib/cmake/utf8_range"  ..
+          MSBuild.exe ./sam_simulation_core.sln //t:Build //p:Configuration=Release
+
+
+      - name: Build api_autogen
+        if: steps.cachedsam.outputs.cache-hit != 'true'
+        run: |
+          cd sam/api
+          mkdir build
+          cd build
+          cmake -G "Visual Studio 17 2022" -DCMAKE_BUILD_TYPE=Release ..
+          msbuild.exe .\SAM_api.vcxproj /m /t:Build /p:Configuration=Release
+
+
+      - name: Install conda 
+        uses: conda-incubator/setup-miniconda@v4
+        with:
+          auto-update-conda: true
+          python-version: ${{ matrix.python-version }}
+          activate-environment: ${{ matrix.python-version }}
+
+      - name: Prepare pysam
+        shell: bash
+        run: |
+          cd pysam
+          python prepare_build.py
+
+# CRITICAL: You must use the bash login shell layout for conda to be recognized
+      - name: Create pysam
+        shell: bash -l {0}
+        run: |
+          cd pysam
+          conda deactivate
+          conda activate ${{ matrix.python-version }}
+          pip uninstall NLR-PySAM
+          pip install .
+
+      - name: Run Tests
+        shell: bash -l {0}
+        run: |
+          cd pysam
+          conda deactivate
+          conda activate ${{ matrix.python-version }}
+          pip install -r tests/requirements.txt
+          pytest -s tests
+
+      - name: Wheel on pull request only
+        shell: bash -l {0}
+        if: ${{ github.event_name == 'pull_request' }}
+        run: |
+          cd pysam
+          conda deactivate
+          conda activate ${{ matrix.python-version }}
+          python -m pip install --upgrade build
+          python -m build --wheel

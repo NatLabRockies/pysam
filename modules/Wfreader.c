@@ -248,6 +248,24 @@ Outputs_get_annual_beam(VarGroupObject *self, void *closure)
 }
 
 static PyObject *
+Outputs_get_annual_csky_beam(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Wfreader_Outputs_annual_csky_beam_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_annual_csky_diff(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Wfreader_Outputs_annual_csky_diff_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_annual_csky_glob(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Wfreader_Outputs_annual_csky_glob_nget, self->data_ptr);
+}
+
+static PyObject *
 Outputs_get_annual_diff(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_Wfreader_Outputs_annual_diff_nget, self->data_ptr);
@@ -257,6 +275,12 @@ static PyObject *
 Outputs_get_annual_glob(VarGroupObject *self, void *closure)
 {
 	return PySAM_double_getter(SAM_Wfreader_Outputs_annual_glob_nget, self->data_ptr);
+}
+
+static PyObject *
+Outputs_get_annual_precipitation(VarGroupObject *self, void *closure)
+{
+	return PySAM_double_getter(SAM_Wfreader_Outputs_annual_precipitation_nget, self->data_ptr);
 }
 
 static PyObject *
@@ -392,6 +416,12 @@ Outputs_get_pres(VarGroupObject *self, void *closure)
 }
 
 static PyObject *
+Outputs_get_pwater(VarGroupObject *self, void *closure)
+{
+	return PySAM_array_getter(SAM_Wfreader_Outputs_pwater_aget, self->data_ptr);
+}
+
+static PyObject *
 Outputs_get_rhum(VarGroupObject *self, void *closure)
 {
 	return PySAM_array_getter(SAM_Wfreader_Outputs_rhum_aget, self->data_ptr);
@@ -485,11 +515,23 @@ static PyGetSetDef Outputs_getset[] = {
 {"annual_beam", (getter)Outputs_get_annual_beam,(setter)0,
 	PyDoc_STR("*float*: Average daily beam normal [kWh/m2/day]"),
  	NULL},
+{"annual_csky_beam", (getter)Outputs_get_annual_csky_beam,(setter)0,
+	PyDoc_STR("*float*: Average daily clear sky beam normal [kWh/m2/day]"),
+ 	NULL},
+{"annual_csky_diff", (getter)Outputs_get_annual_csky_diff,(setter)0,
+	PyDoc_STR("*float*: Average clear sky daily diffuse [kWh/m2/day]"),
+ 	NULL},
+{"annual_csky_glob", (getter)Outputs_get_annual_csky_glob,(setter)0,
+	PyDoc_STR("*float*: Average daily clear sky global horizontal [kWh/m2/day]"),
+ 	NULL},
 {"annual_diff", (getter)Outputs_get_annual_diff,(setter)0,
 	PyDoc_STR("*float*: Average daily diffuse [kWh/m2/day]"),
  	NULL},
 {"annual_glob", (getter)Outputs_get_annual_glob,(setter)0,
 	PyDoc_STR("*float*: Average daily global horizontal [kWh/m2/day]"),
+ 	NULL},
+{"annual_precipitation", (getter)Outputs_get_annual_precipitation,(setter)0,
+	PyDoc_STR("*float*: Annual precipitation [cm]"),
  	NULL},
 {"annual_snow", (getter)Outputs_get_annual_snow,(setter)0,
 	PyDoc_STR("*float*: Maximum snow depth [cm]"),
@@ -556,6 +598,9 @@ static PyGetSetDef Outputs_getset[] = {
  	NULL},
 {"pres", (getter)Outputs_get_pres,(setter)0,
 	PyDoc_STR("*sequence*: Atmospheric Pressure [millibar]"),
+ 	NULL},
+{"pwater", (getter)Outputs_get_pwater,(setter)0,
+	PyDoc_STR("*sequence*: Precipitable Water [cm]"),
  	NULL},
 {"rhum", (getter)Outputs_get_rhum,(setter)0,
 	PyDoc_STR("*sequence*: Relative Humidity [%]"),
