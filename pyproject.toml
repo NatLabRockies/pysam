@@ -3,7 +3,7 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "NLR-PySAM"
+name = "NREL-PySAM"
 description = "National Laboratory of the Rockies' System Advisor Model Python Wrapper"
 readme = {file = "RELEASE.md", content-type = "text/markdown"}
 license = "BSD-3-Clause"
@@ -15,9 +15,13 @@ dependencies = [
     "requests",
 ]
 dynamic = ["version"]
+classifiers = [
+    "Development Status :: 7 - Inactive",
+    "Programming Language :: Python :: 3"
+]
 
 [project.urls]
-Documentation = "https://nlr-pysam.readthedocs.io"
+Documentation = "https://nrel-pysam.readthedocs.io"
 
 [tool.setuptools.dynamic]
 version = {attr = "PySAM.version.__version__"}
