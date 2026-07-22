@@ -6,7 +6,7 @@ Wfcheck
 .. automodule:: PySAM.Wfcheck
 	:members:
 
-Wfcheck is a wrapper for the SSC compute module `cmod_wfcheck.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_wfcheck.cpp>`_
+Wfcheck is a wrapper for the SSC compute module `cmod_wfcheck.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_wfcheck.cpp>`_
 
 Interdependent Variables
 --------------------------

@@ -6,7 +6,7 @@ Hybrid
 .. automodule:: PySAM.Hybrid
 	:members:
 
-Hybrid is a wrapper for the SSC compute module `cmod_hybrid.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_hybrid.cpp>`_
+Hybrid is a wrapper for the SSC compute module `cmod_hybrid.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_hybrid.cpp>`_
 
 Interdependent Variables
 --------------------------

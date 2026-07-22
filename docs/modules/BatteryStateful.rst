@@ -6,7 +6,7 @@ BatteryStateful
 .. automodule:: PySAM.BatteryStateful
 	:members:
 
-BatteryStateful is a wrapper for the SSC compute module `cmod_battery_stateful.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_battery_stateful.cpp>`_
+BatteryStateful is a wrapper for the SSC compute module `cmod_battery_stateful.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_battery_stateful.cpp>`_
 
 Interdependent Variables
 --------------------------

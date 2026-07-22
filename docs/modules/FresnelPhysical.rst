@@ -6,7 +6,7 @@ FresnelPhysical
 .. automodule:: PySAM.FresnelPhysical
 	:members:
 
-FresnelPhysical is a wrapper for the SSC compute module `cmod_fresnel_physical.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_fresnel_physical.cpp>`_
+FresnelPhysical is a wrapper for the SSC compute module `cmod_fresnel_physical.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_fresnel_physical.cpp>`_
 
 Interdependent Variables
 --------------------------

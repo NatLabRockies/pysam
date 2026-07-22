@@ -55,6 +55,7 @@ ECHO python = %python_version%
 ECHO tests = %tests%
 
 
+rmdir %SSCDIR%\..\build_pysam /s
 mkdir %SSCDIR%\..\build_pysam
 cd %SSCDIR%\..\build_pysam
 

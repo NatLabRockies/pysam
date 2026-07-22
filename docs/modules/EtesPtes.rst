@@ -6,7 +6,7 @@ EtesPtes
 .. automodule:: PySAM.EtesPtes
 	:members:
 
-EtesPtes is a wrapper for the SSC compute module `cmod_etes_ptes.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_etes_ptes.cpp>`_
+EtesPtes is a wrapper for the SSC compute module `cmod_etes_ptes.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_etes_ptes.cpp>`_
 
 Interdependent Variables
 --------------------------

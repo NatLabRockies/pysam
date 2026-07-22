@@ -6,7 +6,7 @@ InvCecCg
 .. automodule:: PySAM.InvCecCg
 	:members:
 
-InvCecCg is a wrapper for the SSC compute module `cmod_inv_cec_cg.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_inv_cec_cg.cpp>`_
+InvCecCg is a wrapper for the SSC compute module `cmod_inv_cec_cg.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_inv_cec_cg.cpp>`_
 
 Interdependent Variables
 --------------------------

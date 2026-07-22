@@ -6,7 +6,7 @@ GeothermalCosts
 .. automodule:: PySAM.GeothermalCosts
 	:members:
 
-GeothermalCosts is a wrapper for the SSC compute module `cmod_geothermal_costs.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_geothermal_costs.cpp>`_
+GeothermalCosts is a wrapper for the SSC compute module `cmod_geothermal_costs.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_geothermal_costs.cpp>`_
 
 Interdependent Variables
 --------------------------

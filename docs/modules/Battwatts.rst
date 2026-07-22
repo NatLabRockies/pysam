@@ -6,7 +6,7 @@ Battwatts
 .. automodule:: PySAM.Battwatts
 	:members:
 
-Battwatts is a wrapper for the SSC compute module `cmod_battwatts.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_battwatts.cpp>`_
+Battwatts is a wrapper for the SSC compute module `cmod_battwatts.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_battwatts.cpp>`_
 
 Interdependent Variables
 --------------------------

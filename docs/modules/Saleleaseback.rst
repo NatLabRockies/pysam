@@ -6,7 +6,7 @@ Saleleaseback
 .. automodule:: PySAM.Saleleaseback
 	:members:
 
-Saleleaseback is a wrapper for the SSC compute module `cmod_saleleaseback.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_saleleaseback.cpp>`_
+Saleleaseback is a wrapper for the SSC compute module `cmod_saleleaseback.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_saleleaseback.cpp>`_
 
 Interdependent Variables
 --------------------------

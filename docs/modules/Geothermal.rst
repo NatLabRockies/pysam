@@ -6,7 +6,7 @@ Geothermal
 .. automodule:: PySAM.Geothermal
 	:members:
 
-Geothermal is a wrapper for the SSC compute module `cmod_geothermal.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_geothermal.cpp>`_
+Geothermal is a wrapper for the SSC compute module `cmod_geothermal.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_geothermal.cpp>`_
 
 Interdependent Variables
 --------------------------

@@ -6,7 +6,7 @@ Fuelcell
 .. automodule:: PySAM.Fuelcell
 	:members:
 
-Fuelcell is a wrapper for the SSC compute module `cmod_fuelcell.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_fuelcell.cpp>`_
+Fuelcell is a wrapper for the SSC compute module `cmod_fuelcell.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_fuelcell.cpp>`_
 
 Interdependent Variables
 --------------------------

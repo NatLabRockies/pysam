@@ -6,7 +6,7 @@ Pvwattsv5
 .. automodule:: PySAM.Pvwattsv5
 	:members:
 
-Pvwattsv5 is a wrapper for the SSC compute module `cmod_pvwattsv5.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_pvwattsv5.cpp>`_
+Pvwattsv5 is a wrapper for the SSC compute module `cmod_pvwattsv5.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_pvwattsv5.cpp>`_
 
 Interdependent Variables
 --------------------------

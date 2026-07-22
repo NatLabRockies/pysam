@@ -6,7 +6,7 @@ UserHtfComparison
 .. automodule:: PySAM.UserHtfComparison
 	:members:
 
-UserHtfComparison is a wrapper for the SSC compute module `cmod_user_htf_comparison.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_user_htf_comparison.cpp>`_
+UserHtfComparison is a wrapper for the SSC compute module `cmod_user_htf_comparison.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_user_htf_comparison.cpp>`_
 
 Interdependent Variables
 --------------------------

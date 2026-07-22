@@ -6,7 +6,7 @@ CspHeatsink
 .. automodule:: PySAM.CspHeatsink
 	:members:
 
-CspHeatsink is a wrapper for the SSC compute module `cmod_csp_heatsink.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_csp_heatsink.cpp>`_
+CspHeatsink is a wrapper for the SSC compute module `cmod_csp_heatsink.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_csp_heatsink.cpp>`_
 
 Interdependent Variables
 --------------------------

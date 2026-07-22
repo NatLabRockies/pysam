@@ -6,7 +6,7 @@ WaveFileReader
 .. automodule:: PySAM.WaveFileReader
 	:members:
 
-WaveFileReader is a wrapper for the SSC compute module `cmod_wave_file_reader.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_wave_file_reader.cpp>`_
+WaveFileReader is a wrapper for the SSC compute module `cmod_wave_file_reader.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_wave_file_reader.cpp>`_
 
 Interdependent Variables
 --------------------------

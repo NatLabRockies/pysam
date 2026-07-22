@@ -6,7 +6,7 @@ Utilityrate5
 .. automodule:: PySAM.Utilityrate5
 	:members:
 
-Utilityrate5 is a wrapper for the SSC compute module `cmod_utilityrate5.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_utilityrate5.cpp>`_
+Utilityrate5 is a wrapper for the SSC compute module `cmod_utilityrate5.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_utilityrate5.cpp>`_
 
 Interdependent Variables
 --------------------------

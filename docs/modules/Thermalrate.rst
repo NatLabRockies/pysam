@@ -6,7 +6,7 @@ Thermalrate
 .. automodule:: PySAM.Thermalrate
 	:members:
 
-Thermalrate is a wrapper for the SSC compute module `cmod_thermalrate.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_thermalrate.cpp>`_
+Thermalrate is a wrapper for the SSC compute module `cmod_thermalrate.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_thermalrate.cpp>`_
 
 Interdependent Variables
 --------------------------

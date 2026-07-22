@@ -6,7 +6,7 @@ ThermalrateIph
 .. automodule:: PySAM.ThermalrateIph
 	:members:
 
-ThermalrateIph is a wrapper for the SSC compute module `cmod_thermalrate_iph.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_thermalrate_iph.cpp>`_
+ThermalrateIph is a wrapper for the SSC compute module `cmod_thermalrate_iph.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_thermalrate_iph.cpp>`_
 
 Interdependent Variables
 --------------------------

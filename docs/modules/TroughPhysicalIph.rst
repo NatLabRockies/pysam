@@ -6,7 +6,7 @@ TroughPhysicalIph
 .. automodule:: PySAM.TroughPhysicalIph
 	:members:
 
-TroughPhysicalIph is a wrapper for the SSC compute module `cmod_trough_physical_iph.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_trough_physical_iph.cpp>`_
+TroughPhysicalIph is a wrapper for the SSC compute module `cmod_trough_physical_iph.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_trough_physical_iph.cpp>`_
 
 Interdependent Variables
 --------------------------

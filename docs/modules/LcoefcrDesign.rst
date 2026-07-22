@@ -6,7 +6,7 @@ LcoefcrDesign
 .. automodule:: PySAM.LcoefcrDesign
 	:members:
 
-LcoefcrDesign is a wrapper for the SSC compute module `cmod_lcoefcr_design.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_lcoefcr_design.cpp>`_
+LcoefcrDesign is a wrapper for the SSC compute module `cmod_lcoefcr_design.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_lcoefcr_design.cpp>`_
 
 Interdependent Variables
 --------------------------

@@ -6,7 +6,7 @@ Equpartflip
 .. automodule:: PySAM.Equpartflip
 	:members:
 
-Equpartflip is a wrapper for the SSC compute module `cmod_equpartflip.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_equpartflip.cpp>`_
+Equpartflip is a wrapper for the SSC compute module `cmod_equpartflip.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_equpartflip.cpp>`_
 
 Interdependent Variables
 --------------------------

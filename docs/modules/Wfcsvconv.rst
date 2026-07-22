@@ -6,7 +6,7 @@ Wfcsvconv
 .. automodule:: PySAM.Wfcsvconv
 	:members:
 
-Wfcsvconv is a wrapper for the SSC compute module `cmod_wfcsvconv.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_wfcsvconv.cpp>`_
+Wfcsvconv is a wrapper for the SSC compute module `cmod_wfcsvconv.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_wfcsvconv.cpp>`_
 
 Interdependent Variables
 --------------------------

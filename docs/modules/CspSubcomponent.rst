@@ -6,7 +6,7 @@ CspSubcomponent
 .. automodule:: PySAM.CspSubcomponent
 	:members:
 
-CspSubcomponent is a wrapper for the SSC compute module `cmod_csp_subcomponent.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_csp_subcomponent.cpp>`_
+CspSubcomponent is a wrapper for the SSC compute module `cmod_csp_subcomponent.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_csp_subcomponent.cpp>`_
 
 Interdependent Variables
 --------------------------

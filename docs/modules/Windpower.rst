@@ -6,7 +6,7 @@ Windpower
 .. automodule:: PySAM.Windpower
 	:members:
 
-Windpower is a wrapper for the SSC compute module `cmod_windpower.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_windpower.cpp>`_
+Windpower is a wrapper for the SSC compute module `cmod_windpower.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_windpower.cpp>`_
 
 Interdependent Variables
 --------------------------

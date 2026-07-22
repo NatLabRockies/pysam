@@ -6,7 +6,7 @@ Sco2CspUdPcTables
 .. automodule:: PySAM.Sco2CspUdPcTables
 	:members:
 
-Sco2CspUdPcTables is a wrapper for the SSC compute module `cmod_sco2_csp_ud_pc_tables.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_sco2_csp_ud_pc_tables.cpp>`_
+Sco2CspUdPcTables is a wrapper for the SSC compute module `cmod_sco2_csp_ud_pc_tables.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_sco2_csp_ud_pc_tables.cpp>`_
 
 Interdependent Variables
 --------------------------

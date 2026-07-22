@@ -6,7 +6,7 @@ Thirdpartyownership
 .. automodule:: PySAM.Thirdpartyownership
 	:members:
 
-Thirdpartyownership is a wrapper for the SSC compute module `cmod_thirdpartyownership.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_thirdpartyownership.cpp>`_
+Thirdpartyownership is a wrapper for the SSC compute module `cmod_thirdpartyownership.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_thirdpartyownership.cpp>`_
 
 Interdependent Variables
 --------------------------

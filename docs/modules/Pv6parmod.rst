@@ -6,7 +6,7 @@ Pv6parmod
 .. automodule:: PySAM.Pv6parmod
 	:members:
 
-Pv6parmod is a wrapper for the SSC compute module `cmod_pv6parmod.cpp <https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_pv6parmod.cpp>`_
+Pv6parmod is a wrapper for the SSC compute module `cmod_pv6parmod.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_pv6parmod.cpp>`_
 
 Interdependent Variables
 --------------------------
