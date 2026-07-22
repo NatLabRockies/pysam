@@ -39,7 +39,7 @@ SAM's user interface displays "calculated values" in blue boxes that you cannot 
 
 .. note::
 
-    For some compute modules, including TroughPhysical and Tscmoltensalt, the equations in the user interface used for calculated values have been migrated to SSC eliminating the problem of interdependent variables for those modules. NREL is working to migrate equations for other modules for future versions of SAM and PySAM.
+    For some compute modules, including TroughPhysical and Tscmoltensalt, the equations in the user interface used for calculated values have been migrated to SSC eliminating the problem of interdependent variables for those modules. NLR is working to migrate equations for other modules for future versions of SAM and PySAM.
 
 Examples
 ---------
@@ -55,9 +55,9 @@ We used the following information to figure out why:
 
 * Lists of interdependent variables in :doc:`modules/Pvsamv1`.
 
-* The `Help topic <https://samrepo.nrelcloud.org/help/pv_system_design.htm>`_ for SAM's System Design page.
+* The `Help topic <https://natlabrockies.github.io/SAM/doc/detailed-photovoltaic-model/pv_system_size.html>`_ for SAM's System Size page.
 
-* SAM `user interface equations <https://github.com/natlabrockies/SAM/blob/develop/deploy/runtime/ui/PV%20System%20Design.txt#L7273>`_ for the System Design page.
+* SAM `user interface equations <https://github.com/NatLabRockies/SAM/blob/6ef6c5b2e42b202cee73582ae8ac74e830fff495/deploy/runtime/ui/PV%20System%20Size.json#L1160>`_ for the System Design page.
 
 And then, based on what we learned, wrote the following test script:
 

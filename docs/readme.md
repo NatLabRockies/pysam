@@ -1,6 +1,6 @@
 # PySAM Documentation Notes
 
-This folder contains files to generate the PySAM documentation published at https://nrel-pysam.readthedocs.io.
+This folder contains files to generate the PySAM documentation published at https://nlr-pysam.readthedocs.io.
 
 It uses Sphinx with reStructuredText and the sphinx-rtd-theme: https://www.sphinx-doc.org.
 
