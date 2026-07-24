@@ -14,7 +14,7 @@ Use resource files directly in your PySAM models or input them as dictionaries.
 
 Please see an example of FetchResource: `FetchResourceFileExample.py <https://github.com/natlabrockies/pysam/blob/main/Examples/FetchResourceFileExample.py>`_
 
-.. automodule:: files.ResourceTools
+.. automodule:: PySAM.ResourceTools
     :members:
     :undoc-members:
 
@@ -23,7 +23,7 @@ Battery Tools
 
 Access battery tools with ``import PySAM.BatteryTools``.
 
-.. automodule:: files.BatteryTools
+.. automodule:: PySAM.BatteryTools
     :members:
     :undoc-members:
 
@@ -36,7 +36,7 @@ These functions help manipulate load data for local analysis and the utility rat
 
 Please see an example of get_monthly_peaks: `LoadToolsExample.py <https://github.com/natlabrockies/pysam/blob/main/Examples/LoadToolsExample.py>`_
 
-.. automodule:: files.LoadTools
+.. automodule:: PySAM.LoadTools
     :members:
     :undoc-members:
 
@@ -49,6 +49,6 @@ These functions translate URDB data into the SAM format
 
 Please see an example of URDBv8_to_ElectricityRates `here <https://github.com/natlabrockies/pysam/blob/main/Examples/UtilityRatesExample.py>`_
 
-.. automodule:: files.UtilityRateTools
+.. automodule:: PySAM.UtilityRateTools
     :members:
     :undoc-members:
