@@ -7,6 +7,6 @@ For example, the Detailed PV -- Commercial configuration combines the Detailed P
 
 Each configuration available in SAM is listed below with a description and list of compute modules in the correct execution order. Use the list as a reference when you are creating a model for a configuration.
 
-The configurations and their inputs are described in SAM's Help system. For an online version, see `SAM Help <https://samrepo.nrelcloud.org/help/index.html>`_.
+The configurations and their inputs are described in SAM's Help system. For an online version, see `SAM Help <https://natlabrockies.github.io/SAM/doc/index.html>`_.
 
 .. include:: lists/configs.rst
