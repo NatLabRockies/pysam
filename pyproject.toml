@@ -19,11 +19,6 @@ dynamic = ["version"]
 [project.urls]
 Documentation = "https://nlr-pysam.readthedocs.io"
 
-[tools.setuptools]
-obsoletes = [
-	"NREL-PySAM"
-]
-
 [tool.setuptools.dynamic]
 version = {attr = "PySAM.version.__version__"}
 
