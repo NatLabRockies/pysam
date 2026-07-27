@@ -208,13 +208,14 @@ jobs:
 
 
       - name: Build api_autogen
+        shell: bash
         if: steps.cachedsam.outputs.cache-hit != 'true'
         run: |
-          cd $env:SAMNTDIR\api
+          cd sam/api
           mkdir build
           cd build
           cmake -G "Visual Studio 17 2022" -DCMAKE_BUILD_TYPE=Release ..
-          msbuild.exe .\SAM_api.vcxproj /t:Build /p:Configuration=Release
+          msbuild.exe ./SAM_api.vcxproj //t:Build //p:Configuration=Release
 
 
 #       - name: Install conda 
