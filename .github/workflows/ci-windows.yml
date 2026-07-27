@@ -218,44 +218,44 @@ jobs:
           msbuild.exe ./SAM_api.vcxproj //t:Build //p:Configuration=Release
 
 
-#       - name: Install conda 
-#         uses: conda-incubator/setup-miniconda@v4
-#         with:
-#           auto-update-conda: true
-#           python-version: ${{ matrix.python-version }}
-#           activate-environment: ${{ matrix.python-version }}
+      - name: Install conda 
+        uses: conda-incubator/setup-miniconda@v4
+        with:
+          auto-update-conda: true
+          python-version: ${{ matrix.python-version }}
+          activate-environment: ${{ matrix.python-version }}
 
-#       - name: Prepare pysam
-#         shell: bash
-#         run: |
-#           cd pysam
-#           python prepare_build.py
+      - name: Prepare pysam
+        shell: bash
+        run: |
+          cd pysam
+          python prepare_build.py
 
-# # CRITICAL: You must use the bash login shell layout for conda to be recognized
-#       - name: Create pysam
-#         shell: bash -l {0}
-#         run: |
-#           cd pysam
-#           conda deactivate
-#           conda activate ${{ matrix.python-version }}
-#           pip uninstall NLR-PySAM
-#           pip install .
+# CRITICAL: You must use the bash login shell layout for conda to be recognized
+      - name: Create pysam
+        shell: bash -l {0}
+        run: |
+          cd pysam
+          conda deactivate
+          conda activate ${{ matrix.python-version }}
+          pip uninstall NLR-PySAM
+          pip install .
 
-#       - name: Run Tests
-#         shell: bash -l {0}
-#         run: |
-#           cd pysam
-#           conda deactivate
-#           conda activate ${{ matrix.python-version }}
-#           pip install -r tests/requirements.txt
-#           pytest -s tests
+      - name: Run Tests
+        shell: bash -l {0}
+        run: |
+          cd pysam
+          conda deactivate
+          conda activate ${{ matrix.python-version }}
+          pip install -r tests/requirements.txt
+          pytest -s tests
 
-#       - name: Wheel on pull request only
-#         shell: bash -l {0}
-#         if: ${{ github.event_name == 'pull_request' }}
-#         run: |
-#           cd pysam
-#           conda deactivate
-#           conda activate ${{ matrix.python-version }}
-#           python -m pip install --upgrade build
-#           python -m build --wheel
+      - name: Wheel on pull request only
+        shell: bash -l {0}
+        if: ${{ github.event_name == 'pull_request' }}
+        run: |
+          cd pysam
+          conda deactivate
+          conda activate ${{ matrix.python-version }}
+          python -m pip install --upgrade build
+          python -m build --wheel
