@@ -233,7 +233,7 @@ jobs:
           conda deactivate
           conda activate ${{ matrix.python-version }}
           pip install -r tests/requirements.txt
-          pytest -s tests --ignore=tests/test_BatteryTools.py
+          pytest -s tests
 
       - name: Wheel on pull request only
         shell: bash -l {0}
