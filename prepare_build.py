@@ -57,6 +57,8 @@ def stage_platform_libs(pkg_dir, staged):
         # Look for libs in the typical cmake build output locations
         search_dirs = [
             Path(samntdir) / ".." / "cmake-build-release",
+            Path(samntdir) / ".." / "cmake-build-release" / "SAM" / "api",
+            Path(samntdir) / ".." / "cmake-build-release" / "ssc" / "ssc",
             Path(samntdir) / ".." / "build_pysam",
             # GA
             Path(samntdir) / "api" /"build", 

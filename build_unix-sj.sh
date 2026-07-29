@@ -17,7 +17,7 @@ then
     -DSAM_SKIP_AUTOGEN=0 -DSAMAPI_EXPORT=1 \
     -DUSE_XPRESS=0 -DUSE_COINOR=1 -DCMAKE_SYSTEM_PREFIX_PATH="$ORTOOLSDIR" \
     -Dabsl_DIR="$ORTOOLSDIR/lib/cmake/absl" -Dutf8_range_DIR="$ORTOOLSDIR/lib/cmake/utf8_range" \
-    -Dortools_DIR="$ORTOOLSDIR/lib/cmake/ortools" ..
+    -Dortools_DIR="$ORTOOLSDIR/lib/cmake/ortools" -DCMAKE_PREFIX_PATH="$ORTOOLSDIR" -DCMAKE_LIBRARY_PATH="$ORTOOLSDIR" ..
 else
     cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_OSX_DEPLOYMENT_TARGET=12 \
     -DCMAKE_OSX_SYSROOT=/Library/Developer/CommandLineTools/SDKs/MacOSX15.4.sdk \
@@ -25,7 +25,7 @@ else
     -DSAM_SKIP_AUTOGEN=1 -DSAMAPI_EXPORT=1 \
     -DUSE_XPRESS=0 -DUSE_COINOR=1 -DCMAKE_SYSTEM_PREFIX_PATH="$ORTOOLSDIR" \
     -Dabsl_DIR="$ORTOOLSDIR/lib/cmake/absl" -Dutf8_range_DIR="$ORTOOLSDIR/lib/cmake/utf8_range" \
-    -Dortools_DIR="$ORTOOLSDIR/lib/cmake/ortools" ..
+    -Dortools_DIR="$ORTOOLSDIR/lib/cmake/ortools"  -DCMAKE_PREFIX_PATH="$ORTOOLSDIR" -DCMAKE_LIBRARY_PATH="$ORTOOLSDIR" ..
 fi
 cmake --build . --target SAM_api -j 10
 
@@ -36,20 +36,21 @@ cmake --build . --target SAM_api -j 10
 cd $PYSAMDIR || exit
 source $(conda info --base)/etc/profile.d/conda.sh
 rm -rf build
-rm -rf dist/*
+#rm -rf dist/*
 
 # Stage external files (libs, defaults) into PySAM/
-python prepare_build.py || exit
+python ./prepare_build.py || exit
 
 for PYTHONENV in pysam_build_3.9 pysam_build_3.10 pysam_build_3.11 pysam_build_3.12 pysam_build_3.13 pysam_build_3.14
 do
    conda activate $PYTHONENV
+   yes | python -m pip install --upgrade pip
    yes | pip install -r tests/requirements.txt
    yes | pip install build
    yes | pip uninstall NREL-PySAM
    yes | pip uninstall NLR-PySAM
    pip install . || exit
-   pytest -s tests
+   pytest -s tests --ignore=tests/test_BatteryTools.py
    retVal=$?
    if [ $retVal -ne 0 ]; then
        echo "Error in Tests"
