@@ -37,20 +37,21 @@ cd $PYSAMDIR || exit
 source $(conda info --base)/etc/profile.d/conda.sh
 rm -rf build
 #rm -rf dist/*
+eval "$(mamba shell hook --shell bash)"
 
 # Stage external files (libs, defaults) into PySAM/
-python ./prepare_build.py || exit
+python prepare_build.py || exit
 
 for PYTHONENV in pysam_build_3.9 pysam_build_3.10 pysam_build_3.11 pysam_build_3.12 pysam_build_3.13 pysam_build_3.14
 do
-   conda activate $PYTHONENV
+   mamba activate $(conda info --base)/envs/$PYTHONENV
    yes | python -m pip install --upgrade pip
    yes | pip install -r tests/requirements.txt
    yes | pip install build
    yes | pip uninstall NREL-PySAM
    yes | pip uninstall NLR-PySAM
    pip install . || exit
-   pytest -s tests --ignore=tests/test_BatteryTools.py
+   pytest -s tests 
    retVal=$?
    if [ $retVal -ne 0 ]; then
        echo "Error in Tests"
