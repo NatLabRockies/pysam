@@ -15,7 +15,7 @@ REM e.g. build_win.bat -python="myenv" to create using the conda environment "my
 
 
 REM do not persist variables for subsequent runs
-set version=""
+set version="NA"
 SET "python_version=pysam_build_3.9 pysam_build_3.10 pysam_build_3.11 pysam_build_3.12 pysam_build_3.13 pysam_build_3.14"
 SET tests="run"
 
@@ -44,7 +44,7 @@ if "%version%"=="3.9" (
     SET "python_version=pysam_build_3.13"
 ) else if "%version%"=="3.14" (
     SET "python_version=pysam_build_3.14"
-) else if NOT "%version%"=="" (
+) else if "%version%" NEQ ""NA"" (
     SET "python_version=%version%"
 )
 
@@ -66,7 +66,6 @@ if errorlevel 1 (
 
 cd %PYSAMDIR%
 echo y | rmdir build /s
-echo y | del dist\*
 
 REM Stage external files (libs, defaults) into PySAM\
 python prepare_build.py
