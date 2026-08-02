@@ -69,6 +69,7 @@ def stage_platform_libs(pkg_dir, staged):
         search_dirs = [
             Path("/io/build_linux_sam"),
             Path("/io/build_linux_ssc"),
+            Path("/io/build_linux_ssc/ssc"),
             Path(samntdir) / ".." / "cmake-build-release",
             # GA
             Path(samntdir) / "api" /"build", 
@@ -141,7 +142,9 @@ def stage_ortools(pkg_dir, staged):
                     check=True,
                 )
             elif sys.platform == "linux":
-                linker_name = dest.name.split(".so")[0] + ".so"
+#                linker_name = dest.name.split(".so")[0] + ".so"
+                linker_name = dest.name
+                print(f" dest, linker: {dest.name}, {linker_name}")
                 linker_link = pkg_dir / linker_name
                 if linker_link.exists():
                     os.remove(linker_link)

@@ -29,6 +29,7 @@ include = ["PySAM*"]
 PySAM = [
     "*.pyi",
     "*.so",
+    "*.2505.0.0",
     "*.dll",
     "*.lib",
     "defaults/*.df",

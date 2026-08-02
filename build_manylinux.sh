@@ -21,6 +21,14 @@ mkdir -p /io/build_linux_ssc
 cd /io/build_linux_ssc
 rm -rf *
 cmake ${SSCDIR} -DCMAKE_BUILD_TYPE=Release -DSAM_SKIP_TOOLS=1 -DSAMAPI_EXPORT=1 -DSAM_SKIP_TESTS=1 -DUSE_XPRESS=0 -DUSE_COINOR=1 -DCMAKE_SYSTEM_PREFIX_PATH="$ORTOOLSDIR" -Dabsl_DIR="$ORTOOLSDIR\lib\cmake\absl" -Dutf8_range_DIR="$ORTOOLSDIR\lib\cmake\utf8_range" -Dortools_DIR="$ORTOOLSDIR\lib\cmake\ortools" ../ssc || exit
+
+#cmake ${SSCDIR} -DCMAKE_BUILD_TYPE=Release  \
+#    -DSAMAPI_EXPORT=1 -DSAM_SKIP_TOOLS=1 -DSAM_SKIP_TESTS=1  \
+#    -DUSE_XPRESS=0 -DUSE_COINOR=1 -DCMAKE_SYSTEM_PREFIX_PATH="$ORTOOLSDIR" \
+#    -Dabsl_DIR="$ORTOOLSDIR/lib/cmake/absl" -Dutf8_range_DIR="$ORTOOLSDIR/lib/cmake/utf8_range" \
+#    -Dortools_DIR="$ORTOOLSDIR/lib/cmake/ortools" -DCMAKE_PREFIX_PATH="$ORTOOLSDIR" -DCMAKE_LIBRARY_PATH="$ORTOOLSDIR"  ../ssc || exit
+
+
 cmake --build . --target shared -j 6 || exit
 cmake --build . --target ssc -j 6 || exit
 
@@ -37,16 +45,18 @@ cd $PYSAMDIR
 
 for PYTHONENV in cp39-cp39 cp310-cp310 cp311-cp311 cp312-cp312 cp313-cp313 cp314-cp314
 do
+   yes | /opt/python/$PYTHONENV/python -m pip install --upgrade pip
    yes | /opt/python/$PYTHONENV/bin/pip install -r tests/requirements.txt
    yes | /opt/python/$PYTHONENV/bin/pip install auditwheel build
    yes | /opt/python/$PYTHONENV/bin/pip uninstall NREL-PySAM
    yes | /opt/python/$PYTHONENV/bin/pip uninstall NLR-PySAM
    /opt/python/$PYTHONENV/bin/python -m build --wheel || exit
-   WHEEL=$(ls dist/nrel_pysam-*-$PYTHONENV-*linux*.whl)
-   auditwheel repair "$WHEEL" -w dist/wheelhouse/
-   REPAIRED_WHEEL=$(ls dist/wheelhouse/nrel_pysam-*-$PYTHONENV-*linux*.whl)
-   yes | /opt/python/$PYTHONENV/bin/pip install "$REPAIRED_WHEEL"
-   /opt/python/$PYTHONENV/bin/python -m pytest -s tests/test_dispatch_optimization.py
+   WHEEL=$(ls dist/nlr_pysam-*-$PYTHONENV-*linux*.whl)
+#   auditwheel repair "$WHEEL" -w dist/wheelhouse/
+#   REPAIRED_WHEEL=$(ls dist/wheelhouse/nlr_pysam-*-$PYTHONENV-*linux*.whl)
+#   yes | /opt/python/$PYTHONENV/bin/pip install "$REPAIRED_WHEEL"
+   yes | /opt/python/$PYTHONENV/bin/pip install "$WHEEL"
+   /opt/python/$PYTHONENV/bin/pytest -s tests
    retVal=$?
    if [ $retVal -ne 0 ]; then
        echo "Error in Tests"
