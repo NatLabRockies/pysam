@@ -148,7 +148,7 @@ def stage_ortools(pkg_dir, staged):
                 linker_link = pkg_dir / linker_name
                 if linker_link.exists():
                     os.remove(linker_link)
-                os.symlink(dest.name, str(linker_link))
+#                os.symlink(dest.name, str(linker_link))
                 staged.append(str(linker_link))
 
             staged.append(str(dest))

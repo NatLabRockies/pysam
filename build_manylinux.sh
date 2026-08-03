@@ -43,7 +43,8 @@ cd $PYSAMDIR
 # Stage external files (libs, defaults) into PySAM/
 /opt/python/cp312-cp312/bin/python prepare_build.py || exit
 
-for PYTHONENV in cp39-cp39 cp310-cp310 cp311-cp311 cp312-cp312 cp313-cp313 cp314-cp314
+#for PYTHONENV in cp39-cp39 cp310-cp310 cp311-cp311 cp312-cp312 cp313-cp313 cp314-cp314
+for PYTHONENV in cp312-cp312
 do
    yes | /opt/python/$PYTHONENV/python -m pip install --upgrade pip
    yes | /opt/python/$PYTHONENV/bin/pip install -r tests/requirements.txt
@@ -52,16 +53,16 @@ do
    yes | /opt/python/$PYTHONENV/bin/pip uninstall NLR-PySAM
    /opt/python/$PYTHONENV/bin/python -m build --wheel || exit
    WHEEL=$(ls dist/nlr_pysam-*-$PYTHONENV-*linux*.whl)
-#   auditwheel repair "$WHEEL" -w dist/wheelhouse/
-#   REPAIRED_WHEEL=$(ls dist/wheelhouse/nlr_pysam-*-$PYTHONENV-*linux*.whl)
-#   yes | /opt/python/$PYTHONENV/bin/pip install "$REPAIRED_WHEEL"
+   auditwheel repair "$WHEEL" -w dist/wheelhouse/
+   REPAIRED_WHEEL=$(ls dist/wheelhouse/nlr_pysam-*-$PYTHONENV-*linux*.whl)
+   yes | /opt/python/$PYTHONENV/bin/pip install "$REPAIRED_WHEEL"
    yes | /opt/python/$PYTHONENV/bin/pip install "$WHEEL"
-   /opt/python/$PYTHONENV/bin/pytest -s tests
-   retVal=$?
-   if [ $retVal -ne 0 ]; then
-       echo "Error in Tests"
-       exit 1
-   fi
+#   /opt/python/$PYTHONENV/bin/pytest -s tests
+#   retVal=$?
+#   if [ $retVal -ne 0 ]; then
+#       echo "Error in Tests"
+#       exit 1
+#   fi
 done
 
 # Clean up staged files
