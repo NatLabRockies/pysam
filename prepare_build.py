@@ -99,6 +99,7 @@ def stage_platform_libs(pkg_dir, staged):
             if lib_path.is_file():
                 dest = pkg_dir / lib_name
                 shutil.copy2(str(lib_path), str(dest))
+                print(f" copied : {lib_path} to {dest}")
                 staged.append(str(dest))
                 print(f"  Staged {lib_name} from {search_dir}")
                 found = True
@@ -135,6 +136,7 @@ def stage_ortools(pkg_dir, staged):
                 continue
             dest = pkg_dir / lib_path.name
             shutil.copy2(str(lib_path), str(dest))
+            print(f" copied : {lib_path} to {dest}")
 
             if sys.platform == "darwin":
                 subprocess.run(
@@ -146,8 +148,8 @@ def stage_ortools(pkg_dir, staged):
                 linker_name = dest.name
                 print(f" dest, linker: {dest.name}, {linker_name}")
                 linker_link = pkg_dir / linker_name
-                if linker_link.exists():
-                    os.remove(linker_link)
+#                if linker_link.exists():
+#                    os.remove(linker_link)
 #                os.symlink(dest.name, str(linker_link))
                 staged.append(str(linker_link))
 

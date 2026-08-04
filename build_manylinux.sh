@@ -12,10 +12,14 @@ else
     export CXX=g++
 fi
 
-export ORTOOLSDIR=/${ORTOOLS}
+export ORTOOLSDIR=/io/${ORTOOLS}
+echo "ortools, $ORTOOLSDIR"
 mkdir ${ORTOOLSDIR}
+
 curl -L https://github.com/google/or-tools/releases/download/v9.14/${ORTOOLS}.tar.gz -o ${ORTOOLS}.tar.gz
 tar xvzf ${ORTOOLS}.tar.gz -C ${ORTOOLSDIR} --strip-components=1
+
+
 
 mkdir -p /io/build_linux_ssc
 cd /io/build_linux_ssc
@@ -29,14 +33,14 @@ cmake ${SSCDIR} -DCMAKE_BUILD_TYPE=Release -DSAM_SKIP_TOOLS=1 -DSAMAPI_EXPORT=1 
 #    -Dortools_DIR="$ORTOOLSDIR/lib/cmake/ortools" -DCMAKE_PREFIX_PATH="$ORTOOLSDIR" -DCMAKE_LIBRARY_PATH="$ORTOOLSDIR"  ../ssc || exit
 
 
-cmake --build . --target shared -j 6 || exit
-cmake --build . --target ssc -j 6 || exit
+cmake --build . --target shared -j 8 || exit
+cmake --build . --target ssc -j 8 || exit
 
 mkdir -p /io/build_linux_sam
 cd /io/build_linux_sam
 rm -rf *
 cmake ${SAMNTDIR}/api -DCMAKE_BUILD_TYPE=Release -DSAMAPI_EXPORT=1 -DSAM_SKIP_AUTOGEN=1 -DUSE_XPRESS=0 -DUSE_COINOR=1 -DCMAKE_SYSTEM_PREFIX_PATH="$ORTOOLSDIR" -Dabsl_DIR="$ORTOOLSDIR\lib\cmake\absl" -Dutf8_range_DIR="$ORTOOLSDIR\lib\cmake\utf8_range" -Dortools_DIR="$ORTOOLSDIR\lib\cmake\ortools" ../sam/api || exit
-make -j 6 || exit
+make -j 8 || exit
 
 cd $PYSAMDIR
 
@@ -66,4 +70,4 @@ do
 done
 
 # Clean up staged files
-/opt/python/cp312-cp312/bin/python prepare_build.py --clean
+#/opt/python/cp312-cp312/bin/python prepare_build.py --clean

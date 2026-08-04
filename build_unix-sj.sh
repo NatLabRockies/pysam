@@ -27,7 +27,7 @@ else
     -Dabsl_DIR="$ORTOOLSDIR/lib/cmake/absl" -Dutf8_range_DIR="$ORTOOLSDIR/lib/cmake/utf8_range" \
     -Dortools_DIR="$ORTOOLSDIR/lib/cmake/ortools"  -DCMAKE_PREFIX_PATH="$ORTOOLSDIR" -DCMAKE_LIBRARY_PATH="$ORTOOLSDIR" ..
 fi
-cmake --build . --target SAM_api -j 10
+cmake --build . --target SAM_api -j 32
 
 # Building the PyPi and Anaconda packages
 # requires Anaconda installed with an environment per Python version from 3.9 to 3.14
@@ -60,10 +60,19 @@ do
    python -m build --wheel
 done
 
+
+exit 0
+
+
+
 # Clean up staged files
 python prepare_build.py --clean
 
 # yes | $PYSAMDIR/build_conda.sh || exit
+
+
+
+
 
 #
 # Building for Manylinux1
