@@ -50,7 +50,7 @@ cd $PYSAMDIR
 #for PYTHONENV in cp39-cp39 cp310-cp310 cp311-cp311 cp312-cp312 cp313-cp313 cp314-cp314
 for PYTHONENV in cp312-cp312
 do
-   yes | /opt/python/$PYTHONENV/python -m pip install --upgrade pip
+   yes | /opt/python/$PYTHONENV/bin/python -m pip install --upgrade pip
    yes | /opt/python/$PYTHONENV/bin/pip install -r tests/requirements.txt
    yes | /opt/python/$PYTHONENV/bin/pip install auditwheel build
    yes | /opt/python/$PYTHONENV/bin/pip uninstall NREL-PySAM

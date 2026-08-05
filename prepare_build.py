@@ -120,7 +120,8 @@ def stage_ortools(pkg_dir, staged):
         patterns = ["libabsl*", "libre2*", "libscip*"]
     elif sys.platform == "linux":
         lib_subdir = "lib64"
-        patterns = ["libabsl*", "libre2*", "libscip*"]
+#        patterns = ["libabsl*", "libre2*", "libscip*", "libortools*"]
+        patterns = ["lib*"]
     elif sys.platform == "win32":
         lib_subdir = "lib"
         patterns = ["absl*", "re2*", "scip*"]
@@ -132,8 +133,8 @@ def stage_ortools(pkg_dir, staged):
     for pattern in patterns:
         for lib_file in glob.glob(str(ortools_lib_dir / pattern)):
             lib_path = Path(lib_file)
-            if lib_path.is_symlink():
-                continue
+#            if lib_path.is_symlink():
+#                continue
             dest = pkg_dir / lib_path.name
             shutil.copy2(str(lib_path), str(dest))
             print(f" copied : {lib_path} to {dest}")

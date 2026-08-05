@@ -68,7 +68,7 @@ def _discover_ortools_libs(pkg_path):
                 found.append(name)
     return found
 
-libs += _discover_ortools_libs(pkg_dir)
+#libs += _discover_ortools_libs(pkg_dir)
 
 
 # ---------------------------------------------------------------------------
