@@ -136,7 +136,7 @@ def stage_ortools(pkg_dir, staged):
 #            if lib_path.is_symlink():
 #                continue
             dest = pkg_dir / lib_path.name
-            shutil.copy2(str(lib_path), str(dest))
+            shutil.copy2(str(lib_path), str(dest), follow_symlinks=False)
             print(f" copied : {lib_path} to {dest}")
 
             if sys.platform == "darwin":

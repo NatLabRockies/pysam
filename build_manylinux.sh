@@ -57,6 +57,7 @@ do
    yes | /opt/python/$PYTHONENV/bin/pip uninstall NLR-PySAM
    /opt/python/$PYTHONENV/bin/python -m build --wheel || exit
    WHEEL=$(ls dist/nlr_pysam-*-$PYTHONENV-*linux*.whl)
+   export LD_LIBRARY_PATH=/io/pysam/PySAM:$LD_LIBRARY_PATH
    auditwheel repair "$WHEEL" -w dist/wheelhouse/
    REPAIRED_WHEEL=$(ls dist/wheelhouse/nlr_pysam-*-$PYTHONENV-*linux*.whl)
    yes | /opt/python/$PYTHONENV/bin/pip install "$REPAIRED_WHEEL"
