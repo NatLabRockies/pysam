@@ -52,13 +52,16 @@ for PYTHONENV in cp312-cp312
 do
    yes | /opt/python/$PYTHONENV/bin/python -m pip install --upgrade pip
    yes | /opt/python/$PYTHONENV/bin/pip install -r tests/requirements.txt
-   yes | /opt/python/$PYTHONENV/bin/pip install auditwheel build
+   #yes | /opt/python/$PYTHONENV/bin/pip install auditwheel build
+   yes | /opt/python/$PYTHONENV/bin/pip install repairwheel
+   yes | /opt/python/$PYTHONENV/bin/pip install build
    yes | /opt/python/$PYTHONENV/bin/pip uninstall NREL-PySAM
    yes | /opt/python/$PYTHONENV/bin/pip uninstall NLR-PySAM
    /opt/python/$PYTHONENV/bin/python -m build --wheel || exit
    WHEEL=$(ls dist/nlr_pysam-*-$PYTHONENV-*linux*.whl)
-   export LD_LIBRARY_PATH=/io/pysam/PySAM:$LD_LIBRARY_PATH
-   auditwheel repair "$WHEEL" -w dist/wheelhouse/
+ #  export LD_LIBRARY_PATH=/io/pysam/PySAM:$LD_LIBRARY_PATH
+ #  auditwheel repair "$WHEEL" -w dist/wheelhouse/
+   /opt/python/$PYTHONENV/bin/python -m repairwheel "$WHEEL" -l /io/pysam/PySAM -o dist/wheelhouse/
    REPAIRED_WHEEL=$(ls dist/wheelhouse/nlr_pysam-*-$PYTHONENV-*linux*.whl)
    yes | /opt/python/$PYTHONENV/bin/pip install "$REPAIRED_WHEEL"
    yes | /opt/python/$PYTHONENV/bin/pip install "$WHEEL"
