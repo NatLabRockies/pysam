@@ -221,8 +221,8 @@ def do_stage():
     print("Staging platform libraries...")
     stage_platform_libs(pkg_dir, staged)
 
-    print("Staging OR-Tools libraries...")
-    stage_ortools(pkg_dir, staged)
+#    print("Staging OR-Tools libraries...")
+#    stage_ortools(pkg_dir, staged)
 
     print("Generating defaults...")
     stage_defaults(pkg_dir, staged)
