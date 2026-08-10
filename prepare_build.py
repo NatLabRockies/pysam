@@ -225,6 +225,7 @@ def do_stage():
 #    stage_ortools(pkg_dir, staged)
     if sys.platform == "win32":
         # copy over dlls
+        ortoolsdir = os.environ.get("ORTOOLSDIR")
         dll_subdir = "bin"
         patterns = ["*dll"]
         ortools_dll_dir = Path(ortoolsdir) / dll_subdir
@@ -237,7 +238,7 @@ def do_stage():
                 shutil.copy2(str(dll_path), str(dest))
                 staged.append(str(dest))
                 print(f"  Staged OR-Tools DLL: {dest.name}")
-    
+
 
     print("Generating defaults...")
     stage_defaults(pkg_dir, staged)
