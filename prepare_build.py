@@ -223,6 +223,7 @@ def do_stage():
 
 #    print("Staging OR-Tools libraries...")
 #    stage_ortools(pkg_dir, staged)
+# Windows only copying over ortools dlls, linux and macos handled in runners and repairwheel when building locally
     if sys.platform == "win32":
         # copy over dlls
         ortoolsdir = os.environ.get("ORTOOLSDIR")
