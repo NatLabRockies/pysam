@@ -223,6 +223,21 @@ def do_stage():
 
 #    print("Staging OR-Tools libraries...")
 #    stage_ortools(pkg_dir, staged)
+    if sys.platform == "win32":
+        # copy over dlls
+        dll_subdir = "bin"
+        patterns = ["*dll"]
+        ortools_dll_dir = Path(ortoolsdir) / dll_subdir
+        for pattern in patterns:
+            for dll_file in glob.glob(str(ortools_dll_dir / pattern)):
+                dll_path = Path(dll_file)
+                if dll_path.is_symlink():
+                    continue
+                dest = pkg_dir / dll_path.name
+                shutil.copy2(str(dll_path), str(dest))
+                staged.append(str(dest))
+                print(f"  Staged OR-Tools DLL: {dest.name}")
+    
 
     print("Generating defaults...")
     stage_defaults(pkg_dir, staged)
