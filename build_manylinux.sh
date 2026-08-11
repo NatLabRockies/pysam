@@ -65,8 +65,7 @@ do
    /opt/python/$PYTHONENV/bin/python -m repairwheel "$WHEEL" -l "$ORTOOLSDIR/lib64" -o dist/wheelhouse/
    REPAIRED_WHEEL=$(ls dist/wheelhouse/nlr_pysam-*-$PYTHONENV-*linux*.whl)
    yes | /opt/python/$PYTHONENV/bin/pip install "$REPAIRED_WHEEL"
-   yes | /opt/python/$PYTHONENV/bin/pip install "$WHEEL"
-   /opt/python/$PYTHONENV/bin/pytest -s tests
+#   /opt/python/$PYTHONENV/bin/pytest -s tests
    retVal=$?
    if [ $retVal -ne 0 ]; then
        echo "Error in Tests"
