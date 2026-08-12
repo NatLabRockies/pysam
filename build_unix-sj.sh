@@ -11,7 +11,10 @@ rm -rf ${SAMNTDIR}/../cmake-build-release
 mkdir -p ${SAMNTDIR}/../cmake-build-release
 cd ${SAMNTDIR}/../cmake-build-release || exit
 
-if [ "$(python3 -c "import platform; print(platform.processor())")" = "arm" ]
+ARCH=$(uname -m)
+
+#if [ "$(python3 -c "import platform; print(platform.processor())")" = "arm" ]
+if [ $ARCH = "arm64" ]
 then
     cmake -DCMAKE_BUILD_TYPE=Release  \
     -DSAM_SKIP_AUTOGEN=0 -DSAMAPI_EXPORT=1 \
@@ -42,22 +45,29 @@ eval "$(mamba shell hook --shell bash)"
 # Stage external files (libs, defaults) into PySAM/
 python prepare_build.py || exit
 
-for PYTHONENV in pysam_build_3.9 pysam_build_3.10 pysam_build_3.11 pysam_build_3.12 pysam_build_3.13 pysam_build_3.14
+for PYTHONENV in cp39-cp39 cp310-cp310 cp311-cp311 cp312-cp312 cp313-cp313 cp314-cp314
 do
-   mamba activate $(conda info --base)/envs/$PYTHONENV
+  conda deactivate
+   conda activate $PYTHONENV
    yes | python -m pip install --upgrade pip
    yes | pip install -r tests/requirements.txt
+   yes | pip install repairwheel
    yes | pip install build
    yes | pip uninstall NREL-PySAM
    yes | pip uninstall NLR-PySAM
-   pip install . || exit
+   python -m build --wheel
+   WHEEL=$(ls dist/nlr_pysam-*-$PYTHONENV-*macos*$ARCH.whl)
+   python -m repairwheel "$WHEEL" -l "$ORTOOLSDIR/lib" -o dist/wheelhouse/
+   REPAIRED_WHEEL=$(ls dist/wheelhouse/nlr_pysam-*-$PYTHONENV-*macos*$ARCH.whl)
+   yes | pip install "$REPAIRED_WHEEL"
+
+
 #   pytest -s tests 
 #   retVal=$?
 #   if [ $retVal -ne 0 ]; then
 #       echo "Error in Tests"
 #       exit 1
 #   fi
-   python -m build --wheel
 done
 
 
@@ -81,16 +91,16 @@ python prepare_build.py --clean
 cd ..
 if [ "$(python3 -c "import platform; print(platform.processor())")" = "arm" ]
 then
-    docker pull quay.io/pypa/manylinux_2_28_aarch64
+    docker pull quay.io/pypa/manylinux_2_34_aarch64
     # docker run --rm -dit -v $(pwd):/io quay.io/pypa/manylinux_2_28_aarch64 /bin/bash
     docker run --rm -v $(pwd):/io quay.io/pypa/manylinux_2_28_aarch64 /io/pysam/build_manylinux.sh || exit
 else
-    docker pull quay.io/pypa/manylinux_2_28_x86_64
+    docker pull quay.io/pypa/manylinux_2_34_x86_64
     # docker run --rm -dit -v $(pwd):/io quay.io/pypa/manylinux_2_28_x86_64 /bin/bash
-    docker run --rm -v $(pwd):/io quay.io/pypa/manylinux_2_28_x86_64 /io/pysam/build_manylinux.sh || exit
+    docker run --rm -v $(pwd):/io quay.io/pypa/manylinux_2_34_x86_64 /io/pysam/build_manylinux.sh || exit
 fi
 
-rename -s linux manylinux2014 $PYSAMDIR/dist/*-linux_*
+rename -s linux manylinux2014 $PYSAMDIR/dist/wheelhouse/*-manylinux_*
 docker pull continuumio/anaconda3
 docker run --rm --env PYSAMDIR=/io/pysam -v $(pwd):/io continuumio/anaconda3 /io/pysam/build_conda.sh
 

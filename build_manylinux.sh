@@ -4,7 +4,9 @@ export SSCDIR=/io/ssc
 export SAMNTDIR=/io/sam
 export PYSAMDIR=/io/pysam
 
-if [ "$(uname -m)" = "aarch64" ]; then
+ARCH=$(uname -m)
+
+if [ $ARCH = "aarch64" ]; then
     ORTOOLS=or-tools_aarch64_AlmaLinux-8.10_cpp_v9.14.6206
 else
     ORTOOLS=or-tools_x86_64_AlmaLinux-8.10_cpp_v9.14.6206
@@ -47,23 +49,18 @@ cd $PYSAMDIR
 # Stage external files (libs, defaults) into PySAM/
 /opt/python/cp312-cp312/bin/python prepare_build.py || exit
 
-#for PYTHONENV in cp39-cp39 cp310-cp310 cp311-cp311 cp312-cp312 cp313-cp313 cp314-cp314
-for PYTHONENV in cp312-cp312
+for PYTHONENV in cp39-cp39 cp310-cp310 cp311-cp311 cp312-cp312 cp313-cp313 cp314-cp314
 do
    yes | /opt/python/$PYTHONENV/bin/python -m pip install --upgrade pip
    yes | /opt/python/$PYTHONENV/bin/pip install -r tests/requirements.txt
-   #yes | /opt/python/$PYTHONENV/bin/pip install auditwheel build
    yes | /opt/python/$PYTHONENV/bin/pip install repairwheel
    yes | /opt/python/$PYTHONENV/bin/pip install build
    yes | /opt/python/$PYTHONENV/bin/pip uninstall NREL-PySAM
    yes | /opt/python/$PYTHONENV/bin/pip uninstall NLR-PySAM
    /opt/python/$PYTHONENV/bin/python -m build --wheel || exit
-   WHEEL=$(ls dist/nlr_pysam-*-$PYTHONENV-*linux*.whl)
- #  export LD_LIBRARY_PATH=/io/pysam/PySAM:$LD_LIBRARY_PATH
- #  auditwheel repair "$WHEEL" -w dist/wheelhouse/
-#   /opt/python/$PYTHONENV/bin/python -m repairwheel "$WHEEL" -l /io/pysam/PySAM -o dist/wheelhouse/
+   WHEEL=$(ls dist/nlr_pysam-*-$PYTHONENV-*linux*$ARCH.whl)
    /opt/python/$PYTHONENV/bin/python -m repairwheel "$WHEEL" -l "$ORTOOLSDIR/lib64" -o dist/wheelhouse/
-   REPAIRED_WHEEL=$(ls dist/wheelhouse/nlr_pysam-*-$PYTHONENV-*linux*.whl)
+   REPAIRED_WHEEL=$(ls dist/wheelhouse/nlr_pysam-*-$PYTHONENV-*linux*$ARCH.whl)
    yes | /opt/python/$PYTHONENV/bin/pip install "$REPAIRED_WHEEL"
 #   /opt/python/$PYTHONENV/bin/pytest -s tests
    retVal=$?
@@ -74,4 +71,4 @@ do
 done
 
 # Clean up staged files
-#/opt/python/cp312-cp312/bin/python prepare_build.py --clean
+/opt/python/cp312-cp312/bin/python prepare_build.py --clean
