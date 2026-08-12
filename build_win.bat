@@ -77,6 +77,7 @@ if errorlevel 1 (
 FOR %%i IN (%python_version%) DO (
 	call conda deactivate
     call conda activate %%i
+    echo y | python -m pip install --upgrade pip
     echo y | pip install -r tests/requirements.txt
     echo y | pip install build
     echo y | pip uninstall NREL-PySAM
