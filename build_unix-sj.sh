@@ -6,12 +6,30 @@
 
 # Building libssc and libSAM_api
 # requires SAM-Dev/CMakeList.txt that contains lk, wex, ssc and sam as subdirectories
+ARCH=$(uname -m)
+
+
+if [ $ARCH = "arm64" ]; then
+  ORTOOLS=or-tools_arm64_macOS-15.5_cpp_v9.14.6206
+else
+  ORTOOLS=or-tools_x86_64_macOS-15.5_cpp_v9.14.6206
+fi
+
+export ORTOOLSDIR=${SAMNTDIR}/../${ORTOOLS}
+echo "ortools, $ORTOOLSDIR"
+mkdir ${ORTOOLSDIR}
+
+curl -L https://github.com/google/or-tools/releases/download/v9.14/${ORTOOLS}.tar.gz -o ${ORTOOLS}.tar.gz
+tar xvzf ${ORTOOLS}.tar.gz -C ${ORTOOLSDIR} --strip-components=1
+
+
+
 
 rm -rf ${SAMNTDIR}/../cmake-build-release
 mkdir -p ${SAMNTDIR}/../cmake-build-release
 cd ${SAMNTDIR}/../cmake-build-release || exit
 
-ARCH=$(uname -m)
+
 
 #if [ "$(python3 -c "import platform; print(platform.processor())")" = "arm" ]
 if [ $ARCH = "arm64" ]
