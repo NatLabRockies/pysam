@@ -105,13 +105,13 @@ jobs:
       - name: Get git ref of sibling dependencies
         shell: bash
         run: |
-          ref=$(git ls-remote --exit-code https://github.com/NREL/lk.git refs/heads/$LK_BRANCH | awk '{print $1}')
+          ref=$(git ls-remote --exit-code https://github.com/NatLabRockies/lk.git refs/heads/$LK_BRANCH | awk '{print $1}')
           echo "ref_of_lk=$ref" | tee --append $GITHUB_ENV
-          ref=$(git ls-remote --exit-code https://github.com/NREL/wex.git refs/heads/$WEX_BRANCH | awk '{print $1}')
+          ref=$(git ls-remote --exit-code https://github.com/NatLabRockies/wex.git refs/heads/$WEX_BRANCH | awk '{print $1}')
           echo "ref_of_wex=$ref" | tee --append $GITHUB_ENV
-          ref=$(git ls-remote --exit-code https://github.com/NREL/ssc.git refs/heads/$SSC_BRANCH | awk '{print $1}')
+          ref=$(git ls-remote --exit-code https://github.com/NatLabRockies/ssc.git refs/heads/$SSC_BRANCH | awk '{print $1}')
           echo "ref_of_ssc=$ref" | tee --append $GITHUB_ENV
-          ref=$(git ls-remote --exit-code https://github.com/NREL/SAM.git refs/heads/$SAM_BRANCH | awk '{print $1}')
+          ref=$(git ls-remote --exit-code https://github.com/NatLabRockies/SAM.git refs/heads/$SAM_BRANCH | awk '{print $1}')
           echo "ref_of_sam=$ref" | tee --append $GITHUB_ENV
 
       - name: Checkout pysam (current repo)
@@ -208,13 +208,14 @@ jobs:
 
 
       - name: Build api_autogen
+        shell: bash
         if: steps.cachedsam.outputs.cache-hit != 'true'
         run: |
           cd sam/api
           mkdir build
           cd build
-          cmake -G "Visual Studio 17 2022" -DCMAKE_BUILD_TYPE=Release ..
-          msbuild.exe .\SAM_api.vcxproj /m /t:Build /p:Configuration=Release
+          cmake -G "Visual Studio 17 2022" -DSAMAPI_EXPORT=1 -DSAM_SKIP_AUTOGEN=1 -DUSE_XPRESS=0 -DUSE_COINOR=1 -DCMAKE_SYSTEM_PREFIX_PATH="$ORTOOLSDIR" -Dabsl_DIR="$ORTOOLSDIR\lib\cmake\absl" -Dutf8_range_DIR="$ORTOOLSDIR\lib\cmake\utf8_range" -Dortools_DIR="$ORTOOLSDIR\lib\cmake\ortools" ..
+          msbuild.exe ./SAM_api.vcxproj //t:Build //p:Configuration=Release
 
 
       - name: Install conda 

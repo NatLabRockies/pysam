@@ -1,7 +1,7 @@
 '''
 This example script shows how to use `PySAM.ResourceTools` to download solar
 and wind resource files from the  Resource Database (NSRDB) and and WIND
-ToolKit (WTK) APIs on the NREL Developer Network.
+ToolKit (WTK) APIs on the NLR Developer Network.
 
 The files are saved to `data/PySAM Downloaded Weather Files`. For each NSRDB
 file, a .json file listing all available data for the location is also saved
