@@ -57,7 +57,7 @@ We used the following information to figure out why:
 
 * The `Help topic <https://natlabrockies.github.io/SAM/doc/detailed-photovoltaic-model/pv_system_size.html>`_ for SAM's System Size page.
 
-* SAM `user interface equations <https://github.com/NatLabRockies/SAM/blob/6ef6c5b2e42b202cee73582ae8ac74e830fff495/deploy/runtime/ui/PV%20System%20Size.json#L1160>`_ for the System Design page.
+* SAM `user interface equations <https://github.com/NatLabRockies/SAM/blob/patch/deploy/runtime/ui/PV%20System%20Size.json>`_ for the System Size page. Equation functions are defined with `equations{}`, so you can search for "equations" to find them. For example, the PV sizing equations are in `equations{ '$MIMO$ pv_size_array' }`.
 
 And then, based on what we learned, wrote the following test script:
 

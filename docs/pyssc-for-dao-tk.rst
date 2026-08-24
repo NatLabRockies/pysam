@@ -1,9 +1,9 @@
-Building PySAM for NREL DAO-Tk
+Building PySAM for NLR DAO-Tk
 =================================================================================================
 
 DAO-TK is the `Design, Analysis, and Operations Toolkit (DAO-Tk) <https://github.com/natlabrockies/dao-tk>`_.
 
-These instructions are for building a special version of PySAM for DAO-Tk for use with NREL LORE.
+These instructions are for building a special version of PySAM for DAO-Tk for use with NLR LORE.
 
 Compile only a Linux SSC library file (libssc.so) when using PySSC instead of PySAM
 --------------------------------------------------------------------------------------------------
@@ -138,10 +138,10 @@ First time only setup
 
     .. code-block:: bash
 
-       name='NREL-PySAM-DAO-Tk' [append '-stubs' for /stubs/setup.py]
+       name='NLR-PySAM-DAO-Tk' [append '-stubs' for /stubs/setup.py]
        ...
        url='https://github.com/natlabrockies/dao-tk'
-       description="National Renewable Energy Laboratory's DAO-Tk Python Wrapper" [append ', stub files' for /stubs/setup.py]
+       description="National Laboratory ot the Rockie's DAO-Tk Python Wrapper" [append ', stub files' for /stubs/setup.py]
        ...
        author="Matthew-Boyd"
        author_email="matthew.boyd@nrel.gov"
@@ -149,7 +149,7 @@ First time only setup
        packages=['PySAM-DAO-Tk'], [append '-stubs' for /stubs/setup.py]
        package_dir={'PySAM-DAO-Tk': 'files'}, [change to: {'PySAM-DAO-Tk-stubs': 'stubs/stubs'} for stubs file]
        ...
-       install_requires=['NREL-PySAM-DAO-Tk-stubs'],
+       install_requires=['NLR-PySAM-DAO-Tk-stubs'],
 
 *Windows*
 
@@ -289,7 +289,7 @@ First time and after
 
        rename *-linux_x86_64* *-manylinux1_x86_64*
 
-15. Upload the Python wheels to PyPI, first ensuring you are not connected to a proxy (e.g., NREL Pulse Secure):
+15. Upload the Python wheels to PyPI, first ensuring you are not connected to a proxy (e.g., NLR Pulse Secure):
 
     .. code-block:: bash
 
