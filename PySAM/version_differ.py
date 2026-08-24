@@ -13,15 +13,14 @@ if old_version.__version__ == __version__:
     raise RuntimeError("Script needs to be run with old release installed and new release's ssc lib under files")
 
 doc_str = "" \
-          "This page compares the PySAM Modules' input variables and the defaults for these input variables \n" \
-          "between the current release and the last release.\n\nThis helps track which variables " \
-          "and defaults have changed between releases to make it easier to notify users during version upgrade.\n\n" \
-          "Below are lists for each PySAM Module:\n" \
-          "    1. New Default configurations\n" \
-          "    2. Removed Default configurations\n" \
-          "    3. Modified Variables: New variables, Removed variables and Type-changed variables\n" \
-          "    4. Modified Default Values"
-
+          "PySAM " + __version__ + " was released April 28, 2026 and corresponds to SAM 2025.4.16 Revision 2, SSC Version 306.\n\n"\
+          "This page lists the input variables and default values that have changed between PySAM "\
+          + __version__ + " and PySAM " + old_version.__version__ + "\n\n"\
+          "Below are lists for each PySAM Module:\n"\
+          "    1. New default configurations\n"\
+          "    2. Removed default configurations\n"\
+          "    3. Modified variables: New variables, removed variables and type-changed variables\n"\
+          "    4. Modified default values\n\n"\
 
 ########################################################################################
 #
@@ -210,7 +209,7 @@ def get_var_dict():
     return cmod_variables
 
 
-new_ssc = os.path.join(os.environ.get("PYSAMDIR"), "PySAM", "libssc.so")
+new_ssc = os.path.join(os.environ.get("PYSAMDIR"), "build", "lib.win-amd64-cpython-314", "PySAM", "ssc.dll")
 ssc = PySSC(new_ssc)
 
 new_cmod_variables = get_var_dict()

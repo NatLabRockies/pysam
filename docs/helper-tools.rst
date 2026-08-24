@@ -52,3 +52,17 @@ Please see an example of URDBv8_to_ElectricityRates `here <https://github.com/na
 .. automodule:: PySAM.UtilityRateTools
     :members:
     :undoc-members:
+
+Pvsamv1 Tools
+-------------
+
+Access Pvsamv1 tools with ``import PySAM.Pvsamv1Tools``.
+
+These functions are for PV system design and layout
+
+For examples, see `here <https://github.com/NatLabRockies/pysam/blob/main/Examples/PVsamv1Tools.ipynb>`_
+
+.. automodule:: PySAM.Pvsamv1Tools
+    :members:
+    :undoc-members:
+

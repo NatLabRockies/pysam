@@ -12,7 +12,7 @@
 
 import os
 import sys
-import NREL-PySAM
+import PySAM
 import sphinx_rtd_theme
 
 sys.path.insert(0, "..")
@@ -21,13 +21,12 @@ master_doc = 'index'
 
 # -- Project information -----------------------------------------------------
 
-project = 'NREL-PySAM'
+project = 'NLR-PySAM'
 copyright = '2026, National Laboratory of the Rockies'
 author = 'dguittet'
 
 # The full version, including alpha/beta/rc tags
 release = PySAM.__version__
-
 
 # -- General configuration ---------------------------------------------------
 

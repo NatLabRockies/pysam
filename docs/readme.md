@@ -22,14 +22,32 @@ Python docstrings use Sphinx format: https://sphinx-rtd-tutorial.readthedocs.io/
 
 3. Open a terminal window.    
 
-4. Build PySAM:
+4. Build PySAM by running the shell script appropriate for your operating system. For example, in Windows, run the `build_win.bat` script:
 
     ```
     cd path/to/sam_dev/pysam
-    python setup.py install
+    build_win
     ```
 
-    > If there's a link error and Visual Studio is open, try closing it, opening a new terminal window, and running `setup.py` again.
+    > If there's a link error and Visual Studio is open, try closing it, opening a new terminal window, and running the script again.
+
+4. Run version differ to generate new version changes file for the previous version:
+
+   1) Download and extract the zip file for the previous version from https://github.com/NatLabRockies/pysam/tags.
+
+   2) Go to the `files` folder in that repository and open `version_differ.py`. 
+
+   3) Verify that the `new_ssc` path (around Line 214) is correct. It should point to the SSC library for the current version that is in a folder that contains the SSC library and all dependent libraries. 
+
+   4) Run the version differ:
+
+      ```
+      python version_differ.py
+      ```
+
+   5) When the script finishes, the `path/to/sam_dev/pysam/docs/version_changes` folder should have files for versions 3.0.0 through the previous version. Open the file that was just created and add the PySAM/SAM/SSC version information. For example, "PySAM 7.1.1 was released April 28, 2026 and corresponds to SAM 2025.4.16 Revision 2, SSC Version 306."
+
+   6) Open `path/to/sam_dev/pysam/docs/versions.rst` and add the previous version to the `toctree` list.
 
 5. Run Sphinx:
 
