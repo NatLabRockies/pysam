@@ -6,7 +6,7 @@ PvGetShadeLossMpp
 .. automodule:: PySAM.PvGetShadeLossMpp
 	:members:
 
-PvGetShadeLossMpp is a wrapper for the SSC compute module `cmod_pv_get_shade_loss_mpp.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_pv_get_shade_loss_mpp.cpp>`_
+PvGetShadeLossMpp is a wrapper for the SSC compute module `cmod_pv_get_shade_loss_mpp.cpp <https://github.com/natlabrockies/ssc/blob/develop/ssc/cmod_pv_get_shade_loss_mpp.cpp>`_
 
 Interdependent Variables
 --------------------------

@@ -6,7 +6,7 @@ Lcoefcr
 .. automodule:: PySAM.Lcoefcr
 	:members:
 
-Lcoefcr is a wrapper for the SSC compute module `cmod_lcoefcr.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_lcoefcr.cpp>`_
+Lcoefcr is a wrapper for the SSC compute module `cmod_lcoefcr.cpp <https://github.com/natlabrockies/ssc/blob/develop/ssc/cmod_lcoefcr.cpp>`_
 
 Interdependent Variables
 --------------------------

@@ -6,7 +6,7 @@ Pvsandiainv
 .. automodule:: PySAM.Pvsandiainv
 	:members:
 
-Pvsandiainv is a wrapper for the SSC compute module `cmod_pvsandiainv.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_pvsandiainv.cpp>`_
+Pvsandiainv is a wrapper for the SSC compute module `cmod_pvsandiainv.cpp <https://github.com/natlabrockies/ssc/blob/develop/ssc/cmod_pvsandiainv.cpp>`_
 
 Interdependent Variables
 --------------------------

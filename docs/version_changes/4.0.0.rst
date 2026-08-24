@@ -396,7 +396,7 @@ EtesPtes
 GenericSystem
 ************************************************
 
-`Generic  System <https://nrel-pysam.readthedocs.io/en/v4.0.0/modules/GenericSystem.html>`_ Modified Input Variables:
+`Generic  System <https://nlr-pysam.readthedocs.io/en/v4.0.0/modules/GenericSystem.html>`_ Modified Input Variables:
 
     New variables:
 
@@ -905,7 +905,7 @@ TroughPhysical
 TroughPhysicalCspSolver
 ************************************************
 
-`TroughPhysicalCspSolver <https://nrel-pysam.readthedocs.io/en/v4.0.0/modules/TroughPhysicalCspSolver.html>`_ Modified Input Variables:
+`TroughPhysicalCspSolver <https://nlr-pysam.readthedocs.io/en/v4.0.0/modules/TroughPhysicalCspSolver.html>`_ Modified Input Variables:
 
     New variables:
 
@@ -919,7 +919,7 @@ TroughPhysicalCspSolver
 TroughPhysicalProcessHeat
 ************************************************
 
-`Trough Physical Process Heat <https://nrel-pysam.readthedocs.io/en/v4.0.0/modules/TroughPhysicalProcessHeat.html>`_  Modified Input Variables:
+`Trough Physical Process Heat <https://nlr-pysam.readthedocs.io/en/v4.0.0/modules/TroughPhysicalProcessHeat.html>`_  Modified Input Variables:
 
     New variables:
 

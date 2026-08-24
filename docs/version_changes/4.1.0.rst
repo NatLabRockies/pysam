@@ -131,7 +131,7 @@ Fuel Cell
 Generic Battery
 ************************************************
 
-`Generic Battery <https://nrel-pysam.readthedocs.io/en/v4.1.0/modules/GenericBattery.html>`_ Removed Default files
+`Generic Battery <https://nlr-pysam.readthedocs.io/en/v4.1.0/modules/GenericBattery.html>`_ Removed Default files
 
      - All Equity Partnership Flip
      - Commercial
@@ -162,7 +162,7 @@ Generic CSP System Removed Default files
 Generic System
 ************************************************
 
-`Generic System <https://nrel-pysam.readthedocs.io/en/v4.1.0/modules/GenericSystem.html>`_ Removed Default files
+`Generic System <https://nlr-pysam.readthedocs.io/en/v4.1.0/modules/GenericSystem.html>`_ Removed Default files
 
      - All Equity Partnership Flip
      - Commercial
@@ -356,7 +356,7 @@ Physical Trough
 Physical Trough IPH
 ************************************************
 
-`Trough Physical Process Heat <https://nrel-pysam.readthedocs.io/en/v4.1.0/modules/TroughPhysicalProcessHeat.html>`_ Removed Default files
+`Trough Physical Process Heat <https://nlr-pysam.readthedocs.io/en/v4.1.0/modules/TroughPhysicalProcessHeat.html>`_ Removed Default files
 
      - LCOH Calculator
      - None

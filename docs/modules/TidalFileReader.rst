@@ -6,7 +6,7 @@ TidalFileReader
 .. automodule:: PySAM.TidalFileReader
 	:members:
 
-TidalFileReader is a wrapper for the SSC compute module `cmod_tidal_file_reader.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_tidal_file_reader.cpp>`_
+TidalFileReader is a wrapper for the SSC compute module `cmod_tidal_file_reader.cpp <https://github.com/natlabrockies/ssc/blob/develop/ssc/cmod_tidal_file_reader.cpp>`_
 
 Interdependent Variables
 --------------------------

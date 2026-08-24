@@ -19,4 +19,4 @@ Anaconda
 
     conda install nrel::nrel-pysam
 
-.. note:: When Anaconda is updated, use `conda install nlr::nlr-pysam.`.
+.. note:: When Anaconda is updated, use `conda install nlr::nlr-pysam`.

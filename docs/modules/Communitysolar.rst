@@ -6,7 +6,7 @@ Communitysolar
 .. automodule:: PySAM.Communitysolar
 	:members:
 
-Communitysolar is a wrapper for the SSC compute module `cmod_communitysolar.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_communitysolar.cpp>`_
+Communitysolar is a wrapper for the SSC compute module `cmod_communitysolar.cpp <https://github.com/natlabrockies/ssc/blob/develop/ssc/cmod_communitysolar.cpp>`_
 
 Interdependent Variables
 --------------------------

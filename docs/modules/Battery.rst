@@ -6,7 +6,7 @@ Battery
 .. automodule:: PySAM.Battery
 	:members:
 
-Battery is a wrapper for the SSC compute module `cmod_battery.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_battery.cpp>`_
+Battery is a wrapper for the SSC compute module `cmod_battery.cpp <https://github.com/natlabrockies/ssc/blob/develop/ssc/cmod_battery.cpp>`_
 
 Interdependent Variables
 --------------------------

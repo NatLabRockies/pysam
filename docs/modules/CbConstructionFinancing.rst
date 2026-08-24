@@ -6,7 +6,7 @@ CbConstructionFinancing
 .. automodule:: PySAM.CbConstructionFinancing
 	:members:
 
-CbConstructionFinancing is a wrapper for the SSC compute module `cmod_cb_construction_financing.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_cb_construction_financing.cpp>`_
+CbConstructionFinancing is a wrapper for the SSC compute module `cmod_cb_construction_financing.cpp <https://github.com/natlabrockies/ssc/blob/develop/ssc/cmod_cb_construction_financing.cpp>`_
 
 Interdependent Variables
 --------------------------
