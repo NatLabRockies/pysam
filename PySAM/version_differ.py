@@ -13,7 +13,7 @@ if old_version.__version__ == __version__:
     raise RuntimeError("Script needs to be run with old release installed and new release's ssc lib under files")
 
 doc_str = "" \
-          "PySAM " + __version__ + " was released April 28, 2026 and corresponds to SAM 2025.4.16 Revision 2, SSC Version 306.\n\n"\
+          "PySAM " + __version__ + " was released August 19, 2026 and corresponds to SAM 2026.7.3, SSC Version 308.\n\n"\
           "This page lists the input variables and default values that have changed between PySAM "\
           + __version__ + " and PySAM " + old_version.__version__ + "\n\n"\
           "Below are lists for each PySAM Module:\n"\
