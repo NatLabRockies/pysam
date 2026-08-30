@@ -16,7 +16,7 @@ jobs:
       matrix:
 #        os: [windows-latest] # note that windows-latest supports vs2026 not vs2022
         os: [windows-2022]
-        python-version: [ '3.14'] # cec module and inverter tests will fail with 3.10 or lower with ssl error ssl.SSLError: [ASN1: NOT_ENOUGH_DATA]
+        python-version: [ '3.12'] # cec module and inverter tests will fail with 3.10 or lower with ssl error ssl.SSLError: [ASN1: NOT_ENOUGH_DATA]
 #        python-version: [ '3.9', '3.10', '3.11', '3.12', '3.13', '3.14' ]
 
     env: 
@@ -254,10 +254,10 @@ jobs:
         shell: pwsh
         if: ${{ github.event_name == 'pull_request' }}
         run: |
-          Copy-Item "C:\Miniconda\envs\3.14\Library\bin\libssl*.dll" "C:\Miniconda\envs\3.14\DLLs\"
-          Copy-Item "C:\Miniconda\envs\3.14\Library\bin\libcrypto*.dll" "C:\Miniconda\envs\3.14\DLLs\"
-          Copy-Item "C:\Miniconda\envs\3.14\Library\bin\ffi.dll" "C:\Miniconda\envs\3.14\DLLs\"
-          Copy-Item "C:\Miniconda\envs\3.14\Library\bin\libffi*.dll" "C:\Miniconda\envs\3.14\DLLs\"
+          Copy-Item "C:\Miniconda\envs\3.12\Library\bin\libssl*.dll" "C:\Miniconda\envs\3.12\DLLs\"
+          Copy-Item "C:\Miniconda\envs\3.12\Library\bin\libcrypto*.dll" "C:\Miniconda\envs\3.12\DLLs\"
+          Copy-Item "C:\Miniconda\envs\3.12\Library\bin\ffi.dll" "C:\Miniconda\envs\3.12\DLLs\"
+          Copy-Item "C:\Miniconda\envs\3.12\Library\bin\libffi*.dll" "C:\Miniconda\envs\3.12\DLLs\"
 
       - name: Wheel on pull request only
         shell: bash -l {0}
@@ -267,4 +267,5 @@ jobs:
           conda deactivate
           conda activate ${{ matrix.python-version }}
           python -m pip install --upgrade build
+          python -m pip install --upgrade pip setuptools wheel
           python -m build --wheel
