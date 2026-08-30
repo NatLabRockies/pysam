@@ -250,12 +250,14 @@ jobs:
           pip install -r tests/requirements.txt
           pytest -s tests
 
-      - name: Copy SSL DLLs
+      - name: Copy Windows DLLs
         shell: pwsh
         if: ${{ github.event_name == 'pull_request' }}
         run: |
           Copy-Item "C:\Miniconda\envs\3.14\Library\bin\libssl*.dll" "C:\Miniconda\envs\3.14\DLLs\"
           Copy-Item "C:\Miniconda\envs\3.14\Library\bin\libcrypto*.dll" "C:\Miniconda\envs\3.14\DLLs\"
+          Copy-Item "C:\Miniconda\envs\3.14\Library\bin\ffi.dll" "C:\Miniconda\envs\3.14\DLLs\"
+          Copy-Item "C:\Miniconda\envs\3.14\Library\bin\libffi*.dll" "C:\Miniconda\envs\3.14\DLLs\"
 
       - name: Wheel on pull request only
         shell: bash -l {0}
