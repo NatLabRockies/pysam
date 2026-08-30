@@ -257,6 +257,6 @@ jobs:
           cd pysam
           conda deactivate
           conda activate ${{ matrix.python-version }}
+          conda install --force-reinstall openssl python= ${{ matrix.python-version }}
           python -m pip install --upgrade build
-          conda install openssl
           python -m build --wheel
