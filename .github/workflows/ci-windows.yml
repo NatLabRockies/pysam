@@ -250,6 +250,13 @@ jobs:
           pip install -r tests/requirements.txt
           pytest -s tests
 
+      - name: Copy SSL DLLs
+        shell: pwsh
+        if: ${{ github.event_name == 'pull_request' }}
+        run: |
+          Copy-Item "C:\Miniconda\envs\3.14\Library\bin\libssl*.dll" "C:\Miniconda\envs\3.14\DLLs\"
+          Copy-Item "C:\Miniconda\envs\3.14\Library\bin\libcrypto*.dll" "C:\Miniconda\envs\3.14\DLLs\"
+
       - name: Wheel on pull request only
         shell: bash -l {0}
         if: ${{ github.event_name == 'pull_request' }}
@@ -257,6 +264,5 @@ jobs:
           cd pysam
           conda deactivate
           conda activate ${{ matrix.python-version }}
-          conda install --force-reinstall openssl python=${{ matrix.python-version }}
           python -m pip install --upgrade build
           python -m build --wheel
