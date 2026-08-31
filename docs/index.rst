@@ -27,7 +27,6 @@ Contents
     examples.rst
     getting-help.rst
     PySSC.rst
-    pyssc-for-dao-tk.rst
     building-pysam.rst
     sam-configurations.rst
     ssc-modules.rst

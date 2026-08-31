@@ -28,7 +28,6 @@ author = 'dguittet'
 # The full version, including alpha/beta/rc tags
 release = PySAM.__version__
 
-
 # -- General configuration ---------------------------------------------------
 
 # Add any Sphinx extension module names here, as strings. They can be
@@ -67,7 +66,7 @@ html_theme_options = {
     #'analytics_id': 'G-XXXXXXXXXX',  #  Provided by Google in your dashboard
     #'analytics_anonymize_ip': False,
     'logo_only': False,
-    'display_version': True,
+    'version_selector': True,
     'prev_next_buttons_location': 'bottom',
     'style_external_links': False,
     'vcs_pageview_mode': '',

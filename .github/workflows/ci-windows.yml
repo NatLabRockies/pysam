@@ -16,7 +16,7 @@ jobs:
       matrix:
 #        os: [windows-latest] # note that windows-latest supports vs2026 not vs2022
         os: [windows-2022]
-        python-version: [ '3.11'] # cec module and inverter tests will fail with 3.10 or lower with ssl error ssl.SSLError: [ASN1: NOT_ENOUGH_DATA]
+        python-version: [ '3.12'] # cec module and inverter tests will fail with 3.10 or lower with ssl error ssl.SSLError: [ASN1: NOT_ENOUGH_DATA]
 #        python-version: [ '3.9', '3.10', '3.11', '3.12', '3.13', '3.14' ]
 
     env: 
@@ -250,6 +250,16 @@ jobs:
           pip install -r tests/requirements.txt
           pytest -s tests
 
+      - name: Copy Windows DLLs
+        shell: pwsh
+        if: ${{ github.event_name == 'pull_request' }}
+        run: |
+          Copy-Item "C:\Miniconda\envs\${{ matrix.python-version }}\Library\bin\libssl*.dll" "C:\Miniconda\envs\${{ matrix.python-version }}\DLLs\"
+          Copy-Item "C:\Miniconda\envs\${{ matrix.python-version }}\Library\bin\libcrypto*.dll" "C:\Miniconda\envs\${{ matrix.python-version }}\DLLs\"
+          Copy-Item "C:\Miniconda\envs\${{ matrix.python-version }}\Library\bin\ffi.dll" "C:\Miniconda\envs\${{ matrix.python-version }}\DLLs\"
+          Copy-Item "C:\Miniconda\envs\${{ matrix.python-version }}\Library\bin\libffi*.dll" "C:\Miniconda\envs\${{ matrix.python-version }}\DLLs\"
+          Copy-Item "C:\Miniconda\envs\${{ matrix.python-version }}\Library\bin\libexpat.dll" "C:\Miniconda\envs\${{ matrix.python-version }}\DLLs\"
+
       - name: Wheel on pull request only
         shell: bash -l {0}
         if: ${{ github.event_name == 'pull_request' }}
@@ -258,4 +268,5 @@ jobs:
           conda deactivate
           conda activate ${{ matrix.python-version }}
           python -m pip install --upgrade build
+          python -m pip install --upgrade pip setuptools wheel
           python -m build --wheel

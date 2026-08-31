@@ -6,7 +6,7 @@ Singlediode
 .. automodule:: PySAM.Singlediode
 	:members:
 
-Singlediode is a wrapper for the SSC compute module `cmod_singlediode.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_singlediode.cpp>`_
+Singlediode is a wrapper for the SSC compute module `cmod_singlediode.cpp <https://github.com/natlabrockies/ssc/blob/develop/ssc/cmod_singlediode.cpp>`_
 
 Interdependent Variables
 --------------------------

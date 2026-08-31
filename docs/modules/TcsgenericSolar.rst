@@ -6,7 +6,7 @@ TcsgenericSolar
 .. automodule:: PySAM.TcsgenericSolar
 	:members:
 
-TcsgenericSolar is a wrapper for the SSC compute module `cmod_tcsgeneric_solar.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_tcsgeneric_solar.cpp>`_
+TcsgenericSolar is a wrapper for the SSC compute module `cmod_tcsgeneric_solar.cpp <https://github.com/natlabrockies/ssc/blob/develop/ssc/cmod_tcsgeneric_solar.cpp>`_
 
 Interdependent Variables
 --------------------------

@@ -6,7 +6,7 @@ CashloanHeat
 .. automodule:: PySAM.CashloanHeat
 	:members:
 
-CashloanHeat is a wrapper for the SSC compute module `cmod_cashloan_heat.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_cashloan_heat.cpp>`_
+CashloanHeat is a wrapper for the SSC compute module `cmod_cashloan_heat.cpp <https://github.com/natlabrockies/ssc/blob/develop/ssc/cmod_cashloan_heat.cpp>`_
 
 Interdependent Variables
 --------------------------

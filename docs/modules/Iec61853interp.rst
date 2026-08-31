@@ -6,7 +6,7 @@ Iec61853interp
 .. automodule:: PySAM.Iec61853interp
 	:members:
 
-Iec61853interp is a wrapper for the SSC compute module `cmod_iec61853interp.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_iec61853interp.cpp>`_
+Iec61853interp is a wrapper for the SSC compute module `cmod_iec61853interp.cpp <https://github.com/natlabrockies/ssc/blob/develop/ssc/cmod_iec61853interp.cpp>`_
 
 Interdependent Variables
 --------------------------

@@ -6,7 +6,7 @@ TestUdPowerCycle
 .. automodule:: PySAM.TestUdPowerCycle
 	:members:
 
-TestUdPowerCycle is a wrapper for the SSC compute module `cmod_test_ud_power_cycle.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_test_ud_power_cycle.cpp>`_
+TestUdPowerCycle is a wrapper for the SSC compute module `cmod_test_ud_power_cycle.cpp <https://github.com/natlabrockies/ssc/blob/develop/ssc/cmod_test_ud_power_cycle.cpp>`_
 
 Interdependent Variables
 --------------------------

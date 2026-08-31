@@ -1,0 +1,1838 @@
+.. 8.0.0:
+
+Version 8.0.0
+===============================================
+
+PySAM 8.0.0 was released August 19, 2026 and corresponds to SAM 2026.7.3, SSC Version 308.
+
+This page lists the input variables and default values that have changed between PySAM 8.0.0 and PySAM 7.1.1.
+
+Below are lists for each PySAM Module:
+    1. New default configurations
+    2. Removed default configurations
+    3. Modified variables: New variables, removed variables and type-changed variables
+    4. Modified default values
+
+Battery
+************************************************
+
+:doc:`../modules/Battery` Modified Input Variables:
+
+    New variables:
+
+         - start_day_of_year
+
+:doc:`../modules/Battery` New Default files:
+
+     - PVWattsBatteryAllEquityPartnershipFlip
+     - PVWattsBatteryCommercial
+     - PVWattsBatteryHostDeveloper
+     - PVWattsBatteryLeveragedPartnershipFlip
+     - PVWattsBatteryMerchantPlant
+     - PVWattsBatteryResidential
+     - PVWattsBatterySaleLeaseback
+     - PVWattsBatterySingleOwner
+     - PVWattsBatteryThirdParty
+
+:doc:`../modules/Battery` Modified Default Values:
+
+     - Battery_CustomGenerationBatteryCommercial
+
+        ['ur_ec_tou_mat']
+
+     - Battery_CustomGenerationBatteryHostDeveloper
+
+        ['ur_ec_tou_mat']
+
+     - Battery_CustomGenerationPVWattsWindFuelCellBatteryHybridSingleOwner
+
+        ['ppa_price_input']
+
+     - Battery_FuelCellCommercial
+
+        ['ur_ec_tou_mat']
+
+     - Battery_MEwaveBatterySingleOwner
+
+        ['analysis_period']
+
+     - Battery_PhotovoltaicWindBatteryHybridSingleOwner
+
+        ['ppa_price_input']
+
+     - Battery_PVWattsWindBatteryHybridSingleOwner
+
+        ['ppa_price_input']
+
+     - Battery_PVWattsWindFuelCellBatteryHybridSingleOwner
+
+        ['ppa_price_input']
+
+     - Battery_StandaloneBatteryCommercial
+
+        ['ur_ec_tou_mat']
+
+     - Battery_StandaloneBatteryHostDeveloper
+
+        ['ur_ec_tou_mat']
+
+     - Cashloan_CustomGenerationBatteryCommercial
+
+        ['ptc_fed_term', 'ptc_sta_term', 'itc_fed_percent']
+
+     - Cashloan_CustomGenerationBatteryResidential
+
+        ['ptc_fed_term', 'ptc_sta_term', 'itc_fed_percent']
+
+     - Cashloan_PVBatteryCommercial
+
+        ['ptc_fed_term', 'ptc_sta_term']
+
+     - Cashloan_PVBatteryResidential
+
+        ['total_installed_cost', 'battery_total_cost_lcos', 'ptc_fed_term', 'system_capacity', 'ptc_sta_term']
+
+     - Cashloan_PVWattsBatteryCommercial
+
+        ['total_installed_cost', 'system_use_lifetime_output', 'battery_total_cost_lcos', 'ptc_fed_term', 'ptc_sta_term', 'degradation', 'om_capacity']
+
+     - Cashloan_PVWattsBatteryResidential
+
+        ['total_installed_cost', 'system_use_lifetime_output', 'battery_total_cost_lcos', 'ptc_fed_term', 'ptc_sta_term', 'degradation', 'om_capacity']
+
+     - Cashloan_StandaloneBatteryCommercial
+
+        ['ptc_fed_term', 'ptc_sta_term']
+
+     - Cashloan_StandaloneBatteryResidential
+
+        ['ptc_fed_term', 'ptc_sta_term']
+
+     - Equpartflip_CustomGenerationBatteryAllEquityPartnershipFlip
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Equpartflip_PVBatteryAllEquityPartnershipFlip
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ppa_price_input', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'ptc_fed_amount', 'ptc_fed_escal', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Equpartflip_StandaloneBatteryAllEquityPartnershipFlip
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Grid_MEwaveBatterySingleOwner
+
+        ['analysis_period']
+
+     - Grid_PVWattsBatteryCommercial
+
+        ['system_use_lifetime_output']
+
+     - Grid_PVWattsBatteryHostDeveloper
+
+        ['system_use_lifetime_output']
+
+     - Grid_PVWattsBatteryResidential
+
+        ['system_use_lifetime_output']
+
+     - Grid_PVWattsBatteryThirdParty
+
+        ['system_use_lifetime_output']
+
+     - HostDeveloper_CustomGenerationBatteryHostDeveloper
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - HostDeveloper_CustomGenerationPVWattsWindFuelCellBatteryHybridHostDeveloper
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_bonus_fed_sl_5', 'depr_bonus_sta_sl_20']
+
+     - HostDeveloper_PhotovoltaicWindBatteryHybridHostDeveloper
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_bonus_fed_sl_5', 'depr_bonus_sta_sl_20']
+
+     - HostDeveloper_PVBatteryHostDeveloper
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'ptc_fed_amount', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - HostDeveloper_PVWattsBatteryHostDeveloper
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'total_installed_cost', 'system_use_lifetime_output', 'battery_total_cost_lcos', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'depr_bonus_fed_sl_5', 'degradation', 'om_capacity', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20', 'construction_financing_cost']
+
+     - HostDeveloper_PVWattsWindBatteryHybridHostDeveloper
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_bonus_fed_sl_5', 'depr_bonus_sta_sl_20']
+
+     - HostDeveloper_PVWattsWindFuelCellBatteryHybridHostDeveloper
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_sta_term', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_bonus_fed_sl_5', 'depr_bonus_sta_sl_20']
+
+     - HostDeveloper_StandaloneBatteryHostDeveloper
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Levpartflip_CustomGenerationBatteryLeveragedPartnershipFlip
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Levpartflip_PVBatteryLeveragedPartnershipFlip
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ppa_price_input', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'ptc_fed_amount', 'depr_bonus_sta', 'ptc_fed_escal', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Levpartflip_StandaloneBatteryLeveragedPartnershipFlip
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Merchantplant_CustomGenerationBatteryMerchantPlant
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Merchantplant_PVBatteryMerchantPlant
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'ptc_fed_amount', 'depr_bonus_sta', 'ptc_fed_escal', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Merchantplant_StandaloneBatteryMerchantPlant
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - MhkWave_MEwaveBatterySingleOwner
+
+        ['analysis_period', 'balance_of_system_cost_total', 'financial_cost_total', 'device_costs_total', 'total_operating_cost']
+
+     - Pvsamv1_PhotovoltaicWindBatteryHybridHostDeveloper
+
+        ['subarray3_rack_shading', 'subarray1_nmody', 'cec_r_sh_ref', 'subarray2_rack_shading', 'subarray3_mppt_input', 'subarray4_mppt_input', 'subarray2_mppt_input', 'subarray3_nmodx', 'cec_r_s', 'subarray2_nmody', 'cec_i_l_ref', 'subarray2_nmodx', 'cec_a_ref', 'subarray4_nmody', 'cec_adjust', 'inv_snl_c3', 'subarray3_nmody', 'cec_i_o_ref', 'subarray4_rack_shading', 'subarray4_nmodx']
+
+     - Pvsamv1_PhotovoltaicWindBatteryHybridSingleOwner
+
+        ['subarray3_rack_shading', 'subarray1_nmody', 'cec_r_sh_ref', 'subarray2_rack_shading', 'subarray3_mppt_input', 'subarray4_mppt_input', 'subarray2_mppt_input', 'subarray3_nmodx', 'cec_r_s', 'subarray2_nmody', 'cec_i_l_ref', 'subarray2_nmodx', 'subarray1_nmodx', 'cec_a_ref', 'subarray4_nmody', 'ppa_price_input', 'cec_adjust', 'subarray3_nmody', 'cec_i_o_ref', 'subarray4_rack_shading', 'subarray4_nmodx']
+
+     - Pvsamv1_PVBatteryAllEquityPartnershipFlip
+
+        ['subarray3_rack_shading', 'subarray1_nmody', 'cec_r_sh_ref', 'subarray2_rack_shading', 'subarray3_mppt_input', 'subarray4_mppt_input', 'subarray2_mppt_input', 'subarray3_nmodx', 'cec_r_s', 'subarray2_nmody', 'cec_i_l_ref', 'subarray2_nmodx', 'subarray1_nmodx', 'cec_a_ref', 'subarray4_nmody', 'ppa_price_input', 'cec_adjust', 'subarray3_nmody', 'cec_i_o_ref', 'subarray4_rack_shading', 'subarray4_nmodx']
+
+     - Pvsamv1_PVBatteryCommercial
+
+        ['subarray3_rack_shading', 'subarray1_nmody', 'cec_r_sh_ref', 'subarray2_rack_shading', 'subarray3_mppt_input', 'subarray4_mppt_input', 'subarray2_mppt_input', 'subarray3_nmodx', 'ur_ec_tou_mat', 'cec_r_s', 'subarray2_nmody', 'cec_i_l_ref', 'subarray2_nmodx', 'cec_a_ref', 'subarray4_nmody', 'cec_adjust', 'inv_snl_c3', 'subarray3_nmody', 'cec_i_o_ref', 'subarray4_rack_shading', 'subarray4_nmodx']
+
+     - Pvsamv1_PVBatteryHostDeveloper
+
+        ['subarray3_rack_shading', 'subarray1_nmody', 'cec_r_sh_ref', 'subarray2_rack_shading', 'subarray3_mppt_input', 'subarray4_mppt_input', 'subarray2_mppt_input', 'subarray3_nmodx', 'ur_ec_tou_mat', 'cec_r_s', 'subarray2_nmody', 'cec_i_l_ref', 'subarray2_nmodx', 'cec_a_ref', 'subarray4_nmody', 'cec_adjust', 'inv_snl_c3', 'subarray3_nmody', 'cec_i_o_ref', 'subarray4_rack_shading', 'subarray4_nmodx']
+
+     - Pvsamv1_PVBatteryLeveragedPartnershipFlip
+
+        ['subarray3_rack_shading', 'subarray1_nmody', 'cec_r_sh_ref', 'subarray2_rack_shading', 'subarray3_mppt_input', 'subarray4_mppt_input', 'subarray2_mppt_input', 'subarray3_nmodx', 'cec_r_s', 'subarray2_nmody', 'cec_i_l_ref', 'subarray2_nmodx', 'subarray1_nmodx', 'cec_a_ref', 'subarray4_nmody', 'ppa_price_input', 'cec_adjust', 'subarray3_nmody', 'cec_i_o_ref', 'subarray4_rack_shading', 'subarray4_nmodx']
+
+     - Pvsamv1_PVBatteryMerchantPlant
+
+        ['subarray3_rack_shading', 'subarray1_nmody', 'cec_r_sh_ref', 'subarray2_rack_shading', 'subarray3_mppt_input', 'subarray4_mppt_input', 'subarray2_mppt_input', 'subarray3_nmodx', 'cec_r_s', 'subarray2_nmody', 'cec_i_l_ref', 'subarray2_nmodx', 'subarray1_nmodx', 'cec_a_ref', 'subarray4_nmody', 'cec_adjust', 'subarray3_nmody', 'cec_i_o_ref', 'subarray4_rack_shading', 'subarray4_nmodx']
+
+     - Pvsamv1_PVBatteryResidential
+
+        ['subarray3_rack_shading', 'cec_v_mp_ref', 'subarray1_nmody', 'cec_r_sh_ref', 'subarray2_rack_shading', 'subarray3_mppt_input', 'subarray4_mppt_input', 'subarray2_mppt_input', 'subarray3_nmodx', 'cec_r_s', 'system_capacity', 'subarray2_nmody', 'cec_i_l_ref', 'cec_t_noct', 'subarray2_nmodx', 'subarray1_nmodx', 'cec_a_ref', 'subarray4_nmody', 'cec_beta_oc', 'cec_v_oc_ref', 'cec_adjust', 'subarray3_nmody', 'cec_i_o_ref', 'subarray4_rack_shading', 'subarray4_nmodx']
+
+     - Pvsamv1_PVBatterySaleLeaseback
+
+        ['subarray3_rack_shading', 'subarray1_nmody', 'cec_r_sh_ref', 'subarray2_rack_shading', 'subarray3_mppt_input', 'subarray4_mppt_input', 'subarray2_mppt_input', 'subarray3_nmodx', 'cec_r_s', 'subarray2_nmody', 'cec_i_l_ref', 'subarray2_nmodx', 'subarray1_nmodx', 'cec_a_ref', 'subarray4_nmody', 'ppa_price_input', 'cec_adjust', 'subarray3_nmody', 'cec_i_o_ref', 'subarray4_rack_shading', 'subarray4_nmodx']
+
+     - Pvsamv1_PVBatterySingleOwner
+
+        ['subarray3_rack_shading', 'subarray1_nmody', 'cec_r_sh_ref', 'subarray2_rack_shading', 'subarray3_mppt_input', 'subarray4_mppt_input', 'subarray2_mppt_input', 'subarray3_nmodx', 'cec_r_s', 'subarray2_nmody', 'cec_i_l_ref', 'subarray2_nmodx', 'subarray1_nmodx', 'cec_a_ref', 'subarray4_nmody', 'ppa_price_input', 'cec_adjust', 'subarray3_nmody', 'cec_i_o_ref', 'subarray4_rack_shading', 'subarray4_nmodx']
+
+     - Pvsamv1_PVBatteryThirdParty
+
+        ['subarray3_rack_shading', 'cec_v_mp_ref', 'subarray1_nmody', 'cec_r_sh_ref', 'subarray2_rack_shading', 'subarray3_mppt_input', 'subarray4_mppt_input', 'subarray2_mppt_input', 'subarray3_nmodx', 'cec_r_s', 'system_capacity', 'subarray2_nmody', 'cec_i_l_ref', 'cec_t_noct', 'subarray2_nmodx', 'subarray1_nmodx', 'cec_a_ref', 'subarray4_nmody', 'cec_beta_oc', 'cec_v_oc_ref', 'cec_adjust', 'subarray3_nmody', 'cec_i_o_ref', 'subarray4_rack_shading', 'subarray4_nmodx']
+
+     - Pvwattsv8_CustomGenerationPVWattsWindFuelCellBatteryHybridHostDeveloper
+
+        ['system_use_lifetime_output', 'degradation']
+
+     - Pvwattsv8_CustomGenerationPVWattsWindFuelCellBatteryHybridSingleOwner
+
+        ['system_use_lifetime_output', 'degradation']
+
+     - Pvwattsv8_PVWattsBatteryCommercial
+
+        ['system_use_lifetime_output']
+
+     - Pvwattsv8_PVWattsBatteryHostDeveloper
+
+        ['system_use_lifetime_output']
+
+     - Pvwattsv8_PVWattsBatteryResidential
+
+        ['system_use_lifetime_output']
+
+     - Pvwattsv8_PVWattsBatteryThirdParty
+
+        ['system_capacity', 'system_use_lifetime_output']
+
+     - Pvwattsv8_PVWattsWindBatteryHybridHostDeveloper
+
+        ['system_use_lifetime_output', 'degradation']
+
+     - Pvwattsv8_PVWattsWindBatteryHybridSingleOwner
+
+        ['system_use_lifetime_output', 'degradation']
+
+     - Pvwattsv8_PVWattsWindFuelCellBatteryHybridHostDeveloper
+
+        ['system_use_lifetime_output', 'degradation']
+
+     - Pvwattsv8_PVWattsWindFuelCellBatteryHybridSingleOwner
+
+        ['system_use_lifetime_output', 'degradation']
+
+     - Saleleaseback_CustomGenerationBatterySaleLeaseback
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Saleleaseback_PVBatterySaleLeaseback
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ppa_price_input', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'ptc_fed_amount', 'ptc_fed_escal', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Saleleaseback_StandaloneBatterySaleLeaseback
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Singleowner_CustomGenerationBatterySingleOwner
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Singleowner_CustomGenerationPVWattsWindFuelCellBatteryHybridSingleOwner
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ppa_price_input', 'ptc_fed_term', 'ptc_sta_term', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_bonus_fed_sl_5', 'depr_bonus_sta_sl_20']
+
+     - Singleowner_MEwaveBatterySingleOwner
+
+        ['depr_bonus_fed_sl_15', 'om_fixed', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'total_installed_cost', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'analysis_period', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_bonus_sta_macrs_15', 'depr_alloc_sl_20_percent', 'depr_bonus_fed_macrs_15', 'depr_bonus_sta_macrs_5', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20', 'construction_financing_cost']
+
+     - Singleowner_PhotovoltaicWindBatteryHybridSingleOwner
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ppa_price_input', 'ptc_fed_term', 'ptc_sta_term', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_bonus_fed_sl_5', 'depr_bonus_sta_sl_20']
+
+     - Singleowner_PVBatterySingleOwner
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ppa_price_input', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'ptc_fed_amount', 'depr_bonus_sta', 'ptc_fed_escal', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Singleowner_PVWattsWindBatteryHybridSingleOwner
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ppa_price_input', 'ptc_fed_term', 'ptc_sta_term', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_bonus_fed_sl_5', 'depr_bonus_sta_sl_20']
+
+     - Singleowner_PVWattsWindFuelCellBatteryHybridSingleOwner
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ppa_price_input', 'ptc_fed_term', 'ptc_sta_term', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_bonus_fed_sl_5', 'depr_bonus_sta_sl_20']
+
+     - Singleowner_StandaloneBatterySingleOwner
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Thirdpartyownership_PVWattsBatteryThirdParty
+
+        ['system_use_lifetime_output', 'degradation']
+
+     - Utilityrate5_CustomGenerationBatteryCommercial
+
+        ['ur_ec_tou_mat']
+
+     - Utilityrate5_CustomGenerationBatteryHostDeveloper
+
+        ['ur_ec_tou_mat']
+
+     - Utilityrate5_CustomGenerationPVWattsWindFuelCellBatteryHybridHostDeveloper
+
+        ['ur_ec_tou_mat']
+
+     - Utilityrate5_MEwaveBatterySingleOwner
+
+        ['analysis_period']
+
+     - Utilityrate5_PhotovoltaicWindBatteryHybridHostDeveloper
+
+        ['ur_ec_tou_mat']
+
+     - Utilityrate5_PVBatteryCommercial
+
+        ['ur_ec_tou_mat']
+
+     - Utilityrate5_PVBatteryHostDeveloper
+
+        ['ur_ec_tou_mat']
+
+     - Utilityrate5_PVWattsBatteryCommercial
+
+        ['ur_dc_tou_mat', 'ur_ec_tou_mat', 'system_use_lifetime_output', 'degradation']
+
+     - Utilityrate5_PVWattsBatteryHostDeveloper
+
+        ['ur_ec_tou_mat', 'system_use_lifetime_output', 'degradation']
+
+     - Utilityrate5_PVWattsBatteryResidential
+
+        ['ur_ec_tou_mat', 'system_use_lifetime_output', 'degradation']
+
+     - Utilityrate5_PVWattsBatteryThirdParty
+
+        ['ur_ec_tou_mat', 'system_use_lifetime_output', 'degradation']
+
+     - Utilityrate5_PVWattsWindBatteryHybridHostDeveloper
+
+        ['ur_ec_tou_mat']
+
+     - Utilityrate5_PVWattsWindFuelCellBatteryHybridHostDeveloper
+
+        ['ur_ec_tou_mat']
+
+     - Utilityrate5_StandaloneBatteryCommercial
+
+        ['ur_ec_tou_mat']
+
+     - Utilityrate5_StandaloneBatteryHostDeveloper
+
+        ['ur_ec_tou_mat']
+
+
+
+Battwatts
+************************************************
+
+:doc:`../modules/Battwatts` Removed Default files
+
+     - PVWattsBatteryCommercial
+     - PVWattsBatteryHostDeveloper
+     - PVWattsBatteryResidential
+     - PVWattsBatteryThirdParty
+
+
+Belpe
+************************************************
+
+:doc:`../modules/Belpe` Modified Input Variables:
+
+    New variables:
+
+         - start_day_of_year
+
+
+Biomass
+************************************************
+
+:doc:`../modules/Biomass` Modified Input Variables:
+
+    New variables:
+
+         - start_day_of_year
+
+
+Cashloan
+************************************************
+
+:doc:`../modules/Cashloan` Modified Input Variables:
+
+    New variables:
+
+         - depr_alloc_custom_percent
+         - depr_alloc_macrs_15_percent
+         - depr_alloc_macrs_5_percent
+         - depr_alloc_sl_15_percent
+         - depr_alloc_sl_20_percent
+         - depr_alloc_sl_39_percent
+         - depr_alloc_sl_5_percent
+         - depr_basis_mat
+         - depr_bonus_fed
+         - depr_bonus_fed_custom
+         - depr_bonus_fed_macrs_15
+         - depr_bonus_fed_macrs_5
+         - depr_bonus_fed_sl_15
+         - depr_bonus_fed_sl_20
+         - depr_bonus_fed_sl_39
+         - depr_bonus_fed_sl_5
+         - depr_bonus_sta
+         - depr_bonus_sta_custom
+         - depr_bonus_sta_macrs_15
+         - depr_bonus_sta_macrs_5
+         - depr_bonus_sta_sl_15
+         - depr_bonus_sta_sl_20
+         - depr_bonus_sta_sl_39
+         - depr_bonus_sta_sl_5
+         - depr_custom_schedule
+         - depr_en_basis_mat
+         - depr_fedbas_method
+         - depr_itc_fed_custom
+         - depr_itc_fed_macrs_15
+         - depr_itc_fed_macrs_5
+         - depr_itc_fed_sl_15
+         - depr_itc_fed_sl_20
+         - depr_itc_fed_sl_39
+         - depr_itc_fed_sl_5
+         - depr_itc_sta_custom
+         - depr_itc_sta_macrs_15
+         - depr_itc_sta_macrs_5
+         - depr_itc_sta_sl_15
+         - depr_itc_sta_sl_20
+         - depr_itc_sta_sl_39
+         - depr_itc_sta_sl_5
+         - depr_stabas_method
+         - utility_bill_wo_sys
+
+    Removed variables:
+
+         - depr_fed_custom
+         - depr_fed_sl_years
+         - depr_fed_type
+         - depr_sta_custom
+         - depr_sta_sl_years
+         - depr_sta_type
+
+
+CashloanHeat
+************************************************
+
+:doc:`../modules/CashloanHeat` Modified Input Variables:
+
+    New variables:
+
+         - depr_alloc_custom_percent
+         - depr_alloc_macrs_15_percent
+         - depr_alloc_macrs_5_percent
+         - depr_alloc_sl_15_percent
+         - depr_alloc_sl_20_percent
+         - depr_alloc_sl_39_percent
+         - depr_alloc_sl_5_percent
+         - depr_basis_mat
+         - depr_bonus_fed
+         - depr_bonus_fed_custom
+         - depr_bonus_fed_macrs_15
+         - depr_bonus_fed_macrs_5
+         - depr_bonus_fed_sl_15
+         - depr_bonus_fed_sl_20
+         - depr_bonus_fed_sl_39
+         - depr_bonus_fed_sl_5
+         - depr_bonus_sta
+         - depr_bonus_sta_custom
+         - depr_bonus_sta_macrs_15
+         - depr_bonus_sta_macrs_5
+         - depr_bonus_sta_sl_15
+         - depr_bonus_sta_sl_20
+         - depr_bonus_sta_sl_39
+         - depr_bonus_sta_sl_5
+         - depr_custom_schedule
+         - depr_en_basis_mat
+         - depr_fedbas_method
+         - depr_itc_fed_custom
+         - depr_itc_fed_macrs_15
+         - depr_itc_fed_macrs_5
+         - depr_itc_fed_sl_15
+         - depr_itc_fed_sl_20
+         - depr_itc_fed_sl_39
+         - depr_itc_fed_sl_5
+         - depr_itc_sta_custom
+         - depr_itc_sta_macrs_15
+         - depr_itc_sta_macrs_5
+         - depr_itc_sta_sl_15
+         - depr_itc_sta_sl_20
+         - depr_itc_sta_sl_39
+         - depr_itc_sta_sl_5
+         - depr_stabas_method
+         - utility_bill_wo_sys
+
+    Removed variables:
+
+         - depr_fed_custom
+         - depr_fed_sl_years
+         - depr_fed_type
+         - depr_sta_custom
+         - depr_sta_sl_years
+         - depr_sta_type
+
+
+Communitysolar
+************************************************
+
+:doc:`../modules/Communitysolar` Modified Input Variables:
+
+    New variables:
+
+         - depr_basis_mat
+         - depr_en_basis_mat
+
+
+CustomGeneration
+************************************************
+
+:doc:`../modules/CustomGeneration` Modified Input Variables:
+
+    New variables:
+
+         - ac_degradation
+         - energy_output_array_lifetime
+
+    Removed variables:
+
+         - generic_degradation
+
+
+Equpartflip
+************************************************
+
+:doc:`../modules/Equpartflip` Modified Input Variables:
+
+    New variables:
+
+         - depr_basis_mat
+         - depr_en_basis_mat
+         - start_day_of_year
+
+:doc:`../modules/Equpartflip` New Default files:
+
+     - PVWattsBatteryAllEquityPartnershipFlip
+
+:doc:`../modules/Equpartflip` Modified Default Values:
+
+     - Equpartflip_BiopowerAllEquityPartnershipFlip
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Equpartflip_CustomGenerationBatteryAllEquityPartnershipFlip
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Equpartflip_CustomGenerationProfileAllEquityPartnershipFlip
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'system_use_lifetime_output', 'ppa_price_input', 'ptc_fed_term', 'ptc_sta_term', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_bonus_sta_macrs_15', 'depr_alloc_sl_20_percent', 'depr_bonus_fed_macrs_15', 'depr_bonus_sta_macrs_5', 'depr_bonus_fed_sl_5', 'depr_bonus_fed_macrs_5', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Equpartflip_DSLFAllEquityPartnershipFlip
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Equpartflip_EmpiricalTroughAllEquityPartnershipFlip
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Equpartflip_FlatPlatePVAllEquityPartnershipFlip
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ppa_price_input', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'ptc_fed_amount', 'ptc_fed_escal', 'depr_alloc_sl_20_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Equpartflip_GenericCSPSystemAllEquityPartnershipFlip
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Equpartflip_GeothermalPowerAllEquityPartnershipFlip
+
+        ['depr_bonus_fed_sl_15', 'system_recapitalization_cost', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'total_installed_cost', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20', 'construction_financing_cost']
+
+     - Equpartflip_HighXConcentratingPVAllEquityPartnershipFlip
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Equpartflip_MSLFAllEquityPartnershipFlip
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Equpartflip_MSPTAllEquityPartnershipFlip
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Equpartflip_PhysicalTroughAllEquityPartnershipFlip
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Equpartflip_PVBatteryAllEquityPartnershipFlip
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ppa_price_input', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'ptc_fed_amount', 'ptc_fed_escal', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Equpartflip_PVWattsAllEquityPartnershipFlip
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'system_use_lifetime_output', 'ppa_price_input', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'ptc_fed_amount', 'ptc_fed_escal', 'depr_alloc_sl_20_percent', 'depr_bonus_fed_sl_5', 'degradation', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Equpartflip_StandaloneBatteryAllEquityPartnershipFlip
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Equpartflip_WindPowerAllEquityPartnershipFlip
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'system_use_lifetime_output', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'ptc_fed_amount', 'ptc_fed_escal', 'depr_alloc_sl_20_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+
+
+EtesElectricResistance
+************************************************
+
+:doc:`../modules/EtesElectricResistance` Modified Input Variables:
+
+    New variables:
+
+         - start_day_of_year
+
+
+EtesPtes
+************************************************
+
+:doc:`../modules/EtesPtes` Modified Input Variables:
+
+    New variables:
+
+         - start_day_of_year
+
+
+FresnelPhysical
+************************************************
+
+:doc:`../modules/FresnelPhysical` Modified Input Variables:
+
+    New variables:
+
+         - start_day_of_year
+
+
+FresnelPhysicalIph
+************************************************
+
+:doc:`../modules/FresnelPhysicalIph` Modified Input Variables:
+
+    New variables:
+
+         - start_day_of_year
+
+
+Fuelcell
+************************************************
+
+:doc:`../modules/Fuelcell` Modified Input Variables:
+
+    New variables:
+
+         - start_day_of_year
+
+
+Geothermal
+************************************************
+
+:doc:`../modules/Geothermal` Modified Input Variables:
+
+    New variables:
+
+         - start_day_of_year
+
+
+GeothermalCosts
+************************************************
+
+:doc:`../modules/GeothermalCosts` Modified Input Variables:
+
+    New variables:
+
+         - geotherm.cost.expl_lump_sum
+
+
+Grid
+************************************************
+
+:doc:`../modules/Grid` New Default files:
+
+     - PVWattsBatteryAllEquityPartnershipFlip
+     - PVWattsBatteryLeveragedPartnershipFlip
+     - PVWattsBatteryMerchantPlant
+     - PVWattsBatterySaleLeaseback
+     - PVWattsBatterySingleOwner
+
+:doc:`../modules/Grid` Modified Default Values:
+
+     - Grid_CustomGenerationProfileAllEquityPartnershipFlip
+
+        ['system_use_lifetime_output']
+
+     - Grid_CustomGenerationProfileCommercial
+
+        ['system_use_lifetime_output']
+
+     - Grid_CustomGenerationProfileHostDeveloper
+
+        ['system_use_lifetime_output']
+
+     - Grid_CustomGenerationProfileLeveragedPartnershipFlip
+
+        ['system_use_lifetime_output']
+
+     - Grid_CustomGenerationProfileMerchantPlant
+
+        ['system_use_lifetime_output']
+
+     - Grid_CustomGenerationProfileResidential
+
+        ['system_use_lifetime_output']
+
+     - Grid_CustomGenerationProfileSaleLeaseback
+
+        ['system_use_lifetime_output']
+
+     - Grid_CustomGenerationProfileSingleOwner
+
+        ['system_use_lifetime_output']
+
+     - Grid_CustomGenerationProfileThirdParty
+
+        ['system_use_lifetime_output']
+
+     - Grid_MEwaveBatterySingleOwner
+
+        ['analysis_period']
+
+     - Grid_MEwaveSingleOwner
+
+        ['analysis_period']
+
+     - Grid_PVWattsAllEquityPartnershipFlip
+
+        ['system_use_lifetime_output']
+
+     - Grid_PVWattsBatteryCommercial
+
+        ['system_use_lifetime_output']
+
+     - Grid_PVWattsBatteryHostDeveloper
+
+        ['system_use_lifetime_output']
+
+     - Grid_PVWattsBatteryResidential
+
+        ['system_use_lifetime_output']
+
+     - Grid_PVWattsBatteryThirdParty
+
+        ['system_use_lifetime_output']
+
+     - Grid_PVWattsCommercial
+
+        ['system_use_lifetime_output']
+
+     - Grid_PVWattsCommunitySolar
+
+        ['system_use_lifetime_output']
+
+     - Grid_PVWattsHostDeveloper
+
+        ['system_use_lifetime_output']
+
+     - Grid_PVWattsLeveragedPartnershipFlip
+
+        ['system_use_lifetime_output']
+
+     - Grid_PVWattsMerchantPlant
+
+        ['system_use_lifetime_output']
+
+     - Grid_PVWattsResidential
+
+        ['system_use_lifetime_output']
+
+     - Grid_PVWattsSaleLeaseback
+
+        ['system_use_lifetime_output']
+
+     - Grid_PVWattsSingleOwner
+
+        ['system_use_lifetime_output']
+
+     - Grid_PVWattsThirdParty
+
+        ['system_use_lifetime_output']
+
+     - Grid_WindPowerAllEquityPartnershipFlip
+
+        ['system_use_lifetime_output']
+
+     - Grid_WindPowerCommercial
+
+        ['system_use_lifetime_output']
+
+     - Grid_WindPowerLeveragedPartnershipFlip
+
+        ['system_use_lifetime_output']
+
+     - Grid_WindPowerMerchantPlant
+
+        ['system_use_lifetime_output']
+
+     - Grid_WindPowerResidential
+
+        ['system_use_lifetime_output']
+
+     - Grid_WindPowerSaleLeaseback
+
+        ['system_use_lifetime_output']
+
+     - Grid_WindPowerSingleOwner
+
+        ['system_use_lifetime_output']
+
+
+
+HostDeveloper
+************************************************
+
+:doc:`../modules/HostDeveloper` Modified Input Variables:
+
+    New variables:
+
+         - depr_basis_mat
+         - depr_en_basis_mat
+         - start_day_of_year
+         - utility_bill_wo_sys
+
+
+Levpartflip
+************************************************
+
+:doc:`../modules/Levpartflip` Modified Input Variables:
+
+    New variables:
+
+         - depr_basis_mat
+         - depr_en_basis_mat
+         - start_day_of_year
+
+:doc:`../modules/Levpartflip` New Default files:
+
+     - PVWattsBatteryLeveragedPartnershipFlip
+
+:doc:`../modules/Levpartflip` Modified Default Values:
+
+     - Levpartflip_BiopowerLeveragedPartnershipFlip
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Levpartflip_CustomGenerationBatteryLeveragedPartnershipFlip
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Levpartflip_CustomGenerationProfileLeveragedPartnershipFlip
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'system_use_lifetime_output', 'ppa_price_input', 'ptc_fed_term', 'ptc_sta_term', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_bonus_sta_macrs_15', 'depr_alloc_sl_20_percent', 'depr_bonus_fed_macrs_15', 'depr_bonus_sta_macrs_5', 'depr_bonus_fed_sl_5', 'depr_bonus_fed_macrs_5', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Levpartflip_DSLFLeveragedPartnershipFlip
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Levpartflip_EmpiricalTroughLeveragedPartnershipFlip
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Levpartflip_FlatPlatePVLeveragedPartnershipFlip
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ppa_price_input', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'ptc_fed_amount', 'ptc_fed_escal', 'depr_alloc_sl_20_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Levpartflip_GenericCSPSystemLeveragedPartnershipFlip
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Levpartflip_GeothermalPowerLeveragedPartnershipFlip
+
+        ['depr_bonus_fed_sl_15', 'system_recapitalization_cost', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'total_installed_cost', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20', 'construction_financing_cost']
+
+     - Levpartflip_HighXConcentratingPVLeveragedPartnershipFlip
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Levpartflip_MSLFLeveragedPartnershipFlip
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Levpartflip_MSPTLeveragedPartnershipFlip
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Levpartflip_PhysicalTroughLeveragedPartnershipFlip
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Levpartflip_PVBatteryLeveragedPartnershipFlip
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ppa_price_input', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'ptc_fed_amount', 'depr_bonus_sta', 'ptc_fed_escal', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Levpartflip_PVWattsLeveragedPartnershipFlip
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'system_use_lifetime_output', 'ppa_price_input', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'ptc_fed_amount', 'ptc_fed_escal', 'depr_alloc_sl_20_percent', 'depr_bonus_fed_sl_5', 'degradation', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Levpartflip_StandaloneBatteryLeveragedPartnershipFlip
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Levpartflip_WindPowerLeveragedPartnershipFlip
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'system_use_lifetime_output', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'ptc_fed_amount', 'ptc_fed_escal', 'depr_alloc_sl_20_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+
+
+Merchantplant
+************************************************
+
+:doc:`../modules/Merchantplant` Modified Input Variables:
+
+    New variables:
+
+         - depr_basis_mat
+         - depr_en_basis_mat
+
+:doc:`../modules/Merchantplant` New Default files:
+
+     - PVWattsBatteryMerchantPlant
+
+:doc:`../modules/Merchantplant` Modified Default Values:
+
+     - Merchantplant_BiopowerMerchantPlant
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Merchantplant_CustomGenerationBatteryMerchantPlant
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Merchantplant_CustomGenerationProfileMerchantPlant
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'system_use_lifetime_output', 'ptc_fed_term', 'ptc_sta_term', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_bonus_sta_macrs_15', 'depr_alloc_sl_20_percent', 'depr_bonus_fed_macrs_15', 'depr_bonus_sta_macrs_5', 'depr_bonus_fed_sl_5', 'depr_bonus_fed_macrs_5', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Merchantplant_DSLFMerchantPlant
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Merchantplant_EmpiricalTroughMerchantPlant
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Merchantplant_FlatPlatePVMerchantPlant
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'ptc_fed_amount', 'ptc_fed_escal', 'depr_alloc_sl_20_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Merchantplant_GenericCSPSystemMerchantPlant
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Merchantplant_GeothermalPowerMerchantPlant
+
+        ['depr_bonus_fed_sl_15', 'system_recapitalization_cost', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'total_installed_cost', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20', 'construction_financing_cost']
+
+     - Merchantplant_HighXConcentratingPVMerchantPlant
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Merchantplant_MSLFMerchantPlant
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Merchantplant_MSPTMerchantPlant
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Merchantplant_PhysicalTroughMerchantPlant
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Merchantplant_PVBatteryMerchantPlant
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'ptc_fed_amount', 'depr_bonus_sta', 'ptc_fed_escal', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Merchantplant_PVWattsMerchantPlant
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'system_use_lifetime_output', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'ptc_fed_amount', 'ptc_fed_escal', 'depr_alloc_sl_20_percent', 'depr_bonus_fed_sl_5', 'degradation', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Merchantplant_StandaloneBatteryMerchantPlant
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Merchantplant_WindPowerMerchantPlant
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'system_use_lifetime_output', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'ptc_fed_amount', 'ptc_fed_escal', 'depr_alloc_sl_20_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+
+
+MhkCosts
+************************************************
+
+:doc:`../modules/MhkCosts` Modified Input Variables:
+
+    New variables:
+
+         - assembly_and_install_cost_rvalue
+         - assembly_and_install_cost_total
+         - development_cost_rvalue
+         - development_cost_total
+         - elec_infras_cost_input
+         - elec_infras_cost_method
+         - elec_infras_cost_modeled
+         - elec_infras_cost_rvalue
+         - elec_infras_cost_total
+         - eng_and_mgmt_cost_rvalue
+         - eng_and_mgmt_cost_total
+         - insurance_during_construction_cost_input
+         - insurance_during_construction_cost_method
+         - insurance_during_construction_cost_rvalue
+         - maintenance_cost_input
+         - maintenance_cost_method
+         - maintenance_cost_rvalue
+         - maintenance_cost_total
+         - mooring_found_substruc_cost_rvalue
+         - mooring_found_substruc_cost_total
+         - operations_cost_input
+         - operations_cost_method
+         - operations_cost_rvalue
+         - operations_cost_total
+         - other_financial_cost_input
+         - other_financial_cost_method
+         - other_financial_cost_rvalue
+         - other_infrastructure_cost_rvalue
+         - other_infrastructure_cost_total
+         - plant_commissioning_cost_input
+         - plant_commissioning_cost_method
+         - plant_commissioning_cost_rvalue
+         - power_takeoff_system_cost_total
+         - project_contingency_cost_input
+         - project_contingency_cost_method
+         - project_contingency_cost_rvalue
+         - reserve_accounts_cost_input
+         - reserve_accounts_cost_method
+         - reserve_accounts_cost_rvalue
+         - reserve_accounts_cost_total
+         - site_access_port_staging_cost_input
+         - site_access_port_staging_cost_method
+         - site_access_port_staging_cost_rvalue
+         - site_access_port_staging_cost_total
+         - structural_assembly_cost_rvalue
+         - structural_assembly_cost_total
+
+    Removed variables:
+
+         - array_cable_system_cost_input
+         - array_cable_system_cost_method
+         - export_cable_length
+         - export_cable_system_cost_input
+         - export_cable_system_cost_method
+         - inter_array_cable_length
+         - offshore_substation_cost_input
+         - offshore_substation_cost_method
+         - onshore_substation_cost_input
+         - onshore_substation_cost_method
+         - other_elec_infra_cost_input
+         - other_elec_infra_cost_method
+         - riser_cable_length
+
+
+MhkWave
+************************************************
+
+:doc:`../modules/MhkWave` Modified Input Variables:
+
+    New variables:
+
+         - ac_degradation
+
+    Removed variables:
+
+         - generic_degradation
+
+
+MsptIph
+************************************************
+
+:doc:`../modules/MsptIph` Modified Input Variables:
+
+    New variables:
+
+         - start_day_of_year
+
+
+Pvsamv1
+************************************************
+
+:doc:`../modules/Pvsamv1` Modified Input Variables:
+
+    New variables:
+
+         - celltech
+         - coeff_inputs_king
+         - coeff_inputs_lee
+         - coeff_inputs_pelland
+         - max_abs_airmass
+         - max_prec_water
+         - min_abs_airmass
+         - min_prec_water
+         - snow_array
+         - spectral_correction_model_choice
+         - start_day_of_year
+         - use_snow_weather_file
+
+
+Pvwattsv8
+************************************************
+
+:doc:`../modules/Pvwattsv8` Modified Input Variables:
+
+    New variables:
+
+         - celltech
+         - coeff_inputs_king
+         - coeff_inputs_lee
+         - coeff_inputs_pelland
+         - max_abs_airmass
+         - max_prec_water
+         - min_abs_airmass
+         - min_prec_water
+         - spectral_correction_model_choice
+
+:doc:`../modules/Pvwattsv8` New Default files:
+
+     - PVWattsBatteryAllEquityPartnershipFlip
+     - PVWattsBatteryLeveragedPartnershipFlip
+     - PVWattsBatteryMerchantPlant
+     - PVWattsBatterySaleLeaseback
+     - PVWattsBatterySingleOwner
+
+:doc:`../modules/Pvwattsv8` Modified Default Values:
+
+     - Pvwattsv8_CustomGenerationPVWattsWindFuelCellBatteryHybridHostDeveloper
+
+        ['system_use_lifetime_output', 'degradation']
+
+     - Pvwattsv8_CustomGenerationPVWattsWindFuelCellBatteryHybridSingleOwner
+
+        ['system_use_lifetime_output', 'degradation']
+
+     - Pvwattsv8_PVWattsAllEquityPartnershipFlip
+
+        ['system_use_lifetime_output']
+
+     - Pvwattsv8_PVWattsBatteryCommercial
+
+        ['system_use_lifetime_output']
+
+     - Pvwattsv8_PVWattsBatteryHostDeveloper
+
+        ['system_use_lifetime_output']
+
+     - Pvwattsv8_PVWattsBatteryResidential
+
+        ['system_use_lifetime_output']
+
+     - Pvwattsv8_PVWattsBatteryThirdParty
+
+        ['system_capacity', 'system_use_lifetime_output']
+
+     - Pvwattsv8_PVWattsCommercial
+
+        ['system_use_lifetime_output']
+
+     - Pvwattsv8_PVWattsCommunitySolar
+
+        ['system_use_lifetime_output']
+
+     - Pvwattsv8_PVWattsHostDeveloper
+
+        ['system_use_lifetime_output']
+
+     - Pvwattsv8_PVWattsLeveragedPartnershipFlip
+
+        ['system_use_lifetime_output']
+
+     - Pvwattsv8_PVWattsMerchantPlant
+
+        ['system_use_lifetime_output']
+
+     - Pvwattsv8_PVWattsResidential
+
+        ['system_use_lifetime_output']
+
+     - Pvwattsv8_PVWattsSaleLeaseback
+
+        ['system_use_lifetime_output']
+
+     - Pvwattsv8_PVWattsSingleOwner
+
+        ['system_use_lifetime_output']
+
+     - Pvwattsv8_PVWattsThirdParty
+
+        ['system_use_lifetime_output']
+
+     - Pvwattsv8_PVWattsWindBatteryHybridHostDeveloper
+
+        ['system_use_lifetime_output', 'degradation']
+
+     - Pvwattsv8_PVWattsWindBatteryHybridSingleOwner
+
+        ['system_use_lifetime_output', 'degradation']
+
+     - Pvwattsv8_PVWattsWindFuelCellBatteryHybridHostDeveloper
+
+        ['system_use_lifetime_output', 'degradation']
+
+     - Pvwattsv8_PVWattsWindFuelCellBatteryHybridSingleOwner
+
+        ['system_use_lifetime_output', 'degradation']
+
+
+
+Saleleaseback
+************************************************
+
+:doc:`../modules/Saleleaseback` Modified Input Variables:
+
+    New variables:
+
+         - depr_basis_mat
+         - depr_en_basis_mat
+         - start_day_of_year
+
+:doc:`../modules/Saleleaseback` New Default files:
+
+     - PVWattsBatterySaleLeaseback
+
+:doc:`../modules/Saleleaseback` Modified Default Values:
+
+     - Saleleaseback_BiopowerSaleLeaseback
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Saleleaseback_CustomGenerationBatterySaleLeaseback
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Saleleaseback_CustomGenerationProfileSaleLeaseback
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'system_use_lifetime_output', 'ppa_price_input', 'ptc_fed_term', 'ptc_sta_term', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_bonus_sta_macrs_15', 'depr_alloc_sl_20_percent', 'depr_bonus_fed_macrs_15', 'depr_bonus_sta_macrs_5', 'depr_bonus_fed_sl_5', 'depr_bonus_fed_macrs_5', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Saleleaseback_DSLFSaleLeaseback
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Saleleaseback_EmpiricalTroughSaleLeaseback
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Saleleaseback_FlatPlatePVSaleLeaseback
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ppa_price_input', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'ptc_fed_amount', 'ptc_fed_escal', 'depr_alloc_sl_20_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Saleleaseback_GenericCSPSystemSaleLeaseback
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Saleleaseback_GeothermalPowerSaleLeaseback
+
+        ['depr_bonus_fed_sl_15', 'system_recapitalization_cost', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'total_installed_cost', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20', 'construction_financing_cost']
+
+     - Saleleaseback_HighXConcentratingPVSaleLeaseback
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Saleleaseback_MSLFSaleLeaseback
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Saleleaseback_MSPTSaleLeaseback
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Saleleaseback_PhysicalTroughSaleLeaseback
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Saleleaseback_PVBatterySaleLeaseback
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ppa_price_input', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'ptc_fed_amount', 'ptc_fed_escal', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Saleleaseback_PVWattsSaleLeaseback
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'system_use_lifetime_output', 'ppa_price_input', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'ptc_fed_amount', 'ptc_fed_escal', 'depr_alloc_sl_20_percent', 'depr_bonus_fed_sl_5', 'degradation', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Saleleaseback_StandaloneBatterySaleLeaseback
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Saleleaseback_WindPowerSaleLeaseback
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'system_use_lifetime_output', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'ptc_fed_amount', 'ptc_fed_escal', 'depr_alloc_sl_20_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+
+
+Sco2CspSystem
+************************************************
+
+:doc:`../modules/Sco2CspSystem` Modified Input Variables:
+
+    New variables:
+
+         - T_bypass_target
+         - T_target_is_HTF
+         - deltaT_bypass
+         - eta_isen_t2
+         - eta_thermal_cutoff
+         - is_bypass_ok
+         - is_turbine_split_ok
+         - set_HTF_mdot
+         - yr_inflation
+
+
+Sco2CspUdPcTables
+************************************************
+
+:doc:`../modules/Sco2CspUdPcTables` Modified Input Variables:
+
+    New variables:
+
+         - T_bypass_target
+         - T_target_is_HTF
+         - deltaT_bypass
+         - eta_isen_t2
+         - eta_thermal_cutoff
+         - is_bypass_ok
+         - is_turbine_split_ok
+         - set_HTF_mdot
+         - yr_inflation
+
+
+Singleowner
+************************************************
+
+:doc:`../modules/Singleowner` Modified Input Variables:
+
+    New variables:
+
+         - depr_basis_mat
+         - depr_en_basis_mat
+         - energy_expenses_ret
+         - energy_revenue_ret
+         - non_energy_expenses
+         - non_energy_expenses_ds
+         - non_energy_expenses_escal
+         - non_energy_expenses_ret
+         - non_energy_revenue
+         - non_energy_revenue_ds
+         - non_energy_revenue_escal
+         - non_energy_revenue_ret
+         - start_day_of_year
+
+:doc:`../modules/Singleowner` New Default files:
+
+     - PVWattsBatterySingleOwner
+
+:doc:`../modules/Singleowner` Modified Default Values:
+
+     - SingleownerHeat_DSGLIPHSingleOwner
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_bonus_sta_macrs_15', 'depr_alloc_sl_20_percent', 'depr_bonus_fed_macrs_15', 'depr_bonus_sta_macrs_5', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - SingleownerHeat_MSLFIPHSingleOwner
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_bonus_sta_macrs_15', 'depr_alloc_sl_20_percent', 'depr_bonus_fed_macrs_15', 'depr_bonus_sta_macrs_5', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - SingleownerHeat_MSPTIPHSingleOwner
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_bonus_sta_macrs_15', 'depr_alloc_sl_20_percent', 'depr_bonus_fed_macrs_15', 'depr_bonus_sta_macrs_5', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - SingleownerHeat_PhysicalTroughIPHSingleOwner
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_bonus_sta_macrs_15', 'depr_alloc_sl_20_percent', 'depr_bonus_fed_macrs_15', 'depr_bonus_sta_macrs_5', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Singleowner_BiopowerSingleOwner
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Singleowner_CustomGenerationBatterySingleOwner
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Singleowner_CustomGenerationProfileSingleOwner
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'system_use_lifetime_output', 'ppa_price_input', 'ptc_fed_term', 'ptc_sta_term', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_bonus_sta_macrs_15', 'depr_alloc_sl_20_percent', 'depr_bonus_fed_macrs_15', 'depr_bonus_sta_macrs_5', 'depr_bonus_fed_sl_5', 'depr_bonus_fed_macrs_5', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Singleowner_CustomGenerationPVWattsWindFuelCellBatteryHybridSingleOwner
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ppa_price_input', 'ptc_fed_term', 'ptc_sta_term', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_bonus_fed_sl_5', 'depr_bonus_sta_sl_20']
+
+     - Singleowner_DSLFSingleOwner
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Singleowner_EmpiricalTroughSingleOwner
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Singleowner_ETESSingleOwner
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Singleowner_FlatPlatePVSingleOwner
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ppa_price_input', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'ptc_fed_amount', 'ptc_fed_escal', 'depr_alloc_sl_20_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Singleowner_FuelCellSingleOwner
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_bonus_sta_macrs_15', 'depr_bonus_fed_macrs_15', 'depr_bonus_fed_sl_5', 'depr_bonus_sta_sl_20']
+
+     - Singleowner_GenericCSPSystemSingleOwner
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Singleowner_GeothermalPowerSingleOwner
+
+        ['depr_bonus_fed_sl_15', 'system_recapitalization_cost', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'total_installed_cost', 'ptc_fed_term', 'system_capacity', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20', 'construction_financing_cost']
+
+     - Singleowner_HighXConcentratingPVSingleOwner
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Singleowner_MEwaveBatterySingleOwner
+
+        ['depr_bonus_fed_sl_15', 'om_fixed', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'total_installed_cost', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'analysis_period', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_bonus_sta_macrs_15', 'depr_alloc_sl_20_percent', 'depr_bonus_fed_macrs_15', 'depr_bonus_sta_macrs_5', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20', 'construction_financing_cost']
+
+     - Singleowner_MEwaveSingleOwner
+
+        ['depr_bonus_fed_sl_15', 'om_fixed', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'total_installed_cost', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'analysis_period', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_bonus_sta_macrs_15', 'depr_alloc_sl_20_percent', 'depr_bonus_fed_macrs_15', 'depr_bonus_sta_macrs_5', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20', 'construction_financing_cost']
+
+     - Singleowner_MSLFSingleOwner
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Singleowner_MSPTSingleOwner
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Singleowner_PhotovoltaicWindBatteryHybridSingleOwner
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ppa_price_input', 'ptc_fed_term', 'ptc_sta_term', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_bonus_fed_sl_5', 'depr_bonus_sta_sl_20']
+
+     - Singleowner_PhysicalTroughSingleOwner
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Singleowner_PTESSingleOwner
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Singleowner_PVBatterySingleOwner
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ppa_price_input', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'ptc_fed_amount', 'depr_bonus_sta', 'ptc_fed_escal', 'depr_alloc_sl_20_percent', 'itc_fed_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Singleowner_PVWattsSingleOwner
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'system_use_lifetime_output', 'ppa_price_input', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'ptc_fed_amount', 'ptc_fed_escal', 'depr_alloc_sl_20_percent', 'depr_bonus_fed_sl_5', 'degradation', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Singleowner_PVWattsWindBatteryHybridSingleOwner
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ppa_price_input', 'ptc_fed_term', 'ptc_sta_term', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_bonus_fed_sl_5', 'depr_bonus_sta_sl_20']
+
+     - Singleowner_PVWattsWindFuelCellBatteryHybridSingleOwner
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ppa_price_input', 'ptc_fed_term', 'ptc_sta_term', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_bonus_fed_sl_5', 'depr_bonus_sta_sl_20']
+
+     - Singleowner_StandaloneBatterySingleOwner
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'depr_alloc_sl_20_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+     - Singleowner_WindPowerSingleOwner
+
+        ['depr_bonus_fed_sl_15', 'depr_bonus_sta_sl_5', 'depr_bonus_sta_sl_15', 'system_use_lifetime_output', 'ptc_fed_term', 'ptc_sta_term', 'depr_alloc_sl_15_percent', 'depr_bonus_fed', 'depr_bonus_fed_sl_20', 'depr_bonus_sta', 'ptc_fed_amount', 'ptc_fed_escal', 'depr_alloc_sl_20_percent', 'depr_bonus_fed_sl_5', 'depr_alloc_macrs_15_percent', 'depr_alloc_macrs_5_percent', 'depr_bonus_sta_sl_20']
+
+
+
+SingleownerHeat
+************************************************
+
+:doc:`../modules/SingleownerHeat` Modified Input Variables:
+
+    New variables:
+
+         - depr_basis_mat
+         - depr_en_basis_mat
+         - start_day_of_year
+
+
+TcsmoltenSalt
+************************************************
+
+:doc:`../modules/TcsmoltenSalt` Modified Input Variables:
+
+    New variables:
+
+         - anc_elec_output
+         - is_control_target_elec
+         - is_hybrid
+         - is_timestep_load_fractions
+         - pv_generation_profile
+         - pv_total_installed_cost
+         - start_day_of_year
+
+    Removed variables:
+
+         - ampl_data_dir
+         - ampl_exec_call
+         - is_ampl_engine
+         - is_write_ampl_dat
+
+
+TroughPhysical
+************************************************
+
+:doc:`../modules/TroughPhysical` Modified Input Variables:
+
+    New variables:
+
+         - OpticalTable_1
+         - OpticalTable_2
+         - OpticalTable_3
+         - OpticalTable_4
+         - opt_model
+         - start_day_of_year
+
+    Removed variables:
+
+         - ampl_data_dir
+         - ampl_exec_call
+         - is_ampl_engine
+         - is_write_ampl_dat
+
+
+TroughPhysicalIph
+************************************************
+
+:doc:`../modules/TroughPhysicalIph` Modified Input Variables:
+
+    New variables:
+
+         - OpticalTable_1
+         - OpticalTable_2
+         - OpticalTable_3
+         - OpticalTable_4
+         - opt_model
+         - start_day_of_year
+
+
+Utilityrate5
+************************************************
+
+:doc:`../modules/Utilityrate5` Modified Input Variables:
+
+    New variables:
+
+         - start_day_of_year
+
+:doc:`../modules/Utilityrate5` New Default files:
+
+     - PVWattsBatteryAllEquityPartnershipFlip
+     - PVWattsBatteryLeveragedPartnershipFlip
+     - PVWattsBatteryMerchantPlant
+     - PVWattsBatterySaleLeaseback
+     - PVWattsBatterySingleOwner
+
+:doc:`../modules/Utilityrate5` Removed Default files
+
+     - GeothermalPowerAllEquityPartnershipFlip
+     - GeothermalPowerLeveragedPartnershipFlip
+     - GeothermalPowerMerchantPlant
+     - GeothermalPowerSaleLeaseback
+     - GeothermalPowerSingleOwner
+     - MEwaveSingleOwner
+
+:doc:`../modules/Utilityrate5` Modified Default Values:
+
+     - Utilityrate5_CustomGenerationBatteryCommercial
+
+        ['ur_ec_tou_mat']
+
+     - Utilityrate5_CustomGenerationBatteryHostDeveloper
+
+        ['ur_ec_tou_mat']
+
+     - Utilityrate5_CustomGenerationProfileAllEquityPartnershipFlip
+
+        ['system_use_lifetime_output']
+
+     - Utilityrate5_CustomGenerationProfileCommercial
+
+        ['ur_ec_tou_mat', 'system_use_lifetime_output']
+
+     - Utilityrate5_CustomGenerationProfileHostDeveloper
+
+        ['ur_ec_tou_mat', 'system_use_lifetime_output']
+
+     - Utilityrate5_CustomGenerationProfileLeveragedPartnershipFlip
+
+        ['system_use_lifetime_output']
+
+     - Utilityrate5_CustomGenerationProfileMerchantPlant
+
+        ['system_use_lifetime_output']
+
+     - Utilityrate5_CustomGenerationProfileResidential
+
+        ['system_use_lifetime_output']
+
+     - Utilityrate5_CustomGenerationProfileSaleLeaseback
+
+        ['system_use_lifetime_output']
+
+     - Utilityrate5_CustomGenerationProfileSingleOwner
+
+        ['system_use_lifetime_output']
+
+     - Utilityrate5_CustomGenerationProfileThirdParty
+
+        ['system_use_lifetime_output']
+
+     - Utilityrate5_CustomGenerationPVWattsWindFuelCellBatteryHybridHostDeveloper
+
+        ['ur_ec_tou_mat']
+
+     - Utilityrate5_FlatPlatePVCommercial
+
+        ['ur_ec_tou_mat']
+
+     - Utilityrate5_FlatPlatePVHostDeveloper
+
+        ['ur_ec_tou_mat']
+
+     - Utilityrate5_FuelCellCommercial
+
+        ['ur_ec_tou_mat']
+
+     - Utilityrate5_MEwaveBatterySingleOwner
+
+        ['analysis_period']
+
+     - Utilityrate5_PhotovoltaicWindBatteryHybridHostDeveloper
+
+        ['ur_ec_tou_mat']
+
+     - Utilityrate5_PVBatteryCommercial
+
+        ['ur_ec_tou_mat']
+
+     - Utilityrate5_PVBatteryHostDeveloper
+
+        ['ur_ec_tou_mat']
+
+     - Utilityrate5_PVWattsAllEquityPartnershipFlip
+
+        ['system_use_lifetime_output', 'degradation']
+
+     - Utilityrate5_PVWattsBatteryCommercial
+
+        ['ur_dc_tou_mat', 'ur_ec_tou_mat', 'system_use_lifetime_output', 'degradation']
+
+     - Utilityrate5_PVWattsBatteryHostDeveloper
+
+        ['ur_ec_tou_mat', 'system_use_lifetime_output', 'degradation']
+
+     - Utilityrate5_PVWattsBatteryResidential
+
+        ['ur_ec_tou_mat', 'system_use_lifetime_output', 'degradation']
+
+     - Utilityrate5_PVWattsBatteryThirdParty
+
+        ['ur_ec_tou_mat', 'system_use_lifetime_output', 'degradation']
+
+     - Utilityrate5_PVWattsCommercial
+
+        ['ur_ec_tou_mat', 'system_use_lifetime_output', 'degradation']
+
+     - Utilityrate5_PVWattsHostDeveloper
+
+        ['ur_ec_tou_mat', 'system_use_lifetime_output', 'degradation']
+
+     - Utilityrate5_PVWattsLeveragedPartnershipFlip
+
+        ['system_use_lifetime_output', 'degradation']
+
+     - Utilityrate5_PVWattsMerchantPlant
+
+        ['system_use_lifetime_output', 'degradation']
+
+     - Utilityrate5_PVWattsResidential
+
+        ['system_use_lifetime_output', 'degradation']
+
+     - Utilityrate5_PVWattsSaleLeaseback
+
+        ['system_use_lifetime_output', 'degradation']
+
+     - Utilityrate5_PVWattsSingleOwner
+
+        ['system_use_lifetime_output', 'degradation']
+
+     - Utilityrate5_PVWattsThirdParty
+
+        ['system_use_lifetime_output', 'degradation']
+
+     - Utilityrate5_PVWattsWindBatteryHybridHostDeveloper
+
+        ['ur_ec_tou_mat']
+
+     - Utilityrate5_PVWattsWindFuelCellBatteryHybridHostDeveloper
+
+        ['ur_ec_tou_mat']
+
+     - Utilityrate5_SolarWaterHeatingCommercial
+
+        ['ur_ec_tou_mat']
+
+     - Utilityrate5_StandaloneBatteryCommercial
+
+        ['ur_ec_tou_mat']
+
+     - Utilityrate5_StandaloneBatteryHostDeveloper
+
+        ['ur_ec_tou_mat']
+
+     - Utilityrate5_WindPowerAllEquityPartnershipFlip
+
+        ['system_use_lifetime_output']
+
+     - Utilityrate5_WindPowerCommercial
+
+        ['ur_ec_tou_mat', 'system_use_lifetime_output']
+
+     - Utilityrate5_WindPowerLeveragedPartnershipFlip
+
+        ['system_use_lifetime_output']
+
+     - Utilityrate5_WindPowerMerchantPlant
+
+        ['system_use_lifetime_output']
+
+     - Utilityrate5_WindPowerResidential
+
+        ['system_use_lifetime_output']
+
+     - Utilityrate5_WindPowerSaleLeaseback
+
+        ['system_use_lifetime_output']
+
+     - Utilityrate5_WindPowerSingleOwner
+
+        ['system_use_lifetime_output']
+
+
+
+Utilityrateforecast
+************************************************
+
+:doc:`../modules/Utilityrateforecast` Modified Input Variables:
+
+    New variables:
+
+         - start_day_of_year
+
+
+Windpower
+************************************************
+
+:doc:`../modules/Windpower` Modified Input Variables:
+
+    New variables:
+
+         - ac_degradation
+         - analysis_period
+         - system_use_lifetime_output
+
+

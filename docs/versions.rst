@@ -3,13 +3,15 @@ PySAM Versions
 
 For a list of PySAM versions and their equivalent SAM and SSC versions, see https://github.com/natlabrockies/pysam/releases.
 
-.. note:: PySAM 8.0.0 and newer are available as nlr-pysam. Older versions are available as nrel-pysam. PySAM 8.0.0 is available both as nlr-pysam and nrel-pysam.
+For a list of versions available on PyPI, see https://pypi.org/project/NLR-PySAM/. For versions available on Anaconda, see https://anaconda.org/channels/nrel/packages/nrel-pysam/overview.
 
 The list below tracks changes in variables between consecutive PySAM versions.
 
 .. toctree::
     :maxdepth: 1
 
+    version_changes/8.0.0.rst
+    version_changes/7.1.1.rst
     version_changes/7.1.0.rst
     version_changes/7.0.0.rst
     version_changes/6.0.0.rst

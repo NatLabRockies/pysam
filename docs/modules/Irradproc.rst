@@ -6,7 +6,7 @@ Irradproc
 .. automodule:: PySAM.Irradproc
 	:members:
 
-Irradproc is a wrapper for the SSC compute module `cmod_irradproc.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_irradproc.cpp>`_
+Irradproc is a wrapper for the SSC compute module `cmod_irradproc.cpp <https://github.com/natlabrockies/ssc/blob/develop/ssc/cmod_irradproc.cpp>`_
 
 Interdependent Variables
 --------------------------

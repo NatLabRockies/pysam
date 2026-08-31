@@ -6,7 +6,7 @@ Windbos
 .. automodule:: PySAM.Windbos
 	:members:
 
-Windbos is a wrapper for the SSC compute module `cmod_windbos.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_windbos.cpp>`_
+Windbos is a wrapper for the SSC compute module `cmod_windbos.cpp <https://github.com/natlabrockies/ssc/blob/develop/ssc/cmod_windbos.cpp>`_
 
 Interdependent Variables
 --------------------------

@@ -6,7 +6,7 @@ Solarpilot
 .. automodule:: PySAM.Solarpilot
 	:members:
 
-Solarpilot is a wrapper for the SSC compute module `cmod_solarpilot.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_solarpilot.cpp>`_
+Solarpilot is a wrapper for the SSC compute module `cmod_solarpilot.cpp <https://github.com/natlabrockies/ssc/blob/develop/ssc/cmod_solarpilot.cpp>`_
 
 Interdependent Variables
 --------------------------

@@ -6,7 +6,7 @@ FresnelPhysicalIph
 .. automodule:: PySAM.FresnelPhysicalIph
 	:members:
 
-FresnelPhysicalIph is a wrapper for the SSC compute module `cmod_fresnel_physical_iph.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_fresnel_physical_iph.cpp>`_
+FresnelPhysicalIph is a wrapper for the SSC compute module `cmod_fresnel_physical_iph.cpp <https://github.com/natlabrockies/ssc/blob/develop/ssc/cmod_fresnel_physical_iph.cpp>`_
 
 Interdependent Variables
 --------------------------

@@ -6,7 +6,7 @@ Utilityrateforecast
 .. automodule:: PySAM.Utilityrateforecast
 	:members:
 
-Utilityrateforecast is a wrapper for the SSC compute module `cmod_utilityrateforecast.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_utilityrateforecast.cpp>`_
+Utilityrateforecast is a wrapper for the SSC compute module `cmod_utilityrateforecast.cpp <https://github.com/natlabrockies/ssc/blob/develop/ssc/cmod_utilityrateforecast.cpp>`_
 
 Interdependent Variables
 --------------------------

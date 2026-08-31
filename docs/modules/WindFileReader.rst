@@ -6,7 +6,7 @@ WindFileReader
 .. automodule:: PySAM.WindFileReader
 	:members:
 
-WindFileReader is a wrapper for the SSC compute module `cmod_wind_file_reader.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_wind_file_reader.cpp>`_
+WindFileReader is a wrapper for the SSC compute module `cmod_wind_file_reader.cpp <https://github.com/natlabrockies/ssc/blob/develop/ssc/cmod_wind_file_reader.cpp>`_
 
 Interdependent Variables
 --------------------------

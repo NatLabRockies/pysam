@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "NLR-PySAM"
-description = "National Laboratory of the Rockies' System Advisor Model Python Wrapper"
+description = "National Laboratory of the Rockies System Advisor Model Python Wrapper"
 readme = {file = "RELEASE.md", content-type = "text/markdown"}
 license = "BSD-3-Clause"
 authors = [
@@ -15,6 +15,10 @@ dependencies = [
     "requests",
 ]
 dynamic = ["version"]
+classifiers = [
+    "Development Status :: 7 - Inactive",
+    "Programming Language :: Python :: 3"
+]
 
 [project.urls]
 Documentation = "https://nlr-pysam.readthedocs.io"
