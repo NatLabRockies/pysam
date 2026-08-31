@@ -254,11 +254,11 @@ jobs:
         shell: pwsh
         if: ${{ github.event_name == 'pull_request' }}
         run: |
-          Copy-Item "C:\Miniconda\envs\3.12\Library\bin\libssl*.dll" "C:\Miniconda\envs\3.12\DLLs\"
-          Copy-Item "C:\Miniconda\envs\3.12\Library\bin\libcrypto*.dll" "C:\Miniconda\envs\3.12\DLLs\"
-          Copy-Item "C:\Miniconda\envs\3.12\Library\bin\ffi.dll" "C:\Miniconda\envs\3.12\DLLs\"
-          Copy-Item "C:\Miniconda\envs\3.12\Library\bin\libffi*.dll" "C:\Miniconda\envs\3.12\DLLs\"
-          Copy-Item "C:\Miniconda\envs\3.12\Library\bin\libexpat.dll" "C:\Miniconda\envs\3.12\DLLs\"
+          Copy-Item "C:\Miniconda\envs\${{ matrix.python-version }}\Library\bin\libssl*.dll" "C:\Miniconda\envs\${{ matrix.python-version }}\DLLs\"
+          Copy-Item "C:\Miniconda\envs\${{ matrix.python-version }}\Library\bin\libcrypto*.dll" "C:\Miniconda\envs\${{ matrix.python-version }}\DLLs\"
+          Copy-Item "C:\Miniconda\envs\${{ matrix.python-version }}\Library\bin\ffi.dll" "C:\Miniconda\envs\${{ matrix.python-version }}\DLLs\"
+          Copy-Item "C:\Miniconda\envs\${{ matrix.python-version }}\Library\bin\libffi*.dll" "C:\Miniconda\envs\${{ matrix.python-version }}\DLLs\"
+          Copy-Item "C:\Miniconda\envs\${{ matrix.python-version }}\Library\bin\libexpat.dll" "C:\Miniconda\envs\${{ matrix.python-version }}\DLLs\"
 
       - name: Wheel on pull request only
         shell: bash -l {0}
