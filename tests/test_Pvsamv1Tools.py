@@ -40,14 +40,14 @@ def test_6par_system_sizing():
 def test_cec_module_library_selection():
     model = pvsamv1.default("FlatPlatePVSingleOwner")
     mod_dict = PySAM.Pvsamv1Tools.set_cec_module_library_selection(model, "AIMS Power PV555MONO")
-    assert(model.CECPerformanceModelWithModuleDatabase.cec_v_mp_ref == 43.3)
+    assert(model.CECPerformanceModelWithModuleDatabase.cec_v_mp_ref == 43.34)
     assert(model.CECPerformanceModelWithModuleDatabase.cec_i_mp_ref == 12.81)
     assert(model.CECPerformanceModelWithModuleDatabase.cec_v_oc_ref == 49.9)
     assert(model.CECPerformanceModelWithModuleDatabase.cec_i_sc_ref == 13.74)
 
 def test_cec_inverter_library_selection():
     model = pvsamv1.default("FlatPlatePVSingleOwner")
-    inv_dict = PySAM.Pvsamv1Tools.set_cec_inverter_library_selection(model, "NEXTRACKER LLC: NXPCS3340K-HUD [800V]")
+    inv_dict = PySAM.Pvsamv1Tools.set_cec_inverter_library_selection(model, "NEXTRACKER LLC: NXPCS3340K-HUD {800V}")
     assert(model.InverterCECDatabase.inv_snl_paco == 3347800)
     assert(model.Inverter.mppt_hi_inverter == 1500)
     assert(model.Inverter.mppt_low_inverter == 1200)

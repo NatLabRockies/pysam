@@ -6,7 +6,7 @@ Iec61853par
 .. automodule:: PySAM.Iec61853par
 	:members:
 
-Iec61853par is a wrapper for the SSC compute module `cmod_iec61853par.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_iec61853par.cpp>`_
+Iec61853par is a wrapper for the SSC compute module `cmod_iec61853par.cpp <https://github.com/natlabrockies/ssc/blob/develop/ssc/cmod_iec61853par.cpp>`_
 
 Interdependent Variables
 --------------------------

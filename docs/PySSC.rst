@@ -16,7 +16,7 @@ To use PySSC, import it with:
 
 PySSC gives you more transparent and direct access to the SSC library than PySAM. It requires a good understanding of SSC. PySAM has supporting functions, such as those for accessing defaults and building configurations, that make it easier to build models without knowledge the underlying SSC library. Some situations where you would want to use PySSC instead of PySAM include:
 
-* To work with a custom SSC library (``ssc.dll`` for Windows, ``ssc.dylib`` for Mac, or ``ssc.so`` for Linux)  `built from SSC <https://github.com/natlabrockies/ssc/wiki>`_ with modified or different compute modules than an official NREL version of SSC.
+* To work with a custom SSC library (``ssc.dll`` for Windows, ``ssc.dylib`` for Mac, or ``ssc.so`` for Linux)  `built from SSC <https://github.com/natlabrockies/ssc/wiki>`_ with modified or different compute modules than an official NLR version of SSC.
 
 * To facilitate debugging of SSC through Python. For example, in Visual Studio, you can use `"Attach to Process" <https://learn.microsoft.com/en-us/visualstudio/debugger/attach-to-running-processes-with-the-visual-studio-debugger?view=vs-2022>`_ to debug SSC from Python while SSC is running. See instructions below.
 

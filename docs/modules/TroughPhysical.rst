@@ -6,7 +6,7 @@ TroughPhysical
 .. automodule:: PySAM.TroughPhysical
 	:members:
 
-TroughPhysical is a wrapper for the SSC compute module `cmod_trough_physical.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_trough_physical.cpp>`_
+TroughPhysical is a wrapper for the SSC compute module `cmod_trough_physical.cpp <https://github.com/natlabrockies/ssc/blob/develop/ssc/cmod_trough_physical.cpp>`_
 
 Functions
 -----------

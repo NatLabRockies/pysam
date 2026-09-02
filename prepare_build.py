@@ -49,19 +49,31 @@ def _decode(o):
 def stage_platform_libs(pkg_dir, staged):
     """Copy SAM_api and ssc shared libraries into pkg_dir."""
     samntdir = os.environ["SAMNTDIR"]
+    # GA
+    sscdir = os.environ["SSCDIR"]
+
 
     if sys.platform == "darwin":
         # Look for libs in the typical cmake build output locations
         search_dirs = [
             Path(samntdir) / ".." / "cmake-build-release",
+            Path(samntdir) / ".." / "cmake-build-release" / "SAM" / "api",
+            Path(samntdir) / ".." / "cmake-build-release" / "ssc" / "ssc",
             Path(samntdir) / ".." / "build_pysam",
+            # GA
+            Path(samntdir) / "api" /"build", 
+            Path(sscdir) / "build" / "ssc",
         ]
         lib_names = ["libSAM_api.so", "libssc.so"]
     elif sys.platform == "linux":
         search_dirs = [
             Path("/io/build_linux_sam"),
             Path("/io/build_linux_ssc"),
+            Path("/io/build_linux_ssc/ssc"),
             Path(samntdir) / ".." / "cmake-build-release",
+            # GA
+            Path(samntdir) / "api" /"build", 
+            Path(sscdir) / "build" / "ssc",
         ]
         lib_names = ["libSAM_api.so", "libssc.so"]
     elif sys.platform == "win32":
@@ -70,6 +82,9 @@ def stage_platform_libs(pkg_dir, staged):
             Path(samntdir) / ".." / "cmake-build-release" / "Release",
             Path(samntdir) / ".." / "build_pysam" / "sam" /"api" / "Release",
             Path(samntdir) / ".." / "build_pysam" / "ssc" / "ssc" / "Release",
+            # GA
+            Path(samntdir) / "api" /"build" / "Release",
+            Path(sscdir) / "build" / "ssc" / "Release",
         ]
         lib_names = ["SAM_api.dll", "SAM_api.lib", "ssc.dll", "ssc.lib"]
     else:
@@ -84,6 +99,7 @@ def stage_platform_libs(pkg_dir, staged):
             if lib_path.is_file():
                 dest = pkg_dir / lib_name
                 shutil.copy2(str(lib_path), str(dest))
+                print(f" copied : {lib_path} to {dest}")
                 staged.append(str(dest))
                 print(f"  Staged {lib_name} from {search_dir}")
                 found = True
@@ -104,7 +120,8 @@ def stage_ortools(pkg_dir, staged):
         patterns = ["libabsl*", "libre2*", "libscip*"]
     elif sys.platform == "linux":
         lib_subdir = "lib64"
-        patterns = ["libabsl*", "libre2*", "libscip*"]
+#        patterns = ["libabsl*", "libre2*", "libscip*", "libortools*"]
+        patterns = ["lib*"]
     elif sys.platform == "win32":
         lib_subdir = "lib"
         patterns = ["absl*", "re2*", "scip*"]
@@ -116,10 +133,11 @@ def stage_ortools(pkg_dir, staged):
     for pattern in patterns:
         for lib_file in glob.glob(str(ortools_lib_dir / pattern)):
             lib_path = Path(lib_file)
-            if lib_path.is_symlink():
-                continue
+#            if lib_path.is_symlink():
+#                continue
             dest = pkg_dir / lib_path.name
-            shutil.copy2(str(lib_path), str(dest))
+            shutil.copy2(str(lib_path), str(dest), follow_symlinks=False)
+            print(f" copied : {lib_path} to {dest}")
 
             if sys.platform == "darwin":
                 subprocess.run(
@@ -127,11 +145,13 @@ def stage_ortools(pkg_dir, staged):
                     check=True,
                 )
             elif sys.platform == "linux":
-                linker_name = dest.name.split(".so")[0] + ".so"
+#                linker_name = dest.name.split(".so")[0] + ".so"
+                linker_name = dest.name
+                print(f" dest, linker: {dest.name}, {linker_name}")
                 linker_link = pkg_dir / linker_name
-                if linker_link.exists():
-                    os.remove(linker_link)
-                os.symlink(dest.name, str(linker_link))
+#                if linker_link.exists():
+#                    os.remove(linker_link)
+#                os.symlink(dest.name, str(linker_link))
                 staged.append(str(linker_link))
 
             staged.append(str(dest))
@@ -201,8 +221,25 @@ def do_stage():
     print("Staging platform libraries...")
     stage_platform_libs(pkg_dir, staged)
 
-    print("Staging OR-Tools libraries...")
-    stage_ortools(pkg_dir, staged)
+#    print("Staging OR-Tools libraries...")
+#    stage_ortools(pkg_dir, staged)
+# Windows only copying over ortools dlls, linux and macos handled in runners and repairwheel when building locally
+    if sys.platform == "win32":
+        # copy over dlls
+        ortoolsdir = os.environ.get("ORTOOLSDIR")
+        dll_subdir = "bin"
+        patterns = ["*dll"]
+        ortools_dll_dir = Path(ortoolsdir) / dll_subdir
+        for pattern in patterns:
+            for dll_file in glob.glob(str(ortools_dll_dir / pattern)):
+                dll_path = Path(dll_file)
+                if dll_path.is_symlink():
+                    continue
+                dest = pkg_dir / dll_path.name
+                shutil.copy2(str(dll_path), str(dest))
+                staged.append(str(dest))
+                print(f"  Staged OR-Tools DLL: {dest.name}")
+
 
     print("Generating defaults...")
     stage_defaults(pkg_dir, staged)

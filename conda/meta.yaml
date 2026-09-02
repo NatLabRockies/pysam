@@ -1,4 +1,4 @@
-{% set name = "NREL-PySAM" %}
+{% set name = "NLR-PySAM" %}
 {% set version = environ.get('VERSION') %}
 
 package:
@@ -19,7 +19,7 @@ build:
    - DIST_DIR
 
 about:
-  home: https://nrel-pysam.readthedocs.io
+  home: https://nlr-pysam.readthedocs.io
   license: BSD 3-Clause
   license_family: BSD
   license_file:

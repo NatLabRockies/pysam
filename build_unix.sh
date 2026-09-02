@@ -30,8 +30,8 @@ fi
 cmake --build . --target SAM_api -j 10
 
 # Building the PyPi and Anaconda packages
-# requires Anaconda installed with an environment per Python version from 3.6 to 3.10
-# named pysam_build_3.6 pysam_build_3.7 pysam_build_3.8, etc
+# requires Anaconda installed with an environment per Python version from 3.9 to 3.14
+# named pysam_build_3.6 pysam_build_3.9 pysam_build_3.10, etc
 
 cd $PYSAMDIR || exit
 source $(conda info --base)/etc/profile.d/conda.sh
@@ -47,6 +47,7 @@ do
    yes | pip install -r tests/requirements.txt
    yes | pip install build
    yes | pip uninstall NREL-PySAM
+   yes | pip uninstall NLR-PySAM
    pip install . || exit
    pytest -s tests
    retVal=$?

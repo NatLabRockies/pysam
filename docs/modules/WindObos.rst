@@ -6,7 +6,7 @@ WindObos
 .. automodule:: PySAM.WindObos
 	:members:
 
-WindObos is a wrapper for the SSC compute module `cmod_wind_obos.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_wind_obos.cpp>`_
+WindObos is a wrapper for the SSC compute module `cmod_wind_obos.cpp <https://github.com/natlabrockies/ssc/blob/develop/ssc/cmod_wind_obos.cpp>`_
 
 Interdependent Variables
 --------------------------

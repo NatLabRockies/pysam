@@ -5,16 +5,13 @@ Version 5.1.0
 
 Version 5.1.0, released Mar 13, 2024, corresponds to SAM 2023.12.17 Revision 1, SSC 290.
 
-This page compares the PySAM Modules' input variables and the defaults for these input variables 
-between the current release and the last release.
-
-This helps track which variables and defaults have changed between releases to make it easier to notify users during version upgrade.
+This page lists the input variables and default values that have changed between PySAM 5.1.0 and PySAM 5.0.0.
 
 Below are lists for each PySAM Module:
-    1. New Default configurations
-    2. Removed Default configurations
-    3. Modified Variables: New variables, Removed variables and Type-changed variables
-    4. Modified Default Values
+    1. New default configurations
+    2. Removed default configurations
+    3. Modified variables: New variables, removed variables and type-changed variables
+    4. Modified default Values
 
 Battery
 ************************************************
@@ -416,12 +413,12 @@ Fuelcell
 GenericSystem
 ************************************************
 
-`Generic System <https://nrel-pysam.readthedocs.io/en/v5.1.0/modules/GenericSystem.html>`_ New Default files:
+`Generic System <https://nlr-pysam.readthedocs.io/en/v5.1.0/modules/GenericSystem.html>`_ New Default files:
 
      - GenericPVWattsWindFuelCellBatteryHybridHostDeveloper
      - GenericPVWattsWindFuelCellBatteryHybridSingleOwner
 
-`Generic System <https://nrel-pysam.readthedocs.io/en/v5.1.0/modules/GenericSystem.html>`_ Modified Default Values:
+`Generic System <https://nlr-pysam.readthedocs.io/en/v5.1.0/modules/GenericSystem.html>`_ Modified Default Values:
 
      - Equpartflip_GenericSystemAllEquityPartnershipFlip
 
@@ -1077,7 +1074,7 @@ TroughPhysicalIph
 TroughPhysicalProcessHeat
 ************************************************
 
-`Trough Physical Csp Solver <https://nrel-pysam.readthedocs.io/en/v5.1.0/modules/TroughPhysicalCspSolver.html>`_ Removed Default files
+`Trough Physical Csp Solver <https://nlr-pysam.readthedocs.io/en/v5.1.0/modules/TroughPhysicalCspSolver.html>`_ Removed Default files
 
      - PhysicalTroughIPHNone
 

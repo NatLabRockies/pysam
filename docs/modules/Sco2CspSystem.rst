@@ -6,7 +6,7 @@ Sco2CspSystem
 .. automodule:: PySAM.Sco2CspSystem
 	:members:
 
-Sco2CspSystem is a wrapper for the SSC compute module `cmod_sco2_csp_system.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_sco2_csp_system.cpp>`_
+Sco2CspSystem is a wrapper for the SSC compute module `cmod_sco2_csp_system.cpp <https://github.com/natlabrockies/ssc/blob/develop/ssc/cmod_sco2_csp_system.cpp>`_
 
 Interdependent Variables
 --------------------------

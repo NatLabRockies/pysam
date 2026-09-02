@@ -6,7 +6,7 @@ Pvsamv1
 .. automodule:: PySAM.Pvsamv1
 	:members:
 
-Pvsamv1 is a wrapper for the SSC compute module `cmod_pvsamv1.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_pvsamv1.cpp>`_
+Pvsamv1 is a wrapper for the SSC compute module `cmod_pvsamv1.cpp <https://github.com/natlabrockies/ssc/blob/develop/ssc/cmod_pvsamv1.cpp>`_
 
 Interdependent Variables
 --------------------------
@@ -503,6 +503,12 @@ GridLimits Group
 -----------------
 
 .. autoclass:: PySAM.Pvsamv1.Pvsamv1.GridLimits
+	:members:
+
+SpectralCorrection Group
+-------------------------
+
+.. autoclass:: PySAM.Pvsamv1.Pvsamv1.SpectralCorrection
 	:members:
 
 HybridCosts Group

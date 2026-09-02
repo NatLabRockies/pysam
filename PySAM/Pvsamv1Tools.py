@@ -313,7 +313,7 @@ def set_cec_module_library_selection(model, module_name: str) -> dict:
         print("This function only works if module_model == 1 (CEC Performance Model with Module Database)")
         return
 
-    file = 'https://raw.githubusercontent.com/NREL/SAM/patch/deploy/libraries/CEC%20Modules.csv'
+    file = 'https://raw.githubusercontent.com/NatLabRockies/SAM/patch/deploy/libraries/CEC%20Modules.csv'
     db = pd.read_csv(file, index_col=0, header=2) # Reading this might take 1 min or so, the database is big.
 
     print("This function does not set the bifaciality of a module based on the bifacial based on the lib_is_bifacial value. Please change cec_is_bifacial to 1 to make the module bifacial.")
@@ -350,7 +350,7 @@ def set_cec_inverter_library_selection(model, inverter_name: str) -> dict:
         print("This function only works if inverter_model == 1 (Inverter CEC Database)")
         return
 
-    file = 'https://raw.githubusercontent.com/NREL/SAM/patch/deploy/libraries/CEC%20Inverters.csv'
+    file = 'https://raw.githubusercontent.com/NatLabRockies/SAM/patch/deploy/libraries/CEC%20Inverters.csv'
     db = pd.read_csv(file, index_col=0, header=2) # Reading this might take 1 min or so, the database is big.
 
     print("This function does not see the number of MPPT inputs for the inverter. Please see inv_num_mppt to set the number of mppt inputs for an inverter.")

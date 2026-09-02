@@ -1,6 +1,4 @@
-from asyncio.windows_events import NULL
 from typing import Union
-import math
 
 import PySAM.Pvsamv1 as PVBatt
 import PySAM.Battery as Batt

@@ -743,10 +743,10 @@ static int PySAM_table_setter(PyObject *value, SAM_set_table_t func, void *data_
     SAM_error error = new_error();
     (*func)(data_ptr, table, &error);
 
-    if (PySAM_has_error(error)){
-        SAM_table_destruct(table, NULL);
+    SAM_table_destruct(table, NULL);
+
+    if (PySAM_has_error(error))
         return -5;
-    }
 
     return 0;
 }
@@ -853,6 +853,8 @@ static int PySAM_assign_from_dict(void *data_ptr, PyObject *dict, const char *te
 
             error = new_error();
             func(data_ptr, table, &error);
+            // func copies the table into the module's data, so the intermediate must be freed
+            SAM_table_destruct(table, NULL);
             if (PySAM_has_error(error)) goto fail;
 
         }

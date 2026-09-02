@@ -57,7 +57,7 @@ def _discover_ortools_libs(pkg_path):
     """Scan pkg_path for staged OR-Tools shared libraries, return lib names."""
     found = []
     if sys.platform in ("darwin", "linux"):
-        for p in sorted(pkg_path.glob("lib*.so")):
+        for p in sorted(pkg_path.glob("lib*")):
             name = p.stem
             if name.startswith("lib") and name not in ("libSAM_api", "libssc", "libsscd"):
                 found.append(name[3:])  # strip "lib" prefix
@@ -68,7 +68,7 @@ def _discover_ortools_libs(pkg_path):
                 found.append(name)
     return found
 
-libs += _discover_ortools_libs(pkg_dir)
+#libs += _discover_ortools_libs(pkg_dir)
 
 
 # ---------------------------------------------------------------------------

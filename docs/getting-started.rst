@@ -31,9 +31,9 @@ Create a PVWatts model in SAM
 
 2. On the System Design page, note the **System nameplate capacity** input.
 
-3. On the File menu, click **Inputs browser** and use the search box to find the variable name for the system nameplate capacity input. SAM's `inputs browser <https://samrepo.nrelcloud.org/help/inputs_browser.htm>`_ displays a table of all of the inputs in the case with both the SSC variable name and SAM variable label so you can quickly identify the name of the SSC variable you want to change in your Python script.
+3. On the File menu, click **Inputs browser** and use the search box to find the variable name for the system nameplate capacity input. SAM's `inputs browser <https://natlabrockies.github.io/SAM/doc/reference/inputs_browser.html>`_ displays a table of all of the inputs in the case with both the SSC variable name and SAM variable label so you can quickly identify the name of the SSC variable you want to change in your Python script.
 
-4. Click **Simulate** to run a simulation and review results: On the `Data Tables <https://samrepo.nrelcloud.org/help/data.htm>`_ tab, you can see a list of all of the PVWatts outputs. Expand the Single Values section and check the box for the Annual AC output variable.
+4. Click **Simulate** to run a simulation and review results: On the `Data Tables <https://natlabrockies.github.io/SAM/doc/results/data.html>`_ tab, you can see a list of all of the PVWatts outputs. Expand the Single Values section and check the box for the Annual AC output variable.
 
 5. Find the SSC variable name for the "Annual AC output" variable in the documentation for the :doc:`modules/Pvwattsv8` module.
 
@@ -44,7 +44,7 @@ Create a PVWatts model in SAM
 Export SAM inputs to JSON
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-1. On SAM's Case menu, click **Generate code** and choose **PySAM JSON** at the `bottom of the list <https://samrepo.nrelcloud.org/help/sdk.htm>`_. This will create a folder with a JSON file and SSC library files.
+1. On SAM's Case menu, click **Generate code** and choose **PySAM JSON** at the `bottom of the list <https://natlabrockies.github.io/SAM/doc/reference/sdk.html>`_. This will create a folder with a JSON file and SSC library files.
 
 2. Open the JSON file in a text editor or web browser that renders JSON and find the system nameplate capacity input variable to confirm that it was exported with the correct value. By default, the JSON file is named *untitled_pvwattsv8.json*.
 

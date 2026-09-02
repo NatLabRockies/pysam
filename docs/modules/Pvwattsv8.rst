@@ -6,7 +6,7 @@ Pvwattsv8
 .. automodule:: PySAM.Pvwattsv8
 	:members:
 
-Pvwattsv8 is a wrapper for the SSC compute module `cmod_pvwattsv8.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_pvwattsv8.cpp>`_
+Pvwattsv8 is a wrapper for the SSC compute module `cmod_pvwattsv8.cpp <https://github.com/natlabrockies/ssc/blob/develop/ssc/cmod_pvwattsv8.cpp>`_
 
 Interdependent Variables
 --------------------------
@@ -53,6 +53,12 @@ AdjustmentFactors Group
 ------------------------
 
 .. autoclass:: PySAM.Pvwattsv8.Pvwattsv8.AdjustmentFactors
+	:members:
+
+SpectralCorrection Group
+-------------------------
+
+.. autoclass:: PySAM.Pvwattsv8.Pvwattsv8.SpectralCorrection
 	:members:
 
 HybridCosts Group

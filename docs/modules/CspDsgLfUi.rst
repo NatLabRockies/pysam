@@ -6,7 +6,7 @@ CspDsgLfUi
 .. automodule:: PySAM.CspDsgLfUi
 	:members:
 
-CspDsgLfUi is a wrapper for the SSC compute module `cmod_csp_dsg_lf_ui.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_csp_dsg_lf_ui.cpp>`_
+CspDsgLfUi is a wrapper for the SSC compute module `cmod_csp_dsg_lf_ui.cpp <https://github.com/natlabrockies/ssc/blob/develop/ssc/cmod_csp_dsg_lf_ui.cpp>`_
 
 Interdependent Variables
 --------------------------

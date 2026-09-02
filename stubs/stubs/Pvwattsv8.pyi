@@ -152,6 +152,31 @@ class Pvwattsv8(object):
 		adjust_timeindex = tuple
 
 
+	class SpectralCorrection(object):
+		def assign(self, dict): 
+			pass
+	
+		def replace(self, dict): 
+			pass
+	
+		def export(self) -> dict:
+			pass
+	
+		def __init__(self, *args, **kwargs): 
+			pass
+
+
+		celltech = float
+		coeff_inputs_king = tuple
+		coeff_inputs_lee = tuple
+		coeff_inputs_pelland = tuple
+		max_abs_airmass = float
+		max_prec_water = float
+		min_abs_airmass = float
+		min_prec_water = float
+		spectral_correction_model_choice = float
+
+
 	class HybridCosts(object):
 		def assign(self, dict): 
 			pass

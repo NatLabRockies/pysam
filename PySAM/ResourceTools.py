@@ -55,7 +55,7 @@ def SAM_CSV_to_solar_data(filename):
         weather['lat'] = float(latitude)
         weather['lon'] = float(longitude)
 
-        # Create dict with keys = keys passed to SAM and values = list of possible key versions found in resource files (NREL / NASA POWER)
+        # Create dict with keys = keys passed to SAM and values = list of possible key versions found in resource files (NLR / NASA POWER)
         acceptable_keys = {
             'year' : ['year', 'Year', 'yr'],
             'month' : ['month', 'Month', 'mo'],
@@ -297,14 +297,14 @@ def URDBv7_to_ElectricityRates(urdb_response):
 
 class FetchResourceFiles():
     """
-    Download solar and wind resource files from NREL developer network
+    Download solar and wind resource files from NLR developer network
     https://developer.nlr.gov/.
 
     :param str tech: *Required* Name of technology.
-        'wind' for NREL WIND Toolkit at https://developer.nlr.gov/docs/wind/wind-toolkit/wtk-download/.
-        'solar' for NREL NSRDB at https://developer.nlr.gov/docs/solar/nsrdb/nsrdb_data_query/
+        'wind' for NLR WIND Toolkit at https://developer.nlr.gov/docs/wind/wind-toolkit/wtk-download/.
+        'solar' for NLR NSRDB at https://developer.nlr.gov/docs/solar/nsrdb/nsrdb_data_query/
 
-    :param str nrel_api_key: *Required* NREL developer API key, available at https://developer.nlr.gov/signup/.
+    :param str nrel_api_key: *Required* NLR developer API key, available at https://developer.nlr.gov/signup/.
 
     :param str nrel_api_email: *Required* Email address associated with nrel_api_key.
 
@@ -463,7 +463,7 @@ class FetchResourceFiles():
         return out
 
     def _NSRDB_worker(self, job):
-        """Download CSV file of solar resource data from NREL NSRDB API given a
+        """Download CSV file of solar resource data from NLR NSRDB API given a
         latitude and longitude. Use NSRDB Data Query API to list URLs to files
         available for given location."""
 

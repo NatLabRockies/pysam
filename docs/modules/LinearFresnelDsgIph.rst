@@ -6,7 +6,7 @@ LinearFresnelDsgIph
 .. automodule:: PySAM.LinearFresnelDsgIph
 	:members:
 
-LinearFresnelDsgIph is a wrapper for the SSC compute module `cmod_linear_fresnel_dsg_iph.cpp <https://github.com/NREL/ssc/blob/develop/ssc/cmod_linear_fresnel_dsg_iph.cpp>`_
+LinearFresnelDsgIph is a wrapper for the SSC compute module `cmod_linear_fresnel_dsg_iph.cpp <https://github.com/natlabrockies/ssc/blob/develop/ssc/cmod_linear_fresnel_dsg_iph.cpp>`_
 
 Interdependent Variables
 --------------------------

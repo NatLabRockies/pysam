@@ -1,0 +1,246 @@
+name: Test Package
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+
+  build1: 
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-14-large]
+        python-version: [ '3.11'] # cec module and inverter tests will fail with 3.10 or lower with ssl error ssl.SSLError: [ASN1: NOT_ENOUGH_DATA]
+#        python-version: [ '3.9', '3.10', '3.11', '3.12', '3.13', '3.14' ]
+
+    env: 
+      BUILD_TYPE: Release
+      DEFAULT_BRANCH: patch
+      WX_VERSION: '3.2.8.1'
+      ORTOOLS_VER: "9.14"
+      ORTOOLS_RELEASE: "6206"
+      NREL_API_KEY: ${{ secrets.NREL_API_KEY }}
+      NREL_API_EMAIL: ${{ secrets.NREL_API_EMAIL }}
+
+
+    name: ${{ matrix.os }} ${{ matrix.python-version }}
+    steps:
+
+      - name: Setup cmake
+        uses: jwlawson/actions-setup-cmake@v2
+        with:
+          cmake-version: '3.24.x'
+
+      - name: Set relative paths
+        shell: bash
+        run: | 
+          LKDIR=$GITHUB_WORKSPACE/lk
+          echo "LKDIR=$LKDIR" >> $GITHUB_ENV
+          WEXDIR=$GITHUB_WORKSPACE/wex
+          echo "WEXDIR=$WEXDIR" >> $GITHUB_ENV
+          SSCDIR=$GITHUB_WORKSPACE/ssc
+          echo "SSCDIR=$SSCDIR" >> $GITHUB_ENV
+          RAPIDJSONDIR=$GITHUB_WORKSPACE/ssc
+          echo "RAPIDJSONDIR=$RAPIDJSONDIR" >> $GITHUB_ENV
+          SAMNTDIR=$GITHUB_WORKSPACE/sam
+          echo "SAMNTDIR=$SAMNTDIR" >> $GITHUB_ENV
+          WXMSW3=$HOME/wx-$WX_VERSION
+          echo "WXMSW3=$WXMSW3" >> $GITHUB_ENV
+          ORTOOLSDIR=$GITHUB_WORKSPACE/or-tools_x86_64_macOS-15.5_cpp_v$ORTOOLS_VER.$ORTOOLS_RELEASE
+          echo "ORTOOLSDIR=$ORTOOLSDIR" >> $GITHUB_ENV
+
+      - name: Get cached build of wxWidgets
+        uses: actions/cache@v6
+        id: cachedwx
+        with:
+          path: ${{env.WXMSW3}}/
+          key: wxWidgets-${{ env.WX_VERSION }}-macos
+
+      - name: Install wxWidgets
+        if: steps.cachedwx.outputs.cache-hit != 'true'
+        run: |
+          curl -L https://github.com/wxWidgets/wxWidgets/releases/download/v$WX_VERSION/wxWidgets-$WX_VERSION.tar.bz2 -o wxWidgets-$WX_VERSION.tar.bz2
+          tar jxf wxWidgets-$WX_VERSION.tar.bz2
+          cd wxWidgets-$WX_VERSION
+          ./configure --prefix=$HOME/wx-$WX_VERSION --enable-stl=yes --enable-shared=no --disable-debug_flag --with-cocoa --enable-universal_binary=x86_64,arm64 --enable-unicode --enable-webview --disable-mediactrl --with-cxx=17 --with-macosx-version-min=10.15  --with-libjpeg=builtin --with-libpng=builtin --with-regex=builtin --with-libtiff=builtin --with-zlib=builtin --with-expat=builtin
+          make -j4
+          make install
+          sudo ln -s $HOME/wx-$WX_VERSION/bin/wx-config /usr/local/bin/wx-config-3
+          wx-config-3 --cflags
+          echo $HOME/wx-$WX_VERSION/bin >> $GITHUB_PATH
+
+      - name: Get branch name for pull request
+        shell: bash
+        if: ${{ github.event_name == 'pull_request' }}
+        run:  |
+          echo "GIT_BRANCH=${{ github.head_ref }}" >> $GITHUB_ENV
+          echo "DEFAULT_BRANCH=$GITHUB_BASE_REF" >> $GITHUB_ENV
+      - name: Get branch name for push
+        shell: bash
+        if: ${{ github.event_name == 'push' }}
+        run:  |
+          echo "GIT_BRANCH=${{ github.ref_name }}" >> $GITHUB_ENV
+      - name: Determine branches for other repos
+        continue-on-error: true
+        shell: bash {0}
+        run: |
+          echo "GITHUB_REPOSITORY_OWNER=${GITHUB_REPOSITORY_OWNER}" >> $GITHUB_ENV
+          git ls-remote --heads --exit-code https://github.com/${GITHUB_REPOSITORY_OWNER}/lk.git $GIT_BRANCH
+          if [[ $? != "0" ]]; then echo "LK_BRANCH=$DEFAULT_BRANCH" >> $GITHUB_ENV; else echo "LK_BRANCH=$GIT_BRANCH" >> $GITHUB_ENV; fi
+          git ls-remote --heads --exit-code https://github.com/${GITHUB_REPOSITORY_OWNER}/wex.git $GIT_BRANCH
+          if [[ $? != "0" ]]; then echo "WEX_BRANCH=$DEFAULT_BRANCH" >> $GITHUB_ENV; else echo "WEX_BRANCH=$GIT_BRANCH" >> $GITHUB_ENV; fi
+          git ls-remote --heads --exit-code https://github.com/${GITHUB_REPOSITORY_OWNER}/ssc.git $GIT_BRANCH
+          if [[ $? != "0" ]]; then echo "SSC_BRANCH=$DEFAULT_BRANCH" >> $GITHUB_ENV; else echo "SSC_BRANCH=$GIT_BRANCH" >> $GITHUB_ENV; fi
+          git ls-remote --heads --exit-code https://github.com/${GITHUB_REPOSITORY_OWNER}/SAM.git $GIT_BRANCH
+          if [[ $? != "0" ]]; then echo "SAM_BRANCH=$DEFAULT_BRANCH" >> $GITHUB_ENV; else echo "SAM_BRANCH=$GIT_BRANCH" >> $GITHUB_ENV; fi
+      - name: Get git ref of sibling dependencies
+        shell: bash
+        run: |
+          ref=$(git ls-remote --exit-code https://github.com/NatLabRockies/lk.git refs/heads/$LK_BRANCH | awk '{print $1}')
+          echo "ref_of_lk=$ref" | tee -a $GITHUB_ENV
+          ref=$(git ls-remote --exit-code https://github.com/NatLabRockies/wex.git refs/heads/$WEX_BRANCH | awk '{print $1}')
+          echo "ref_of_wex=$ref" | tee -a $GITHUB_ENV
+          ref=$(git ls-remote --exit-code https://github.com/NatLabRockies/ssc.git refs/heads/$SSC_BRANCH | awk '{print $1}')
+          echo "ref_of_ssc=$ref" | tee -a $GITHUB_ENV
+
+      - name: Checkout pysam (current repo)
+        uses: actions/checkout@v7
+        with:
+            path: pysam
+
+      - name: Get cached build data of sibling dependency LK
+        uses: actions/cache@v6
+        id: cachedlk
+        with:
+          path: lk
+          key: macos-${{ env.ref_of_lk }}-LK
+      - name: Clone sibling dependency LK
+        if: steps.cachedlk.outputs.cache-hit != 'true'
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ env.ref_of_lk }}
+          path: lk
+          repository: NatLabRockies/lk
+      - name: Get cached build data of sibling dependency WEX
+        uses: actions/cache@v6
+        id: cachedwex
+        with:
+          path: wex
+          key: macos-${{ env.ref_of_wex }}-WEX
+      - name: Clone sibling dependency WEX
+        if: steps.cachedwex.outputs.cache-hit != 'true'
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ env.ref_of_wex }}
+          path: wex
+          repository: NatLabRockies/wex
+      - name: Get cached build data of sibling dependency SSC
+        uses: actions/cache@v6
+        id: cachedssc
+        with:
+          path: ssc
+          key: macos-${{ env.ref_of_ssc }}-SSC
+      - name: Clone sibling dependency SSC
+        if: steps.cachedssc.outputs.cache-hit != 'true'
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ env.ref_of_ssc }}
+          path: ssc
+          repository: NatLabRockies/ssc
+      - name: Get cached build data of sibling dependency SAM
+        uses: actions/cache@v6
+        id: cachedsam
+        with:
+          path: sam
+          key: macos-${{ env.ref_of_ssc }}-SAM
+      - name: Clone sibling dependency SAM
+        if: steps.cachedsam.outputs.cache-hit != 'true'
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ env.ref_of_sam }}
+          path: sam
+          repository: NatLabRockies/SAM
+
+      - name: Build LK
+        if: steps.cachedlk.outputs.cache-hit != 'true'
+        run: |
+          cd $GITHUB_WORKSPACE/lk
+          cmake -Bbuild -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DSAM_SKIP_TOOLS=1 
+          cmake --build build -j4
+      - name: Build WEX
+        if: steps.cachedwex.outputs.cache-hit != 'true'
+        run: |
+          cd $GITHUB_WORKSPACE/wex
+          cmake -Bbuild -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DSAM_SKIP_TOOLS=1 
+          cmake --build build -j4
+
+      - name: Download OR-Tools
+        if: steps.cached-ortools-restore.outputs.cache-hit != 'true'
+        shell: bash
+        run: |
+          curl -L https://github.com/google/or-tools/releases/download/v$ORTOOLS_VER/or-tools_x86_64_macOS-15.5_cpp_v$ORTOOLS_VER.$ORTOOLS_RELEASE.tar.gz -o or-tools-$ORTOOLS_VER.tar.gz
+          tar xvzf or-tools-$ORTOOLS_VER.tar.gz
+
+      - name: build SSC
+        shell: bash
+        if: steps.cachedssc.outputs.cache-hit != 'true'
+        run: |
+          cd $GITHUB_WORKSPACE/ssc
+          cmake -Bbuild -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DSAM_SKIP_TESTS=1 -DSAM_SKIP_TOOLS=1 -DSAMAPI_EXPORT=1 -DUSE_XPRESS=0 -DUSE_COINOR=1 -DCMAKE_SYSTEM_VERSION=10.0 -DCMAKE_SYSTEM_PREFIX_PATH=${ORTOOLSDIR} -Dabsl_DIR=${ORTOOLSDIR}\lib\cmake\absl" -Dutf8_range_DIR=${ORTOOLSDIR}\lib\cmake\utf8_range"
+          cmake --build build -j4 --target ssc
+
+      - name: Build api_autogen
+        if: steps.cachedsam.outputs.cache-hit != 'true'
+        run: |
+          cd $GITHUB_WORKSPACE/sam/api
+          mkdir build
+          cd build
+          cmake -DCMAKE_BUILD_TYPE=Release -DSAMAPI_EXPORT=1 -DSAM_SKIP_AUTOGEN=1 -DUSE_XPRESS=0 -DUSE_COINOR=1 -DCMAKE_SYSTEM_PREFIX_PATH="$ORTOOLSDIR" -Dabsl_DIR="$ORTOOLSDIR\lib\cmake\absl" -Dutf8_range_DIR="$ORTOOLSDIR\lib\cmake\utf8_range" -Dortools_DIR="$ORTOOLSDIR\lib\cmake\ortools" ..
+          make -j 6 
+
+      - name: Install conda 
+        uses: conda-incubator/setup-miniconda@v4
+        with:
+          auto-update-conda: true
+          python-version: ${{ matrix.python-version }}
+          activate-environment: ${{ matrix.python-version }}
+
+      - name: Prepare pysam
+        shell: bash
+        run: |
+          cd pysam
+          python prepare_build.py
+
+# CRITICAL: You must use the bash login shell layout for conda to be recognized
+      - name: Create pysam
+        shell: bash -l {0}
+        run: |
+          cd pysam
+          conda deactivate
+          conda activate ${{ matrix.python-version }}
+          pip uninstall NLR-PySAM
+          pip install .
+
+      - name: Run Tests
+        shell: bash -l {0}
+        run: |
+          cd pysam
+          conda deactivate
+          conda activate ${{ matrix.python-version }}
+          pip install -r tests/requirements.txt
+          pytest -s tests
+
+      - name: Wheel on pull request only
+        shell: bash -l {0}
+        if: ${{ github.event_name == 'pull_request' }}
+        run: |
+          cd pysam
+          conda deactivate
+          conda activate ${{ matrix.python-version }}
+          python -m pip install --upgrade build
+          python -m build --wheel

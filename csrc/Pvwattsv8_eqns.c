@@ -4,7 +4,7 @@ char Reopt_size_battery_post_doc[] =
         "Given a PV system with Utilityrate5 parameters, get the optimal battery size. Wind and additional PV are disabled.\n"
         "Maps SAM compute module inputs to those of the ReOpt API:\n"
         "Pvwattsv5 module linked with Battwatts, Utilityrate5, with Cashloan optional.\n\n"
-        "For more information on which PySAM variables are used, see: https://github.com/NREL/ssc/blob/develop/ssc/cmod_pvsamv1_eqns.h\n\n"
+        "For more information on which PySAM variables are used, see: https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_pvsamv1_eqns.h\n\n"
         "For an example, see the 'Examples' readthedocs page.";
 
 
