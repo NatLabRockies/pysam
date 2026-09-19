@@ -67,6 +67,7 @@
 	"depr_sta_type" : 0,
 	"depr_sta_sl_years" : 7,
 	"depr_sta_custom" : [ 0 ],
+	"depr_custom_schedule" : [ 0 ],
 	"itc_fed_amount" : 0,
 	"itc_fed_amount_deprbas_fed" : 1,
 	"itc_fed_amount_deprbas_sta" : 1,
