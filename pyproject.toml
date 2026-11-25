@@ -4,15 +4,14 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "NREL-PySAM"
-description = "National Laboratory of the Rockies' System Advisor Model Python Wrapper"
+description = "Obsolete paackage. Use the new NLR-PySAM package instead. Python interface to the System Advisor Model (SAM) from NLR."
 readme = {file = "RELEASE.md", content-type = "text/markdown"}
 license = "BSD-3-Clause"
 authors = [
     {name = "dguittet", email = "dguittet@nlr.gov"},
 ]
-requires-python = ">=3.9"
 dependencies = [
-    "requests",
+    "NLR-PySAM>=8.0.0",
 ]
 dynamic = ["version"]
 classifiers = [
@@ -23,23 +22,3 @@ classifiers = [
 [project.urls]
 Documentation = "https://nrel-pysam.readthedocs.io"
 
-[tool.setuptools.dynamic]
-version = {attr = "PySAM.version.__version__"}
-
-[tool.setuptools.packages.find]
-include = ["PySAM*"]
-
-[tool.setuptools.package-data]
-PySAM = [
-    "*.pyi",
-    "*.so",
-    "*.dll",
-    "*.lib",
-    "defaults/*.df",
-]
-"PySAM.Hybrids" = [
-    "*.pyi",
-]
-
-[tool.pytest.ini_options]
-addopts = "--verbose -s --rootdir=tests"
