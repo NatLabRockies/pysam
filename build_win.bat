@@ -15,18 +15,18 @@ REM e.g. build_win.bat -python="myenv" to create using the conda environment "my
 
 
 REM do not persist variables for subsequent runs
-set version=""
+set "version="
 SET "python_version=pysam_build_3.9 pysam_build_3.10 pysam_build_3.11 pysam_build_3.12 pysam_build_3.13 pysam_build_3.14"
-SET tests="run"
+SET "tests=run"
 
 :loop
 IF NOT "%1"=="" (
     IF "%1"=="-python" (
-        SET version=%2
+        SET "version=%~2"
         SHIFT
     )
     IF "%1"=="-tests" (
-        SET tests=%2
+        SET "tests=%~2"
         SHIFT
     )
     SHIFT
